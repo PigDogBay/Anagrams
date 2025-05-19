@@ -1,3 +1,41 @@
+    module graphics
+
+; Waits until raster hits line 192
+waitRaster:
+    ; Raster returned in HL
+    call readRaster
+    ld a,192
+    cp l
+    jr nz, waitRaster
+
+;
+; Based on code by Patricia Curtis
+; https://luckyredfish.com/patricias-z80-snippets/
+; Dirty: BC, A
+; Out: HL = current raster line on screen
+readRaster:
+    ; Select and read video line MSB
+    ld a,ACTIVE_VIDEO_LINE_MSB
+    ld bc,TB_BLUE_REGISTER_SELECT
+    out (c),a
+    ; Point BC to TB_BLUE_REGISTER_ACCESS
+    inc b
+    in a,(c)
+    ; Mask off unused bits
+    and 1
+    ld h,a
+
+    ld a,ACTIVE_VIDEO_LINE_LSB
+    ld bc,TB_BLUE_REGISTER_SELECT
+    out (c),a
+    ; Point BC to TB_BLUE_REGISTER_ACCESS
+    inc b
+    in a,(c)
+    ld l,a
+    ret
+    
+    
+
 ; Disable interrupts before calling this function
 ; Clear the Layer 2 screen (256x192) with the specified colour in D register
 clearLayer2:
@@ -46,3 +84,5 @@ clearLoop:
     pop bc	
 
     ret
+
+    endmodule

@@ -17,6 +17,11 @@ run:
     ld hl,sprite_data + sprite.STRUCT_SPR_SIZE
     call sprite.update
 
+    ld a,1
+    out 254,a
+    call graphics.waitRaster
+    xor a
+    out 254,a
     jr run
     ret
 

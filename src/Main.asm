@@ -62,7 +62,7 @@ main:
     call ROM_CLS
 
     ld d,0
-    call clearLayer2
+    call graphics.clearLayer2
 
     call mouse.init
 

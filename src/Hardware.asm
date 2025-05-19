@@ -38,6 +38,10 @@ NR_SPRITE_CONTROL:                      equ $15
 ;Set to $0f to reset all clip indexes.
 NR_CLIP_WINDOW_CONTROL:                 equ $1C
 
+ACTIVE_VIDEO_LINE_MSB:      equ $1E
+ACTIVE_VIDEO_LINE_LSB:      equ $1F
+
+
 MMU_0:               equ $50
 MMU_1:               equ $51
 
@@ -80,6 +84,10 @@ DISPLAY_CONTROL_1:                     equ $69
 
 ;See https://wiki.specnext.dev/Layer_2_Access_Port
 L2_ACCESS_PORT:                        equ $123B
+
+TB_BLUE_REGISTER_SELECT                equ $243B
+TB_BLUE_REGISTER_ACCESS                equ $253B
+
 
 ;see https://wiki.specnext.dev/Sprite_Status/Slot_Select
 SPRITE_STATUS_SLOT_SELECT:              equ $303B
