@@ -1,0 +1,20 @@
+# Ignore these directories
+bin/
+.tmp/
+
+# Mac shit
+.DS_Store
+
+#Ignore build files
+*.nex
+*.sld
+
+# Ignore temporary files
+*.tmp
+*.log
+
+
+# Ignore Python cache (if using Python scripts like build.py)
+__pycache__/
+*.pyc
+*.pyo
