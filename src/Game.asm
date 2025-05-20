@@ -9,12 +9,22 @@ run:
     call mouse.update
     ld hl,(mouse.mouseX)
     ld a,(mouse.mouseY)
-    ld (sprite_data + sprite.STRUCT_SPR_X),hl
-    ld (sprite_data + sprite.STRUCT_SPR_Y),a
+    ld (sprite_data + sprite.x),hl
+    ld (sprite_data + sprite.y),a
+
+    ;Check left mouse button (bit 1, 0 - pressed)
+    ld a,(mouse.buttons)
+    ld b,0
+    bit 1,a
+    jr nz,.buttonPressed
+    ld b,1
+.buttonPressed
+    ld a,b
+    ld (sprite_data + sprite.pattern),a
 
     ld hl,sprite_data
     call sprite.update
-    ld hl,sprite_data + sprite.STRUCT_SPR_SIZE
+    ld hl,sprite_data + sprite.size
     call sprite.update
 
     ld a,1

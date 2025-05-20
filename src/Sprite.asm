@@ -1,11 +1,11 @@
     MODULE sprite
 
 ; Sprite attributes data struct
-STRUCT_SPR_ID:          equ 0
-STRUCT_SPR_X:           equ 1
-STRUCT_SPR_Y:           equ 3
-STRUCT_SPR_PATTERN:     equ 4
-STRUCT_SPR_SIZE:        equ 5
+id:          equ 0
+x:           equ 1
+y:           equ 3
+pattern:     equ 4
+size:        equ 5
 
 ; Disable interrupts before calling this function
 ; Load 2 memory consequetive 8k banks into sprite memory

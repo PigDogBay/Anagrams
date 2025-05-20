@@ -1,5 +1,10 @@
     module mouse
-
+; Bits:
+; 7-4 wheel delta
+; 3 4th button
+; 2 Middle
+; 1 Left
+; 0 Right
 MOUSE_PORT_BUTTONS:              equ $FADF
 MOUSE_PORT_X:                    equ $FBDF
 MOUSE_PORT_Y:                    equ $FFDF
@@ -24,6 +29,12 @@ init:
     ret
 
 update:
+    ; Buttons
+    ld bc, MOUSE_PORT_BUTTONS
+    in a,(c)
+    ld (buttons),a
+
+    ;X Position
     ld hl,kempstonX
     ld bc, MOUSE_PORT_X
     ; Old kempstonX
@@ -137,6 +148,7 @@ update:
 
 mouseX:        dw 0
 mouseY:        db 0
+buttons:       db 0
 kempstonX:     db 0
 kempstonY:     db 0
 
