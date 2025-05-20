@@ -39,8 +39,12 @@ next_pattern:
     nextreg $51, $FF
     ret
 
-; HL = pointer to sprite data structure
+;in HL = pointer to sprite data structure
+;out HL = next sprite in the list
+;dirty a,d
 update:
+    ;preserve bc
+    push bc
     ; Set sprite id for attribute upload
     ld bc, SPRITE_STATUS_SLOT_SELECT
     ld a,(hl)
@@ -79,7 +83,33 @@ update:
     or $80
     out (c),a
     ; Byte 5, not used here
+    ;point to the next sprite in the list
+    inc hl
+    pop bc
     ret
+
+;Dirty a,bc,d,hl
+updateAll:
+    ld hl,count
+    ld b,(hl)
+    ;point to list
+    inc hl
+.loop:
+    call update
+    djnz .loop
+    ret
+    
+count:
+    db 5
+list:
+    ; id, x (16 bit), y, pattern
+    ; Mouse
+    db 0,160,0,128,0
+    db 1,100,0,150,16
+    db 2,20,0,10,8
+    db 3,60,0,20,30
+    db 4,100,0,30,24
+
 
 
     endmodule
