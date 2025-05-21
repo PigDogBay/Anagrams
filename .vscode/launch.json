@@ -1,6 +1,8 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
+
         {
             "type": "dezog",
             "request": "launch",
@@ -63,14 +65,19 @@
                 "visualMemory": true,
                 "memoryModel": "ZXNEXT"
             },
+            "unitTestTimeout": 1,
             "sjasmplus": [
                 {
-                    "path": "techniques.sld"
+                    "path": "bin/tests.sld",
+                    "srcDirs": [
+                        "src"
+                    ]
+
                 }
             ],
             "startAutomatically": true,
             "rootFolder": "${workspaceFolder}",
-            "load": "techniques.nex"
+            "load": "bin/tests.nex"
         }
 
     ]

@@ -19,6 +19,7 @@
     include "Sprite.asm"
     include "Mouse.asm"
     include "Game.asm"
+    include "Text.asm"
 
 
 ;===========================================================================
@@ -26,19 +27,6 @@
 ; Sets up the new interrupt routine, the memory
 ; banks and jumps to the start loop.
 ;===========================================================================
-
-ROM_CLS:                equ $0daf
-ROM_OPEN_CHANNEL:       equ $1601
-ROM_PRINT:              equ $203c
-INK                     EQU $10
-PAPER                   EQU $11
-FLASH                   EQU $12
-BRIGHT                  EQU $13
-INVERSE                 EQU $14
-OVER                    EQU $15
-AT                      EQU $16
-TAB                     EQU $17
-CR                      EQU $0C
 
 main:
 

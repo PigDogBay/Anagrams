@@ -7,6 +7,9 @@ y:           equ 3
 pattern:     equ 4
 size:        equ 5
 
+collisionBoxSize: equ 17
+
+
 ; Disable interrupts before calling this function
 ; Load 2 memory consequetive 8k banks into sprite memory
 ; Parameters:
@@ -98,7 +101,68 @@ updateAll:
     call update
     djnz .loop
     ret
+
+inRange:
+    ld a,42
+    ld b,54
+    sub b
+    jr nc, .noNeg
+.noNeg
+    cp 17
     
+
+; ld r,(ix+d)
+; ld r,(iy+d)
+; ld a,(bc)
+; ld a,(de)
+; ld a,(nn)
+; ld bc,(nn)
+; ld de,(nn)
+; ld hl,(nn)
+; ld ix,(nn)
+; ld iy,(nn)
+; 
+;ex de,hl
+; push/pop bc/de/hl/ix/iy
+
+;Returns the id of any sprite that the mouse is over
+; out a - sprite id, or 0 if not over any sprite
+mouseOver:
+    ld a,(count)
+    ld b,a
+    ld ix, list
+.nextSprite:
+    ; Store counter
+    push bc
+
+    ;Point to next sprite's data struct
+    ld hl, ix
+    add hl,sprite.size
+    ld ix,hl
+
+    ;Check y overlap
+    ld a, (list+sprite.y)
+    ld b, (ix+sprite.y)
+    sub b
+    jr nc, .noNegY
+    neg
+.noNegY:
+    cp collisionBoxSize
+    jr nc, .noCollision
+
+    ; Collision made, return sprite id
+    ld a,(ix+sprite.id)
+    ret
+
+.noCollision:
+    ; get counter
+    pop bc
+    djnz .nextSprite
+    
+    ; no match, return 0
+    xor a
+    ret
+
 count:
     db 5
 list:

@@ -1,3 +1,9 @@
+; Spectrum ROM routines
+ROM_CLS:                equ $0daf
+ROM_OPEN_CHANNEL:       equ $1601
+ROM_PRINT:              equ $203c
+
+
 ;  Ports and registers
 ;  See https://www.specnext.com/tbblue-io-port-system/'
 

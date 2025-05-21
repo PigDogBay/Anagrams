@@ -27,6 +27,33 @@
                 "isDefault": true
             }
         },
+        {
+            "label": "Unit Tests",
+            "type": "shell",
+            "command": "sjasmplus", // Please add the full path to sjasmplus
+            "args": [
+                "src/tests/UnitTests.asm",
+                "--inc=src",
+                "--outprefix=bin/",
+                "--sld=bin/tests.sld",
+                "--fullpath"
+            ],
+            "problemMatcher": {
+                "owner": "sjasmplus",
+                "fileLocation": "autoDetect",
+                "pattern": {
+                    "regexp": "^(.*)\\((\\d+)\\):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "severity": 3,
+                    "message": 4
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
 
         {
             "label": "start zesarux",
