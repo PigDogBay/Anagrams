@@ -136,9 +136,6 @@ mouseOver:
     ld b,a
     ld ix, list
 .nextSprite:
-    ; Store counter
-    push bc
-
     ;Point to next sprite's data struct
     ld hl, ix
     add hl,sprite.size
@@ -146,8 +143,8 @@ mouseOver:
 
     ;Check y overlap
     ld a, (list+sprite.y)
-    ld b, (ix+sprite.y)
-    sub b
+    ld d, (ix+sprite.y)
+    sub d
     jr nc, .noNegY
     neg
 .noNegY:
@@ -184,15 +181,11 @@ mouseOver:
     cp collisionBoxSize
     jr nc, .noCollision
 
-    ; Balance stack
-    pop bc
     ; Collision made, return sprite id
     ld a,(ix+sprite.id)
     ret
 
 .noCollision:
-    ; get counter
-    pop bc
     djnz .nextSprite
     
     ; no match, return 0
