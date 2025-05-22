@@ -129,6 +129,10 @@ inRange:
 ; out a - sprite id, or 0 if not over any sprite
 mouseOver:
     ld a,(count)
+    ;Skip the mouse pointer sprite
+    dec a
+    ;If 0 return as no collision
+    ret z
     ld b,a
     ld ix, list
 .nextSprite:
@@ -150,6 +154,8 @@ mouseOver:
     cp collisionBoxSize
     jr nc, .noCollision
 
+    ; Balance stack
+    pop bc
     ; Collision made, return sprite id
     ld a,(ix+sprite.id)
     ret
