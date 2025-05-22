@@ -154,6 +154,36 @@ mouseOver:
     cp collisionBoxSize
     jr nc, .noCollision
 
+    ;Check x collision
+    ld hl,(list + sprite.x)
+    ;Little endian, LSB into e, then MSB into d
+    ld e,(ix+sprite.x)
+    ld d,(ix+sprite.x+1)
+    ;Clear carry flag
+    xor a
+    sbc hl,de
+    jp p, .noNegX
+    xor a
+    ;Negate HL, flip bits and add 1 (two's complement)
+    ld a,l
+    cpl
+    ld l,a
+    ld a,h
+    cpl
+    ld h,a
+    inc hl
+.noNegX:
+    ;HL = +ve x-delta
+    ;Check if H is zero
+    xor a
+    or h
+    ;If not zero, then delta is > 255 - no collision
+    jr nz,.noCollision
+    ; check L < collisionBoxSize
+    ld a,l
+    cp collisionBoxSize
+    jr nc, .noCollision
+
     ; Balance stack
     pop bc
     ; Collision made, return sprite id
