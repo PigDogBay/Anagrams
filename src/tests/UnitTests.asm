@@ -12,6 +12,7 @@
     ;Test includes
     include "tests/UnitTests.inc"
     include "tests/SpriteTests.asm"
+    include "tests/MouseTests.asm"
 
     ; Initialization routine called before all unit tests are started
     UNITTEST_INITIALIZE

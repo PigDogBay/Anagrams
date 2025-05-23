@@ -19,6 +19,14 @@ STATE_PRESSED:                   equ 3
 STATE_CLICKED:                   equ 4
 STATE_DRAG_END:                  equ 5
 
+stateJumpTable:
+    dw stateReady
+    dw stateHover
+    dw stateDrag
+    dw statePressed
+    dw stateClicked
+    dw stateDragEnd
+
 init:
     ; Initialize kempston x and y values
     ld bc, MOUSE_PORT_X
@@ -153,12 +161,91 @@ update:
     ld (mouseY), a
     ret
 
+
+
+;
+; In - A: sprite ID if pointer is over a sprite, 0 if not
+updateState:
+    ld (spriteId),a
+    ld a,(state)
+    ld hl, stateJumpTable
+    ; Add twice, as table is two bytes per entry
+    add hl,a
+    add hl,a
+    ; get jump entry
+    ld de,(hl)
+    ld hl,de
+    jp hl
+    
+stateReady:
+    ld a,(spriteId)
+    or a
+    ; Jump if hovering
+    jr nz, .hoverAndPressedCheck
+    ; Not hovering, but check if pressed
+    ld a,(mouse.buttons)
+    bit 1,a
+    jr nz, .exit
+    ; button pressed, but not over any sprite
+    ld a, STATE_PRESSED
+    ld (state),a
+.exit:
+    ret
+
+.hoverAndPressedCheck:
+    ; currently hovering, so save this state
+    ld a,STATE_HOVER
+    ld (state),a
+    ; fall through into stateHover logic to check if button pressed
+
+stateHover:
+    ld a,(mouse.buttons)
+    bit 1,a
+    jr nz, .exit
+    ; Mouse clicked onto a sprite
+    ld a, STATE_DRAG
+    ld (state),a
+.exit:
+    ret
+
+stateDrag:
+    ld a,(mouse.buttons)
+    bit 1,a
+    jr z, .exit
+    ; Button release
+    ld a, STATE_DRAG_END
+    ld (state),a
+.exit:
+    ret
+
+statePressed:
+    ld a,(mouse.buttons)
+    bit 1,a
+    jr z, .exit
+    ; No longer pressed, go back to ready state
+    ld a, STATE_READY
+    ld (state),a
+.exit:
+    ret
+
+stateClicked:
+.exit:
+    ret
+
+stateDragEnd:
+    ld a, STATE_READY
+    ld (state),a
+    ret
+
+
+;Variables
+
 mouseX:        dw 0
 mouseY:        db 0
 buttons:       db 0
 kempstonX:     db 0
 kempstonY:     db 0
-;Sprite id if mouse 
-selectedId:    db 0
+state:         db 0
+spriteId:      db 0
 
     endmodule
