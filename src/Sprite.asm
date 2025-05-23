@@ -7,7 +7,7 @@ y:           equ 3
 pattern:     equ 4
 size:        equ 5
 
-collisionBoxSize: equ 17
+collisionBoxSize: equ 16
 
 
 ; Disable interrupts before calling this function
@@ -145,9 +145,7 @@ mouseOver:
     ld a, (list+sprite.y)
     ld d, (ix+sprite.y)
     sub d
-    jr nc, .noNegY
-    neg
-.noNegY:
+    jr c, .noCollision
     cp collisionBoxSize
     jr nc, .noCollision
 
@@ -159,17 +157,8 @@ mouseOver:
     ;Clear carry flag
     xor a
     sbc hl,de
-    jp p, .noNegX
-    xor a
-    ;Negate HL, flip bits and add 1 (two's complement)
-    ld a,l
-    cpl
-    ld l,a
-    ld a,h
-    cpl
-    ld h,a
-    inc hl
-.noNegX:
+    jr c, .noCollision
+
     ;HL = +ve x-delta
     ;Check if H is zero
     xor a

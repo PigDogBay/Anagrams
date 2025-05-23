@@ -12,6 +12,13 @@ MOUSE_ACCELERATION_THRESHOLD:    equ 16
 MOUSE_MAX_X:                     equ 310
 MOUSE_MAX_Y:                     equ 247
 
+STATE_READY:                     equ 0
+STATE_HOVER:                     equ 1
+STATE_DRAG:                      equ 2
+STATE_PRESSED:                   equ 3
+STATE_CLICKED:                   equ 4
+STATE_DRAG_END:                  equ 5
+
 init:
     ; Initialize kempston x and y values
     ld bc, MOUSE_PORT_X
@@ -151,5 +158,7 @@ mouseY:        db 0
 buttons:       db 0
 kempstonX:     db 0
 kempstonY:     db 0
+;Sprite id if mouse 
+selectedId:    db 0
 
     endmodule

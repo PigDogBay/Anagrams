@@ -36,8 +36,8 @@ data1:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,200,0,100,0
-    db 42,206,0,94,16
+    db 0,206,0,100,0
+    db 42,200,0,94,16
 len1: equ $ - data1
 
 
@@ -50,7 +50,7 @@ UT_mouseOver3:
     ldir
 
     call sprite.mouseOver
-    nop ;ASSERTION A==2
+    nop ;ASSERTION A==0
 
     TC_END
 data2
@@ -137,11 +137,11 @@ data7:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,40,1,100,0
-    db 5,50,1,103,16
+    db 0,50,1,103,0
+    db 5,40,1,100,16
 len7: equ $ - data7
 
-; Collision where x delta is +16
+; Collision where x delta is 15
 UT_mouseOver8:
     ;Copy test data
     ld bc,len8
@@ -156,11 +156,11 @@ data8:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,40,0,100,0
-    db 8,56,0,103,16
+    db 0,55,0,103,0
+    db 8,40,0,100,16
 len8: equ $ - data8
 
-; Collision where x delta is +17 (no collision)
+; Collision where x delta is 16 (no collision)
 UT_mouseOver9:
     ;Copy test data
     ld bc,len9
@@ -176,10 +176,10 @@ data9:
     db 2
     ; id, x (16 bit), y, pattern
     db 0,40,0,100,0
-    db 9,57,0,103,16
+    db 9,56,0,103,16
 len9: equ $ - data9
 
-; Collision where x delta is -16
+; Collision where x delta is -1
 UT_mouseOver10:
     ;Copy test data
     ld bc,len10
@@ -188,17 +188,17 @@ UT_mouseOver10:
     ldir
 
     call sprite.mouseOver 
-    nop ;ASSERTION A==10
+    nop ;ASSERTION A==0
     TC_END
 data10:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,56,0,100,0
-    db 10,40,0,103,16
+    db 0,53,0,103,0
+    db 10,54,0,100,16
 len10: equ $ - data10
 
-; Collision where x delta is -17 (no collision)
+; Collision where y delta is -1 (no collision)
 UT_mouseOver11:
     ;Copy test data
     ld bc,len11
@@ -213,8 +213,8 @@ data11:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,57,0,100,0
-    db 9,40,0,103,16
+    db 0,57,0,102,0
+    db 9,55,0,103,16
 len11: equ $ - data11
 
 ; Collision 0 xy delta
