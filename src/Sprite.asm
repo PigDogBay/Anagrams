@@ -181,6 +181,47 @@ mouseOver:
     xor a
     ret
 
+;
+; Find sprite data
+; In A - id
+; Out HL - ptr to sprite's struct
+funcFind:
+    ld hl,count
+    ld b,(hl)
+    ; point to list
+    inc hl
+.next
+    cp (hl)
+    ret z
+    add hl,sprite.size
+    djnz .next
+    ; no match found
+    ld hl,0
+    ret
+
+;
+;
+; Sprite Drag
+; in A - sprite id to drag
+funcDrag:
+    call funcFind
+    ;check if found
+    ld a,h
+    or l
+    jr z, .noSpriteFound
+
+    ld de,list + sprite.x
+    ; Skip sprite id
+    inc hl
+    ; Swap, so that HL is source (mouse), DE destination (sprite)
+    ex hl,de
+    ;Three bytes to copy
+    ldi
+    ldi
+    ldi
+.noSpriteFound
+    ret
+
 count:
     db 5
 list:

@@ -2,18 +2,67 @@
     ; DeZog will collect all these labels and offer them for execution.
     module TestSuite_Sprite
 
+    MACRO COPY_DATA len, src
+        ld bc, len
+        ld de, sprite.count
+        ld hl, src
+        ldir
+    ENDM
 
-UT_mouseOverNoSprites:
-    ;Copy test data
-    ld bc,len0
-    ld de, sprite.count
-    ld hl, data0
-    ldir
+    MACRO TEST_MOUSE_OVER len, src, expected
+        COPY_DATA len,src
+        call sprite.mouseOver
+        ld b,expected
+        nop ; ASSERTION A==B
+        TC_END
+    ENDM
 
-    call sprite.mouseOver
-    nop ;ASSERTION A==0
+;Mid list
+UT_find1:
+    COPY_DATA findLen, findData
+    ld a,3
+    call sprite.funcFind
+    ld de, sprite.list + sprite.size * 3
+    nop ; ASSERTION HL == DE
     TC_END
+;Start
+UT_find2:
+    COPY_DATA findLen, findData
+    ld a,0
+    call sprite.funcFind
+    ld de, sprite.list
+    nop ; ASSERTION HL == DE
+    TC_END
+;End
+UT_find3:
+    COPY_DATA findLen, findData
+    ld a,4
+    call sprite.funcFind
+    ld de, sprite.list + sprite.size*4
+    nop ; ASSERTION HL == DE
+    TC_END
+;Not found
+UT_find4:
+    COPY_DATA findLen, findData
+    ld a,99
+    call sprite.funcFind
+    nop ; ASSERTION HL == 0
+    TC_END
+findData:
+    db 5
+    ; id, x (16 bit), y, pattern
+    ; Mouse
+    db 0,160,0,128,0
+    db 1,100,0,150,16
+    db 2,20,0,10,8
+    db 3,60,0,20,30
+    db 4,100,0,30,24
+findLen: equ $ - findData
+
+
 ;Only mouse sprite
+UT_mouseOverNoSprites:
+    TEST_MOUSE_OVER len0,data0,0
 data0:
     db 1
     ; id, x (16 bit), y, pattern
@@ -23,15 +72,7 @@ len0: equ $ - data0
 
 ; One sprite mouse over
 UT_mouseOver1:
-    ;Copy test data
-    ld bc,len1
-    ld de, sprite.count
-    ld hl, data1
-    ldir
-
-    call sprite.mouseOver 
-    nop ; ASSERTION A==42
-    TC_END
+    TEST_MOUSE_OVER len1,data1,42
 data1:
     ; Count
     db 2
@@ -42,17 +83,8 @@ len1: equ $ - data1
 
 
 ; One sprite, no collision
-UT_mouseOver3:
-    ;Copy test data
-    ld bc,len3
-    ld de, sprite.count
-    ld hl, data3
-    ldir
-
-    call sprite.mouseOver
-    nop ;ASSERTION A==0
-
-    TC_END
+UT_mouseOver2:
+    TEST_MOUSE_OVER len2,data2,0
 data2
     ; Count
     db 2
@@ -62,19 +94,9 @@ data2
 len2: equ $ - data2
 
 
-
 ;two sprites, one collision
-UT_mouseOver2:
-    ;Copy test data
-    ld bc,len2
-    ld de, sprite.count
-    ld hl, data2
-    ldir
-
-    call sprite.mouseOver
-    nop ;ASSERTION A==0
-
-    TC_END
+UT_mouseOver3:
+    TEST_MOUSE_OVER len3,data3,0
 data3
     ; Count
     db 4
@@ -86,15 +108,7 @@ len3: equ $ - data3
 
 ; One sprite x collision only
 UT_mouseOver5:
-    ;Copy test data
-    ld bc,len5
-    ld de, sprite.count
-    ld hl, data5
-    ldir
-
-    call sprite.mouseOver 
-    nop ;ASSERTION A==0
-    TC_END
+    TEST_MOUSE_OVER len5,data5,0
 data5:
     ; Count
     db 2
@@ -105,15 +119,7 @@ len5: equ $ - data5
 
 ; One sprite y collision only
 UT_mouseOver6:
-    ;Copy test data
-    ld bc,len6
-    ld de, sprite.count
-    ld hl, data6
-    ldir
-
-    call sprite.mouseOver 
-    nop ;ASSERTION A==0
-    TC_END
+    TEST_MOUSE_OVER len6,data6,0
 data6:
     ; Count
     db 2
@@ -124,15 +130,7 @@ len6: equ $ - data6
 
 ; Collision where x>255
 UT_mouseOver7:
-    ;Copy test data
-    ld bc,len7
-    ld de, sprite.count
-    ld hl, data7
-    ldir
-
-    call sprite.mouseOver 
-    nop ;ASSERTION A==5
-    TC_END
+    TEST_MOUSE_OVER len7,data7,5
 data7:
     ; Count
     db 2
@@ -143,15 +141,7 @@ len7: equ $ - data7
 
 ; Collision where x delta is 15
 UT_mouseOver8:
-    ;Copy test data
-    ld bc,len8
-    ld de, sprite.count
-    ld hl, data8
-    ldir
-
-    call sprite.mouseOver 
-    nop ;ASSERTION A==8
-    TC_END
+    TEST_MOUSE_OVER len8,data8,8
 data8:
     ; Count
     db 2
@@ -162,15 +152,7 @@ len8: equ $ - data8
 
 ; Collision where x delta is 16 (no collision)
 UT_mouseOver9:
-    ;Copy test data
-    ld bc,len9
-    ld de, sprite.count
-    ld hl, data9
-    ldir
-
-    call sprite.mouseOver 
-    nop ;ASSERTION A==0
-    TC_END
+    TEST_MOUSE_OVER len9,data9,0
 data9:
     ; Count
     db 2
@@ -181,15 +163,7 @@ len9: equ $ - data9
 
 ; Collision where x delta is -1
 UT_mouseOver10:
-    ;Copy test data
-    ld bc,len10
-    ld de, sprite.count
-    ld hl, data10
-    ldir
-
-    call sprite.mouseOver 
-    nop ;ASSERTION A==0
-    TC_END
+    TEST_MOUSE_OVER len10,data10,0
 data10:
     ; Count
     db 2
@@ -200,15 +174,7 @@ len10: equ $ - data10
 
 ; Collision where y delta is -1 (no collision)
 UT_mouseOver11:
-    ;Copy test data
-    ld bc,len11
-    ld de, sprite.count
-    ld hl, data11
-    ldir
-
-    call sprite.mouseOver 
-    nop ;ASSERTION A==0
-    TC_END
+    TEST_MOUSE_OVER len11,data11,0
 data11:
     ; Count
     db 2
@@ -219,15 +185,7 @@ len11: equ $ - data11
 
 ; Collision 0 xy delta
 UT_mouseOver12:
-    ;Copy test data
-    ld bc,len12
-    ld de, sprite.count
-    ld hl, data12
-    ldir
-
-    call sprite.mouseOver 
-    nop ;ASSERTION A==42
-    TC_END
+    TEST_MOUSE_OVER len12,data12,42
 data12:
     ; Count
     db 2
