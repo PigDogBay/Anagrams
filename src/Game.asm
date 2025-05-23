@@ -13,8 +13,31 @@ run:
     ld (sprite.list + sprite.y),a
 
     call sprite.mouseOver
+    ld (spriteId),a
+    
+    call mouse.updateState
+    ld a, (mouse.state)
+    cp mouse.STATE_DRAG_START
+    jr nz, .checkDrag
+    ld a,(spriteId)
+    ld (dragId),a
+    call sprite.funcDrag
+    jr .doneDrag
+
+.checkDrag
+    ld a, (mouse.state)
+    cp mouse.STATE_DRAG
+    jr nz,.noDrag
+
+    ld a, (dragId)
+    call sprite.funcDrag
+
+.noDrag:    
+    ld a,(spriteId)
     add a,"0"
     ld (debugCode),a
+.doneDrag:
+
     ;Check left mouse button (bit 1, 0 - pressed)
     ld a,(mouse.buttons)
     ld b,0
@@ -44,4 +67,6 @@ debugMsg: db AT,0,0
 debugCode: db "0"
 debugLen: equ $ - debugMsg       
 
+spriteId:       db 0
+dragId:         db 0
     endmodule

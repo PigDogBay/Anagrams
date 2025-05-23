@@ -14,17 +14,19 @@ MOUSE_MAX_Y:                     equ 247
 
 STATE_READY:                     equ 0
 STATE_HOVER:                     equ 1
-STATE_DRAG:                      equ 2
-STATE_PRESSED:                   equ 3
-STATE_CLICKED:                   equ 4
-STATE_DRAG_END:                  equ 5
+STATE_PRESSED:                   equ 2
+STATE_CLICKED:                   equ 3
+STATE_DRAG_START                 equ 4
+STATE_DRAG:                      equ 5
+STATE_DRAG_END:                  equ 6
 
 stateJumpTable:
     dw stateReady
     dw stateHover
-    dw stateDrag
     dw statePressed
     dw stateClicked
+    dw stateDragStart
+    dw stateDrag
     dw stateDragEnd
 
 init:
@@ -166,7 +168,8 @@ update:
 ;
 ; In - A: sprite ID if pointer is over a sprite, 0 if not
 updateState:
-    ld (spriteId),a
+    ; Store spriteId in B
+    ld b,a
     ld a,(state)
     ld hl, stateJumpTable
     ; Add twice, as table is two bytes per entry
@@ -178,7 +181,8 @@ updateState:
     jp hl
     
 stateReady:
-    ld a,(spriteId)
+    ; Get spriteId
+    ld a,b
     or a
     ; Jump if hovering
     jr nz, .hoverAndPressedCheck
@@ -203,9 +207,20 @@ stateHover:
     bit 1,a
     jr nz, .exit
     ; Mouse clicked onto a sprite
-    ld a, STATE_DRAG
+    ld a, STATE_DRAG_START
     ld (state),a
 .exit:
+    ret
+
+stateDragStart:
+    ld a,(mouse.buttons)
+    bit 1,a
+    ld a, STATE_DRAG
+    jr z, .exit
+    ; Button release
+    ld a, STATE_DRAG_END
+.exit:
+    ld (state),a
     ret
 
 stateDrag:
@@ -246,6 +261,5 @@ buttons:       db 0
 kempstonX:     db 0
 kempstonY:     db 0
 state:         db 0
-spriteId:      db 0
 
     endmodule
