@@ -59,6 +59,56 @@ findData:
     db 4,100,0,30,24
 findLen: equ $ - findData
 
+;0 difference
+UT_dragStart1:
+    COPY_DATA dragStartLen, dragStartData
+    ld a,1
+    call sprite.funcDragStart
+    TEST_MEMORY_BYTE sprite.dragXOffset,0
+    TEST_MEMORY_BYTE sprite.dragYOffset,0
+    TC_END
+;Positive difference
+UT_dragStart2:
+    COPY_DATA dragStartLen, dragStartData
+    ld a,2
+    call sprite.funcDragStart
+    TEST_MEMORY_BYTE sprite.dragXOffset,10
+    TEST_MEMORY_BYTE sprite.dragYOffset,4
+    TC_END
+;Negative difference, set offsets to be 0 as -ve differences are not expected
+UT_dragStart4:
+    COPY_DATA dragStartLen, dragStartData
+    ld a,3
+    call sprite.funcDragStart
+    TEST_MEMORY_BYTE sprite.dragXOffset,0
+    TEST_MEMORY_BYTE sprite.dragYOffset,0
+    TC_END
+dragStartData:
+    db 5
+    ; id, x (16 bit), y, pattern
+    ; Mouse
+    db 0,200,0,100,0
+    db 1,200,0,100,16
+    db 2,190,0,96,8
+    db 3,201,0,102,30
+    db 4,100,0,30,24
+dragStartLen: equ $ - dragStartData
+
+;Check x>255
+UT_dragStart3:
+    COPY_DATA dragStartLen3, dragStartData3
+    ld a,1
+    call sprite.funcDragStart
+    TEST_MEMORY_BYTE sprite.dragXOffset,5
+    TC_END
+dragStartData3:
+    db 2
+    ; id, x (16 bit), y, pattern
+    ; Mouse
+    db 0,50,1,100,0
+    db 1,45,1,100,16
+dragStartLen3: equ $ - dragStartData3
+
 
 ;Only mouse sprite
 UT_mouseOverNoSprites:

@@ -21,7 +21,7 @@ run:
     jr nz, .checkDrag
     ld a,(spriteId)
     ld (dragId),a
-    call sprite.funcDrag
+    call sprite.funcDragStart
     jr .doneDrag
 
 .checkDrag

@@ -199,10 +199,61 @@ funcFind:
     ld hl,0
     ret
 
+;-----------------------------------------------------------------------------------
 ;
+; Record the x,y offsets between the mouse and sprite
+; Can use these offsets to prevent the sprite snapping to the mouse
+; in A - sprite id to drag
+;
+;-----------------------------------------------------------------------------------
+funcDragStart:
+    call funcFind
+
+    ;Zero drag offsets
+    xor a
+    ld (dragXOffset),a
+    ld (dragYOffset),a
+    
+    ;check HL is not zero, should be pointing to the matching sprite struct
+    ld a,h
+    or l
+    jr z, .noSpriteFound
+
+    add hl,sprite.x
+    ;x-coord
+    ld de,(hl)
+    inc hl
+    inc hl
+    ;y-coord
+    ld b,(hl)
+
+    ;Mouse x    
+    ld hl,(list + sprite.x)
+    ;Clear carry flag
+    xor a
+    sbc hl,de
+    ;x should be positive
+    jr c, .illegalX
+    ld a,l
+    ld (dragXOffset),a
+ 
+.illegalX:   
+    ;Mouse y
+    ld a,(list + sprite.y)
+    sub b
+    ;y should be positive
+    jr c, .noSpriteFound
+    ld (dragYOffset),a
+
+.noSpriteFound
+    ret
+
+;-----------------------------------------------------------------------------------
 ;
 ; Sprite Drag
 ; in A - sprite id to drag
+;
+;-----------------------------------------------------------------------------------
 funcDrag:
     call funcFind
     ;check if found
@@ -222,6 +273,10 @@ funcDrag:
 .noSpriteFound
     ret
 
+dragXOffset:
+    db 0
+dragYOffset:
+    db 0
 count:
     db 5
 list:
