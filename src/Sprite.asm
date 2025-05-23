@@ -261,15 +261,22 @@ funcDrag:
     or l
     jr z, .noSpriteFound
 
-    ld de,list + sprite.x
-    ; Skip sprite id
-    inc hl
-    ; Swap, so that HL is source (mouse), DE destination (sprite)
-    ex hl,de
-    ;Three bytes to copy
-    ldi
-    ldi
-    ldi
+    ld ix,hl
+    ld hl,(list + sprite.x)
+    ld d,0
+    ld a,(dragXOffset)
+    ld e,a
+    xor a
+    sbc hl,de
+    ld (ix+sprite.x),l
+    ld (ix+sprite.x+1),h
+    
+    ld a,(dragYOffset)
+    ld e,a
+    ld a,(list + sprite.y)
+    sub e
+    ld (ix+sprite.y),a
+
 .noSpriteFound
     ret
 

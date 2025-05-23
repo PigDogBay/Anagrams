@@ -110,6 +110,30 @@ dragStartData3:
 dragStartLen3: equ $ - dragStartData3
 
 
+
+UT_drag1:
+    COPY_DATA dragLen, dragData
+    ld a,5
+    ld (sprite.dragXOffset),a
+    ld a,7
+    ld (sprite.dragYOffset),a
+
+    ld a,1
+    call sprite.funcDrag
+    TEST_MEMORY_WORD sprite.list+sprite.size+sprite.x,195
+    TEST_MEMORY_BYTE sprite.list+sprite.size+sprite.y,93
+    TC_END
+dragData:
+    db 5
+    ; id, x (16 bit), y, pattern
+    ; Mouse
+    db 0,200,0,100,0
+    db 1,0,0,0,16
+dragLen: equ $ - dragData
+
+
+
+
 ;Only mouse sprite
 UT_mouseOverNoSprites:
     TEST_MOUSE_OVER len0,data0,0
