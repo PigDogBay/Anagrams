@@ -48,11 +48,10 @@ run:
 
     call sprite.updateAll
 
-    xor a
-    out 254,a
+    BORDER 0
     call graphics.waitRaster
-    ld a,1
-    out 254,a
+    ; Set border to blue, size of border indicates how much time is spent updating the game
+    BORDER 1
     jr run
     ret
 

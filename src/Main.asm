@@ -46,10 +46,8 @@ main:
     nextreg DISPLAY_CONTROL_1,%10000000
 
     ;set the border color
-    xor a
-    out 254,a
-    ld d,0
-    call graphics.setAttributes
+    BORDER 0
+    CLS
     call graphics.clearLayer2
     call sprite.removeAll
 
