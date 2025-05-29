@@ -48,10 +48,10 @@ run:
 
     call sprite.updateAll
 
-    ld a,1
+    xor a
     out 254,a
     call graphics.waitRaster
-    xor a
+    ld a,1
     out 254,a
     jr run
     ret

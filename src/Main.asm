@@ -46,14 +46,13 @@ main:
     nextreg DISPLAY_CONTROL_1,%10000000
 
     ;set the border color
-    ld a,1
+    xor a
     out 254,a
-    call ROM_CLS
-
     ld d,0
+    call graphics.setAttributes
     call graphics.clearLayer2
     call sprite.removeAll
-    
+
     call mouse.init
     call game.init
     call game.run
