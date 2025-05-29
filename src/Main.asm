@@ -52,7 +52,8 @@ main:
 
     ld d,0
     call graphics.clearLayer2
-
+    call sprite.removeAll
+    
     call mouse.init
     call game.init
     call game.run

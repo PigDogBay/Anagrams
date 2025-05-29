@@ -1,6 +1,10 @@
     MODULE sprite
 
+;-----------------------------------------------------------------------------------
+;
 ; Sprite attributes data struct
+;
+;-----------------------------------------------------------------------------------
 id:          equ 0
 x:           equ 1
 y:           equ 3
@@ -10,10 +14,16 @@ size:        equ 5
 collisionBoxSize: equ 16
 
 
+;-----------------------------------------------------------------------------------
+;
+; Load sprite data from banks
+;
 ; Disable interrupts before calling this function
 ; Load 2 memory consequetive 8k banks into sprite memory
 ; Parameters:
 ; bank = First bank, next bank is bank+1 (Set in A register)
+;
+;-----------------------------------------------------------------------------------
 load:
     ; swap out ROM with bank, bank+1
     nextreg MMU_0,a 
@@ -42,9 +52,15 @@ next_pattern:
     nextreg $51, $FF
     ret
 
-;in HL = pointer to sprite data structure
-;out HL = next sprite in the list
-;dirty a,d
+;-----------------------------------------------------------------------------------
+; 
+; Update sprite
+;
+; in HL = pointer to sprite data structure
+; out HL = next sprite in the list
+; dirty a,d
+;
+;-----------------------------------------------------------------------------------
 update:
     ;preserve bc
     push bc
@@ -91,7 +107,71 @@ update:
     pop bc
     ret
 
-;Dirty a,bc,d,hl
+;-----------------------------------------------------------------------------------
+; 
+; Remove sprite
+; Sets all attributes to zero and sprite invisibile
+; In: A = Sprite ID
+; 
+;-----------------------------------------------------------------------------------
+remove:
+    ;preserve bc
+    push bc
+    ; Set sprite id for attribute upload
+    ld bc, SPRITE_STATUS_SLOT_SELECT
+    out (c), a
+
+    ld bc, SPRITE_ATTRIBUTE_UPLOAD
+
+    ; Byte 1
+    ; X position (Low 8 bits)
+    xor a
+    out (c),a
+
+    ; Byte 2
+    ; Y position (Low 8 bits)
+    out (c),a
+
+    ; Byte 3
+    ; Bit 0 - MSB of X position
+    out (c),a
+
+    ; Byte 4
+    ; Bit 7 - 0 Invisible
+    ; Bit 6 - 0 No 5th byte for scaling
+    ; Bit 5 - 0 Pattern index
+    out (c),a
+    ; Byte 5, not used here
+
+    ; Recover BC
+    pop bc
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Remove all sprites
+;
+;-----------------------------------------------------------------------------------
+removeAll:
+    ld b,127
+.loop:
+    ; Remove sprites 1-127
+    ld a,b
+    call sprite.remove
+    djnz .loop
+    ; Remove 0 sprite
+    xor a
+    call sprite.remove
+    ret
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Update all sprites 
+; 
+; Dirty a,bc,d,hl
+;
+;-----------------------------------------------------------------------------------
 updateAll:
     ld hl,count
     ld b,(hl)
@@ -111,22 +191,14 @@ inRange:
     cp 17
     
 
-; ld r,(ix+d)
-; ld r,(iy+d)
-; ld a,(bc)
-; ld a,(de)
-; ld a,(nn)
-; ld bc,(nn)
-; ld de,(nn)
-; ld hl,(nn)
-; ld ix,(nn)
-; ld iy,(nn)
-; 
-;ex de,hl
-; push/pop bc/de/hl/ix/iy
-
-;Returns the id of any sprite that the mouse is over
+;-----------------------------------------------------------------------------------
+;
+; Checks if the mouse pointer is over a sprite
+;
+; Returns the id of any sprite that the mouse is over
 ; out a - sprite id, or 0 if not over any sprite
+;
+;-----------------------------------------------------------------------------------
 mouseOver:
     ld a,(count)
     ;Skip the mouse pointer sprite
@@ -180,11 +252,12 @@ mouseOver:
     ; no match, return 0
     xor a
     ret
-
+;-----------------------------------------------------------------------------------
 ;
 ; Find sprite data
 ; In A - id
 ; Out HL - ptr to sprite's struct
+;-----------------------------------------------------------------------------------
 funcFind:
     ld hl,count
     ld b,(hl)
