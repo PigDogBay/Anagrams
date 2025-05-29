@@ -58,7 +58,7 @@ main:
     call ROM_OPEN_CHANNEL
     ld de, Message
     ld bc, Message_Len
-    call ROM_PRINT
+    ;call ROM_PRINT
 
 
     call game.init
