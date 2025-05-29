@@ -88,6 +88,13 @@ SPRITE_PATTERN_UPLOAD_256:             equ $005B
 ;https://wiki.specnext.dev/Display_Control_1_Register
 DISPLAY_CONTROL_1:                     equ $69
 
+;Bits
+; 7-5 Unused
+; 4 EAR output (speaker) or Input from tape/PI
+; 3 MIC output (saving via audio jack)
+; 2-0 Border colour
+ULA_CONTROL_PORT:                      equ $FE
+
 ;See https://wiki.specnext.dev/Layer_2_Access_Port
 L2_ACCESS_PORT:                        equ $123B
 
