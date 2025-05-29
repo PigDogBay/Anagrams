@@ -53,22 +53,11 @@ main:
     call graphics.clearLayer2
 
     call mouse.init
-
-    ld a,2
-    call ROM_OPEN_CHANNEL
-    ld de, Message
-    ld bc, Message_Len
-    ;call ROM_PRINT
-
-
     call game.init
     call game.run
 
 main_loop:
     jr main_loop
-
-Message:        db "*",AT,5,10,INK,1,PAPER,6,"     Zanagramz   "
-Message_Len:    equ $ - Message
 
 
 ;===========================================================================

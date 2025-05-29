@@ -34,8 +34,6 @@ run:
 
 .noDrag:    
     ld a,(spriteId)
-    add a,"0"
-    ld (debugCode),a
 .doneDrag:
 
     ;Check left mouse button (bit 1, 0 - pressed)
@@ -50,11 +48,6 @@ run:
 
     call sprite.updateAll
 
-    ld de, debugMsg
-    ld bc, debugLen
-    call ROM_PRINT
-
-
     ld a,1
     out 254,a
     call graphics.waitRaster
@@ -62,10 +55,6 @@ run:
     out 254,a
     jr run
     ret
-
-debugMsg: db AT,0,0
-debugCode: db "0"
-debugLen: equ $ - debugMsg       
 
 spriteId:       db 0
 dragId:         db 0
