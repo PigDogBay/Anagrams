@@ -48,6 +48,7 @@ main:
     ;set the border color
     BORDER 0
     CLS
+    ld d,45
     call graphics.clearLayer2
     call sprite.removeAll
 

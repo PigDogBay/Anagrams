@@ -95,21 +95,21 @@ setAttributes:
 ;-----------------------------------------------------------------------------------
 ; 
 ; Disable interrupts before calling this function
-; Clear the Layer 2 screen (256x192) with the specified colour in D register
-; In: D colour
+; Clear the Layer 2 screen (256x192) with the specified colour
+;
+; In: A colour
+; Dirty: BC,DE,HL 
+;
 ;-----------------------------------------------------------------------------------
 clearLayer2:
-    push bc
-    push de
-    push hl
-
+    ; Store colour in D
+    ld d,a
     ld bc, L2_ACCESS_PORT 
     in a, (c)				; get the current bank
     push af 				; store it 
     xor a 
     out	(c),a 
     
-    ld d,a					; byte to clear to
     ld e,3					; number of blocks
     ld a,1					; first bank... (bank 0 with write enable bit set)
 
@@ -138,10 +138,6 @@ clearLayer2:
 
     pop af 
     out	(c),a     
-
-    pop	hl
-    pop de
-    pop bc	
 
     ret
 
