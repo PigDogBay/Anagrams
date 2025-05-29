@@ -8,7 +8,8 @@
     ; https://luckyredfish.com/patricias-z80-snippets/
     ; https://specnext.dev/ 
     ; http://www.breakintoprogram.co.uk/hardware/computers/zx-spectrum-next/assembly-language/z80-library-routines
-    ; 
+    ; https://zx.remysharp.com/sprites/#sprite-editor
+    ; https://damieng.com/typography/zx-origins/
     
 
 ;===========================================================================
