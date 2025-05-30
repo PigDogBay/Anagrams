@@ -22,7 +22,7 @@ UT_find1:
     COPY_DATA findLen, findData
     ld a,3
     call sprite.funcFind
-    ld de, sprite.list + sprite.size * 3
+    ld de, sprite.list + spriteItem * 3
     nop ; ASSERTION HL == DE
     TC_END
 ;Start
@@ -38,7 +38,7 @@ UT_find3:
     COPY_DATA findLen, findData
     ld a,4
     call sprite.funcFind
-    ld de, sprite.list + sprite.size*4
+    ld de, sprite.list + spriteItem*4
     nop ; ASSERTION HL == DE
     TC_END
 ;Not found
@@ -120,8 +120,8 @@ UT_drag1:
 
     ld a,1
     call sprite.funcDrag
-    TEST_MEMORY_WORD sprite.list+sprite.size+sprite.x,195
-    TEST_MEMORY_BYTE sprite.list+sprite.size+sprite.y,93
+    TEST_MEMORY_WORD sprite.list+spriteItem+spriteItem.x,195
+    TEST_MEMORY_BYTE sprite.list+spriteItem+spriteItem.y,93
     TC_END
 dragData:
     db 5

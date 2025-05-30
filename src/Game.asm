@@ -9,8 +9,8 @@ run:
     call mouse.update
     ld hl,(mouse.mouseX)
     ld a,(mouse.mouseY)
-    ld (sprite.list + sprite.x),hl
-    ld (sprite.list + sprite.y),a
+    ld (sprite.list + spriteItem.x),hl
+    ld (sprite.list + spriteItem.y),a
 
     call sprite.mouseOver
     ld (spriteId),a
@@ -44,7 +44,7 @@ run:
     ld b,1
 .buttonPressed
     ld a,b
-    ld (sprite.list + sprite.pattern),a
+    ld (sprite.list + spriteItem.pattern),a
 
     call sprite.updateAll
 

@@ -3,13 +3,15 @@
 ;-----------------------------------------------------------------------------------
 ;
 ; Sprite attributes data struct
+; Note @ overides local behaviour so clients do not need module prefix, sprite.
 ;
 ;-----------------------------------------------------------------------------------
-id:          equ 0
-x:           equ 1
-y:           equ 3
-pattern:     equ 4
-size:        equ 5
+    struct @spriteItem
+id          byte
+x           word
+y           byte
+pattern     byte    
+    ends
 
 collisionBoxSize: equ 16
 
@@ -210,22 +212,22 @@ mouseOver:
 .nextSprite:
     ;Point to next sprite's data struct
     ld hl, ix
-    add hl,sprite.size
+    add hl,spriteItem
     ld ix,hl
 
     ;Check y overlap
-    ld a, (list+sprite.y)
-    ld d, (ix+sprite.y)
+    ld a, (list+spriteItem.y)
+    ld d, (ix+spriteItem.y)
     sub d
     jr c, .noCollision
     cp collisionBoxSize
     jr nc, .noCollision
 
     ;Check x collision
-    ld hl,(list + sprite.x)
+    ld hl,(list + spriteItem.x)
     ;Little endian, LSB into e, then MSB into d
-    ld e,(ix+sprite.x)
-    ld d,(ix+sprite.x+1)
+    ld e,(ix+spriteItem.x)
+    ld d,(ix+spriteItem.x+1)
     ;Clear carry flag
     xor a
     sbc hl,de
@@ -243,7 +245,7 @@ mouseOver:
     jr nc, .noCollision
 
     ; Collision made, return sprite id
-    ld a,(ix+sprite.id)
+    ld a,(ix+spriteItem.id)
     ret
 
 .noCollision:
@@ -266,7 +268,7 @@ funcFind:
 .next
     cp (hl)
     ret z
-    add hl,sprite.size
+    add hl,spriteItem
     djnz .next
     ; no match found
     ld hl,0
@@ -292,7 +294,7 @@ funcDragStart:
     or l
     jr z, .noSpriteFound
 
-    add hl,sprite.x
+    add hl,spriteItem.x
     ;x-coord
     ld de,(hl)
     inc hl
@@ -301,7 +303,7 @@ funcDragStart:
     ld b,(hl)
 
     ;Mouse x    
-    ld hl,(list + sprite.x)
+    ld hl,(list + spriteItem.x)
     ;Clear carry flag
     xor a
     sbc hl,de
@@ -312,7 +314,7 @@ funcDragStart:
  
 .illegalX:   
     ;Mouse y
-    ld a,(list + sprite.y)
+    ld a,(list + spriteItem.y)
     sub b
     ;y should be positive
     jr c, .noSpriteFound
@@ -335,20 +337,20 @@ funcDrag:
     jr z, .noSpriteFound
 
     ld ix,hl
-    ld hl,(list + sprite.x)
+    ld hl,(list + spriteItem.x)
     ld d,0
     ld a,(dragXOffset)
     ld e,a
     xor a
     sbc hl,de
-    ld (ix+sprite.x),l
-    ld (ix+sprite.x+1),h
+    ld (ix+spriteItem.x),l
+    ld (ix+spriteItem.x+1),h
     
     ld a,(dragYOffset)
     ld e,a
-    ld a,(list + sprite.y)
+    ld a,(list + spriteItem.y)
     sub e
-    ld (ix+sprite.y),a
+    ld (ix+spriteItem.y),a
 
 .noSpriteFound
     ret
