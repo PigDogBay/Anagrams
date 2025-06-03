@@ -5,9 +5,9 @@
 UT_letterToSprite1:
     ld a,42
     ld (Tile.nextSpriteId),a
-    ld a,15
-    ld (Tile.letterRow),a
     ld a,10
+    ld (Tile.letterRow),a
+    ld a,15
     ld (Tile.letterColumn),a
     ld ix, spriteItemBuffer
     ld a, 'S'
@@ -19,6 +19,27 @@ UT_letterToSprite1:
     TEST_MEMORY_BYTE spriteItemBuffer+spriteItem.x+1,1
     TEST_MEMORY_BYTE spriteItemBuffer+spriteItem.y,192
     TC_END
+
+UT_nextColumn1:
+    ld a,10
+    ld (Tile.letterRow),a
+    ld a,8
+    ld (Tile.letterColumn),a
+    call Tile.nextColumn
+    TEST_MEMORY_BYTE Tile.letterRow,10
+    TEST_MEMORY_BYTE Tile.letterColumn,9
+    TC_END
+
+UT_nextColumn2:
+    ld a,10
+    ld (Tile.letterRow),a
+    ld a,Tile.MAX_COLUMN
+    ld (Tile.letterColumn),a
+    call Tile.nextColumn
+    TEST_MEMORY_BYTE Tile.letterRow,11
+    TEST_MEMORY_BYTE Tile.letterColumn,0
+    TC_END
+
 
 spriteItemBuffer:
     ; id, x, y, pattern

@@ -79,16 +79,18 @@ wordToSprites:
     ret
 
 nextColumn:
-    ld a,(letterRow)
-    cp MAX_COLUMN
-    jr z, .nextRow
     ld a,(letterColumn)
-    inc a
-    ld (letterColumn),a
-    ld a,255
-.nextRow:
+    cp MAX_COLUMN
+    jr nz, .noColumnOverflow
+    ; Increase row
+    ld a,(letterRow)
     inc a
     ld (letterRow),a
+    ; 0 column
+    ld a,255
+.noColumnOverflow:
+    inc a
+    ld (letterColumn),a
     ret
 
 
