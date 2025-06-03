@@ -21,6 +21,7 @@
     include "Mouse.asm"
     include "Game.asm"
     include "Text.asm"
+    include "model/Tile.asm"
 
 
 ;===========================================================================

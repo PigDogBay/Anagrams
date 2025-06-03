@@ -8,11 +8,13 @@
     include "Mouse.asm"
     include "Game.asm"
     include "Text.asm"
+    include "model/Tile.asm"
 
     ;Test includes
     include "tests/UnitTests.inc"
     include "tests/SpriteTests.asm"
     include "tests/MouseTests.asm"
+    include "tests/model/TileTests.asm"
 
     ; Initialization routine called before all unit tests are started
     UNITTEST_INITIALIZE
