@@ -40,9 +40,43 @@ UT_nextColumn2:
     TEST_MEMORY_BYTE Tile.letterColumn,0
     TC_END
 
+UT_wordToSprites1:
+    ld a,1
+    ld (Tile.nextSpriteId),a
+    ld a,5
+    ld (Tile.letterRow),a
+    ld a,7
+    ld (Tile.letterColumn),a
+    ld hl,wordAcorn
+    ld ix, spriteItemBuffer
+    call Tile.wordToSprites
+    nop ; ASSERTION IX == TestSuite_Tile.spriteItemBuffer + spriteItem * 5
+    TEST_MEMORY_BYTE spriteItemBuffer + spriteItem.pattern,'A' - 57
+    TEST_MEMORY_BYTE spriteItemBuffer + spriteItem.id,1
+    TEST_MEMORY_BYTE spriteItemBuffer + spriteItem.x,7*16+32
+    TEST_MEMORY_BYTE spriteItemBuffer + spriteItem.x+1,0
+    TEST_MEMORY_BYTE spriteItemBuffer + spriteItem.y,5*16+32
+
+    TEST_MEMORY_BYTE spriteItemBuffer + spriteItem * 4 + spriteItem.pattern,'N' - 57
+    TEST_MEMORY_BYTE spriteItemBuffer + spriteItem * 4 + spriteItem.id,5
+    TEST_MEMORY_BYTE spriteItemBuffer + spriteItem * 4 + spriteItem.x,208
+    TEST_MEMORY_BYTE spriteItemBuffer + spriteItem * 4 + spriteItem.x+1,0
+    TEST_MEMORY_BYTE spriteItemBuffer + spriteItem * 4 + spriteItem.y,112
+
+    TC_END
+
+wordAcorn:
+    db "ACORN",0
 
 spriteItemBuffer:
     ; id, x, y, pattern
+    spriteItem 0,0,0,0
+    spriteItem 0,0,0,0
+    spriteItem 0,0,0,0
+    spriteItem 0,0,0,0
+    spriteItem 0,0,0,0
+    spriteItem 0,0,0,0
+    spriteItem 0,0,0,0
     spriteItem 0,0,0,0
 
     endmodule

@@ -27,18 +27,18 @@ letterToSprite:
     ld a, (nextSpriteId)
     ld (ix + spriteItem.id),a
 
-    ; Each column is 16 pixels, so need to multiply column by 16
-    ; also add 32 as columns do not use the border
-    ; y = col * 16 + 32 = (col + 2) * 16
-    ld a,(letterColumn)
-    inc a : inc a
-    rla : rla : rla : rla
-    ld (ix + spriteItem.y),a
-
     ; Each row is 16 pixels, so need to multiply row by 16
     ; also add 32 as rows do not use the border
     ; y = row * 16 + 32 = (row + 2) * 16
     ld a,(letterRow)
+    inc a : inc a
+    rla : rla : rla : rla
+    ld (ix + spriteItem.y),a
+
+    ; Each column is 16 pixels, so need to multiply column by 16
+    ; also add 32 as columns do not use the border
+    ; y = col * 16 + 32 = (col + 2) * 16
+    ld a,(letterColumn)
     inc a : inc a
     rla : rla : rla : rla
     ld (ix + spriteItem.x),a
@@ -70,12 +70,27 @@ letterToSprite:
 wordToSprites:
 .next:
     ld a,(hl)
+    cp 0
     jr z, .finished
     call letterToSprite
     call nextColumn
+    call incNextSpriteId
+    call incSpriteCount
     inc hl
     jr .next
 .finished:
+    ret
+
+incSpriteCount:
+    ld a,(sprite.count)
+    inc a
+    ld (sprite.count),a
+    ret
+
+incNextSpriteId:
+    ld a,(nextSpriteId)
+    inc a
+    ld (nextSpriteId),a
     ret
 
 nextColumn:
@@ -97,9 +112,9 @@ nextColumn:
 nextSpriteId:
     db 1
 letterRow:
-    db 5
-letterColumn:
     db 10
+letterColumn:
+    db 5
 
 
 

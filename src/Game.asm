@@ -3,6 +3,9 @@
 init:
     ld a,30
     call sprite.load
+    ld hl,anagram
+    ld ix,sprite.list+spriteItem
+    call Tile.wordToSprites
     ret
 
 run:
@@ -57,4 +60,7 @@ run:
 
 spriteId:       db 0
 dragId:         db 0
+
+anagram:
+    db "ACORNELECTRON",0
     endmodule
