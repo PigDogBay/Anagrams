@@ -1,10 +1,10 @@
     ; A unit testcase needs to start with "UT_" (upper case letters).
     ; DeZog will collect all these labels and offer them for execution.
-    module TestSuite_Sprite
+    module TestSuite_Mouse
 
     MACRO TEST_MOUSE_OVER len, src, expected
         COPY_DATA len,src
-        call sprite.mouseOver
+        call Mouse.mouseOver
         ld b,expected
         nop ; ASSERTION A==B
         TC_END
@@ -14,25 +14,25 @@
 UT_dragStart1:
     COPY_DATA dragStartLen, dragStartData
     ld a,1
-    call sprite.funcDragStart
-    TEST_MEMORY_BYTE sprite.dragXOffset,0
-    TEST_MEMORY_BYTE sprite.dragYOffset,0
+    call Mouse.funcDragStart
+    TEST_MEMORY_BYTE Mouse.dragXOffset,0
+    TEST_MEMORY_BYTE Mouse.dragYOffset,0
     TC_END
 ;Positive difference
 UT_dragStart2:
     COPY_DATA dragStartLen, dragStartData
     ld a,2
-    call sprite.funcDragStart
-    TEST_MEMORY_BYTE sprite.dragXOffset,10
-    TEST_MEMORY_BYTE sprite.dragYOffset,4
+    call Mouse.funcDragStart
+    TEST_MEMORY_BYTE Mouse.dragXOffset,10
+    TEST_MEMORY_BYTE Mouse.dragYOffset,4
     TC_END
 ;Negative difference, set offsets to be 0 as -ve differences are not expected
 UT_dragStart4:
     COPY_DATA dragStartLen, dragStartData
     ld a,3
-    call sprite.funcDragStart
-    TEST_MEMORY_BYTE sprite.dragXOffset,0
-    TEST_MEMORY_BYTE sprite.dragYOffset,0
+    call Mouse.funcDragStart
+    TEST_MEMORY_BYTE Mouse.dragXOffset,0
+    TEST_MEMORY_BYTE Mouse.dragYOffset,0
     TC_END
 dragStartData:
     db 5
@@ -49,8 +49,8 @@ dragStartLen: equ $ - dragStartData
 UT_dragStart3:
     COPY_DATA dragStartLen3, dragStartData3
     ld a,1
-    call sprite.funcDragStart
-    TEST_MEMORY_BYTE sprite.dragXOffset,5
+    call Mouse.funcDragStart
+    TEST_MEMORY_BYTE Mouse.dragXOffset,5
     TC_END
 dragStartData3:
     db 2
@@ -65,12 +65,12 @@ dragStartLen3: equ $ - dragStartData3
 UT_drag1:
     COPY_DATA dragLen, dragData
     ld a,5
-    ld (sprite.dragXOffset),a
+    ld (Mouse.dragXOffset),a
     ld a,7
-    ld (sprite.dragYOffset),a
+    ld (Mouse.dragYOffset),a
 
     ld a,1
-    call sprite.funcDrag
+    call Mouse.funcDrag
     TEST_MEMORY_WORD SpriteList.list+spriteItem+spriteItem.x,195
     TEST_MEMORY_BYTE SpriteList.list+spriteItem+spriteItem.y,93
     TC_END

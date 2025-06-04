@@ -1,4 +1,4 @@
-    MODULE sprite
+    MODULE Mouse
 
 collisionBoxSize: equ 16
 

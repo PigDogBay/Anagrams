@@ -1,4 +1,4 @@
-    module mouse
+    module MouseDriver
 ; Bits:
 ; 7-4 wheel delta
 ; 3 4th button
@@ -187,7 +187,7 @@ stateReady:
     ; Jump if hovering
     jr nz, .hoverAndPressedCheck
     ; Not hovering, but check if pressed
-    ld a,(mouse.buttons)
+    ld a,(MouseDriver.buttons)
     bit 1,a
     jr nz, .exit
     ; button pressed, but not over any sprite
@@ -203,7 +203,7 @@ stateReady:
     ; fall through into stateHover logic to check if button pressed
 
 stateHover:
-    ld a,(mouse.buttons)
+    ld a,(MouseDriver.buttons)
     bit 1,a
     jr nz, .exit
     ; Mouse clicked onto a sprite
@@ -213,7 +213,7 @@ stateHover:
     ret
 
 stateDragStart:
-    ld a,(mouse.buttons)
+    ld a,(MouseDriver.buttons)
     bit 1,a
     ld a, STATE_DRAG
     jr z, .exit
@@ -224,7 +224,7 @@ stateDragStart:
     ret
 
 stateDrag:
-    ld a,(mouse.buttons)
+    ld a,(MouseDriver.buttons)
     bit 1,a
     jr z, .exit
     ; Button release
@@ -234,7 +234,7 @@ stateDrag:
     ret
 
 statePressed:
-    ld a,(mouse.buttons)
+    ld a,(MouseDriver.buttons)
     bit 1,a
     jr z, .exit
     ; No longer pressed, go back to ready state

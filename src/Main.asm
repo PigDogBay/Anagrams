@@ -18,9 +18,9 @@
     include "hardware/PortsRegisters.asm"
     include "hardware/Graphics.asm"
     include "hardware/NextSprite.asm"
-    include "Sprite.asm"
-    include "hardware/Mouse.asm"
+    include "hardware/MouseDriver.asm"
     include "model/SpriteList.asm"
+    include "model/Mouse.asm"
     include "Game.asm"
     include "Text.asm"
     include "model/Tile.asm"
@@ -55,7 +55,7 @@ main:
     call graphics.clearLayer2
     call NextSprite.removeAll
 
-    call mouse.init
+    call MouseDriver.init
     call game.init
     call game.run
 

@@ -9,38 +9,38 @@ init:
     ret
 
 run:
-    call mouse.update
-    ld hl,(mouse.mouseX)
-    ld a,(mouse.mouseY)
+    call MouseDriver.update
+    ld hl,(MouseDriver.mouseX)
+    ld a,(MouseDriver.mouseY)
     ld (SpriteList.list + spriteItem.x),hl
     ld (SpriteList.list + spriteItem.y),a
 
-    call sprite.mouseOver
+    call Mouse.mouseOver
     ld (spriteId),a
     
-    call mouse.updateState
-    ld a, (mouse.state)
-    cp mouse.STATE_DRAG_START
+    call MouseDriver.updateState
+    ld a, (MouseDriver.state)
+    cp MouseDriver.STATE_DRAG_START
     jr nz, .checkDrag
     ld a,(spriteId)
     ld (dragId),a
-    call sprite.funcDragStart
+    call Mouse.funcDragStart
     jr .doneDrag
 
 .checkDrag
-    ld a, (mouse.state)
-    cp mouse.STATE_DRAG
+    ld a, (MouseDriver.state)
+    cp MouseDriver.STATE_DRAG
     jr nz,.noDrag
 
     ld a, (dragId)
-    call sprite.funcDrag
+    call Mouse.funcDrag
 
 .noDrag:    
     ld a,(spriteId)
 .doneDrag:
 
     ;Check left mouse button (bit 1, 0 - pressed)
-    ld a,(mouse.buttons)
+    ld a,(MouseDriver.buttons)
     ld b,0
     bit 1,a
     jr nz,.buttonPressed
