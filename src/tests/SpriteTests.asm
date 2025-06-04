@@ -52,11 +52,11 @@ findData:
     db 5
     ; id, x (16 bit), y, pattern
     ; Mouse
-    db 0,160,0,128,0
-    db 1,100,0,150,16
-    db 2,20,0,10,8
-    db 3,60,0,20,30
-    db 4,100,0,30,24
+    spriteItem 0,160,128,0,0,0
+    spriteItem 1,100,150,16,0,0
+    spriteItem 2,20,10,8,0,0
+    spriteItem 3,60,20,30,0,0
+    spriteItem 4,100,30,24,0,0
 findLen: equ $ - findData
 
 ;0 difference
@@ -87,11 +87,11 @@ dragStartData:
     db 5
     ; id, x (16 bit), y, pattern
     ; Mouse
-    db 0,200,0,100,0
-    db 1,200,0,100,16
-    db 2,190,0,96,8
-    db 3,201,0,102,30
-    db 4,100,0,30,24
+    spriteItem 0,200,100,0,0,0
+    spriteItem 1,200,100,16,0,0
+    spriteItem 2,190,96,8,0,0
+    spriteItem 3,201,102,30,0,0
+    spriteItem 4,100,30,24,0,0
 dragStartLen: equ $ - dragStartData
 
 ;Check x>255
@@ -105,8 +105,8 @@ dragStartData3:
     db 2
     ; id, x (16 bit), y, pattern
     ; Mouse
-    db 0,50,1,100,0
-    db 1,45,1,100,16
+    spriteItem 0,306,100,0,0,0
+    spriteItem 1,301,100,16,0,0
 dragStartLen3: equ $ - dragStartData3
 
 
@@ -127,8 +127,8 @@ dragData:
     db 5
     ; id, x (16 bit), y, pattern
     ; Mouse
-    db 0,200,0,100,0
-    db 1,0,0,0,16
+    spriteItem 0,200,100,0,0,0
+    spriteItem 1,0,0,16,0,0
 dragLen: equ $ - dragData
 
 
@@ -151,8 +151,8 @@ data1:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,206,0,100,0
-    db 42,200,0,94,16
+    spriteItem 0,206,100,0,0,0
+    spriteItem 42,200,94,16,0,0
 len1: equ $ - data1
 
 
@@ -163,8 +163,8 @@ data2
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,200,0,100,0
-    db 1,50,0,150,16
+    spriteItem 0,200,100,0,0,0
+    spriteItem 1,50,150,16,0,0
 len2: equ $ - data2
 
 
@@ -175,9 +175,9 @@ data3
     ; Count
     db 4
     ; id, x (16 bit), y, pattern
-    db 0,200,0,100,0
-    db 1,50,0,150,16
-    db 2,195,0,106,0
+    spriteItem 0,200,100,0,0,0
+    spriteItem 1,50,150,16,0,0
+    spriteItem 2,195,106,0,0,0
 len3: equ $ - data3
 
 ; One sprite x collision only
@@ -187,8 +187,8 @@ data5:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,200,0,100,0
-    db 1,196,0,50,16
+    spriteItem 0,200,100,0,0,0
+    spriteItem 1,196,50,16,0,0
 len5: equ $ - data5
 
 ; One sprite y collision only
@@ -198,8 +198,8 @@ data6:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,200,0,100,0
-    db 1,100,0,103,16
+    spriteItem 0,200,100,0,0,0
+    spriteItem 1,100,103,16,0,0
 len6: equ $ - data6
 
 ; Collision where x>255
@@ -209,8 +209,8 @@ data7:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,50,1,103,0
-    db 5,40,1,100,16
+    spriteItem 0,306,103,0,0,0
+    spriteItem 5,296,100,16,0,0
 len7: equ $ - data7
 
 ; Collision where x delta is 15
@@ -220,8 +220,8 @@ data8:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,55,0,103,0
-    db 8,40,0,100,16
+    spriteItem 0,55,103,0,0,0
+    spriteItem 8,40,100,16,0,0
 len8: equ $ - data8
 
 ; Collision where x delta is 16 (no collision)
@@ -231,8 +231,8 @@ data9:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,40,0,100,0
-    db 9,56,0,103,16
+    spriteItem 0,40,100,0,0,0
+    spriteItem 9,56,103,16,0,0
 len9: equ $ - data9
 
 ; Collision where x delta is -1
@@ -242,8 +242,8 @@ data10:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,53,0,103,0
-    db 10,54,0,100,16
+    spriteItem 0,53,103,0
+    spriteItem 10,54,100,16
 len10: equ $ - data10
 
 ; Collision where y delta is -1 (no collision)
@@ -253,8 +253,8 @@ data11:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,57,0,102,0
-    db 9,55,0,103,16
+    spriteItem 0,57,102,0,0,0
+    spriteItem 9,55,103,16,0,0
 len11: equ $ - data11
 
 ; Collision 0 xy delta
@@ -264,8 +264,8 @@ data12:
     ; Count
     db 2
     ; id, x (16 bit), y, pattern
-    db 0,0,0,0,0
-    db 42,0,0,0,16
+    spriteItem 0,0,0,0,0,0
+    spriteItem 42,0,0,16,0,0
 len12: equ $ - data12
 
 

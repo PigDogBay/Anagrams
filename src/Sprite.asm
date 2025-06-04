@@ -11,6 +11,8 @@ id          byte
 x           word
 y           byte
 pattern     byte    
+gameId      byte
+flags       byte
     ends
 
 collisionBoxSize: equ 16
@@ -104,8 +106,11 @@ update:
     or $80
     out (c),a
     ; Byte 5, not used here
-    ;point to the next sprite in the list
+    ;Skip gameId and flags, point to the next sprite in the list
     inc hl
+    inc hl
+    inc hl
+    
     pop bc
     ret
 
