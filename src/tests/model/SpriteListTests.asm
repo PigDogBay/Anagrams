@@ -2,6 +2,22 @@
     ; DeZog will collect all these labels and offer them for execution.
     module TestSuite_SpriteList
 
+UT_addSprite1:
+    call SpriteList.removeAll
+    ld hl, dataAddSprite1
+    ;Add the sprite 3 times
+    call SpriteList.addSprite
+    call SpriteList.addSprite
+    call SpriteList.addSprite
+    nop ; ASSERTION HL == TestSuite_SpriteList.dataAddSprite1 
+    TEST_MEMORY_BYTE SpriteList.count, 3
+    TEST_MEMORY_BYTE SpriteList.nextSpriteId, 3
+    TEST_MEMORY_WORD SpriteList.nextEntryPtr, SpriteList.list + 3 * spriteItem
+    TC_END
+dataAddSprite1:
+    ;id, x, y, pattern, gameId, flags
+    spriteItem 0, 200, 100, 5, 42, %00001000
+
 ;Mid list
 UT_find1:
     COPY_DATA findLen, findData

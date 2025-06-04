@@ -17,6 +17,62 @@ flags       byte
 
 ;-----------------------------------------------------------------------------------
 ;
+; addSprite
+; Copies spriteItem data to the list, increases the count.
+; Note that the SpriteID will be assigned here
+; In:
+;       HL - Pointer to Sprite Item struct to add
+;
+; Note all registers are restored
+;
+;-----------------------------------------------------------------------------------
+addSprite:
+    push af : push bc : push de : push hl
+
+    ;First set the sprite ID
+    ld a, (nextSpriteId)
+    ld (hl),a
+    ;Increase the next sprite ID by 1 for next time
+    inc a
+    ld (nextSpriteId),a
+
+    ; Increase count by 1
+    ld a,(count)
+    inc a
+    ld (count),a
+
+    ; Set up number of bytes to copy
+    ld b,0
+    ld c,spriteItem
+
+    ld de,(nextEntryPtr)
+    ldir
+    ; DE now points to the next empty entry in the list
+    ld (nextEntryPtr),de
+
+    pop hl : pop de : pop bc : pop af
+    ret
+
+
+;-----------------------------------------------------------------------------------
+;
+; removeAll
+; Resets counter and next sprite ID to 0
+;
+; Dirty A
+;-----------------------------------------------------------------------------------
+removeAll:
+    xor a
+    ld (nextSpriteId),a
+    ld (count),a
+    ; Point to the start of the list
+    ld hl,list
+    ld (nextEntryPtr),hl
+    ret
+
+
+;-----------------------------------------------------------------------------------
+;
 ; Find sprite data
 ; In A - id
 ; Out HL - ptr to sprite's struct
@@ -34,6 +90,11 @@ find:
     ; no match found
     ld hl,0
     ret
+
+nextEntryPtr:
+    dw list
+nextSpriteId:
+    db 1
 
 count:
     db 1
