@@ -4,7 +4,7 @@ init:
     ld a,30
     call NextSprite.load
     ld hl,anagram
-    ld ix,sprite.list+spriteItem
+    ld ix,SpriteList.list+spriteItem
     call Tile.wordToSprites
     ret
 
@@ -12,8 +12,8 @@ run:
     call mouse.update
     ld hl,(mouse.mouseX)
     ld a,(mouse.mouseY)
-    ld (sprite.list + spriteItem.x),hl
-    ld (sprite.list + spriteItem.y),a
+    ld (SpriteList.list + spriteItem.x),hl
+    ld (SpriteList.list + spriteItem.y),a
 
     call sprite.mouseOver
     ld (spriteId),a
@@ -47,9 +47,9 @@ run:
     ld b,1
 .buttonPressed
     ld a,b
-    ld (sprite.list + spriteItem.pattern),a
+    ld (SpriteList.list + spriteItem.pattern),a
 
-    ld hl, sprite.count
+    ld hl, SpriteList.count
     ld b,(hl)
     inc hl
 .updateSprites:

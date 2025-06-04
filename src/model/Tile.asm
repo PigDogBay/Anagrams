@@ -82,9 +82,9 @@ wordToSprites:
     ret
 
 incSpriteCount:
-    ld a,(sprite.count)
+    ld a,(SpriteList.count)
     inc a
-    ld (sprite.count),a
+    ld (SpriteList.count),a
     ret
 
 incNextSpriteId:

@@ -2,13 +2,6 @@
     ; DeZog will collect all these labels and offer them for execution.
     module TestSuite_Sprite
 
-    MACRO COPY_DATA len, src
-        ld bc, len
-        ld de, sprite.count
-        ld hl, src
-        ldir
-    ENDM
-
     MACRO TEST_MOUSE_OVER len, src, expected
         COPY_DATA len,src
         call sprite.mouseOver
@@ -16,48 +9,6 @@
         nop ; ASSERTION A==B
         TC_END
     ENDM
-
-;Mid list
-UT_find1:
-    COPY_DATA findLen, findData
-    ld a,3
-    call sprite.funcFind
-    ld de, sprite.list + spriteItem * 3
-    nop ; ASSERTION HL == DE
-    TC_END
-;Start
-UT_find2:
-    COPY_DATA findLen, findData
-    ld a,0
-    call sprite.funcFind
-    ld de, sprite.list
-    nop ; ASSERTION HL == DE
-    TC_END
-;End
-UT_find3:
-    COPY_DATA findLen, findData
-    ld a,4
-    call sprite.funcFind
-    ld de, sprite.list + spriteItem*4
-    nop ; ASSERTION HL == DE
-    TC_END
-;Not found
-UT_find4:
-    COPY_DATA findLen, findData
-    ld a,99
-    call sprite.funcFind
-    nop ; ASSERTION HL == 0
-    TC_END
-findData:
-    db 5
-    ; id, x (16 bit), y, pattern
-    ; Mouse
-    spriteItem 0,160,128,0,0,0
-    spriteItem 1,100,150,16,0,0
-    spriteItem 2,20,10,8,0,0
-    spriteItem 3,60,20,30,0,0
-    spriteItem 4,100,30,24,0,0
-findLen: equ $ - findData
 
 ;0 difference
 UT_dragStart1:
@@ -120,8 +71,8 @@ UT_drag1:
 
     ld a,1
     call sprite.funcDrag
-    TEST_MEMORY_WORD sprite.list+spriteItem+spriteItem.x,195
-    TEST_MEMORY_BYTE sprite.list+spriteItem+spriteItem.y,93
+    TEST_MEMORY_WORD SpriteList.list+spriteItem+spriteItem.x,195
+    TEST_MEMORY_BYTE SpriteList.list+spriteItem+spriteItem.y,93
     TC_END
 dragData:
     db 5

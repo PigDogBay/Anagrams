@@ -20,6 +20,7 @@
     include "hardware/NextSprite.asm"
     include "Sprite.asm"
     include "hardware/Mouse.asm"
+    include "model/SpriteList.asm"
     include "Game.asm"
     include "Text.asm"
     include "model/Tile.asm"

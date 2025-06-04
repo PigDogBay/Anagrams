@@ -1,20 +1,5 @@
     MODULE sprite
 
-;-----------------------------------------------------------------------------------
-;
-; Sprite attributes data struct
-; Note @ overides local behaviour so clients do not need module prefix, sprite.
-;
-;-----------------------------------------------------------------------------------
-    struct @spriteItem
-id          byte
-x           word
-y           byte
-pattern     byte    
-gameId      byte
-flags       byte
-    ends
-
 collisionBoxSize: equ 16
 
 
@@ -27,13 +12,13 @@ collisionBoxSize: equ 16
 ;
 ;-----------------------------------------------------------------------------------
 mouseOver:
-    ld a,(count)
+    ld a,(SpriteList.count)
     ;Skip the mouse pointer sprite
     dec a
     ;If 0 return as no collision
     ret z
     ld b,a
-    ld ix, list
+    ld ix, SpriteList.list
 .nextSprite:
     ;Point to next sprite's data struct
     ld hl, ix
@@ -41,7 +26,7 @@ mouseOver:
     ld ix,hl
 
     ;Check y overlap
-    ld a, (list+spriteItem.y)
+    ld a, (SpriteList.list+spriteItem.y)
     ld d, (ix+spriteItem.y)
     sub d
     jr c, .noCollision
@@ -49,7 +34,7 @@ mouseOver:
     jr nc, .noCollision
 
     ;Check x collision
-    ld hl,(list + spriteItem.x)
+    ld hl,(SpriteList.list + spriteItem.x)
     ;Little endian, LSB into e, then MSB into d
     ld e,(ix+spriteItem.x)
     ld d,(ix+spriteItem.x+1)
@@ -79,25 +64,7 @@ mouseOver:
     ; no match, return 0
     xor a
     ret
-;-----------------------------------------------------------------------------------
-;
-; Find sprite data
-; In A - id
-; Out HL - ptr to sprite's struct
-;-----------------------------------------------------------------------------------
-funcFind:
-    ld hl,count
-    ld b,(hl)
-    ; point to list
-    inc hl
-.next
-    cp (hl)
-    ret z
-    add hl,spriteItem
-    djnz .next
-    ; no match found
-    ld hl,0
-    ret
+
 
 ;-----------------------------------------------------------------------------------
 ;
@@ -107,7 +74,7 @@ funcFind:
 ;
 ;-----------------------------------------------------------------------------------
 funcDragStart:
-    call funcFind
+    call SpriteList.find
 
     ;Zero drag offsets
     xor a
@@ -128,7 +95,7 @@ funcDragStart:
     ld b,(hl)
 
     ;Mouse x    
-    ld hl,(list + spriteItem.x)
+    ld hl,(SpriteList.list + spriteItem.x)
     ;Clear carry flag
     xor a
     sbc hl,de
@@ -139,7 +106,7 @@ funcDragStart:
  
 .illegalX:   
     ;Mouse y
-    ld a,(list + spriteItem.y)
+    ld a,(SpriteList.list + spriteItem.y)
     sub b
     ;y should be positive
     jr c, .noSpriteFound
@@ -155,14 +122,14 @@ funcDragStart:
 ;
 ;-----------------------------------------------------------------------------------
 funcDrag:
-    call funcFind
+    call SpriteList.find
     ;check if found
     ld a,h
     or l
     jr z, .noSpriteFound
 
     ld ix,hl
-    ld hl,(list + spriteItem.x)
+    ld hl,(SpriteList.list + spriteItem.x)
     ld d,0
     ld a,(dragXOffset)
     ld e,a
@@ -173,7 +140,7 @@ funcDrag:
     
     ld a,(dragYOffset)
     ld e,a
-    ld a,(list + spriteItem.y)
+    ld a,(SpriteList.list + spriteItem.y)
     sub e
     ld (ix+spriteItem.y),a
 
@@ -184,11 +151,5 @@ dragXOffset:
     db 0
 dragYOffset:
     db 0
-count:
-    db 1
-list:
-    ;Reserve enough space for rest of sprites (Max 127)
-    block spriteItem * 127
-
 
     endmodule
