@@ -2,10 +2,10 @@
     DEVICE ZXSPECTRUMNEXT
 
     ORG 0x8000
-    include "Hardware.asm"
-    include "Graphics.asm"
+    include "hardware/PortsRegisters.asm"
+    include "hardware/Graphics.asm"
     include "Sprite.asm"
-    include "Mouse.asm"
+    include "hardware/Mouse.asm"
     include "Game.asm"
     include "Text.asm"
     include "model/Tile.asm"
