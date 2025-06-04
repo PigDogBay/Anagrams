@@ -49,7 +49,12 @@ run:
     ld a,b
     ld (sprite.list + spriteItem.pattern),a
 
-    call sprite.updateAll
+    ld hl, sprite.count
+    ld b,(hl)
+    inc hl
+.updateSprites:
+    call sprite.update
+    djnz .updateSprites
 
     BORDER 0
     call graphics.waitRaster

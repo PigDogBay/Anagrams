@@ -171,33 +171,6 @@ removeAll:
     call sprite.remove
     ret
 
-
-;-----------------------------------------------------------------------------------
-; 
-; Update all sprites 
-; 
-; Dirty a,bc,d,hl
-;
-;-----------------------------------------------------------------------------------
-updateAll:
-    ld hl,count
-    ld b,(hl)
-    ;point to list
-    inc hl
-.loop:
-    call update
-    djnz .loop
-    ret
-
-inRange:
-    ld a,42
-    ld b,54
-    sub b
-    jr nc, .noNeg
-.noNeg
-    cp 17
-    
-
 ;-----------------------------------------------------------------------------------
 ;
 ; Checks if the mouse pointer is over a sprite
