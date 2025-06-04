@@ -17,6 +17,7 @@
 ;===========================================================================
     include "hardware/PortsRegisters.asm"
     include "hardware/Graphics.asm"
+    include "hardware/NextSprite.asm"
     include "Sprite.asm"
     include "hardware/Mouse.asm"
     include "Game.asm"
@@ -51,7 +52,7 @@ main:
     CLS
     ld d,45
     call graphics.clearLayer2
-    call sprite.removeAll
+    call NextSprite.removeAll
 
     call mouse.init
     call game.init

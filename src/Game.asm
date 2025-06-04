@@ -2,7 +2,7 @@
 
 init:
     ld a,30
-    call sprite.load
+    call NextSprite.load
     ld hl,anagram
     ld ix,sprite.list+spriteItem
     call Tile.wordToSprites
@@ -53,7 +53,7 @@ run:
     ld b,(hl)
     inc hl
 .updateSprites:
-    call sprite.update
+    call NextSprite.update
     djnz .updateSprites
 
     BORDER 0
