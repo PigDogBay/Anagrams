@@ -94,10 +94,10 @@ find:
 nextEntryPtr:
     dw list
 nextSpriteId:
-    db 1
+    db 0
 
 count:
-    db 1
+    db 0
 list:
     ;Reserve enough space for rest of sprites (Max 127)
     block spriteItem * 127

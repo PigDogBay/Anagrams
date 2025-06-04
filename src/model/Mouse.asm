@@ -5,6 +5,22 @@ collisionBoxSize: equ 16
 
 ;-----------------------------------------------------------------------------------
 ;
+; addSpritePointer
+;
+; Note the sprite pointer must be the first sprite
+; Dirty HL
+;
+;-----------------------------------------------------------------------------------
+addSpritePointer:
+    ld hl, pointerSpriteItem
+    call SpriteList.addSprite
+    ret
+pointerSpriteItem:
+    spriteItem 0,0,0,0,0,0
+
+
+;-----------------------------------------------------------------------------------
+;
 ; Checks if the mouse pointer is over a sprite
 ;
 ; Returns the id of any sprite that the mouse is over

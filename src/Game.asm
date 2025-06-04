@@ -3,6 +3,8 @@
 init:
     ld a,30
     call NextSprite.load
+    call SpriteList.removeAll
+    call Mouse.addSpritePointer
     ld hl,anagram
     ld ix,SpriteList.list+spriteItem
     call Tile.wordToSprites
