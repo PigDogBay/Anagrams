@@ -6,7 +6,6 @@ init:
     call SpriteList.removeAll
     call Mouse.addSpritePointer
     ld hl,anagram
-    ld ix,SpriteList.list+spriteItem
     call Tile.wordToSprites
     ret
 

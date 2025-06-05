@@ -1,9 +1,9 @@
     module Tile
 
-spritePatternOffsetA:   equ 8
-asciiPatternOffset:     equ 'A' - spritePatternOffsetA
+SPRITE_PATTERN_OFFSET_A:    equ 8
+ASCII_PATTERN_OFFSET:       equ 'A' - SPRITE_PATTERN_OFFSET_A
 
-MAX_COLUMN:                equ 15
+MAX_COLUMN:                 equ 15
 
 ;-----------------------------------------------------------------------------------
 ;
@@ -13,20 +13,12 @@ MAX_COLUMN:                equ 15
 ;     A - letter  
 ;     IX - pointer to spriteItem struct
 ;
-; Out:
-;     IX - pointer to next spriteItem struct
-;
 ;-----------------------------------------------------------------------------------
 letterToSprite:
-    ; keep bc clean
-    push bc
     ; convert the letter to its sprite pattern
-    sub asciiPatternOffset
+    sub ASCII_PATTERN_OFFSET
     ld (ix + spriteItem.pattern),a
     
-    ld a, (nextSpriteId)
-    ld (ix + spriteItem.id),a
-
     ; Each row is 16 pixels, so need to multiply row by 16
     ; also add 32 as rows do not use the border
     ; y = row * 16 + 32 = (row + 2) * 16
@@ -46,11 +38,6 @@ letterToSprite:
     ld a,0
     adc a
     ld (ix + spriteItem.x + 1),a
-
-    ld bc,spriteItem
-
-    add ix,bc
-    pop bc
     ret
 
 
@@ -61,10 +48,7 @@ letterToSprite:
 ;
 ; In: 
 ;     HL - pointer to letters
-;     IX - pointer to start of sprite data
 ;
-; Out:
-;     IX - pointer to next spriteItem struct
 ;
 ;-----------------------------------------------------------------------------------
 wordToSprites:
@@ -72,26 +56,17 @@ wordToSprites:
     ld a,(hl)
     cp 0
     jr z, .finished
+    call SpriteList.reserveSprite
+    ; A is dirty so reload character
+    ld a,(hl)
     call letterToSprite
     call nextColumn
-    call incNextSpriteId
-    call incSpriteCount
+    ; Next Letter
     inc hl
     jr .next
 .finished:
     ret
 
-incSpriteCount:
-    ld a,(SpriteList.count)
-    inc a
-    ld (SpriteList.count),a
-    ret
-
-incNextSpriteId:
-    ld a,(nextSpriteId)
-    inc a
-    ld (nextSpriteId),a
-    ret
 
 nextColumn:
     ld a,(letterColumn)
