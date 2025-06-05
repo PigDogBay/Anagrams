@@ -18,6 +18,22 @@ dataAddSprite1:
     ;id, x, y, pattern, gameId, flags
     spriteItem 0, 200, 100, 5, 42, %00001000
 
+
+UT_reserveSprite1:
+    call SpriteList.removeAll
+
+    call SpriteList.reserveSprite
+    nop ; ASSERTION IX == SpriteList.list
+    TEST_MEMORY_BYTE IX, 0
+    TEST_MEMORY_BYTE SpriteList.count, 1
+
+    call SpriteList.reserveSprite
+    nop ; ASSERTION IX == SpriteList.list + spriteItem
+    TEST_MEMORY_BYTE IX, 1
+    TEST_MEMORY_BYTE SpriteList.count, 2
+
+    TC_END
+
 ;Mid list
 UT_find1:
     COPY_DATA findLen, findData

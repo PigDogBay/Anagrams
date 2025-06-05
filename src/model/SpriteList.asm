@@ -53,6 +53,40 @@ addSprite:
     pop hl : pop de : pop bc : pop af
     ret
 
+;-----------------------------------------------------------------------------------
+;
+; reserveSprite
+; Reserves a place in the sprite list, the sprites ID will be set and 
+; the sprite count incremented
+;
+; Out:
+;       IX - Pointer to a new reserved Sprite Item struct
+;
+; Dirty: A
+;
+;-----------------------------------------------------------------------------------
+reserveSprite:
+    push hl
+    ld hl,(nextEntryPtr)
+
+    ; Increase count by 1
+    ld a,(count)
+    inc a
+    ld (count),a
+
+    ;Set the sprite ID
+    ld a,(nextSpriteId)
+    ld (hl),a
+    ;Increase the next sprite ID by 1 for next time
+    inc a
+    ld (nextSpriteId),a
+    ld ix,hl
+    ; update the next entry pointer
+    add hl, spriteItem
+    ld (nextEntryPtr),hl
+    pop hl
+    ret
+
 
 ;-----------------------------------------------------------------------------------
 ;
