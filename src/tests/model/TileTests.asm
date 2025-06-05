@@ -63,7 +63,7 @@ wordAcorn:
     db "ACORN",0
 
 spriteItemBuffer:
-    ; id, x, y, pattern, gameId, flags
-    spriteItem 0,0,0,0,0,0
+    ; id, x (2-bytes), y, palette, pattern, gameId, flags
+    spriteItem 0,0,0,0,0,0,0
 
     endmodule

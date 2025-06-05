@@ -43,7 +43,7 @@ next_pattern:
 ; 
 ; Update sprite
 ;
-; in HL = pointer to sprite data structure
+; in HL = pointer to spriteItem data structure
 ; out HL = next sprite in the list
 ; dirty a,d
 ;
@@ -76,7 +76,15 @@ update:
     out (c),d
 
     ; Byte 3
-    ; Bit 0 - MSB of X position
+    ;	4-7		Palette offset, added to each palette index from pattern before drawing
+    ;	3		Enable X mirror
+    ;	2		Enable Y mirror
+    ;	1		Enable rotation    
+    ;   0       MSB of X position
+    inc hl
+    ld d,(hl)
+    ;A bit 0 has X MSB, so or with D
+    or d
     out (c),a
 
     ; Byte 4

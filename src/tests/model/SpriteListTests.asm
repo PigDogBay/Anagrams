@@ -15,8 +15,8 @@ UT_addSprite1:
     TEST_MEMORY_WORD SpriteList.nextEntryPtr, SpriteList.list + 3 * spriteItem
     TC_END
 dataAddSprite1:
-    ;id, x, y, pattern, gameId, flags
-    spriteItem 0, 200, 100, 5, 42, %00001000
+    ;id, x, y, palette, pattern, gameId, flags
+    spriteItem 0, 200, 100, 0, 5, 42, %00001000
 
 
 UT_reserveSprite1:
@@ -70,13 +70,13 @@ UT_find4:
 
 findData:
     db 5
-    ; id, x (16 bit), y, pattern
+    ; id, x, y, palette, pattern, gameId, flags
     ; Mouse
-    spriteItem 0,160,128,0,0,0
-    spriteItem 1,100,150,16,0,0
-    spriteItem 2,20,10,8,0,0
-    spriteItem 3,60,20,30,0,0
-    spriteItem 4,100,30,24,0,0
+    spriteItem 0,160,128,0,0,0,0
+    spriteItem 1,100,150,0,16,0,0
+    spriteItem 2,20,10,0,8,0,0
+    spriteItem 3,60,20,0,30,0,0
+    spriteItem 4,100,30,0,24,0,0
 findLen: equ $ - findData
 
 

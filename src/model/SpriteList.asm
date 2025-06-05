@@ -10,6 +10,7 @@
 id          byte
 x           word
 y           byte
+palette     byte
 pattern     byte    
 gameId      byte
 flags       byte
@@ -133,7 +134,7 @@ nextSpriteId:
 count:
     db 0
 list:
-    ;Reserve enough space for rest of sprites (Max 127)
-    block spriteItem * 127
+    ;Reserve enough space for rest of sprites (Max 128)
+    block spriteItem * 128
 
     endmodule

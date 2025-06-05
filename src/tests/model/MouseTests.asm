@@ -36,13 +36,13 @@ UT_dragStart4:
     TC_END
 dragStartData:
     db 5
-    ; id, x (16 bit), y, pattern
+    ; id, x, y, palette, pattern, gameId, flags
     ; Mouse
-    spriteItem 0,200,100,0,0,0
-    spriteItem 1,200,100,16,0,0
-    spriteItem 2,190,96,8,0,0
-    spriteItem 3,201,102,30,0,0
-    spriteItem 4,100,30,24,0,0
+    spriteItem 0,200,100,0,0,0,0
+    spriteItem 1,200,100,0,16,0,0
+    spriteItem 2,190,96,0,8,0,0
+    spriteItem 3,201,102,0,30,0,0
+    spriteItem 4,100,30,0,24,0,0
 dragStartLen: equ $ - dragStartData
 
 ;Check x>255
@@ -54,10 +54,10 @@ UT_dragStart3:
     TC_END
 dragStartData3:
     db 2
-    ; id, x (16 bit), y, pattern
+    ; id, x, y, palette, pattern, gameId, flags
     ; Mouse
-    spriteItem 0,306,100,0,0,0
-    spriteItem 1,301,100,16,0,0
+    spriteItem 0,306,100,0,0,0,0
+    spriteItem 1,301,100,0,16,0,0
 dragStartLen3: equ $ - dragStartData3
 
 
@@ -76,10 +76,10 @@ UT_drag1:
     TC_END
 dragData:
     db 5
-    ; id, x (16 bit), y, pattern
+    ; id, x, y, palette, pattern, gameId, flags
     ; Mouse
-    spriteItem 0,200,100,0,0,0
-    spriteItem 1,0,0,16,0,0
+    spriteItem 0,200,100,0,0,0,0
+    spriteItem 1,0,0,16,0,0,0
 dragLen: equ $ - dragData
 
 
@@ -90,8 +90,8 @@ UT_mouseOverNoSprites:
     TEST_MOUSE_OVER len0,data0,0
 data0:
     db 1
-    ; id, x (16 bit), y, pattern
-    db 0,160,0,128,0
+    ; id, x, y, palette, pattern, gameId, flags
+    db 0,160,0,0,128,0
 len0: equ $ - data0
 
 
@@ -101,9 +101,9 @@ UT_mouseOver1:
 data1:
     ; Count
     db 2
-    ; id, x (16 bit), y, pattern
-    spriteItem 0,206,100,0,0,0
-    spriteItem 42,200,94,16,0,0
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,206,100,0,0,0,0
+    spriteItem 42,200,94,0,16,0,0
 len1: equ $ - data1
 
 
@@ -113,9 +113,9 @@ UT_mouseOver2:
 data2
     ; Count
     db 2
-    ; id, x (16 bit), y, pattern
-    spriteItem 0,200,100,0,0,0
-    spriteItem 1,50,150,16,0,0
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,200,100,0,0,0,0
+    spriteItem 1,50,150,0,16,0,0
 len2: equ $ - data2
 
 
@@ -125,10 +125,10 @@ UT_mouseOver3:
 data3
     ; Count
     db 4
-    ; id, x (16 bit), y, pattern
-    spriteItem 0,200,100,0,0,0
-    spriteItem 1,50,150,16,0,0
-    spriteItem 2,195,106,0,0,0
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,200,100,0,0,0,0
+    spriteItem 1,50,150,0,16,0,0
+    spriteItem 2,195,106,0,0,0,0
 len3: equ $ - data3
 
 ; One sprite x collision only
@@ -137,9 +137,9 @@ UT_mouseOver5:
 data5:
     ; Count
     db 2
-    ; id, x (16 bit), y, pattern
-    spriteItem 0,200,100,0,0,0
-    spriteItem 1,196,50,16,0,0
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,200,100,0,0,0,0
+    spriteItem 1,196,50,0,16,0,0
 len5: equ $ - data5
 
 ; One sprite y collision only
@@ -148,9 +148,9 @@ UT_mouseOver6:
 data6:
     ; Count
     db 2
-    ; id, x (16 bit), y, pattern
-    spriteItem 0,200,100,0,0,0
-    spriteItem 1,100,103,16,0,0
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,200,100,0,0,0,0
+    spriteItem 1,100,103,0,16,0,0
 len6: equ $ - data6
 
 ; Collision where x>255
@@ -159,9 +159,9 @@ UT_mouseOver7:
 data7:
     ; Count
     db 2
-    ; id, x (16 bit), y, pattern
-    spriteItem 0,306,103,0,0,0
-    spriteItem 5,296,100,16,0,0
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,306,103,0,0,0,0
+    spriteItem 5,296,100,0,16,0,0
 len7: equ $ - data7
 
 ; Collision where x delta is 15
@@ -170,9 +170,9 @@ UT_mouseOver8:
 data8:
     ; Count
     db 2
-    ; id, x (16 bit), y, pattern
-    spriteItem 0,55,103,0,0,0
-    spriteItem 8,40,100,16,0,0
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,55,103,0,0,0,0
+    spriteItem 8,40,100,0,16,0,0
 len8: equ $ - data8
 
 ; Collision where x delta is 16 (no collision)
@@ -181,9 +181,9 @@ UT_mouseOver9:
 data9:
     ; Count
     db 2
-    ; id, x (16 bit), y, pattern
-    spriteItem 0,40,100,0,0,0
-    spriteItem 9,56,103,16,0,0
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,40,100,0,0,0,0
+    spriteItem 9,56,103,0,16,0,0
 len9: equ $ - data9
 
 ; Collision where x delta is -1
@@ -192,9 +192,9 @@ UT_mouseOver10:
 data10:
     ; Count
     db 2
-    ; id, x (16 bit), y, pattern
-    spriteItem 0,53,103,0
-    spriteItem 10,54,100,16
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,53,103,0,0,0,0
+    spriteItem 10,54,100,0,16,0,0
 len10: equ $ - data10
 
 ; Collision where y delta is -1 (no collision)
@@ -203,9 +203,9 @@ UT_mouseOver11:
 data11:
     ; Count
     db 2
-    ; id, x (16 bit), y, pattern
-    spriteItem 0,57,102,0,0,0
-    spriteItem 9,55,103,16,0,0
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,57,102,0,0,0,0
+    spriteItem 9,55,103,0,16,0,0
 len11: equ $ - data11
 
 ; Collision 0 xy delta
@@ -214,9 +214,9 @@ UT_mouseOver12:
 data12:
     ; Count
     db 2
-    ; id, x (16 bit), y, pattern
-    spriteItem 0,0,0,0,0,0
-    spriteItem 42,0,0,16,0,0
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,0,0,0,0,0,0
+    spriteItem 42,0,0,0,16,0,0
 len12: equ $ - data12
 
 
