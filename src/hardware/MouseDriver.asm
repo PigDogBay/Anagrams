@@ -1,3 +1,10 @@
+;-----------------------------------------------------------------------------------
+;
+; Mouse Driver to convert the Kempston mouse's X-Y co-ords to absolute screen co-ords.
+; Handles the button press states for clicking and dragging 
+; 
+;-----------------------------------------------------------------------------------
+
     module MouseDriver
 ; Bits:
 ; 7-4 wheel delta
@@ -8,7 +15,6 @@
 MOUSE_PORT_BUTTONS:              equ $FADF
 MOUSE_PORT_X:                    equ $FBDF
 MOUSE_PORT_Y:                    equ $FFDF
-MOUSE_ACCELERATION_THRESHOLD:    equ 16
 MOUSE_MAX_X:                     equ 310
 MOUSE_MAX_Y:                     equ 247
 
@@ -29,6 +35,34 @@ stateJumpTable:
     dw stateDrag
     dw stateDragEnd
 
+
+;-----------------------------------------------------------------------------------
+;
+; Variables
+;
+;-----------------------------------------------------------------------------------
+; Mouse x - coordinate (WORD), 0-319
+mouseX:        dw 0
+; Mouse y - coordinate 18 bites, 0-255
+mouseY:        db 0
+; Button pressed flags
+buttons:       db 0
+; Previous X position from kempston port (0-255)
+kempstonX:     db 0
+; Previous Y position from kempston port
+kempstonY:     db 0
+; Mouse state, see STATE_X values above
+state:         db 0
+
+
+;-----------------------------------------------------------------------------------
+;
+; init
+; 
+; Mouse variable initialization, sets up mouse X-Y and kempston X-Y values
+; 
+; 
+;-----------------------------------------------------------------------------------
 init:
     ; Initialize kempston x and y values
     ld bc, MOUSE_PORT_X
@@ -45,6 +79,27 @@ init:
     ld (mouseY), a
     ret
 
+;-----------------------------------------------------------------------------------
+;
+; Function: update
+;
+; Call this function every TV frame to update the Mouse X-Y co-ordinates and 
+; button presses
+; 
+; The kempston X-Y values are relative and need to be converted to absolute
+; screen coordinates. Also kempston X is 0-255 and the the screen co-ords are 0-319.
+; 
+; To convert to absolute co-ords, the kempston XY coords are recorded and on the
+; next TV frame, a new set of XY co-ords are read. The difference between the new
+; and previous co-ords is applied to the absolute Mouse XY.
+;
+; The mouse pointer is dampened by halving the XY differences to give more 
+; precise control over the pointer as it moves quite quickly.
+; 
+; 
+; Dirty: A, BC, DE, HL
+; 
+;-----------------------------------------------------------------------------------
 update:
     ; Buttons
     ld bc, MOUSE_PORT_BUTTONS
@@ -72,11 +127,6 @@ update:
     ld e,a
     ld d,0
     add hl,de
-    cp MOUSE_ACCELERATION_THRESHOLD
-    jr c, .noAccelerationX
-    ; Add delta again to boost speed
-    add hl,de
-.noAccelerationX
     ; Check if mouse is out of bounds
     ex de,hl
     ld hl,MOUSE_MAX_X
@@ -102,11 +152,6 @@ update:
     or a
     ; subtract delta from mouseX
     sbc hl,de
-    cp MOUSE_ACCELERATION_THRESHOLD
-    jr c, .noAccelerationLeftX
-    ; Accelerate by subtracting delta again
-    sbc hl,de
-.noAccelerationLeftX
     ; Check if mouse is out of bounds
     ; Put new mouse position in DE
     ex de,hl
@@ -164,9 +209,15 @@ update:
     ret
 
 
-
+;-----------------------------------------------------------------------------------
 ;
+; 
 ; In - A: sprite ID if pointer is over a sprite, 0 if not
+; 
+; 
+; 
+; 
+;-----------------------------------------------------------------------------------
 updateState:
     ; Store spriteId in B
     ld b,a
@@ -179,7 +230,10 @@ updateState:
     ld de,(hl)
     ld hl,de
     jp hl
-    
+
+; 
+; 
+;     
 stateReady:
     ; Get spriteId
     ld a,b
@@ -202,6 +256,10 @@ stateReady:
     ld (state),a
     ; fall through into stateHover logic to check if button pressed
 
+
+; 
+; 
+;     
 stateHover:
     ld a,(MouseDriver.buttons)
     bit 1,a
@@ -212,6 +270,10 @@ stateHover:
 .exit:
     ret
 
+
+; 
+; 
+;     
 stateDragStart:
     ld a,(MouseDriver.buttons)
     bit 1,a
@@ -223,6 +285,10 @@ stateDragStart:
     ld (state),a
     ret
 
+
+; 
+; 
+;     
 stateDrag:
     ld a,(MouseDriver.buttons)
     bit 1,a
@@ -233,6 +299,10 @@ stateDrag:
 .exit:
     ret
 
+
+; 
+; 
+;     
 statePressed:
     ld a,(MouseDriver.buttons)
     bit 1,a
@@ -243,23 +313,24 @@ statePressed:
 .exit:
     ret
 
+
+; 
+; 
+;     
 stateClicked:
 .exit:
     ret
 
+
+; 
+; 
+;     
 stateDragEnd:
     ld a, STATE_READY
     ld (state),a
     ret
 
 
-;Variables
 
-mouseX:        dw 0
-mouseY:        db 0
-buttons:       db 0
-kempstonX:     db 0
-kempstonY:     db 0
-state:         db 0
 
     endmodule
