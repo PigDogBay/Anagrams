@@ -211,11 +211,13 @@ update:
 
 ;-----------------------------------------------------------------------------------
 ;
+; Function: updateState
+;
+; This state machine uses a jump table to implement the various states
+; Of clicking and dragging
 ; 
 ; In - A: sprite ID if pointer is over a sprite, 0 if not
-; 
-; 
-; 
+;    - IX: spiteItem of the sprite that the mouse is over
 ; 
 ;-----------------------------------------------------------------------------------
 updateState:
@@ -232,7 +234,7 @@ updateState:
     jp hl
 
 ; 
-; 
+; Waiting for the user to hover over or click on a sprite
 ;     
 stateReady:
     ; Get spriteId
@@ -258,8 +260,9 @@ stateReady:
 
 
 ; 
-; 
-;     
+; The mouse pointer is hovering over a sprite, it the user clicks the
+; left mouse button they can begin dragging the sprite     
+;
 stateHover:
     ld a,(MouseDriver.buttons)
     bit 1,a
@@ -272,7 +275,8 @@ stateHover:
 
 
 ; 
-; 
+; The user has begun dragging a sprite, a client function should
+; record the start position of the drag
 ;     
 stateDragStart:
     ld a,(MouseDriver.buttons)
@@ -287,8 +291,10 @@ stateDragStart:
 
 
 ; 
-; 
-;     
+; The user is currently dragging the sprite:
+; Check if the mouse button has been released and
+; check if the pointer is in bounds
+;    
 stateDrag:
     ld a,(MouseDriver.buttons)
     bit 1,a
@@ -301,7 +307,7 @@ stateDrag:
 
 
 ; 
-; 
+; Currently unused 
 ;     
 statePressed:
     ld a,(MouseDriver.buttons)
@@ -315,7 +321,7 @@ statePressed:
 
 
 ; 
-; 
+; Currently unused 
 ;     
 stateClicked:
 .exit:
@@ -323,7 +329,7 @@ stateClicked:
 
 
 ; 
-; 
+; The user has stopped dragging a sprite, so go back to the ready state
 ;     
 stateDragEnd:
     ld a, STATE_READY

@@ -27,7 +27,7 @@ UT_dragStart2:
     TEST_MEMORY_BYTE Mouse.dragYOffset,4
     TC_END
 ;Negative difference, set offsets to be 0 as -ve differences are not expected
-UT_dragStart4:
+UT_dragStart3:
     COPY_DATA dragStartLen, dragStartData
     ld a,3
     call Mouse.funcDragStart
@@ -45,25 +45,40 @@ dragStartData:
     spriteItem 4,100,30,0,24,0,0
 dragStartLen: equ $ - dragStartData
 
+
 ;Check x>255
-UT_dragStart3:
-    COPY_DATA dragStartLen3, dragStartData3
+UT_dragStart4:
+    COPY_DATA dragStartLen4, dragStartData4
     ld a,1
     call Mouse.funcDragStart
     TEST_MEMORY_BYTE Mouse.dragXOffset,5
     TC_END
-dragStartData3:
+dragStartData4:
     db 2
     ; id, x, y, palette, pattern, gameId, flags
     ; Mouse
     spriteItem 0,306,100,0,0,0,0
     spriteItem 1,301,100,0,16,0,0
-dragStartLen3: equ $ - dragStartData3
+dragStartLen4: equ $ - dragStartData4
 
+; Near to X is zero
+UT_dragStart5:
+    COPY_DATA spriteItem * 2, dragStartData5
+    ld a,1
+    call Mouse.funcDragStart
+    TEST_MEMORY_BYTE Mouse.dragXOffset,7
+    TEST_MEMORY_BYTE Mouse.dragYOffset,0
+    TC_END
+dragStartData5:
+    db 5
+    ; id, x, y, palette, pattern, gameId, flags
+    ; Mouse
+    spriteItem 0,9,100,0,0,0,0
+    spriteItem 1,2,100,0,16,5,0
 
 
 UT_drag1:
-    COPY_DATA dragLen, dragData
+    COPY_DATA dragLen1, dragData1
     ld a,5
     ld (Mouse.dragXOffset),a
     ld a,7
@@ -74,14 +89,34 @@ UT_drag1:
     TEST_MEMORY_WORD SpriteList.list+spriteItem+spriteItem.x,195
     TEST_MEMORY_BYTE SpriteList.list+spriteItem+spriteItem.y,93
     TC_END
-dragData:
+dragData1:
     db 5
     ; id, x, y, palette, pattern, gameId, flags
     ; Mouse
     spriteItem 0,200,100,0,0,0,0
     spriteItem 1,0,0,16,0,0,0
-dragLen: equ $ - dragData
+dragLen1: equ $ - dragData1
 
+; Drag X offset > x co-ord
+UT_drag2:
+    COPY_DATA dragLen2, dragData2
+    ld a,7
+    ld (Mouse.dragXOffset),a
+    ld a,0
+    ld (Mouse.dragYOffset),a
+
+    ld a,1
+    call Mouse.funcDrag
+    TEST_MEMORY_WORD SpriteList.list+spriteItem+spriteItem.x,13
+    TEST_MEMORY_BYTE SpriteList.list+spriteItem+spriteItem.y,100
+    TC_END
+dragData2:
+    db 5
+    ; id, x, y, palette, pattern, gameId, flags
+    ; Mouse
+    spriteItem 0,20,100,0,0,0,0
+    spriteItem 1,2,100,16,0,0,0
+dragLen2: equ $ - dragData2
 
 
 

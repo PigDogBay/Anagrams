@@ -90,6 +90,7 @@ mouseOver:
 ;
 ;-----------------------------------------------------------------------------------
 funcDragStart:
+    ; Get spriteItem matching spriteId (A) in HL
     call SpriteList.find
 
     ;Zero drag offsets
