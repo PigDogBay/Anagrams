@@ -4,7 +4,8 @@ init:
     ld a,30
     call NextSprite.load
     call SpriteList.removeAll
-    call Mouse.addSpritePointer
+    ; First sprite always the mouse pointer so that it is on top
+    call addMouseSpritePointer
     ld hl,anagram
     call Tile.wordToSprites
     ret
@@ -42,8 +43,8 @@ run:
 ;
 ; Function updateMouse
 ;
-;
-;
+; Updates the mouse x,y position and state
+; Any dragged sprites will be updated
 ;
 ;-----------------------------------------------------------------------------------
 updateMouse:
@@ -87,6 +88,26 @@ updateMouse:
 
 .exit:
     ret
+
+
+;-----------------------------------------------------------------------------------
+;
+; addMouseSpritePointer
+;
+; Note the sprite pointer must be the first sprite so that it appears on top
+; of the other sprites
+;
+; Dirty HL
+;
+;-----------------------------------------------------------------------------------
+addMouseSpritePointer:
+    ld hl, pointerSpriteItem
+    call SpriteList.addSprite
+    ret
+pointerSpriteItem:
+    spriteItem 0,0,0,0,0,0
+
+
 
 spriteId:               db 0
 dragSpriteItem:         dw 0

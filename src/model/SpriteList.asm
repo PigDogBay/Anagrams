@@ -2,6 +2,8 @@
 
 ;-----------------------------------------------------------------------------------
 ;
+; Struct: spriteItem 
+;
 ; Sprite attributes data struct
 ; Note @ overides local behaviour so clients do not need module prefix
 ;
@@ -18,7 +20,8 @@ flags       byte
 
 ;-----------------------------------------------------------------------------------
 ;
-; addSprite
+; Function: addSprite
+;
 ; Copies spriteItem data to the list, increases the count.
 ; Note that the SpriteID will be assigned here
 ; In:
@@ -56,7 +59,8 @@ addSprite:
 
 ;-----------------------------------------------------------------------------------
 ;
-; reserveSprite
+; Function: reserveSprite
+;
 ; Reserves a place in the sprite list, the sprites ID will be set and 
 ; the sprite count incremented
 ;
@@ -91,7 +95,8 @@ reserveSprite:
 
 ;-----------------------------------------------------------------------------------
 ;
-; removeAll
+; Function: removeAll
+;
 ; Resets counter and next sprite ID to 0
 ;
 ; Dirty A
@@ -106,11 +111,15 @@ removeAll:
     ret
 
 
+
 ;-----------------------------------------------------------------------------------
 ;
-; Find sprite data
-; In A - id
-; Out HL - ptr to sprite's struct
+; Function: find
+;
+; Finds sprite data
+;
+; In:    A - id
+; Out:   HL - ptr to sprite's struct
 ;-----------------------------------------------------------------------------------
 find:
     ld hl,count
