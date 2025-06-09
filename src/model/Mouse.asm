@@ -21,10 +21,14 @@ pointerSpriteItem:
 
 ;-----------------------------------------------------------------------------------
 ;
+; Function mouseOver
+;
 ; Checks if the mouse pointer is over a sprite
 ;
 ; Returns the id of any sprite that the mouse is over
-; out a - sprite id, or 0 if not over any sprite
+;
+; Out A - sprite id, or 0 if not over any sprite
+; Out IX - pointer to spriteItem if over a sprite
 ;
 ;-----------------------------------------------------------------------------------
 mouseOver:
