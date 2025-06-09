@@ -72,4 +72,24 @@ UT_dragEnd1:
     UPDATE_STATE 8, NOT_PRESSED, MouseDriver.STATE_DRAG_END, MouseDriver.STATE_READY
     TC_END
 
+UT_dragOutOfBounds1:
+    ld a, MouseDriver.STATE_DRAG
+    ld (MouseDriver.state), a
+    call MouseDriver.dragOutOfBounds
+    TEST_MEMORY_BYTE MouseDriver.state, MouseDriver.STATE_DRAG_OUT_OF_BOUNDS
+    TC_END
+
+; Only go into out of bounds if currently in DRAG_STATE
+UT_dragOutOfBounds2:
+    ld a, MouseDriver.STATE_READY
+    ld (MouseDriver.state), a
+    call MouseDriver.dragOutOfBounds
+    TEST_MEMORY_BYTE MouseDriver.state, MouseDriver.STATE_READY
+    TC_END
+
+;Test that state exits only when button is released
+UT_stateDragOutOfBounds1:
+    UPDATE_STATE 8, PRESSED, MouseDriver.STATE_DRAG_OUT_OF_BOUNDS, MouseDriver.STATE_DRAG_OUT_OF_BOUNDS
+    UPDATE_STATE 8, NOT_PRESSED, MouseDriver.STATE_DRAG_OUT_OF_BOUNDS, MouseDriver.STATE_READY
+
     endmodule

@@ -18,13 +18,19 @@ MOUSE_PORT_Y:                    equ $FFDF
 MOUSE_MAX_X:                     equ 310
 MOUSE_MAX_Y:                     equ 247
 
+DRAG_BOUNDS_X_MIN:               equ 16
+DRAG_BOUNDS_X_MAX:               equ 319 - 16
+DRAG_BOUNDS_Y_MIN:               equ 16
+DRAG_BOUNDS_Y_MAX:               equ 255 - 16
+
 STATE_READY:                     equ 0
 STATE_HOVER:                     equ 1
 STATE_PRESSED:                   equ 2
 STATE_CLICKED:                   equ 3
 STATE_DRAG_START                 equ 4
 STATE_DRAG:                      equ 5
-STATE_DRAG_END:                  equ 6
+STATE_DRAG_OUT_OF_BOUNDS:        equ 6
+STATE_DRAG_END:                  equ 7
 
 stateJumpTable:
     dw stateReady
@@ -33,6 +39,7 @@ stateJumpTable:
     dw stateClicked
     dw stateDragStart
     dw stateDrag
+    dw stateDragOutOfBounds
     dw stateDragEnd
 
 
@@ -211,6 +218,26 @@ update:
 
 ;-----------------------------------------------------------------------------------
 ;
+; Function: dragOutOfBounds
+;
+; Call this function when the dragged object is out of bounds
+; The the state will immediately change DRAG_OUT_OF_BOUNDS and
+; change to READY when the user  releases the mouse button.
+; 
+;-----------------------------------------------------------------------------------
+dragOutOfBounds:
+    ld a,(state)
+    ; check that the current state is DRAG
+    cp STATE_DRAG
+    jr nz, .exit
+    ; Change state to out of bounds
+    ld a,STATE_DRAG_OUT_OF_BOUNDS
+    ld (state),a
+.exit
+    ret
+
+;-----------------------------------------------------------------------------------
+;
 ; Function: updateState
 ;
 ; This state machine uses a jump table to implement the various states
@@ -305,6 +332,19 @@ stateDrag:
 .exit:
     ret
 
+; 
+; The user has dragged the pointer out of bounds 
+; Wait for the user to release the mouse button
+;    
+stateDragOutOfBounds:
+    ld a,(MouseDriver.buttons)
+    bit 1,a
+    jr z, .exit
+    ; Button release
+    ld a, STATE_READY
+    ld (state),a
+.exit:
+    ret
 
 ; 
 ; Currently unused 
