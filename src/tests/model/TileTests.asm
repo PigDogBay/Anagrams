@@ -59,6 +59,92 @@ UT_wordToSprites1:
 
     TC_END
 
+; In bounds
+UT_boundsCheck1:
+    ld ix, .data
+    call Tile.boundsCheck
+    TEST_FLAG_NZ
+    TC_END
+.data:
+    ; id, x (2-bytes), y, palette, pattern, gameId, flags
+    ; x = 32, y = 48 - inbounds
+    spriteItem 42,32,48,0,0,0,0
+
+; Out of bounds
+; x = 8, y = 48 - x out of bounds
+UT_boundsCheck2:
+    ld ix, .data
+    call Tile.boundsCheck
+    TEST_FLAG_Z
+    TEST_MEMORY_WORD .data + spriteItem.x, Tile.DRAG_BOUNDS_X_MIN
+    TEST_MEMORY_WORD .data + spriteItem.y, 48
+    TC_END
+.data:
+    spriteItem 42,8,48,0,0,0,0
+
+; Out of bounds
+; x = -2, y = 48 - x out of bounds
+UT_boundsCheck3:
+    ld ix, .data
+    call Tile.boundsCheck
+    TEST_FLAG_Z
+    TEST_MEMORY_WORD .data + spriteItem.x, Tile.DRAG_BOUNDS_X_MIN
+    TEST_MEMORY_WORD .data + spriteItem.y, 48
+    TC_END
+.data:
+    spriteItem 42,0xfffe,48,0,0,0,0
+
+; Out of bounds
+; x = 310, y = 48 - x out of bounds
+UT_boundsCheck4:
+    ld ix, .data
+    call Tile.boundsCheck
+    TEST_FLAG_Z
+    TEST_MEMORY_WORD .data + spriteItem.x, Tile.DRAG_BOUNDS_X_MAX
+    TEST_MEMORY_WORD .data + spriteItem.y, 48
+    TC_END
+.data:
+    spriteItem 42,310,48,0,0,0,0
+
+; Out of bounds
+; x = 48, y = 7 -  y out of bounds
+UT_boundsCheck5:
+    ld ix, .data
+    call Tile.boundsCheck
+    TEST_FLAG_Z
+    TEST_MEMORY_WORD .data + spriteItem.x, 48
+    TEST_MEMORY_WORD .data + spriteItem.y, Tile.DRAG_BOUNDS_Y_MIN
+    TC_END
+.data:
+    spriteItem 42,48,7,0,0,0,0
+
+; Out of bounds
+; x = 48, y = 250 -  y out of bounds
+UT_boundsCheck6:
+    ld ix, .data
+    call Tile.boundsCheck
+    TEST_FLAG_Z
+    TEST_MEMORY_WORD .data + spriteItem.x, 48
+    TEST_MEMORY_WORD .data + spriteItem.y, Tile.DRAG_BOUNDS_Y_MAX
+    TC_END
+.data:
+    spriteItem 42,48,250,0,0,0,0
+
+; In bounds, x = 300, y = 200
+UT_boundsCheck7:
+    ld ix, .data
+    call Tile.boundsCheck
+    TEST_FLAG_NZ
+    TC_END
+.data:
+    ; id, x (2-bytes), y, palette, pattern, gameId, flags
+    ; x = 32, y = 48 - inbounds
+    spriteItem 49,300,200,0,0,0,0
+
+
+
+
+
 wordAcorn:
     db "ACORN",0
 

@@ -4,6 +4,8 @@
 ;
 ; Contains all macros used for unit testing.
 ; For sjasmplus.
+; See https://github.com/maziac/DeZog/blob/main/documentation/UnitTests.md
+;
 ;--------------------------------------------------------
 
     ; -----------------------------------------------------------

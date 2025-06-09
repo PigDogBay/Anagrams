@@ -5,7 +5,15 @@ ASCII_PATTERN_OFFSET:       equ 'A' - SPRITE_PATTERN_OFFSET_A
 
 MAX_COLUMN:                 equ 15
 
+DRAG_BOUNDS_X_MIN:               equ 16
+DRAG_BOUNDS_X_MAX:               equ 319 - 16
+DRAG_BOUNDS_X_MAX_LSB:           equ DRAG_BOUNDS_X_MAX - 256
+DRAG_BOUNDS_Y_MIN:               equ 16
+DRAG_BOUNDS_Y_MAX:               equ 255 - 16
+
 ;-----------------------------------------------------------------------------------
+;
+; Function: letterToSprite 
 ;
 ; Convert letter to spriteItem
 ;
@@ -44,6 +52,8 @@ letterToSprite:
 
 ;-----------------------------------------------------------------------------------
 ;
+; Function: wordToSprite
+;
 ; Convert word to a list of spriteItems
 ;
 ; In: 
@@ -81,6 +91,82 @@ nextColumn:
 .noColumnOverflow:
     inc a
     ld (letterColumn),a
+    ret
+
+
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function: boundsCheck
+;
+; Checks if the tile is in bounds, if not the tile X,Y is corrected to be back within 
+; bounds. The Zero flag is set if the tile was out of bounds.
+;
+; In:   IX - pointer to spriteItem of the tile
+; Out:  Z flag - Set out of bounds, not set in bounds
+;
+;-----------------------------------------------------------------------------------
+boundsCheck:
+    ; Test if x is negative
+    ld a,(ix+spriteItem.x+1)
+    bit 7,a
+    jr nz, .outOfBoundsLowX
+
+    ;If high byte is 1, then only check for max X
+    cp 1
+    jr z, .xMax
+
+    ;Test x min
+    ld a,(ix+spriteItem.x)
+    cp DRAG_BOUNDS_X_MIN
+    jr c, .outOfBoundsLowX
+    jr .yMin
+    
+.xMax:
+    ;Test x max
+    ld a,(ix+spriteItem.x)
+    cp DRAG_BOUNDS_X_MAX_LSB
+    jr nc, .outOfBoundsHighX
+
+.yMin:
+    ;Test y min
+    ld a,(ix+spriteItem.y)
+    cp DRAG_BOUNDS_Y_MIN
+    jr c, .outOfBoundsLowY
+
+    ;Test y max
+    cp DRAG_BOUNDS_Y_MAX
+    jr nc, .outOfBoundsHighY
+
+    ; clear sign flag
+    or 1
+    ret
+
+.outOfBoundsLowX:
+    ld (ix+spriteItem.x),DRAG_BOUNDS_X_MIN
+    ld (ix+spriteItem.x+1),0
+    ; Set sign flag to indicate out of bounds
+    xor a
+    ret
+
+.outOfBoundsHighX:
+    ld (ix+spriteItem.x),DRAG_BOUNDS_X_MAX_LSB
+    ld (ix+spriteItem.x+1),1
+    ; Set sign flag to indicate out of bounds
+    xor a
+    ret
+
+.outOfBoundsLowY:
+    ld (ix+spriteItem.y),DRAG_BOUNDS_Y_MIN
+    ; Set sign flag to indicate out of bounds
+    xor a
+    ret
+
+.outOfBoundsHighY:
+    ld (ix+spriteItem.y),DRAG_BOUNDS_Y_MAX
+    ; Set sign flag to indicate out of bounds
+    xor a
     ret
 
 
