@@ -243,8 +243,7 @@ dragOutOfBounds:
 ; This state machine uses a jump table to implement the various states
 ; Of clicking and dragging
 ; 
-; In - A: sprite ID if pointer is over a sprite, 0 if not
-;    - IX: spiteItem of the sprite that the mouse is over
+; In - A: flag true over sprite, false (0) not over sprite
 ; 
 ;-----------------------------------------------------------------------------------
 updateState:
