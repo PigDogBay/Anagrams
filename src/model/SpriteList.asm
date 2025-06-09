@@ -135,6 +135,36 @@ find:
     ld hl,0
     ret
 
+;-----------------------------------------------------------------------------------
+;
+; Function: bringToFront
+;
+; Moves the Sprite in front of the other sprites (except the mouse)
+;
+; In:    HL - ptr to spriteItem struct
+; Out:   HL - updated ptr to the spriteItem struct
+; 
+; Dirty A, BC, DE
+;
+;-----------------------------------------------------------------------------------
+bringToFront:
+    ; Point to entry for sprite ID 1
+    ld de,list+spriteItem
+    ;Skip ID, just swap other data
+    ld b, spriteItem - 1
+.next:
+    inc de
+    inc hl
+    ld a,(de)
+    ld c,(hl)
+    ld (hl),a
+    ld a,c
+    ld (de),a
+    djnz .next
+
+    ld hl, list+spriteItem
+    ret
+
 nextEntryPtr:
     dw list
 nextSpriteId:

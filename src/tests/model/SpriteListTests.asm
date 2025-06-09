@@ -80,5 +80,64 @@ findData:
 findLen: equ $ - findData
 
 
+; Test spriteItem data is swapped except for spriteId
+; Also check HL now points to index[1] of the list
+UT_bringToFront1:
+    ; Set up
+    call SpriteList.removeAll
+    ; Mouse sprite
+    ld hl, bringToFrontData
+    call SpriteList.addSprite
+    ; Sprite gameID = 42
+    ld hl, bringToFrontData + spriteItem
+    call SpriteList.addSprite
+    ; Sprite gameID = 75
+    ld hl, bringToFrontData + spriteItem * 2
+    call SpriteList.addSprite
+
+    ld hl, SpriteList.list + spriteItem * 2
+    call SpriteList.bringToFront
+
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem + spriteItem.id,1
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem + spriteItem.gameId,75
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem * 2 + spriteItem.id,2
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem * 2 + spriteItem.gameId,42
+
+    ; Check HL points to index[1] of the list
+    nop     ;ASSERTION hl == SpriteList.list + spriteItem
+
+    TC_END
+; If HL points to first item check nothing is swapped
+UT_bringToFront2:
+    ; Set up
+    call SpriteList.removeAll
+    ; Mouse sprite
+    ld hl, bringToFrontData
+    call SpriteList.addSprite
+    ; Sprite gameID = 42
+    ld hl, bringToFrontData + spriteItem
+    call SpriteList.addSprite
+    ; Sprite gameID = 75
+    ld hl, bringToFrontData + spriteItem * 2
+    call SpriteList.addSprite
+
+    ; Point to index[1]
+    ld hl, SpriteList.list + spriteItem * 1
+    call SpriteList.bringToFront
+
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem + spriteItem.id,1
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem + spriteItem.gameId,42
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem * 2 + spriteItem.id,2
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem * 2 + spriteItem.gameId,75
+
+    ; Check HL points to index[1] of the list
+    nop     ;ASSERTION hl == SpriteList.list + spriteItem
+
+    TC_END
+bringToFrontData:
+    spriteItem 0,160,128,0,0,0,0
+    spriteItem 1,100,150,0,16,42,0
+    spriteItem 2,20,10,0,8,75,0
+
 
     endmodule
