@@ -140,7 +140,8 @@ find:
 ; Function: bringToFront
 ;
 ; Moves the Sprite in front of the other sprites (except the mouse)
-;
+; Code uses HL instead of IX for speed
+; 
 ; In:    HL - ptr to spriteItem struct
 ; Out:   HL - updated ptr to the spriteItem struct
 ; 

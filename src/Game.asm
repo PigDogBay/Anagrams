@@ -73,8 +73,15 @@ updateMouse:
     jr nz, .checkDrag
 
     ; DRAG_START
-    ; Store spriteItem ptr (from mouseOver)
-    ld (dragSpriteItem),ix
+    ;bring the sprite to the front
+    ;In: HL points to spriteItem and will be swapped with the front most sprite
+    ;Out: HL will now point to the front most sprite
+    ld hl,ix
+    call SpriteList.bringToFront
+    ; Store spriteItem ptr
+    ld (dragSpriteItem),hl
+    ; In: IX pointer to spriteItem
+    ld ix,hl
     call Mouse.dragStart
     jr .exit
 
