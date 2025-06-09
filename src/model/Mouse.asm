@@ -88,32 +88,25 @@ mouseOver:
 
 ;-----------------------------------------------------------------------------------
 ;
+; Function dragStart 
+; 
 ; Record the x,y offsets between the mouse and sprite
 ; Can use these offsets to prevent the sprite snapping to the mouse
-; in A - sprite id to drag
+;
+; In:  IX - ptr to spriteItem of the dragged sprite
 ;
 ;-----------------------------------------------------------------------------------
-funcDragStart:
-    ; Get spriteItem matching spriteId (A) in HL
-    call SpriteList.find
-
+dragStart:
     ;Zero drag offsets
     xor a
     ld (dragXOffset),a
     ld (dragYOffset),a
     
-    ;check HL is not zero, should be pointing to the matching sprite struct
-    ld a,h
-    or l
-    jr z, .noSpriteFound
-
-    add hl,spriteItem.x
-    ;x-coord
-    ld de,(hl)
-    inc hl
-    inc hl
-    ;y-coord
-    ld b,(hl)
+    ;x-coord: DE
+    ld e,(ix+spriteItem.x)
+    ld d,(ix+spriteItem.x+1)
+    ;y-coord: B
+    ld b,(ix+spriteItem.y)
 
     ;Mouse x    
     ld hl,(SpriteList.list + spriteItem.x)
@@ -130,27 +123,24 @@ funcDragStart:
     ld a,(SpriteList.list + spriteItem.y)
     sub b
     ;y should be positive
-    jr c, .noSpriteFound
+    jr c, .exit
     ld (dragYOffset),a
-
-.noSpriteFound
+.exit:
     ret
 
 ;-----------------------------------------------------------------------------------
+; 
+; Function dragSprite 
+; 
+; Drags the sprite to the current mouse XY.
+; dragX and Y offsets are applied to keep the mouse and sprite relative positions fixed
 ;
-; Sprite Drag
-; in A - sprite id to drag
+; In:  IX - ptr to spriteItem of the dragged sprite
 ;
 ;-----------------------------------------------------------------------------------
-funcDrag:
-    call SpriteList.find
-    ;check if found
-    ld a,h
-    or l
-    jr z, .noSpriteFound
-
-    ld ix,hl
+dragSprite:
     ld hl,(SpriteList.list + spriteItem.x)
+    ; Apply drag X offset
     ld d,0
     ld a,(dragXOffset)
     ld e,a
@@ -159,13 +149,13 @@ funcDrag:
     ld (ix+spriteItem.x),l
     ld (ix+spriteItem.x+1),h
     
+    ; Apply drag Y offset
     ld a,(dragYOffset)
     ld e,a
     ld a,(SpriteList.list + spriteItem.y)
     sub e
     ld (ix+spriteItem.y),a
 
-.noSpriteFound
     ret
 
 dragXOffset:

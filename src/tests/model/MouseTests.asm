@@ -13,24 +13,24 @@
 ;0 difference
 UT_dragStart1:
     COPY_DATA dragStartLen, dragStartData
-    ld a,1
-    call Mouse.funcDragStart
+    ld ix,SpriteList.list+spriteItem
+    call Mouse.dragStart
     TEST_MEMORY_BYTE Mouse.dragXOffset,0
     TEST_MEMORY_BYTE Mouse.dragYOffset,0
     TC_END
 ;Positive difference
 UT_dragStart2:
     COPY_DATA dragStartLen, dragStartData
-    ld a,2
-    call Mouse.funcDragStart
+    ld ix,SpriteList.list+spriteItem*2
+    call Mouse.dragStart
     TEST_MEMORY_BYTE Mouse.dragXOffset,10
     TEST_MEMORY_BYTE Mouse.dragYOffset,4
     TC_END
 ;Negative difference, set offsets to be 0 as -ve differences are not expected
 UT_dragStart3:
     COPY_DATA dragStartLen, dragStartData
-    ld a,3
-    call Mouse.funcDragStart
+    ld ix,SpriteList.list+spriteItem*3
+    call Mouse.dragStart
     TEST_MEMORY_BYTE Mouse.dragXOffset,0
     TEST_MEMORY_BYTE Mouse.dragYOffset,0
     TC_END
@@ -49,8 +49,8 @@ dragStartLen: equ $ - dragStartData
 ;Check x>255
 UT_dragStart4:
     COPY_DATA dragStartLen4, dragStartData4
-    ld a,1
-    call Mouse.funcDragStart
+    ld ix,SpriteList.list+spriteItem
+    call Mouse.dragStart
     TEST_MEMORY_BYTE Mouse.dragXOffset,5
     TC_END
 dragStartData4:
@@ -64,8 +64,8 @@ dragStartLen4: equ $ - dragStartData4
 ; Near to X is zero
 UT_dragStart5:
     COPY_DATA spriteItem * 2, dragStartData5
-    ld a,1
-    call Mouse.funcDragStart
+    ld ix,SpriteList.list+spriteItem
+    call Mouse.dragStart
     TEST_MEMORY_BYTE Mouse.dragXOffset,7
     TEST_MEMORY_BYTE Mouse.dragYOffset,0
     TC_END
@@ -84,8 +84,8 @@ UT_drag1:
     ld a,7
     ld (Mouse.dragYOffset),a
 
-    ld a,1
-    call Mouse.funcDrag
+    ld ix,SpriteList.list+spriteItem
+    call Mouse.dragSprite
     TEST_MEMORY_WORD SpriteList.list+spriteItem+spriteItem.x,195
     TEST_MEMORY_BYTE SpriteList.list+spriteItem+spriteItem.y,93
     TC_END
@@ -105,8 +105,8 @@ UT_drag2:
     ld a,0
     ld (Mouse.dragYOffset),a
 
-    ld a,1
-    call Mouse.funcDrag
+    ld ix,SpriteList.list+spriteItem
+    call Mouse.dragSprite
     TEST_MEMORY_WORD SpriteList.list+spriteItem+spriteItem.x,13
     TEST_MEMORY_BYTE SpriteList.list+spriteItem+spriteItem.y,100
     TC_END
