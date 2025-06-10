@@ -8,8 +8,11 @@ MAX_COLUMN:                 equ 15
 DRAG_BOUNDS_X_MIN:               equ 16
 DRAG_BOUNDS_X_MAX:               equ 319 - 16
 DRAG_BOUNDS_X_MAX_LSB:           equ DRAG_BOUNDS_X_MAX - 256
+DRAG_BOUNDS_X_MAX_IN_BOUNDS:     equ DRAG_BOUNDS_X_MAX - 1
+DRAG_BOUNDS_X_MAX_LSB_IN_BOUNDS: equ DRAG_BOUNDS_X_MAX_IN_BOUNDS - 256
 DRAG_BOUNDS_Y_MIN:               equ 16
 DRAG_BOUNDS_Y_MAX:               equ 255 - 16
+DRAG_BOUNDS_Y_MAX_IN_BOUNDS:     equ DRAG_BOUNDS_Y_MAX - 1
 
 ;-----------------------------------------------------------------------------------
 ;
@@ -151,7 +154,7 @@ boundsCheck:
     ret
 
 .outOfBoundsHighX:
-    ld (ix+spriteItem.x),DRAG_BOUNDS_X_MAX_LSB
+    ld (ix+spriteItem.x),DRAG_BOUNDS_X_MAX_LSB_IN_BOUNDS
     ld (ix+spriteItem.x+1),1
     ; Set sign flag to indicate out of bounds
     xor a
@@ -164,7 +167,7 @@ boundsCheck:
     ret
 
 .outOfBoundsHighY:
-    ld (ix+spriteItem.y),DRAG_BOUNDS_Y_MAX
+    ld (ix+spriteItem.y),DRAG_BOUNDS_Y_MAX_IN_BOUNDS
     ; Set sign flag to indicate out of bounds
     xor a
     ret

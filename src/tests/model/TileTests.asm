@@ -100,7 +100,7 @@ UT_boundsCheck4:
     ld ix, .data
     call Tile.boundsCheck
     TEST_FLAG_Z
-    TEST_MEMORY_WORD .data + spriteItem.x, Tile.DRAG_BOUNDS_X_MAX
+    TEST_MEMORY_WORD .data + spriteItem.x, Tile.DRAG_BOUNDS_X_MAX_IN_BOUNDS
     TEST_MEMORY_WORD .data + spriteItem.y, 48
     TC_END
 .data:
@@ -125,7 +125,7 @@ UT_boundsCheck6:
     call Tile.boundsCheck
     TEST_FLAG_Z
     TEST_MEMORY_WORD .data + spriteItem.x, 48
-    TEST_MEMORY_WORD .data + spriteItem.y, Tile.DRAG_BOUNDS_Y_MAX
+    TEST_MEMORY_WORD .data + spriteItem.y, Tile.DRAG_BOUNDS_Y_MAX_IN_BOUNDS
     TC_END
 .data:
     spriteItem 42,48,250,0,0,0,0
@@ -141,7 +141,65 @@ UT_boundsCheck7:
     ; x = 32, y = 48 - inbounds
     spriteItem 49,300,200,0,0,0,0
 
+; Regression test, check tiles are not stuck
+; boundsCheck should move tile in bounds, 
+; so a second call should be in-bounds
+; X < MIN
+UT_stuckTest1:
+    ld ix, .data
+    call Tile.boundsCheck
+    call Tile.boundsCheck
+    TEST_FLAG_NZ
+    TC_END
+.data:
+    ; id, x (2-bytes), y, palette, pattern, gameId, flags
+    ; x = 1, y = 100 - out of bounds
+    spriteItem 49,1,100,0,0,0,0
 
+; Regression test, check tiles are not stuck
+; boundsCheck should move tile in bounds, 
+; so a second call should be in-bounds
+; X > MAX
+UT_stuckTest2:
+    ld ix, .data
+    call Tile.boundsCheck
+    call Tile.boundsCheck
+    TEST_FLAG_NZ
+    TC_END
+.data:
+    ; id, x (2-bytes), y, palette, pattern, gameId, flags
+    ; x = 330, y = 100 - out of bounds
+    spriteItem 49,330,100,0,0,0,0
+
+; Regression test, check tiles are not stuck
+; boundsCheck should move tile in bounds, 
+; so a second call should be in-bounds
+; Y < MIN
+UT_stuckTest3:
+    ld ix, .data
+    call Tile.boundsCheck
+    call Tile.boundsCheck
+    TEST_FLAG_NZ
+    TC_END
+.data:
+    ; id, x (2-bytes), y, palette, pattern, gameId, flags
+    ; x = 100, y = 1 - out of bounds
+    spriteItem 49,100,1,0,0,0,0
+
+; Regression test, check tiles are not stuck
+; boundsCheck should move tile in bounds, 
+; so a second call should be in-bounds
+; Y > MAX
+UT_stuckTest4:
+    ld ix, .data
+    call Tile.boundsCheck
+    call Tile.boundsCheck
+    TEST_FLAG_NZ
+    TC_END
+.data:
+    ; id, x (2-bytes), y, palette, pattern, gameId, flags
+    ; x = 100, y = 1 - out of bounds
+    spriteItem 49,100,255,0,0,0,0
 
 
 
