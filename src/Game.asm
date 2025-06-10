@@ -24,19 +24,29 @@ init:
 run:
     call updateMouse
     call mouseStateHandler
+    call updateSprites
 
-    ld hl, SpriteList.count
-    ld b,(hl)
-    inc hl
-.updateSprites:
-    call NextSprite.update
-    djnz .updateSprites
-
-    BORDER 0
+    BORDER 5
     call graphics.waitRaster
     ; Set border to blue, size of border indicates how much time is spent updating the game
     BORDER 1
+
     jr run
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function updateSprites
+; Update the Next sprite engine with the latest data for every sprite
+;
+;-----------------------------------------------------------------------------------
+updateSprites:
+    ld hl, SpriteList.count
+    ld b,(hl)
+    inc hl
+.next:
+    call NextSprite.update
+    djnz .next
     ret
 
 
