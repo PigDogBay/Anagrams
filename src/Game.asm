@@ -1,5 +1,16 @@
     module game
 
+mouseStateJumpTable:
+    dw stateMouseReady
+    dw stateMouseHover
+    dw stateMouseHoverEnd
+    dw stateMousePressed
+    dw stateMouseClicked
+    dw stateMouseDragStart
+    dw stateMouseDrag
+    dw stateMouseDragOutOfBounds
+    dw stateMouseDragEnd
+
 init:
     ld a,30
     call NextSprite.load
@@ -12,7 +23,7 @@ init:
 
 run:
     call updateMouse
-    
+    call mouseStateHandler
 
     ;Check left mouse button (bit 1, 0 - pressed)
     ld a,(MouseDriver.buttons)
@@ -46,6 +57,8 @@ run:
 ; Updates the mouse x,y position and state
 ; Any dragged sprites will be updated
 ;
+; Out: A - current mouse state
+;
 ;-----------------------------------------------------------------------------------
 updateMouse:
     ; Get the latest mouse X,Y and buttons
@@ -67,15 +80,47 @@ updateMouse:
     ; In A - spriteID or 0 if not over a sprite
     call MouseDriver.updateState
 
-    ; Check latest mouse state
     ld a, (MouseDriver.state)
-    cp MouseDriver.STATE_DRAG_START
-    jr nz, .checkDrag
+    ret
 
-    ; DRAG_START
+;-----------------------------------------------------------------------------------
+;
+; Function: mouseStateHandler
+;
+; Updates the game based on the current mouse state 
+; In - A current mouse state
+;    - IX pointer to sprite that mouse is over
+;-----------------------------------------------------------------------------------
+mouseStateHandler:
+    ld hl, mouseStateJumpTable
+    ; Add twice, as table is two bytes per entry
+    add hl,a
+    add hl,a
+    ; get jump entry
+    ld de,(hl)
+    ld hl,de
+    jp hl
+
+stateMouseReady:
+    ; Do nothing
+    ret
+stateMouseHover:
+    ; Do nothing
+    ret
+stateMouseHoverEnd:
+    ; Do nothing
+    ret
+stateMousePressed:
+    ; Do nothing
+    ret
+stateMouseClicked:
+    ; Do nothing
+    ret
+
+stateMouseDragStart:
     ;bring the sprite to the front
-    ;In: HL points to spriteItem and will be swapped with the front most sprite
-    ;Out: HL will now point to the front most sprite
+    ;bringToFront In: HL points to spriteItem and will be swapped with the front most sprite
+    ;bringToFrontOut: HL will now point to the front most sprite
     ld hl,ix
     call SpriteList.bringToFront
     ; Store spriteItem ptr
@@ -83,24 +128,26 @@ updateMouse:
     ; In: IX pointer to spriteItem
     ld ix,hl
     call Mouse.dragStart
-    jr .exit
+    ret
 
-.checkDrag
-    cp MouseDriver.STATE_DRAG
-    jr nz,.exit
-
-    ; DRAG update, in IX - ptr to spriteItem of dragged sprite
+stateMouseDrag:
+    ; DRAG update
     ld ix,(dragSpriteItem)
     call Mouse.dragSprite
     call Tile.boundsCheck
-    jr nz, .exit
+    ret nz
     ; Tile was out of bounds
     ; Need to tell mouse state machine
     call MouseDriver.dragOutOfBounds
-
-.exit:
     ret
 
+stateMouseDragOutOfBounds:
+    ; Do nothing
+    ret
+
+stateMouseDragEnd:
+    ; Do nothing
+    ret
 
 ;-----------------------------------------------------------------------------------
 ;
