@@ -25,16 +25,6 @@ run:
     call updateMouse
     call mouseStateHandler
 
-    ;Check left mouse button (bit 1, 0 - pressed)
-    ld a,(MouseDriver.buttons)
-    ld b,0
-    bit 1,a
-    jr nz,.buttonPressed
-    ld b,1
-.buttonPressed
-    ld a,b
-    ld (SpriteList.list + spriteItem.pattern),a
-
     ld hl, SpriteList.count
     ld b,(hl)
     inc hl
@@ -128,6 +118,11 @@ stateMouseDragStart:
     ; In: IX pointer to spriteItem
     ld ix,hl
     call Mouse.dragStart
+
+    ;Update mouse pointer pattern
+    ld a,1
+    ld (SpriteList.list + spriteItem.pattern),a
+
     ret
 
 stateMouseDrag:
@@ -142,11 +137,15 @@ stateMouseDrag:
     ret
 
 stateMouseDragOutOfBounds:
-    ; Do nothing
+    ;Update mouse pointer pattern
+    ld a,0
+    ld (SpriteList.list + spriteItem.pattern),a
     ret
 
 stateMouseDragEnd:
-    ; Do nothing
+    ;Update mouse pointer pattern
+    ld a,0
+    ld (SpriteList.list + spriteItem.pattern),a
     ret
 
 ;-----------------------------------------------------------------------------------
