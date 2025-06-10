@@ -25,16 +25,18 @@ DRAG_BOUNDS_Y_MAX:               equ 255 - 16
 
 STATE_READY:                     equ 0
 STATE_HOVER:                     equ 1
-STATE_PRESSED:                   equ 2
-STATE_CLICKED:                   equ 3
-STATE_DRAG_START                 equ 4
-STATE_DRAG:                      equ 5
-STATE_DRAG_OUT_OF_BOUNDS:        equ 6
-STATE_DRAG_END:                  equ 7
+STATE_HOVER_END:                 equ 2
+STATE_PRESSED:                   equ 3
+STATE_CLICKED:                   equ 4
+STATE_DRAG_START                 equ 5
+STATE_DRAG:                      equ 6
+STATE_DRAG_OUT_OF_BOUNDS:        equ 7
+STATE_DRAG_END:                  equ 8
 
 stateJumpTable:
     dw stateReady
     dw stateHover
+    dw stateHoverEnd
     dw statePressed
     dw stateClicked
     dw stateDragStart
@@ -290,11 +292,30 @@ stateReady:
 ; left mouse button they can begin dragging the sprite     
 ;
 stateHover:
+    ;Is the mouse still hovering
+    ld a,b
+    or a
+    jr z, .hoverEnd
+
     ld a,(MouseDriver.buttons)
     bit 1,a
     jr nz, .exit
     ; Mouse clicked onto a sprite
     ld a, STATE_DRAG_START
+    ld (state),a
+.exit:
+    ret
+
+.hoverEnd:
+    ld a,STATE_HOVER_END
+    ld (state),a
+    ret
+
+; 
+; This state is to notify when the mouse has stopped hovering
+;
+stateHoverEnd:
+    ld a, STATE_READY
     ld (state),a
 .exit:
     ret

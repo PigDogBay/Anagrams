@@ -35,6 +35,32 @@ UT_read4:
     UPDATE_STATE 8, PRESSED, MouseDriver.STATE_READY, MouseDriver.STATE_DRAG_START
     TC_END
 
+; Mouse over a sprite, not pressed, expect HOVER
+UT_hover1:
+    UPDATE_STATE 8, NOT_PRESSED, MouseDriver.STATE_READY, MouseDriver.STATE_HOVER
+    TC_END
+
+; Mouse over a sprite, not pressed, expect to stay in HOVER
+UT_hover2:
+    UPDATE_STATE 8, NOT_PRESSED, MouseDriver.STATE_HOVER, MouseDriver.STATE_HOVER
+    TC_END
+
+; Mouse not over a sprite, not pressed, expect to hover_end
+UT_hover3:
+    UPDATE_STATE 0, NOT_PRESSED, MouseDriver.STATE_HOVER, MouseDriver.STATE_HOVER_END
+    TC_END
+
+; Mouse over a sprite, pressed, expect DRAG_START
+UT_hover4:
+    UPDATE_STATE 1, PRESSED, MouseDriver.STATE_HOVER, MouseDriver.STATE_DRAG_START
+    TC_END
+
+; Expect to return to READY, whatever mouse is doing
+UT_hover_end1:
+    UPDATE_STATE 0, NOT_PRESSED, MouseDriver.STATE_HOVER_END, MouseDriver.STATE_READY
+    UPDATE_STATE 1, PRESSED, MouseDriver.STATE_HOVER_END, MouseDriver.STATE_READY
+    TC_END
+
 ; If still pressed stay pressed
 UT_pressed1:
     UPDATE_STATE 8, PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_PRESSED
