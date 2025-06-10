@@ -92,6 +92,11 @@ updateMouse:
     ; DRAG update, in IX - ptr to spriteItem of dragged sprite
     ld ix,(dragSpriteItem)
     call Mouse.dragSprite
+    call Tile.boundsCheck
+    jr nz, .exit
+    ; Tile was out of bounds
+    ; Need to tell mouse state machine
+    call MouseDriver.dragOutOfBounds
 
 .exit:
     ret
