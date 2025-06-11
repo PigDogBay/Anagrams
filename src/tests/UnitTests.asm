@@ -12,6 +12,7 @@
     include "Text.asm"
     include "model/Tile.asm"
     include "utils/Maths.asm"
+    include "utils/String.asm"
     include "tests/Macros.asm"
 
     ;Test includes
@@ -21,6 +22,7 @@
     include "tests/model/TileTests.asm"
     include "tests/model/SpriteListTests.asm"
     include "tests/utils/MathsTests.asm"
+    include "tests/utils/StringTests.asm"
 
     ; Initialization routine called before all unit tests are started
     UNITTEST_INITIALIZE

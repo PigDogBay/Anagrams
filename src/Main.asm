@@ -24,6 +24,8 @@
     include "Game.asm"
     include "Text.asm"
     include "model/Tile.asm"
+    include "utils/Maths.asm"
+    include "utils/String.asm"
 
 
 ;===========================================================================
