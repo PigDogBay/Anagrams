@@ -1,3 +1,14 @@
+;-----------------------------------------------------------------------------------
+;
+; Module: String
+;
+; Strings are null terminated, each character is a single byte
+;
+; Functions: 
+;    len(uint16 ptr) -> uint8
+; 
+;-----------------------------------------------------------------------------------
+
     module String
 
 
