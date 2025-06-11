@@ -38,4 +38,52 @@ UT_len4:
     db 0
 
 
+
+UT_swap1:
+    ld hl, .data
+    ld a,4  ;[4] = n
+    ld b,9  ;[9] = c
+    call String.swap
+    TEST_STRING_PTR .data,.expected
+    TC_END
+.data:
+    db "acorn electron",0
+.expected:
+    db "acorc elentron",0
+
+;Same
+UT_swap2:
+    ld hl, .data
+    ld a,5  ;[5]
+    ld b,5  ;[5]
+    call String.swap
+    TEST_STRING_PTR .data,.expected
+    TC_END
+.data:
+    db "acorn electron",0
+.expected:
+    db "acorn electron",0
+
+UT_swap3:
+    ld hl, .data
+    ld a,0  ;[0]
+    ld b,13  ;[13]
+    call String.swap
+    TEST_STRING_PTR .data,.expected
+    TC_END
+.data:
+    db "acorn electron",0
+.expected:
+    db "ncorn electroa",0
+
+
+UT_shuffle1:
+    TC_END
+.data:
+    db "acorn"
+
+
+
+
+
     endmodule
