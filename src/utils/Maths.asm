@@ -2,13 +2,16 @@
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: divMod
+; Function: divMod(uint8,uint8) -> uint8,uint8
 ;
 ; Divides A by B and returns the remainder in A and quotient in B
 ; It does this by repeated subtraction
 ; 
 ; In:  A dividend, B divisor
-; Out: A remainder, C quotient (255,255 for division by zero)
+; Out: A remainder = A MOD B, C quotient = A/B 
+;      255,255 for division by zero
+;
+; Dirty: A, BC
 ;-----------------------------------------------------------------------------------
 divMod:
     ;division by 0 check
@@ -30,12 +33,11 @@ divMod:
     ld a,255
     ld c,a
     ret
-    endmodule
 
 
 ;--------------------------------------------------------------------------
 ;
-; Function: getRandom
+; Function: getRandom() -> uint16
 ;
 ; 16bit pseudo random number using the xor shift method 
 ;
@@ -71,3 +73,34 @@ getRandom:
             ld (randomSeed),hl     // and store as the next seed
             pop af
             ret  
+
+
+
+;--------------------------------------------------------------------------
+;
+; Function: rnd(uint8: max) -> uint8
+;
+; Returns a random number from 0 to max - 1
+;
+; In:  A  max
+; Out: A random value from 0 to max-1
+;
+; Dirty: A
+;
+;--------------------------------------------------------------------------
+rnd:
+    push bc
+    ;Get random number in HL
+    call getRandom
+    ;Divisor
+    ld b,a
+    ;Dividend - combine 16bit random value into 8 bits
+    ld a,h
+    xor l
+    ;Returns remainder A
+    call divMod
+    pop bc
+    ret
+
+
+    endmodule

@@ -34,12 +34,12 @@ UT_divMod1:
 ; most buckets should be C elements
 UT_getRandom1:
     ld hl, 0xbeef
-    ld (randomSeed),hl
+    ld (Maths.randomSeed),hl
     ld c,10
 .outerloop:
     ld b,255
 .innerLoop:    
-    call getRandom
+    call Maths.getRandom
     ex de,hl
 
     ;Store LSB results in low bucket 0-255 
@@ -72,4 +72,19 @@ UT_getRandom1:
 .resultsHigh:
     block 256,0
 
+
+UT_rnd1:
+    ld hl, 0xcafe
+    ld (Maths.randomSeed),hl
+    ld b,255
+    ld d,0
+.loop:    
+    ld a,10
+    call Maths.rnd
+    nop ; ASSERTION A<10
+    djnz .loop
+
+    TC_END
+
     endmodule
+
