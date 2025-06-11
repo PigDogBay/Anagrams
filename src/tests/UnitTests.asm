@@ -11,6 +11,7 @@
     include "Game.asm"
     include "Text.asm"
     include "model/Tile.asm"
+    include "utils/Maths.asm"
     include "tests/Macros.asm"
 
     ;Test includes
@@ -19,6 +20,7 @@
     include "tests/model/MouseTests.asm"
     include "tests/model/TileTests.asm"
     include "tests/model/SpriteListTests.asm"
+    include "tests/utils/MathsTests.asm"
 
     ; Initialization routine called before all unit tests are started
     UNITTEST_INITIALIZE
