@@ -31,3 +31,43 @@ divMod:
     ld c,a
     ret
     endmodule
+
+
+;--------------------------------------------------------------------------
+;
+; Function: getRandom
+;
+; 16bit pseudo random number using the xor shift method 
+;
+; Based on code by Patricia Curtis:
+; https://luckyredfish.com/patricias-z80-snippets/
+;
+; Out:  hl  pseudorandom number
+;
+; dirty   none
+;--------------------------------------------------------------------------
+
+; seed to start with
+randomSeed:          dw  %0101101001100101
+
+getRandom:  
+            push af
+            ld hl,(randomSeed)     // get the last seed
+            ld a,h                 // add high byte register    
+            rra                    // rotate right accumulator with carry
+            ld a,r                 // adding in the Memory Refresh Register
+            add a,l                // now do the same with the low seed byte
+            rra                    // rotate right accumulator with carry again
+            xor h                  // exclusive or high seed byte with the accumulator 
+            ld h,a                 // put the accumulator into the high seed
+            ld a,l                 // and put the low seed into the accumulator 
+            rra                    // rotate right accumulator with carry again
+            ld a,h                 // do the same with the high using the carry from the low
+            rra                    // rotate right accumulator with carry again  
+            xor l                  // exclusive or low seed byte with the accumulator 
+            ld l,a                 // yes store the accumulator in the low seed byte
+            xor h                  // exclusive or high seed byte with the accumulator 
+            ld h,a                 // now store the accumulator in the high seed byte
+            ld (randomSeed),hl     // and store as the next seed
+            pop af
+            ret  
