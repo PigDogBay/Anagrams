@@ -96,8 +96,78 @@ UT_shuffle1:
     db "<<<"
     TC_END
 
+UT_equals1:
+    ld hl, .string1
+    ld de, .string2
+    ld bc, 0xCAFE
+    call String.equals
+    TEST_FLAG_Z
+    ; Test registers are unchanged
+    nop ; ASSERTION HL == TestSuite_String.UT_equals1.string1
+    nop ; ASSERTION DE == TestSuite_String.UT_equals1.string2
+    nop ; ASSERTION BC == 0xCAFE
+    TC_END
+.string1:
+    db "BBC Micro",0
+.string2:
+    db "BBC Micro",0
 
+UT_equals2:
+    ld hl, .string1
+    ld de, .string2
+    call String.equals
+    TEST_FLAG_NZ
+    TC_END
+.string1:
+    db "BBC Micro",0
+.string2:
+    db "Commodore",0
 
+UT_equals3:
+    ld hl, .string1
+    ld de, .string2
+    call String.equals
+    TEST_FLAG_NZ
+    TC_END
+.string1:
+    db "BBC Micro",0
+.string2:
+    db "BBC MicroB",0
 
+; Two empty strings are equals
+UT_equals4:
+    ld hl, .string1
+    ld de, .string2
+    call String.equals
+    TEST_FLAG_Z
+    TC_END
+.string1:
+    db 0
+.string2:
+    db 0
+
+; string1 is empty
+UT_equals5:
+    ld hl, .string1
+    ld de, .string2
+    call String.equals
+    TEST_FLAG_NZ
+    TC_END
+.string1:
+    db 0
+.string2:
+    db "not empty",0
+
+; string2 is empty
+UT_equals6:
+    ld hl, .string1
+    ld de, .string2
+    call String.equals
+    TEST_FLAG_NZ
+    TC_END
+.string1:
+    db "not empty",0
+.string2:
+    db 0
 
     endmodule

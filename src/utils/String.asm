@@ -105,7 +105,7 @@ swap:
 ;-----------------------------------------------------------------------------------
 shuffle:
     push bc
-    
+
     call len
 
     ; Check string len, if 255 string is too large
@@ -128,6 +128,40 @@ shuffle:
     pop bc
     ret
 
+;-----------------------------------------------------------------------------------
+;
+; Function: equals(uint16 ptr, uint16 ptr) -> bool
+;
+; Compares two strings to see if they are equal
+; 
+;
+; In:  
+;       DE pointer to the string 1
+;       HL pointer to the string 2
+; Out: Z - flag set equal, nz - not equal
+;
+; Dirty: A
+;-----------------------------------------------------------------------------------
+equals:
+    push de
+    push hl
 
+.next:
+    ld a,(de)
+    cp (hl)
+    jr nz, .exit
+
+    ; Null terminator found
+    or a
+    jr z, .exit:
+
+    inc hl
+    inc de
+    jr .next
+    
+.exit:
+    pop hl
+    pop de
+    ret
 
     endmodule
