@@ -76,11 +76,25 @@ UT_swap3:
 .expected:
     db "ncorn electroa",0
 
-
+;
+; Use debugger and watch the string change:
+; -mv TestSuite_String.UT_shuffle1.data 16
 UT_shuffle1:
+    ld hl, .data
+    ld b, 10
+.loop:
+    call String.shuffle
+    call String.len
+    nop ; ASSERTION A == 10
+    djnz .loop
     TC_END
+.prefix:
+    db ">>>"
 .data:
-    db "acorn"
+    db "ZXSpectrum",0
+.suffix:
+    db "<<<"
+    TC_END
 
 
 

@@ -90,6 +90,7 @@ getRandom:
 ;--------------------------------------------------------------------------
 rnd:
     push bc
+    push hl
     ;Get random number in HL
     call getRandom
     ;Divisor
@@ -99,6 +100,7 @@ rnd:
     xor l
     ;Returns remainder A
     call divMod
+    pop hl
     pop bc
     ret
 

@@ -104,6 +104,8 @@ swap:
 ; Dirty: A
 ;-----------------------------------------------------------------------------------
 shuffle:
+    push bc
+    
     call len
 
     ; Check string len, if 255 string is too large
@@ -112,11 +114,18 @@ shuffle:
 
     ; dec by 1, so that a = n - 1
     dec a
-
+    ; b will be the index i
+    ld b,a
 .next:
-
+    ; Get random number from 0 to i-1, in a
+    ; b = i
+    ld a,b
+    call Maths.rnd
+    ;swap chars at  a=rnd and b=i
+    call String.swap
     djnz .next
 
+    pop bc
     ret
 
 
