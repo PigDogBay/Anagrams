@@ -88,6 +88,9 @@ SPRITE_PATTERN_UPLOAD_256:             equ $005B
 ;https://wiki.specnext.dev/Display_Control_1_Register
 DISPLAY_CONTROL_1:                     equ $69
 
+;$xx6B where xx is program length
+DMA_PORT:                              equ $6B
+
 ;Bits
 ; 7-5 Unused
 ; 4 EAR output (speaker) or Input from tape/PI

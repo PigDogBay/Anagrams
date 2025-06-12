@@ -3,15 +3,22 @@
 
 ;-----------------------------------------------------------------------------------
 ;
-; Load sprite data from banks
+; Function: load(uint8 bank) -> bool
+;
+; Load sprite data from the 8k banks: bank and bank + 1
 ;
 ; Disable interrupts before calling this function
-; Load 2 memory consequetive 8k banks into sprite memory
-; Parameters:
-; bank = First bank, next bank is bank+1 (Set in A register)
+;
+; In:
+;       A First bank containing the sprite data, next bank is A+1 
+;
+; Dirty: A
 ;
 ;-----------------------------------------------------------------------------------
 load:
+    push hl
+    push bc
+
     ; swap out ROM with bank, bank+1
     nextreg MMU_0,a 
     inc a 
@@ -22,22 +29,36 @@ load:
     ld bc, SPRITE_STATUS_SLOT_SELECT
     out (c), a
 
-    ; Sprite data starts at 0x0000
-    ld hl,0
-    ; Copy 64 sprite patterns to sprite memory
-    ld a,64
-next_pattern:
-        ; b is set to 0 (256 bytes), c is set to the pattern upload port address
-        ld bc, SPRITE_PATTERN_UPLOAD_256
-        ; Send data to sprite memory port, HL and sprite pattern will automatically increment
-        otir
-        dec a
-        jr nz, next_pattern
+    ;Upload the DMA program
+    ld hl, .dmaProgram
+    ld b, .dmaProgramLength
+    ld c, DMA_PORT
+    otir
 
     ; Restore ROM
-    nextreg $50, $FF
-    nextreg $51, $FF
+    nextreg MMU_0, $FF
+    nextreg MMU_1, $FF
+    
+    pop bc
+    pop hl
     ret
+;See page p49 of the ZX Next Assembly Developer for details on WR bits
+; ' apostrophes are used to split up the bit fields for readability, sjasm will strip'em out
+.dmaProgram:
+	DB %1'00000'11		    ; WR6 - Disable DMA
+	DB %0'11'11'1'01		; WR0 - append length + port A address, A->B
+	DW $0000		        ; WR0 par 1&2 - port A start address (MMU_0 start address is 0x0000)
+	DW 64 * 256			    ; WR0 par 3&4 - transfer length (64 sprites  x 256 bytes per sprite)
+	DB %0'0'01'01'00		; WR1 - A incr., A=memory
+	DB %0'0'10'1'000		; WR2 - B fixed, B=I/O
+	DB %1'01'0'11'01		; WR4 - continuous, append port B address
+    ; WR4 par 1&2 - port B address
+	DW SPRITE_PATTERN_UPLOAD_256		    
+	DB %10'0'0'0010         ; WR5 - stop on end of block, CE only
+	DB %1'10011'11		    ; WR6 - load addresses into DMA counters
+	DB %1'00001'11		    ; WR6 - enable DMA
+.dmaProgramLength = $ - .dmaProgram
+
 
 ;-----------------------------------------------------------------------------------
 ; 
