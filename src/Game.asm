@@ -18,6 +18,7 @@ init:
     ; First sprite always the mouse pointer so that it is on top
     call addMouseSpritePointer
     ld hl,anagram
+    call String.shuffle
     call Tile.wordToSprites
     ret
 
