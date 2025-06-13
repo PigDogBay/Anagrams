@@ -43,7 +43,7 @@ main:
 
     ;Set clock to 28MHz
     nextreg NR_TURBO_CONTROL,3
-    nextreg NR_SPRITE_CONTROL,%01001011
+    nextreg NR_SPRITE_CONTROL,%01000011
     ;Transparent colour for ULA
     nextreg NR_GLOBAL_TRANSPARENCY,$E3
     ;Reset any clipping
@@ -56,6 +56,7 @@ main:
     CLS
     ld d,45
     call graphics.clearLayer2
+    call graphics.layer2Test
     call NextSprite.removeAll
 
     call MouseDriver.init

@@ -14,6 +14,7 @@ ROM_PRINT:              equ $203c
 ;  (00 after a PoR or Hard-reset)
 NR_TURBO_CONTROL:                       equ $07
 
+; Sets the layer 2 start 16k bank, for 256x192 requires 3x16k, 320x256 5x16k
 LAYER_2_RAM_PAGE:                       equ $12
 LAYER_2_RAM_SHADOW_PAGE:                equ $13
 
@@ -54,14 +55,20 @@ NR_SPRITE_CONTROL:                      equ $15
 ;bit 1 - reset the sprite clip index.
 ;bit 0 - reset the Layer 2 clip index.
 ;Set to $0f to reset all clip indexes.
-NR_CLIP_WINDOW_CONTROL:                 equ $1C
+NR_CLIP_WINDOW_CONTROL:                equ $1C
 
-ACTIVE_VIDEO_LINE_MSB:      equ $1E
-ACTIVE_VIDEO_LINE_LSB:      equ $1F
+ACTIVE_VIDEO_LINE_MSB:                 equ $1E
+ACTIVE_VIDEO_LINE_LSB:                 equ $1F
 
 
-MMU_0:               equ $50
-MMU_1:               equ $51
+MMU_0:                                 equ $50
+MMU_1:                                 equ $51
+MMU_2:                                 equ $52
+MMU_3:                                 equ $53
+MMU_4:                                 equ $54
+MMU_5:                                 equ $55
+MMU_6:                                 equ $56
+MMU_7:                                 equ $57
 
 ;Byte 1 is the low eight bits of the X position. The MSB is in byte 3 (anchor sprite only).
 ;Byte 2 is the low eight bits of the Y position. The MSB is in optional byte 5 (anchor sprite only).
@@ -115,6 +122,22 @@ LAYER_2_X_OFFSET_MSB:                  equ $71
 ULA_CONTROL_PORT:                      equ $FE
 
 ;See https://wiki.specnext.dev/Layer_2_Access_Port
+;
+; Enables Layer 2 and controls paging of layer 2 screen into lower memory.
+; Bits:
+;       7-6 Video RAM bank select (read/write paging)
+;       5 - 0 reserved    
+;       4 - 0
+;       3 - 0 LAYER_2_RAM_PAGE, 1 - LAYER_2_RAM_SHADOW_PAGE
+;       2 - Enable read only 
+;       1 - Layer 2 visible
+;       0 - Enable mapping for memory writes
+; 
+; For 5 x 16k Banks, to allow extra paging
+;       7-5 reserved
+;       4 - 1
+;       3 - reserved
+;       2-0 Bank offset +0 to +7
 L2_ACCESS_PORT:                        equ $123B
 
 TB_BLUE_REGISTER_SELECT                equ $243B

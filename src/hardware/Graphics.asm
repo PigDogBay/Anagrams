@@ -6,6 +6,60 @@ ULA_SCREEN_SIZE:        equ 0x1800
 ULA_COLOR_SCREEN:       equ 0x5800
 ULA_COLOR_SCREEN_SIZE:  equ 0x0300
 
+;----
+START_16K_BANK: equ 9
+START_8K_BANK: equ START_16K_BANK * 2
+
+layer2Test:
+    ; Enable layer 2
+    ld bc, L2_ACCESS_PORT
+    ; Bits
+    ; 7-6 = 00 Bank select, first 16k
+    ; 3 = 0 Layer 2 ram page register
+    ; 2 = 0 Read disabled
+    ; 1 = 1 Layer 2 visible
+    ; 2 = 0 Write disabled
+    ld a, %00000010
+    out (c),a
+
+    ;Set the 16k bank number where layer 2 video memory begins
+    nextreg LAYER_2_RAM_PAGE, START_16K_BANK
+
+    ; D = y, start at the top of the screen
+    ld d,0
+
+.nextY:
+    ld a,d
+    and %11100000   ;32100000
+    rlca            ;21000003
+    rlca            ;10000032
+    rlca            ;00000321
+    add a, START_8K_BANK
+    nextreg MMU_6,a
+
+    push de
+    ld a,d
+    and %00011111
+    or $c0
+    ld d,a
+    ld e,0
+
+.nextX:
+    ld a,e
+    ld (de),a
+    inc e
+    jr nz, .nextX
+
+    pop de
+    inc d
+    ld a,d
+    cp 192
+    jr c, .nextY
+    ret
+
+
+;---
+
 ;-----------------------------------------------------------------------------------
 ; 
 ;   Macro to set the border colour
