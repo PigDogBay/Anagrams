@@ -14,9 +14,21 @@ ROM_PRINT:              equ $203c
 ;  (00 after a PoR or Hard-reset)
 NR_TURBO_CONTROL:                       equ $07
 
+LAYER_2_RAM_PAGE:                       equ $12
+LAYER_2_RAM_SHADOW_PAGE:                equ $13
+
 ;$E3 is the default value for the ULA transparency colour
 ;Set to $E7 for Bright Magenta (paper 3)
 NR_GLOBAL_TRANSPARENCY:                 equ $14
+
+LAYER_2_X_OFFSET:                       equ $16
+LAYER_2_Y_OFFSET:                       equ $17
+
+CLIP_WINDOW_LAYER:                      equ $18
+CLIP_WINDOW_SPRITES:                    equ $19
+CLIP_WINDOW_ULA:                        equ $1A
+CLIP_WINDOW_TILEMAP:                    equ $1B
+CLIP_WINDOW_CONTROL:                    equ $1C
 
 ;(R/W) 0x15 (21) => Sprite and Layers system
 ;bit 7 = LoRes mode, 128 x 96 x 256 colours (1 = enabled)
@@ -90,6 +102,10 @@ DISPLAY_CONTROL_1:                     equ $69
 
 ;$xx6B where xx is program length
 DMA_PORT:                              equ $6B
+
+LAYER_2_CONTROL:                       equ $70
+LAYER_2_X_OFFSET_MSB:                  equ $71
+
 
 ;Bits
 ; 7-5 Unused
