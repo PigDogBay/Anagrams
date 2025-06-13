@@ -18,6 +18,52 @@
     
     module DMA
 
+
+
+;-----------------------------------------------------------------------------------
+;
+; Macro: POKE_BANK uint8 bank, uint16 offset, uint8 value
+;
+; Writes the accumulator into the specified 8k bank at the offset 0-8191
+;
+;
+; In:
+;       Param 1  - bank
+;       Param 2  - Offset, 0-8192 
+;       A - value
+;
+;-----------------------------------------------------------------------------------
+    macro POKE_BANK bank, offset
+        nextreg MMU_0,bank
+        ld (offset),a
+        ;Restore rom
+        nextreg MMU_0,$ff
+    endm
+
+
+;-----------------------------------------------------------------------------------
+;
+; Macro: PEEK_BANK uint8 bank, uint16 offset -> uint8
+;
+; Reads a value from the specified 8k bank at the offset 0-8191
+;
+;
+; In:
+;       Param 1  - bank
+;       Param 2  - offset, 0-8192 
+;       A - value
+;
+;-----------------------------------------------------------------------------------
+    macro PEEK_BANK bank, offset
+        nextreg MMU_0,bank
+        ld a,(offset)
+        ;Restore rom
+        nextreg MMU_0,$ff
+    endm
+
+
+
+
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: copyBank(uint8 src, uint8 dest)
