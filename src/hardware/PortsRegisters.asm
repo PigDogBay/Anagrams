@@ -60,15 +60,14 @@ NR_CLIP_WINDOW_CONTROL:                equ $1C
 ACTIVE_VIDEO_LINE_MSB:                 equ $1E
 ACTIVE_VIDEO_LINE_LSB:                 equ $1F
 
-
-MMU_0:                                 equ $50
-MMU_1:                                 equ $51
-MMU_2:                                 equ $52
-MMU_3:                                 equ $53
-MMU_4:                                 equ $54
-MMU_5:                                 equ $55
-MMU_6:                                 equ $56
-MMU_7:                                 equ $57
+MMU_0:                                 equ $50          ; Slot $0000 - $1FFF (0     - 8191)
+MMU_1:                                 equ $51          ; Slot $2000 - $3FFF (8192  - 16383)
+MMU_2:                                 equ $52          ; Slot $4000 - $5FFF (16384 - 24575)
+MMU_3:                                 equ $53          ; Slot $6000 - $7FFF (24576 - 32767)
+MMU_4:                                 equ $54          ; Slot $8000 - $9FFF (32768 - 40959)
+MMU_5:                                 equ $55          ; Slot $A000 - $BFFF (40960 - 49151)
+MMU_6:                                 equ $56          ; Slot $C000 - $DFFF (49152 - 57343)
+MMU_7:                                 equ $57          ; Slot $E000 - $FFFF (57355 - 65535)
 
 ;Byte 1 is the low eight bits of the X position. The MSB is in byte 3 (anchor sprite only).
 ;Byte 2 is the low eight bits of the Y position. The MSB is in optional byte 5 (anchor sprite only).
