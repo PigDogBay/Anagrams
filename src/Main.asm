@@ -66,7 +66,18 @@ main:
 main_loop:
     jr main_loop
 
-
+;-----------------------------------------------------------------------------------
+; 
+; To create Layer 2 images, 320x256 256 colours
+; 
+; convert oxford-small.jpg -colors 256 -depth 8 -compress none BMP3:oxford.bmp
+; ~/work/Next/tools/Gfx2Next/build/gfx2next -bitmap -preview -bitmap-y -pal-std oxford.bmp
+; split -b 8k -d oxford.nxi bg_
+; for file in bg_*; do mv "$file" "$file.nxi"; done
+; 
+; 
+; 
+;-----------------------------------------------------------------------------------
 titleScreen:
     ; Load palette for Title screen, residing at 8k bank 50 0x0000 - 0x00ff
     nextreg MMU_0, 50
@@ -106,25 +117,25 @@ stack_top:
     incbin "assets/anagrams.spr"
 
     MMU 0,40, 0x0000
-    incbin "assets/titleScreen/bg_0.nxi"
+    incbin "assets/titleScreen/bg_00.nxi"
     MMU 0,41, 0x0000
-    incbin "assets/titleScreen/bg_1.nxi"
+    incbin "assets/titleScreen/bg_01.nxi"
     MMU 0,42, 0x0000
-    incbin "assets/titleScreen/bg_2.nxi"
+    incbin "assets/titleScreen/bg_02.nxi"
     MMU 0,43, 0x0000
-    incbin "assets/titleScreen/bg_3.nxi"
+    incbin "assets/titleScreen/bg_03.nxi"
     MMU 0,44, 0x0000
-    incbin "assets/titleScreen/bg_4.nxi"
+    incbin "assets/titleScreen/bg_04.nxi"
     MMU 0,45, 0x0000
-    incbin "assets/titleScreen/bg_5.nxi"
+    incbin "assets/titleScreen/bg_05.nxi"
     MMU 0,46, 0x0000
-    incbin "assets/titleScreen/bg_6.nxi"
+    incbin "assets/titleScreen/bg_06.nxi"
     MMU 0,47, 0x0000
-    incbin "assets/titleScreen/bg_7.nxi"
+    incbin "assets/titleScreen/bg_07.nxi"
     MMU 0,48, 0x0000
-    incbin "assets/titleScreen/bg_8.nxi"
+    incbin "assets/titleScreen/bg_08.nxi"
     MMU 0,49, 0x0000
-    incbin "assets/titleScreen/bg_9.nxi"
+    incbin "assets/titleScreen/bg_09.nxi"
     MMU 0,50, 0x0000
     incbin "assets/titleScreen/bg.nxp"
 
