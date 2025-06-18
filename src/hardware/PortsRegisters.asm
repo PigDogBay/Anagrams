@@ -80,6 +80,35 @@ NR_CLIP_WINDOW_CONTROL:                equ $1C
 ACTIVE_VIDEO_LINE_MSB:                 equ $1E
 ACTIVE_VIDEO_LINE_LSB:                 equ $1F
 
+PALETTE_INDEX:                         equ $40
+PALETTE_VALUE:                         equ $41
+PALETTE_ULA_INK_COLOR_MASK:            equ $42
+
+; Bits:
+; 7: 0 to enable auto-increment
+; 6-4 Select palette:
+;   000 ULA first palette
+;   100 ULA second palette
+;   001 Layer 2 first palette
+;   101 Layer 2 second palette
+;   010 Sprites first palette
+;   110 Sprites second palette
+;   011 Tilemap first palette
+;   111 Tilemap second palette
+; 3: Selects active Sprites palette (0 = first, 1 = second)
+; 2: Selects active Layer 2 palette (0 = first, 1 = second)
+; 1: Selects active ULA palette (0 = first, 1 = second)
+; 0: Enables ULANext mode if 1 
+PALETTE_ULA_CONTROL:                   equ $43
+
+; Reads or writes 9-bit color definition
+; Byte 1: RRR GGG BB
+; Byte 2: P 000000 B 
+;     Bit 7: Layer 2 Priority, if 1 colour will always appear on top of every other layer
+;     Bit 0: low bit of blue color
+PALETTE_ULA_PALETTE_EXTENSION:         equ $44
+
+
 MMU_0:                                 equ $50          ; Slot $0000 - $1FFF (0     - 8191)
 MMU_1:                                 equ $51          ; Slot $2000 - $3FFF (8192  - 16383)
 MMU_2:                                 equ $52          ; Slot $4000 - $5FFF (16384 - 24575)

@@ -147,6 +147,45 @@ setAttributes:
     ret
 
 
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: loadLayer2_9BitPalette(uint16 ptr, uint8 count)
+; 
+; Loads the 9 bit colours to the Layer 2 first palette
+; Colours are a arranged in order of index, 0 to count-1 (255 max)
+; Each colour is 2 bytes, RRRGGGBB, 0000000B (the second byte contains the blue LSBit)
+; 
+; In: HL - pointer to start of colour values
+;      B - number of colours to add
+; 
+; Dirty: A,HL,B
+; 
+;-----------------------------------------------------------------------------------
+loadLayer2_9BitPalette:
+
+    ; Bit 7: 0 Auto increment
+    ; 6-4: 001 Layer 2 first palette
+    ; 3-1: First palettes active for Sprites, L2, ULA
+    ; 0: Disable ULANext
+    nextreg PALETTE_ULA_CONTROL,%00010000
+    nextreg PALETTE_INDEX,0
+.next
+    ;Wite out 9bit colour value RRRGGGBBB
+    ; Write RRRGGGBB
+    ld a,(hl)
+    inc hl
+    nextreg PALETTE_ULA_PALETTE_EXTENSION,a
+    ; Write 0000000B - low bit of blue
+    ld a,(hl)
+    inc hl
+    nextreg PALETTE_ULA_PALETTE_EXTENSION,a
+    djnz .next
+
+    ret
+
+
 ;-----------------------------------------------------------------------------------
 ; 
 ; Function fillLayer2_320(uint8 fillColour)

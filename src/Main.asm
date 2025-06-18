@@ -57,6 +57,7 @@ main:
     call Graphics.fillLayer2_320
     call Graphics.layer2Test320
     call NextSprite.removeAll
+    call titleScreen
 
     call MouseDriver.init
     call game.init
@@ -65,6 +66,20 @@ main:
 main_loop:
     jr main_loop
 
+
+titleScreen:
+    ; Load palette for Title screen, residing at 8k bank 50 0x0000 - 0x00ff
+    nextreg MMU_0, 50
+    ld hl,0
+    ld b,255
+    call Graphics.loadLayer2_9BitPalette
+    ; Restore ROM
+    nextreg MMU_0, $FF
+
+    ; 16k Bank, first 8k bank of image is at 40
+    ; So 16k bank is 40/2 = 20
+    nextreg LAYER_2_RAM_PAGE, 20
+    ret
 
 ;===========================================================================
 ; Stack.
@@ -89,6 +104,29 @@ stack_top:
     ;Load sprite data in 8k banks 30 + 31. Banks placed in MMU slots 0 and 1 
     MMU 0 1,30, 0x0000
     incbin "assets/anagrams.spr"
+
+    MMU 0,40, 0x0000
+    incbin "assets/titleScreen/bg_0.nxi"
+    MMU 0,41, 0x0000
+    incbin "assets/titleScreen/bg_1.nxi"
+    MMU 0,42, 0x0000
+    incbin "assets/titleScreen/bg_2.nxi"
+    MMU 0,43, 0x0000
+    incbin "assets/titleScreen/bg_3.nxi"
+    MMU 0,44, 0x0000
+    incbin "assets/titleScreen/bg_4.nxi"
+    MMU 0,45, 0x0000
+    incbin "assets/titleScreen/bg_5.nxi"
+    MMU 0,46, 0x0000
+    incbin "assets/titleScreen/bg_6.nxi"
+    MMU 0,47, 0x0000
+    incbin "assets/titleScreen/bg_7.nxi"
+    MMU 0,48, 0x0000
+    incbin "assets/titleScreen/bg_8.nxi"
+    MMU 0,49, 0x0000
+    incbin "assets/titleScreen/bg_9.nxi"
+    MMU 0,50, 0x0000
+    incbin "assets/titleScreen/bg.nxp"
 
     SAVENEX OPEN "main.nex", main, stack_top, 2
     SAVENEX CORE 3, 1, 5
