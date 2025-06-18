@@ -3,6 +3,7 @@
 
     ORG 0x8000
     include "hardware/PortsRegisters.asm"
+    include "hardware/DMA.asm"
     include "hardware/Graphics.asm"
     include "hardware/NextSprite.asm"
     include "hardware/MouseDriver.asm"

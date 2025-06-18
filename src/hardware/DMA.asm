@@ -19,6 +19,7 @@
     module DMA
 
 
+@BANK_8K_SIZE:   equ 8192
 
 ;-----------------------------------------------------------------------------------
 ;
@@ -63,7 +64,63 @@
 
 
 
+;-----------------------------------------------------------------------------------
+;
+; Function: fill8kBank(uint8 bank, uint8 fillValue)
+;
+; Fills the 8k bank with the fillValue
+;
+;
+; In:
+;       H - bank
+;       L - fill value
+;
+; Dirty: A
+;-----------------------------------------------------------------------------------
+fill8kBank:
+    push hl
+    push bc
 
+    ; swap out ROM with banks src (H)
+    ld a,h
+    nextreg MMU_0,a
+
+    ;write first fill value at address 0x0000
+    ;DMA program below will then keep copying this value to fill up the 8K
+    ld a,l
+    ld (0),a
+
+    ;Upload the DMA program
+    ld hl, .dmaProgram
+    ld b, .dmaProgramLength
+    ld c, DMA_PORT
+    otir
+
+    ; Restore ROM
+    nextreg MMU_0, $FF
+    
+    pop bc
+    pop hl
+    ret
+
+;See page p49 of the ZX Next Assembly Developer for details on WR bits
+; ' apostrophes are used to split up the bit fields for readability, sjasm will strip'em out
+; Source start address = 0x0000
+; Destination start address = 0x0001
+; Length = 8k-1
+.dmaProgram:
+	DB %1'00000'11		    ; WR6 - Command Register '00000' Disable DMA
+	DB %0'11111'01		    ; WR0 - 11 port A start address, 11 length, 1 dir A->B
+	DW $0000		        ; Port A start address (MMU_0 start address is 0x0000)
+	DW 8*1024 - 1  	        ; Transfer length (8k - size of a bank)
+	DB %0'0010'100		    ; WR1 - Port A, no timing 0/ increment 01 / memory 0
+	DB %0'0010'000		    ; WR2 - Port B, no timing 0/ increment 01 / memory 0
+	DB %1'01'0'11'01		; WR4 - 01 continuous mode (stops CPU) [0 mask] 11 Port B address
+	DW $0001                ; Port B address, $0001
+	DB %10'00'0010          ; WR5 - 0 Stop on end of block, 0 CE only
+	DB %1'10011'11		    ; WR6 - 10011 load addresses into DMA counters
+	DB %1'00001'11		    ; WR6 - 00001 Enable DMA - run the program
+.dmaProgramLength = $ - .dmaProgram
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: copyBank(uint8 src, uint8 dest)

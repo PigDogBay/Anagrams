@@ -9,6 +9,172 @@ ULA_COLOR_SCREEN_SIZE:  equ 0x0300
 LAYER2_START_16K_BANK:  equ 9
 LAYER2_START_8K_BANK:   equ LAYER2_START_16K_BANK * 2
 
+LAYER2_RESOLUTION_X:   equ 320
+LAYER2_RESOLUTION_Y:   equ 256
+LAYER2_NUM_BANKS:      equ LAYER2_RESOLUTION_X * LAYER2_RESOLUTION_Y / BANK_8K_SIZE
+LAYER2_BANK_MAX_X:     equ BANK_8K_SIZE / LAYER2_RESOLUTION_Y
+
+
+
+
+;-----------------------------------------------------------------------------------
+; 
+;   Macro to set the border colour
+;
+;   Dirty: A
+;
+;-----------------------------------------------------------------------------------
+    macro BORDER col
+        ld a, col
+        out ULA_CONTROL_PORT,a
+    endm
+ 
+;-----------------------------------------------------------------------------------
+; 
+;   Macro to set the border colour
+;
+;   Dirty: BC,DE,HL,A
+;
+;-----------------------------------------------------------------------------------
+    macro CLS
+        ld d,0
+        call Graphics.setAttributes
+    endm
+
+
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: resetAllClipWindows() 
+; 
+; Resets the clip windows so that the entire screen is visible for
+; ULA, Tilemap, Sprites and Layer 2 display devices
+; 
+;-----------------------------------------------------------------------------------
+resetAllClipWindows:
+    ;Reset clip window index registers
+    ; 7-4 reserved
+    ; 3: 1 to reset Tilemap clip-window register index
+    ; 2: 1 to reset ULA clip-window register index
+    ; 1: 1 to reset Sprite clip-window register index
+    ; 0: 1 to reset Layer 2 clip-window register index
+    nextreg CLIP_WINDOW_CONTROL, %00001111
+
+    ;Send 0,255,0,255 (x1,x2,y1,y2) to each clip window register
+    nextreg CLIP_WINDOW_LAYER_2,0
+    nextreg CLIP_WINDOW_LAYER_2,255
+    nextreg CLIP_WINDOW_LAYER_2,0
+    nextreg CLIP_WINDOW_LAYER_2,255
+    
+    nextreg CLIP_WINDOW_SPRITES,0
+    nextreg CLIP_WINDOW_SPRITES,255
+    nextreg CLIP_WINDOW_SPRITES,0
+    nextreg CLIP_WINDOW_SPRITES,255
+    
+    nextreg CLIP_WINDOW_ULA,0
+    nextreg CLIP_WINDOW_ULA,255
+    nextreg CLIP_WINDOW_ULA,0
+    nextreg CLIP_WINDOW_ULA,255
+    
+    nextreg CLIP_WINDOW_TILEMAP,0
+    nextreg CLIP_WINDOW_TILEMAP,255
+    nextreg CLIP_WINDOW_TILEMAP,0
+    nextreg CLIP_WINDOW_TILEMAP,255
+    
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Waits until raster hits line 192
+; Dirty: BC, HL, A
+;
+;-----------------------------------------------------------------------------------
+waitRaster:
+    ; Raster returned in HL
+    call readRaster
+    ld a,192
+    cp l
+    jr nz, waitRaster
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Based on code by Patricia Curtis
+; https://luckyredfish.com/patricias-z80-snippets/
+; Dirty: BC, A
+; Out: HL = current raster line on screen
+;
+;-----------------------------------------------------------------------------------
+readRaster:
+    ; Select and read video line MSB
+    ld a,ACTIVE_VIDEO_LINE_MSB
+    ld bc,TB_BLUE_REGISTER_SELECT
+    out (c),a
+    ; Point BC to TB_BLUE_REGISTER_ACCESS
+    inc b
+    in a,(c)
+    ; Mask off unused bits
+    and 1
+    ld h,a
+
+    ld a,ACTIVE_VIDEO_LINE_LSB
+    ld bc,TB_BLUE_REGISTER_SELECT
+    out (c),a
+    ; Point BC to TB_BLUE_REGISTER_ACCESS
+    inc b
+    in a,(c)
+    ld l,a
+    ret
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Fills ULA  attributes with specified color
+; In D: Attribute paper/ink colours
+;-----------------------------------------------------------------------------------
+setAttributes:
+    ld bc,ULA_COLOR_SCREEN_SIZE - 1
+    ld hl,ULA_COLOR_SCREEN
+    ; Set first byte to the colour
+    ld (hl),d
+    ; Point DE to next attibute
+    ld e,l
+    ld d,h
+    inc de
+    ;Fill rest of attributes
+    ldir
+    ret
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function fillLayer2_320(uint8 fillColour)
+; 
+; Disable interrupts before calling this function as it swaps out the ROM banks
+; Fill the Layer 2 screen (320x256) with the specified colour
+;
+; In: A colour
+; Dirty: A 
+;
+;-----------------------------------------------------------------------------------
+fillLayer2_320:
+    push bc
+    push hl
+    ld h, LAYER2_START_8K_BANK
+    ld l,a
+    ld b,LAYER2_NUM_BANKS
+.nextBank:
+    call DMA.fill8kBank
+    inc h
+    djnz .nextBank
+    pop hl
+    pop bc
+    ret
+
+
+
+
 ;-----------------------------------------------------------------------------------
 ; 
 ; Function: layer2Test()
@@ -97,12 +263,6 @@ layer2Test:
 ;
 ; Dirty: AF, BC, DE
 ;-----------------------------------------------------------------------------------
-RESOLUTION_X:   equ 320
-RESOLUTION_Y:   equ 256
-BANK_8K_SIZE:   equ 8192
-NUM_BANKS:      equ RESOLUTION_X * RESOLUTION_Y / BANK_8K_SIZE
-BANK_MAX_X:     equ BANK_8K_SIZE / RESOLUTION_Y
-
 layer2Test320:
 
     ; Enable layer 2
@@ -151,191 +311,16 @@ layer2Test320:
     ld a,d
     ;Strip off $c000 to get x-coord
     and %00111111
-    cp BANK_MAX_X
+    cp LAYER2_BANK_MAX_X
     jr nz, .nextY
 
     ;next bank
     inc b
     ld a,b
-    cp LAYER2_START_8K_BANK+NUM_BANKS
+    cp LAYER2_START_8K_BANK+LAYER2_NUM_BANKS
     jr nz, .nextBank
 
     ret
 
-
-;-----------------------------------------------------------------------------------
-; 
-;   Macro to set the border colour
-;
-;   Dirty: A
-;
-;-----------------------------------------------------------------------------------
-    macro BORDER col
-        ld a, col
-        out ULA_CONTROL_PORT,a
-    endm
  
-;-----------------------------------------------------------------------------------
-; 
-;   Macro to set the border colour
-;
-;   Dirty: BC,DE,HL,A
-;
-;-----------------------------------------------------------------------------------
-    macro CLS
-        ld d,0
-        call Graphics.setAttributes
-    endm
- 
-
-;-----------------------------------------------------------------------------------
-; 
-; Function: resetAllClipWindows() 
-; 
-; Resets the clip windows so that the entire screen is visible for
-; ULA, Tilemap, Sprites and Layer 2 display devices
-; 
-;-----------------------------------------------------------------------------------
-resetAllClipWindows:
-    ;Reset clip window index registers
-    ; 7-4 reserved
-    ; 3: 1 to reset Tilemap clip-window register index
-    ; 2: 1 to reset ULA clip-window register index
-    ; 1: 1 to reset Sprite clip-window register index
-    ; 0: 1 to reset Layer 2 clip-window register index
-    nextreg CLIP_WINDOW_CONTROL, %00001111
-
-    ;Send 0,255,0,255 (x1,x2,y1,y2) to each clip window register
-    nextreg CLIP_WINDOW_LAYER_2,0
-    nextreg CLIP_WINDOW_LAYER_2,255
-    nextreg CLIP_WINDOW_LAYER_2,0
-    nextreg CLIP_WINDOW_LAYER_2,255
-    
-    nextreg CLIP_WINDOW_SPRITES,0
-    nextreg CLIP_WINDOW_SPRITES,255
-    nextreg CLIP_WINDOW_SPRITES,0
-    nextreg CLIP_WINDOW_SPRITES,255
-    
-    nextreg CLIP_WINDOW_ULA,0
-    nextreg CLIP_WINDOW_ULA,255
-    nextreg CLIP_WINDOW_ULA,0
-    nextreg CLIP_WINDOW_ULA,255
-    
-    nextreg CLIP_WINDOW_TILEMAP,0
-    nextreg CLIP_WINDOW_TILEMAP,255
-    nextreg CLIP_WINDOW_TILEMAP,0
-    nextreg CLIP_WINDOW_TILEMAP,255
-    
-    ret
-
-;-----------------------------------------------------------------------------------
-; 
-; Waits until raster hits line 192
-; Dirty: BC, HL, A
-;
-;-----------------------------------------------------------------------------------
-waitRaster:
-    ; Raster returned in HL
-    call readRaster
-    ld a,192
-    cp l
-    jr nz, waitRaster
-
-
-;-----------------------------------------------------------------------------------
-; 
-; Based on code by Patricia Curtis
-; https://luckyredfish.com/patricias-z80-snippets/
-; Dirty: BC, A
-; Out: HL = current raster line on screen
-;
-;-----------------------------------------------------------------------------------
-readRaster:
-    ; Select and read video line MSB
-    ld a,ACTIVE_VIDEO_LINE_MSB
-    ld bc,TB_BLUE_REGISTER_SELECT
-    out (c),a
-    ; Point BC to TB_BLUE_REGISTER_ACCESS
-    inc b
-    in a,(c)
-    ; Mask off unused bits
-    and 1
-    ld h,a
-
-    ld a,ACTIVE_VIDEO_LINE_LSB
-    ld bc,TB_BLUE_REGISTER_SELECT
-    out (c),a
-    ; Point BC to TB_BLUE_REGISTER_ACCESS
-    inc b
-    in a,(c)
-    ld l,a
-    ret
-
-;-----------------------------------------------------------------------------------
-; 
-; Fills ULA  attributes with specified color
-; In D: Attribute paper/ink colours
-;-----------------------------------------------------------------------------------
-setAttributes:
-    ld bc,ULA_COLOR_SCREEN_SIZE - 1
-    ld hl,ULA_COLOR_SCREEN
-    ; Set first byte to the colour
-    ld (hl),d
-    ; Point DE to next attibute
-    ld e,l
-    ld d,h
-    inc de
-    ;Fill rest of attributes
-    ldir
-    ret
-
-;-----------------------------------------------------------------------------------
-; 
-; Disable interrupts before calling this function
-; Clear the Layer 2 screen (256x192) with the specified colour
-;
-; In: A colour
-; Dirty: BC,DE,HL 
-;
-;-----------------------------------------------------------------------------------
-clearLayer2:
-    ; Store colour in D
-    ld d,a
-    ld bc, L2_ACCESS_PORT 
-    in a, (c)				; get the current bank
-    push af 				; store it 
-    xor a 
-    out	(c),a 
-    
-    ld e,3					; number of blocks
-    ld a,1					; first bank... (bank 0 with write enable bit set)
-
-    ld bc, L2_ACCESS_PORT           
-.loadAll:	
-    out	(c),a				; bank in first bank
-    push af       
-            ; Fill lower 16K with the desired byte
-    ld hl,0
-.clearLoop:		
-    ld (hl),d
-    inc l
-    jr nz, .clearLoop
-
-    inc h
-    ld a,h
-    cp $40
-    jr nz, .clearLoop
-
-    pop af					; get block back
-    add a,$40
-    dec e					; loops 3 times
-    jr nz, .loadAll
-
-    ld bc, L2_ACCESS_PORT			; switch off background (should probably do an IN to get the original value)
-
-    pop af 
-    out	(c),a     
-
-    ret
-
     endmodule
