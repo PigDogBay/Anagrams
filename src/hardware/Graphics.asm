@@ -6,6 +6,9 @@ ULA_SCREEN_SIZE:        equ 0x1800
 ULA_COLOR_SCREEN:       equ 0x5800
 ULA_COLOR_SCREEN_SIZE:  equ 0x0300
 
+LAYER2_START_16K_BANK:  equ 9
+LAYER2_START_8K_BANK:   equ LAYER2_START_16K_BANK * 2
+
 ;-----------------------------------------------------------------------------------
 ; 
 ; Function: layer2Test()
@@ -21,8 +24,6 @@ ULA_COLOR_SCREEN_SIZE:  equ 0x0300
 ;
 ; Dirty: AF, BC, DE
 ;-----------------------------------------------------------------------------------
-START_16K_BANK: equ 9
-START_8K_BANK: equ START_16K_BANK * 2
 layer2Test:
     ; Enable layer 2
     ld bc, L2_ACCESS_PORT
@@ -36,7 +37,7 @@ layer2Test:
     out (c),a
 
     ;Set the 16k bank number where layer 2 video memory begins
-    nextreg LAYER_2_RAM_PAGE, START_16K_BANK
+    nextreg LAYER_2_RAM_PAGE, LAYER2_START_16K_BANK
 
     ; D = y, start at the top of the screen
     ; Each 8k bank represents 32 lines, Y co-ord needs 5 bits
@@ -51,7 +52,7 @@ layer2Test:
     rlca            ;21000003
     rlca            ;10000032
     rlca            ;00000321
-    add a, START_8K_BANK
+    add a, LAYER2_START_8K_BANK
     nextreg MMU_6,a
 
     push de
@@ -116,7 +117,7 @@ layer2Test320:
     out (c),a
 
     ;Set the 16k bank number where layer 2 video memory begins
-    nextreg LAYER_2_RAM_PAGE, START_16K_BANK
+    nextreg LAYER_2_RAM_PAGE, LAYER2_START_16K_BANK
 
     ; 7-6 Reserved
     ; 5-4 Layer 2 Resolution
@@ -127,7 +128,7 @@ layer2Test320:
     nextreg LAYER_2_CONTROL, %00010000
 
 
-    ld b, START_8K_BANK
+    ld b, LAYER2_START_8K_BANK
     ; Colour index
     ld h, 0
 .nextBank:
@@ -156,7 +157,7 @@ layer2Test320:
     ;next bank
     inc b
     ld a,b
-    cp START_8K_BANK+NUM_BANKS
+    cp LAYER2_START_8K_BANK+NUM_BANKS
     jr nz, .nextBank
 
     ret
