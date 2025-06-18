@@ -25,10 +25,30 @@ NR_GLOBAL_TRANSPARENCY:                 equ $14
 LAYER_2_X_OFFSET:                       equ $16
 LAYER_2_Y_OFFSET:                       equ $17
 
-CLIP_WINDOW_LAYER:                      equ $18
+;First reset the index to 0 via CLIP_WINDOW_CONTROL
+;Then write 4 bytes: X1,X2,Y1,Y2 
+;Note that for 320,640 modes, X values are double/quadrupled
+;To set clip for whole window
+;  
+; BYTE    256x192    320x256    640x256
+;  X1        0          0          0
+;  X2        255        159 (x2)   159 (x4)
+;  Y1        0          0          0
+;  Y2        191        255        255
+;
+; Note to be sure, you can set 0,255,0,255 to ensure entire screen is visible
+;
+;Below are the registers for each display device
+CLIP_WINDOW_LAYER_2:                    equ $18
 CLIP_WINDOW_SPRITES:                    equ $19
 CLIP_WINDOW_ULA:                        equ $1A
 CLIP_WINDOW_TILEMAP:                    equ $1B
+;Bits
+; 7-4 reserved
+; 3: 1 to reset Tilemap clip-window register
+; 2: 1 to reset ULA clip-window register
+; 1: 1 to reset Sprite clip-window register
+; 0: 1 to reset Layer 2 clip-window register
 CLIP_WINDOW_CONTROL:                    equ $1C
 
 ;(R/W) 0x15 (21) => Sprite and Layers system
@@ -109,7 +129,18 @@ DISPLAY_CONTROL_1:                     equ $69
 ;$xx6B where xx is program length
 DMA_PORT:                              equ $6B
 
+;Bits
+; 7-6 Reserved
+; 5-4 Layer 2 Resolution
+;    00 - 256x192 256 colours 
+;    01 - 320x256 256 colours 
+;    10 - 640x256  16 colours 
+; 3-0 Palette offset
 LAYER_2_CONTROL:                       equ $70
+
+;Bits
+; 7-1 Reserved, must be 0
+; 0 MSB for X pixel offset
 LAYER_2_X_OFFSET_MSB:                  equ $71
 
 

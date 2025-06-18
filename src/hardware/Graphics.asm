@@ -12,7 +12,7 @@ ULA_COLOR_SCREEN_SIZE:  equ 0x0300
 ; 
 ; Example code from ZX Spectrum Next Assembly Developer Guide
 ; 
-; Fills layer 2 256x196 with coloured (0-255) vertical bars
+; Fills layer 2 256x196 (256 colours) with coloured (0-255) vertical bars
 ; The clever bit here is the Y value in D, that combines the Layer 2 Bank offset + Y co-ord
 ; and then converts that to an address in memory.
 ;
@@ -83,6 +83,87 @@ layer2Test:
 
 ;-----------------------------------------------------------------------------------
 ; 
+; Function: layer2Test320()
+; 
+; Example code from ZX Spectrum Next Assembly Developer Guide (Ch3 p77)
+; 
+; Fills layer 2 320x256 (256 colours) with coloured (0-255) vertical bars
+;
+;
+;
+;
+;
+;
+; Dirty: AF, BC, DE
+;-----------------------------------------------------------------------------------
+RESOLUTION_X:   equ 320
+RESOLUTION_Y:   equ 256
+BANK_8K_SIZE:   equ 8192
+NUM_BANKS:      equ RESOLUTION_X * RESOLUTION_Y / BANK_8K_SIZE
+BANK_MAX_X:     equ BANK_8K_SIZE / RESOLUTION_Y
+
+layer2Test320:
+
+    ; Enable layer 2
+    ld bc, L2_ACCESS_PORT
+    ; Bits
+    ; 7-6 = 00 Bank select, first 16k
+    ; 3 = 0 Layer 2 ram page register
+    ; 2 = 0 Read disabled
+    ; 1 = 1 Layer 2 visible
+    ; 2 = 0 Write disabled
+    ld a, %00000010
+    out (c),a
+
+    ;Set the 16k bank number where layer 2 video memory begins
+    nextreg LAYER_2_RAM_PAGE, START_16K_BANK
+
+    ; 7-6 Reserved
+    ; 5-4 Layer 2 Resolution
+    ;    00 - 256x192 256 colours 
+    ;    01 - 320x256 256 colours 
+    ;    10 - 640x256  16 colours 
+    ; 3-0 Palette offset
+    nextreg LAYER_2_CONTROL, %00010000
+
+
+    ld b, START_8K_BANK
+    ; Colour index
+    ld h, 0
+.nextBank:
+    ld a,b
+    nextreg MMU_6,a
+    ;MMU_6 start address
+    ld de,$c000
+.nextY:
+    ;write color index, straight line down
+    ld a,h
+    ld (de),a
+    ;inc Y
+    inc e
+    jr nz, .nextY
+
+    ;next x value (0-31) for this current bank
+    inc d
+    ;next color
+    inc h
+    ld a,d
+    ;Strip off $c000 to get x-coord
+    and %00111111
+    cp BANK_MAX_X
+    jr nz, .nextY
+
+    ;next bank
+    inc b
+    ld a,b
+    cp START_8K_BANK+NUM_BANKS
+    jr nz, .nextBank
+
+    ret
+
+
+;-----------------------------------------------------------------------------------
+; 
 ;   Macro to set the border colour
 ;
 ;   Dirty: A
@@ -105,6 +186,46 @@ layer2Test:
         call graphics.setAttributes
     endm
  
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: resetAllClipWindows() 
+; 
+; Resets the clip windows so that the entire screen is visible for
+; ULA, Tilemap, Sprites and Layer 2 display devices
+; 
+;-----------------------------------------------------------------------------------
+resetAllClipWindows:
+    ;Reset clip window index registers
+    ; 7-4 reserved
+    ; 3: 1 to reset Tilemap clip-window register index
+    ; 2: 1 to reset ULA clip-window register index
+    ; 1: 1 to reset Sprite clip-window register index
+    ; 0: 1 to reset Layer 2 clip-window register index
+    nextreg CLIP_WINDOW_CONTROL, %00001111
+
+    ;Send 0,255,0,255 (x1,x2,y1,y2) to each clip window register
+    nextreg CLIP_WINDOW_LAYER_2,0
+    nextreg CLIP_WINDOW_LAYER_2,255
+    nextreg CLIP_WINDOW_LAYER_2,0
+    nextreg CLIP_WINDOW_LAYER_2,255
+    
+    nextreg CLIP_WINDOW_SPRITES,0
+    nextreg CLIP_WINDOW_SPRITES,255
+    nextreg CLIP_WINDOW_SPRITES,0
+    nextreg CLIP_WINDOW_SPRITES,255
+    
+    nextreg CLIP_WINDOW_ULA,0
+    nextreg CLIP_WINDOW_ULA,255
+    nextreg CLIP_WINDOW_ULA,0
+    nextreg CLIP_WINDOW_ULA,255
+    
+    nextreg CLIP_WINDOW_TILEMAP,0
+    nextreg CLIP_WINDOW_TILEMAP,255
+    nextreg CLIP_WINDOW_TILEMAP,0
+    nextreg CLIP_WINDOW_TILEMAP,255
+    
+    ret
 
 ;-----------------------------------------------------------------------------------
 ; 
