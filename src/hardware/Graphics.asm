@@ -1,4 +1,4 @@
-    module graphics
+    module Graphics
 
 
 ULA_SCREEN:             equ 0x4000
@@ -183,7 +183,7 @@ layer2Test320:
 ;-----------------------------------------------------------------------------------
     macro CLS
         ld d,0
-        call graphics.setAttributes
+        call Graphics.setAttributes
     endm
  
 

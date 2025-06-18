@@ -46,7 +46,7 @@ main:
     nextreg NR_SPRITE_CONTROL,%01000011
     ;Transparent colour for ULA
     nextreg NR_GLOBAL_TRANSPARENCY,$E3
-    call graphics.resetAllClipWindows
+    call Graphics.resetAllClipWindows
     ;Enable layer 2
     nextreg DISPLAY_CONTROL_1,%10000000
 
@@ -54,8 +54,8 @@ main:
     BORDER 0
     CLS
     ld d,45
-    call graphics.clearLayer2
-    call graphics.layer2Test320
+    call Graphics.clearLayer2
+    call Graphics.layer2Test320
     call NextSprite.removeAll
 
     call MouseDriver.init
