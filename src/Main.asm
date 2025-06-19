@@ -70,10 +70,23 @@ main_loop:
 ; 
 ; To create Layer 2 images, 320x256 256 colours
 ; 
+; To create images: 
+; 
+; 1. Images need to be first resized to 320x256 by resizing and cropping, this can be done in Preview
+;
+; 2 . Convert the image to an uncompressed indexed bitmap with 256 colour palette, 8 bit pixels, 
+; BMP3 - widely supported bitmap format
+; 
 ; convert oxford-small.jpg -colors 256 -depth 8 -compress none BMP3:oxford.bmp
-; ~/work/Next/tools/Gfx2Next/build/gfx2next -bitmap -preview -bitmap-y -pal-std oxford.bmp
-; split -b 8k -d oxford.nxi bg_
-; for file in bg_*; do mv "$file" "$file.nxi"; done
+;
+; 3. Use gfx2next (See https://www.rustypixels.uk/gfx2next/): 
+; -bitmap Output Next bitmap .nxi
+; -bitmap-y Set up the memory layout (y-x order) for 320x256
+; -bank-8k Split the file into 8k chunks so that it can be easily loaded into 8k banks
+; -pal-std Convert to the Spectrum Next standard palette colours
+; (See https://www.rustypixels.uk/gfx2next/)
+; 
+; ~/work/Next/tools/Gfx2Next/build/gfx2next -bitmap -bitmap-y -pal-std -bank-8k oxford.bmp
 ; 
 ; 
 ; 
