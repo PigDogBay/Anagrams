@@ -15,6 +15,107 @@ DRAG_BOUNDS_Y_MAX:               equ 255 - 16
 DRAG_BOUNDS_Y_MAX_IN_BOUNDS:     equ DRAG_BOUNDS_Y_MAX - 1
 
 ;-----------------------------------------------------------------------------------
+; 
+; struct: tileStruct
+; 
+; 
+; 
+;-----------------------------------------------------------------------------------
+    struct @tileStruct
+id          byte
+letter      byte
+    ends
+
+;-----------------------------------------------------------------------------------
+; 
+; struct: slotStruct
+; 
+; .tileId is the slotted tile ID, if 0 then this indicates no tile has been slotted
+; .letter is the expected letter, 
+; .id id of the slot
+; 
+; 
+;-----------------------------------------------------------------------------------
+    struct @slotStruct
+id          byte
+letter      byte
+tileId      byte
+    ends
+
+;-----------------------------------------------------------------------------------
+;
+; Function: reset()
+;
+; Call when starting a new round to initialize the variables
+;
+; Dirty: A, HL 
+;
+;-----------------------------------------------------------------------------------
+reset:
+    ;reset variables
+    xor a
+    ld (tileCount),a
+    ld (slotCount),a
+    ret
+
+;-----------------------------------------------------------------------------------
+;
+; Function: createSlotsTiles(uint8 id, uint16 ptr) -> uint8 nextId
+; 
+; Sets up the tile and slot lists from the puzzle data
+; 
+; In: 
+;     C - gameId of the first item
+;     HL - pointer to puzzle data
+;
+; Out C - gameId advanced ready for next game item
+;
+; Dirty: A, B, HL, DE, IX, IY
+;
+;-----------------------------------------------------------------------------------
+createSlotsTiles:
+    ; b = number of words
+    ld b, (hl)
+    ld ix, tileList
+    ld iy, slotList
+.nextLetter:
+    inc hl
+    ld a,(hl)
+    or a
+    jr z, .endOfWord
+
+    ;new tile
+    ld (ix+tileStruct.id),c
+    ld (ix+tileStruct.letter),a
+    ld de,tileStruct
+    add ix,de
+    ;advance gameId
+    inc c
+
+    ;new slot
+    ld (iy+slotStruct.id),c
+    ld (iy+slotStruct.letter),a
+    ld (iy+slotStruct.tileId),0
+    ld de,slotStruct
+    add iy,de
+    ;advance gameId
+    inc c
+
+    ld a, (tileCount)
+    inc a
+    ld (tileCount),a
+
+    ld a, (slotCount)
+    inc a
+    ld (slotCount),a
+
+    jr .nextLetter
+.endOfWord:    
+    djnz .nextLetter
+    ret
+
+
+;-----------------------------------------------------------------------------------
 ;
 ; Function: letterToSprite 
 ;
@@ -173,13 +274,20 @@ boundsCheck:
     ret
 
 
-nextSpriteId:
-    db 1
 letterRow:
     db 10
 letterColumn:
     db 5
 
 
+tileCount:
+    db 0
+tileList:
+    block tileStruct * 64
+
+slotCount:
+    db 0
+slotList:
+    block tileStruct * 64
 
     endmodule

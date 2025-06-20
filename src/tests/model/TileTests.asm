@@ -2,6 +2,30 @@
     ; DeZog will collect all these labels and offer them for execution.
     module TestSuite_Tile
 
+UT_createSlotsTiles1:
+    call Tile.reset
+    ld c,42
+    ld hl,.data
+    call Tile.createSlotsTiles
+    ; gameId will be increased by number of slots + tiles created
+    nop ; ASSERTION c == 42 + (5 + 8)*2
+    TEST_MEMORY_BYTE Tile.tileCount,13
+    TEST_MEMORY_BYTE Tile.slotCount,13
+
+    ;Check tileList[1] C
+    TEST_MEMORY_BYTE Tile.tileList+tileStruct+tileStruct.id,44
+    TEST_MEMORY_BYTE Tile.tileList+tileStruct+tileStruct.letter,'C'
+
+    ;Check slotList[2] O
+    TEST_MEMORY_BYTE Tile.slotList+slotStruct*2+slotStruct.id,47
+    TEST_MEMORY_BYTE Tile.slotList+slotStruct*2+slotStruct.letter,'O'
+    TEST_MEMORY_BYTE Tile.slotList+slotStruct*2+slotStruct.tileId,0
+
+    TC_END
+.data:
+    ;Number of words, word 1, word 2 ...
+    db 2,"ACORN",0,"ELECTRON",0
+
 UT_letterToSprite1:
     ld a,10
     ld (Tile.letterRow),a
