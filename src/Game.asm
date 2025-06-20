@@ -17,9 +17,13 @@ init:
     call SpriteList.removeAll
     ; First sprite always the mouse pointer so that it is on top
     call addMouseSpritePointer
+
+    call Tile.removeAll
     ld hl,anagram
-    call String.shuffle
-    call Tile.wordToSprites
+    ;TODO, start game ID at 16 for tiles and slots, need better management of this
+    ld c, 16
+    call Tile.createSlotsTiles
+    call Tile.tilesToSprites
     ret
 
 run:
@@ -182,5 +186,5 @@ spriteId:               db 0
 dragSpriteItem:         dw 0
 
 anagram:
-    db "ACORNELECTRON",0
+    db 4,"THE",0,"ACE",0,"OF",0,"SPADES",0
     endmodule

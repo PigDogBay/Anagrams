@@ -44,14 +44,14 @@ tileId      byte
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: reset()
+; Function: removeAll()
 ;
-; Call when starting a new round to initialize the variables
+; Sets slot and tile count to 0
 ;
 ; Dirty: A, HL 
 ;
 ;-----------------------------------------------------------------------------------
-reset:
+removeAll:
     ;reset variables
     xor a
     ld (tileCount),a

@@ -3,7 +3,7 @@
     module TestSuite_Tile
 
 UT_createSlotsTiles1:
-    call Tile.reset
+    call Tile.removeAll
     ld c,42
     ld hl,.data
     call Tile.createSlotsTiles
@@ -49,7 +49,7 @@ UT_tileToSprite1:
 
 UT_tilesToSprites1:
     call SpriteList.removeAll
-    call Tile.reset
+    call Tile.removeAll
     ld c,100
     ld hl,.data
     call Tile.createSlotsTiles
