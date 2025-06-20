@@ -26,6 +26,49 @@ UT_createSlotsTiles1:
     ;Number of words, word 1, word 2 ...
     db 2,"ACORN",0,"ELECTRON",0
 
+UT_tileToSprite1:
+    ld a,10
+    ld (Tile.letterRow),a
+    ld a,15
+    ld (Tile.letterColumn),a
+    ld iy, .tileData
+    ld ix, .spriteData
+    call Tile.tileToSprite
+    TEST_MEMORY_BYTE UT_tileToSprite1.spriteData + spriteItem.pattern,'J' - Tile.ASCII_PATTERN_OFFSET
+    TEST_MEMORY_BYTE UT_tileToSprite1.spriteData + spriteItem.gameId, 42
+    TEST_MEMORY_BYTE UT_tileToSprite1.spriteData+spriteItem.x,16
+    TEST_MEMORY_BYTE UT_tileToSprite1.spriteData+spriteItem.x+1,1
+    TEST_MEMORY_BYTE UT_tileToSprite1.spriteData+spriteItem.y,192
+    TC_END
+.tileData:
+    ; id, letter
+    tileStruct 42, 'J'
+.spriteData:
+    ; id, x, y, palette, pattern, gameId, flags 
+    spriteItem 0, 0, 0, 0, 0, 0, 0
+
+UT_tilesToSprites1:
+    call SpriteList.removeAll
+    call Tile.reset
+    ld c,100
+    ld hl,.data
+    call Tile.createSlotsTiles
+    call Tile.tilesToSprites
+
+    TEST_MEMORY_BYTE SpriteList.count,17
+
+    ;Test the P in CHIP (11th letter)
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem * 10 + spriteItem.pattern,'P' - Tile.ASCII_PATTERN_OFFSET
+    ; Slots also get assigned gameId, so *2
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem * 10 + spriteItem.gameId,100 + 10*2
+
+    TC_END
+.data:
+    ;Number of words, word 1, word 2 ...
+    db 4,"FISH",0,"AND",0,"CHIP",0,"FRIDAY",0
+
+
+
 UT_letterToSprite1:
     ld a,10
     ld (Tile.letterRow),a
