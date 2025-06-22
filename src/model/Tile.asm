@@ -2,6 +2,12 @@
 
 SPRITE_PATTERN_OFFSET_A:    equ 8
 ASCII_PATTERN_OFFSET:       equ 'A' - SPRITE_PATTERN_OFFSET_A
+SLOT_SPRITE_PATTERN:        equ 6
+
+LAYOUT_TILE_START_ROW:      equ 10
+LAYOUT_TILE_START_COLUMN:   equ 5
+LAYOUT_SLOT_START_ROW:      equ 2
+LAYOUT_SLOT_START_COLUMN:   equ 5
 
 MAX_COLUMN:                 equ 15
 
@@ -171,6 +177,13 @@ tileToSprite:
 tilesToSprites:
     push bc
     push de
+
+    ;init vars for layout
+    ld a, LAYOUT_TILE_START_ROW
+    ld (letterRow),a
+    ld a, LAYOUT_TILE_START_COLUMN
+    ld (letterColumn),a
+
     ld a, (tileCount)
     ld b, a
     ld iy, tileList
@@ -190,6 +203,100 @@ tilesToSprites:
     pop bc
     ret
 
+
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function: slotToSprite(uint16 ptrSprite, uint16 ptrSlot)
+;
+; Convert slotStruct to a spriteItem
+;
+; In: IX - pointer to spriteItem struct
+;     IY - pointer to slotStruct
+; 
+; Dirty A
+;
+;-----------------------------------------------------------------------------------
+slotToSprite:
+    ;Use tile ID as game ID
+    ld a,(iy + slotStruct.id)
+    ld (ix + spriteItem.gameId),a
+
+    ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN
+    
+    ; Each row is 16 pixels, so need to multiply row by 16
+    ; also add 32 as rows do not use the border
+    ; y = row * 16 + 32 = (row + 2) * 16
+    ld a,(letterRow)
+    inc a : inc a
+    rla : rla : rla : rla
+    ld (ix + spriteItem.y),a
+
+    ; Each column is 16 pixels, so need to multiply column by 16
+    ; also add 32 as columns do not use the border
+    ; y = col * 16 + 32 = (col + 2) * 16
+    ld a,(letterColumn)
+    inc a : inc a
+    rla : rla : rla : rla
+    ld (ix + spriteItem.x),a
+    ; Copy carry flag into x's high byte
+    ld a,0
+    adc a
+    ld (ix + spriteItem.x + 1),a
+    ret
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function: slotsToSprites()
+;
+; Add all the items in the slot list to the sprite list
+;
+; Dirty A, IX, IY
+;
+;-----------------------------------------------------------------------------------
+slotsToSprites:
+    push bc
+    push de
+
+    ;init vars for layout
+    ld a, LAYOUT_SLOT_START_ROW
+    ld (letterRow),a
+    ld a, LAYOUT_SLOT_START_COLUMN
+    ld (letterColumn),a
+
+    ld a, (slotCount)
+    ld b, a
+    ld iy, slotList
+    ld de,slotStruct
+.nextSlot:
+    ; Create a spriteItem, returns IX ptr to spriteItem 
+    call SpriteList.reserveSprite
+    ; Takes IX, IY
+    call slotToSprite
+    call nextColumn
+    ; point to the next tile
+    add iy,de
+
+    djnz .nextSlot
+
+    pop de
+    pop bc
+    ret
+
+
+
+
+
+;-----------------------------------------------------------------------------------
+;
+; private function nextColumn()
+;   helper function to layout the tiles and slot sprites
+; 
+; Dirty A
+; 
+;-----------------------------------------------------------------------------------
 nextColumn:
     ld a,(letterColumn)
     cp MAX_COLUMN
@@ -204,6 +311,7 @@ nextColumn:
     inc a
     ld (letterColumn),a
     ret
+
 
 
 
@@ -281,11 +389,11 @@ boundsCheck:
     xor a
     ret
 
-
+; private variables Used by nextColumn()
 letterRow:
-    db 10
+    db 0
 letterColumn:
-    db 5
+    db 0
 
 
 tileCount:

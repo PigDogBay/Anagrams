@@ -24,6 +24,7 @@ init:
     ld c, 16
     call Tile.createSlotsTiles
     call Tile.tilesToSprites
+    call Tile.slotsToSprites
     ret
 
 run:
