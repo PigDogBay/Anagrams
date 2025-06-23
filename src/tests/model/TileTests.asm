@@ -10,7 +10,9 @@ UT_createSlotsTiles1:
     ; gameId will be increased by number of slots + tiles created
     nop ; ASSERTION c == 42 + (5 + 8)*2
     TEST_MEMORY_BYTE Tile.tileCount,13
-    TEST_MEMORY_BYTE Tile.slotCount,13
+    ;Extra slot for the spacer slot
+    
+    TEST_MEMORY_BYTE Tile.slotCount,14
 
     ;Check tileList[1] C
     TEST_MEMORY_BYTE Tile.tileList+tileStruct+tileStruct.id,44

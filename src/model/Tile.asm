@@ -76,7 +76,7 @@ removeAll:
 ;
 ; Out C - gameId advanced ready for next game item
 ;
-; Dirty: A, B, HL, DE, IX, IY
+; Dirty: A, BC, HL, DE, IX, IY
 ;
 ;-----------------------------------------------------------------------------------
 createSlotsTiles:
@@ -116,8 +116,25 @@ createSlotsTiles:
     ld (slotCount),a
 
     jr .nextLetter
+
 .endOfWord:    
+    ; Add a spacer slot
+    ld (iy+slotStruct.id),0
+    ld (iy+slotStruct.letter),0
+    ld (iy+slotStruct.tileId),0
+    ld de,slotStruct
+    add iy,de
+
+    ld a, (slotCount)
+    inc a
+    ld (slotCount),a
     djnz .nextLetter
+
+    ;Remove trailing spacer slot
+    ld a, (slotCount)
+    dec a
+    ld (slotCount),a
+
     ret
 
 
@@ -271,12 +288,18 @@ slotsToSprites:
     ld iy, slotList
     ld de,slotStruct
 .nextSlot:
+    ;Skip over spacer slots, but leave a space
+    ld a,(iy + slotStruct.letter)
+    or a
+    jr z, .spacer
+
     ; Create a spriteItem, returns IX ptr to spriteItem 
     call SpriteList.reserveSprite
     ; Takes IX, IY
     call slotToSprite
+.spacer:
     call nextColumn
-    ; point to the next tile
+    ; point to the next slot
     add iy,de
 
     djnz .nextSlot
