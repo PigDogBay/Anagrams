@@ -25,6 +25,8 @@ init:
     ld c, 16
     call Slot.createSlots
     ld hl,anagram
+    ; Randomize letters
+    call String.shuffle
     call Tile.createTiles
     call Tile.tilesToSprites
     call Slot.slotsToSprites
