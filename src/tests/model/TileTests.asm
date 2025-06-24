@@ -12,16 +12,16 @@ UT_createSlotsTiles1:
     TEST_MEMORY_BYTE Tile.tileCount,13
     ;Extra slot for the spacer slot
 
-    TEST_MEMORY_BYTE Tile.slotCount,14
+    TEST_MEMORY_BYTE Tile.slotCount,15
 
     ;Check tileList[1] C
     TEST_MEMORY_BYTE Tile.tileList+tileStruct+tileStruct.id,44
     TEST_MEMORY_BYTE Tile.tileList+tileStruct+tileStruct.letter,'C'
 
-    ;Check slotList[2] O
-    TEST_MEMORY_BYTE Tile.slotList+slotStruct*2+slotStruct.id,47
-    TEST_MEMORY_BYTE Tile.slotList+slotStruct*2+slotStruct.letter,'O'
-    TEST_MEMORY_BYTE Tile.slotList+slotStruct*2+slotStruct.tileId,0
+    ;Check slotList[3] O
+    TEST_MEMORY_BYTE Tile.slotList+slotStruct*3+slotStruct.id,47
+    TEST_MEMORY_BYTE Tile.slotList+slotStruct*3+slotStruct.letter,'O'
+    TEST_MEMORY_BYTE Tile.slotList+slotStruct*3+slotStruct.tileId,0
 
     TC_END
 .data:

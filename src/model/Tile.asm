@@ -90,6 +90,8 @@ createSlotsTiles:
     ld iy, slotList
     ;Cancel out the first time inc hl
     dec hl
+    ; Prepend a newline slot, this will contain the column position
+    jr .newLine
 .nextLetter:
     inc hl
     ld a,(hl)
@@ -98,7 +100,7 @@ createSlotsTiles:
     jr z,.whiteSpace
 
     cp CHAR_NEWLINE
-    jr z,.whiteSpace
+    jr z,.newLine
 
     cp CHAR_END
     jr z,.exit
@@ -133,7 +135,7 @@ createSlotsTiles:
 .whiteSpace:    
     ; Add a spacer slot
     ld (iy+slotStruct.id),0
-    ld (iy+slotStruct.letter),a
+    ld (iy+slotStruct.letter),CHAR_SPACE
     ld (iy+slotStruct.tileId),0
     ld de,slotStruct
     add iy,de
@@ -143,6 +145,18 @@ createSlotsTiles:
     ld (slotCount),a
     jr .nextLetter
 
+.newLine:    
+    ; Add a spacer slot
+    ld (iy+slotStruct.id),0
+    ld (iy+slotStruct.letter),CHAR_NEWLINE
+    ld (iy+slotStruct.tileId),0
+    ld de,slotStruct
+    add iy,de
+
+    ld a, (slotCount)
+    inc a
+    ld (slotCount),a
+    jr .nextLetter
 .exit:
     ; ;Remove trailing spacer slot
     ; ld a, (slotCount)
