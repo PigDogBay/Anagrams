@@ -330,10 +330,8 @@ slotToSprite:
     ld (ix + spriteItem.y),a
 
     ; Each column is 16 pixels, so need to multiply column by 16
-    ; also add 32 as columns do not use the border
-    ; y = col * 16 + 32 = (col + 2) * 16
+    ; y = col * 16 
     ld a,(letterColumn)
-    inc a : inc a
     rla : rla : rla : rla
     ld (ix + spriteItem.x),a
     ; Copy carry flag into x's high byte
