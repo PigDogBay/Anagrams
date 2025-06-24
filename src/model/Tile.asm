@@ -7,8 +7,7 @@ SLOT_SPRITE_PATTERN:        equ 6
 LAYOUT_TILE_START_ROW:      equ 10
 LAYOUT_TILE_START_COLUMN:   equ 5
 LAYOUT_SLOT_START_ROW:      equ 1
-LAYOUT_SLOT_START_COLUMN:   equ 5
-LAYOUT_TILE_CENTER_COLUMN:  equ 10
+LAYOUT_SLOT_CENTER_COLUMN:  equ 8
 
 CHAR_SPACE:                 equ " "
 CHAR_NEWLINE:               equ "\n"
@@ -323,7 +322,7 @@ slotToSprite:
     ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN
     
     ; Each row is 24 pixels high, so need to multiply row by 24
-    ; y = row * 24 = (row + 2 * row ) * 8
+    ; y = row * 24 = 8(2r + r)
     ld a,(letterRow)
     ; x3
     ld b,a
@@ -333,10 +332,15 @@ slotToSprite:
     rla : rla : rla
     ld (ix + spriteItem.y),a
 
-    ; Each column is 16 pixels, so need to multiply column by 16
-    ; y = col * 16 
+    ; Each column is 20 pixels, so need to multiply column by 20
+    ; y = col * 20 = 4(4c + c)
     ld a,(letterColumn)
-    rla : rla : rla : rla
+    ;x5
+    ld b,a
+    rla:rla
+    add b
+    ;x4
+    rla : rla
     ld (ix + spriteItem.x),a
     ; Copy carry flag into x's high byte
     ld a,0
@@ -362,8 +366,6 @@ slotsToSprites:
     ;init vars for layout
     ld a, LAYOUT_SLOT_START_ROW
     ld (letterRow),a
-    ld a, LAYOUT_SLOT_START_COLUMN
-    ld (letterColumn),a
 
     ld a, (slotCount)
     ld b, a
@@ -441,7 +443,7 @@ justifySlots:
     ; Halve the lenght, negate it and ad it to the center Column position
     sra a
     neg
-    add LAYOUT_TILE_CENTER_COLUMN
+    add LAYOUT_SLOT_CENTER_COLUMN
     
     pop bc
     ret
