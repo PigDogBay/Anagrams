@@ -6,8 +6,10 @@
 ;
 ; Functions: 
 ;    len(uint16 ptr) -> uint8
+;    lenUptoChar(uint16 ptr, uint8 char) -> uint8
+;    swap(uint16 ptr, uint8 i, uint8 j)
 ;    shuffle(uint16 ptr)
-; 
+;    equals(uint16 ptr, uint16 ptr) -> bool
 ;-----------------------------------------------------------------------------------
 
     module String
@@ -25,11 +27,26 @@
 ;
 ; Dirty: A
 ;-----------------------------------------------------------------------------------
-
 len:
+    ld a,0
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function: lenUptoChar(uint16 ptr, uint8 char) -> uint8
+;
+; Calculates the length of a string upto char, the length excludes the char
+; 
+; In:  HL pointer to the string
+;      A  char to search for
+; Out: A length
+;      A = 255 if length is longer than 255 bytes
+;
+; Dirty: A
+;-----------------------------------------------------------------------------------
+lenUptoChar:
     push hl
     push bc
-    ld a,0
     ; Search for a max length of 255 chars
     ld bc,0x00ff
     cpir
@@ -163,5 +180,9 @@ equals:
     pop hl
     pop de
     ret
+
+
+
+
 
     endmodule

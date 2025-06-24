@@ -37,7 +37,23 @@ UT_len4:
     block 253,'A'
     db 0
 
+UT_lenUptoChar1:
+    ld hl, .data
+    ld a,"."
+    call String.lenUptoChar
+    nop ; ASSERTION A == 14
+    TC_END
+.data:
+    db "Acorn Electron. Commodore 64.",0
 
+UT_lenUptoChar2:
+    ld hl, .data
+    ld a,"\n"
+    call String.lenUptoChar
+    nop ; ASSERTION A == 7
+    TC_END
+.data:
+    db "The Ace\nof Spades.",0
 
 UT_swap1:
     ld hl, .data
