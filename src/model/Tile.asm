@@ -216,7 +216,7 @@ tilesToSprites:
     call SpriteList.reserveSprite
     ; Takes IX, IY
     call tileToSprite
-    call nextColumn
+    call tilesLayout
     ; point to the next tile
     add iy,de
 
@@ -224,6 +224,33 @@ tilesToSprites:
 
     pop de
     pop bc
+    ret
+
+
+
+
+
+;-----------------------------------------------------------------------------------
+;
+; private function tilesLayout()
+;   helper function to layout the tiles
+; 
+; Dirty A
+; 
+;-----------------------------------------------------------------------------------
+tilesLayout:
+    ld a,(letterColumn)
+    cp MAX_COLUMN
+    jr nz, .noColumnOverflow
+    ; Increase row
+    ld a,(letterRow)
+    inc a
+    ld (letterRow),a
+    ; 0 column
+    ld a,255
+.noColumnOverflow:
+    inc a
+    ld (letterColumn),a
     ret
 
 
@@ -307,7 +334,11 @@ slotsToSprites:
     ; Takes IX, IY
     call slotToSprite
 .spacer:
-    call nextColumn
+    ; Next column
+    ld a,(letterColumn)
+    inc a
+    ld (letterColumn),a
+
     ; point to the next slot
     add iy,de
     djnz .nextSlot
@@ -321,39 +352,12 @@ slotsToSprites:
     ld (letterRow),a
     add iy,de
     djnz .nextSlot
-
     
 .exit:
     pop de
     pop bc
     ret
 
-
-
-
-
-;-----------------------------------------------------------------------------------
-;
-; private function nextColumn()
-;   helper function to layout the tiles and slot sprites
-; 
-; Dirty A
-; 
-;-----------------------------------------------------------------------------------
-nextColumn:
-    ld a,(letterColumn)
-    cp MAX_COLUMN
-    jr nz, .noColumnOverflow
-    ; Increase row
-    ld a,(letterRow)
-    inc a
-    ld (letterRow),a
-    ; 0 column
-    ld a,255
-.noColumnOverflow:
-    inc a
-    ld (letterColumn),a
-    ret
 
 
 

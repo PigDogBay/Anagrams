@@ -70,22 +70,22 @@ UT_tilesToSprites1:
     db 4,"FISH",0,"AND\n","CHIP",0,"FRIDAY",0
 
 
-UT_nextColumn1:
+UT_tilesLayout1:
     ld a,10
     ld (Tile.letterRow),a
     ld a,8
     ld (Tile.letterColumn),a
-    call Tile.nextColumn
+    call Tile.tilesLayout
     TEST_MEMORY_BYTE Tile.letterRow,10
     TEST_MEMORY_BYTE Tile.letterColumn,9
     TC_END
 
-UT_nextColumn2:
+UT_tilesLayout2:
     ld a,10
     ld (Tile.letterRow),a
     ld a,Tile.MAX_COLUMN
     ld (Tile.letterColumn),a
-    call Tile.nextColumn
+    call Tile.tilesLayout
     TEST_MEMORY_BYTE Tile.letterRow,11
     TEST_MEMORY_BYTE Tile.letterColumn,0
     TC_END
