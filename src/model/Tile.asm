@@ -6,7 +6,7 @@ SLOT_SPRITE_PATTERN:        equ 6
 
 LAYOUT_TILE_START_ROW:      equ 10
 LAYOUT_TILE_START_COLUMN:   equ 5
-LAYOUT_SLOT_START_ROW:      equ 2
+LAYOUT_SLOT_START_ROW:      equ 1
 LAYOUT_SLOT_START_COLUMN:   equ 5
 LAYOUT_TILE_CENTER_COLUMN:  equ 10
 
@@ -315,18 +315,22 @@ tilesLayout:
 ;
 ;-----------------------------------------------------------------------------------
 slotToSprite:
+    push bc
     ;Use tile ID as game ID
     ld a,(iy + slotStruct.id)
     ld (ix + spriteItem.gameId),a
 
     ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN
     
-    ; Each row is 16 pixels, so need to multiply row by 16
-    ; also add 32 as rows do not use the border
-    ; y = row * 16 + 32 = (row + 2) * 16
+    ; Each row is 24 pixels high, so need to multiply row by 24
+    ; y = row * 24 = (row + 2 * row ) * 8
     ld a,(letterRow)
-    inc a : inc a
-    rla : rla : rla : rla
+    ; x3
+    ld b,a
+    rla
+    add b
+    ; x8
+    rla : rla : rla
     ld (ix + spriteItem.y),a
 
     ; Each column is 16 pixels, so need to multiply column by 16
@@ -338,6 +342,7 @@ slotToSprite:
     ld a,0
     adc a
     ld (ix + spriteItem.x + 1),a
+    pop bc
     ret
 
 
