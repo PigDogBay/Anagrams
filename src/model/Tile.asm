@@ -9,6 +9,8 @@ LAYOUT_TILE_START_COLUMN:   equ 5
 LAYOUT_SLOT_START_ROW:      equ 2
 LAYOUT_SLOT_START_COLUMN:   equ 5
 
+CHAR_NEWLINE:               equ "\n"
+
 MAX_COLUMN:                 equ 15
 
 DRAG_BOUNDS_X_MIN:               equ 16
@@ -19,6 +21,7 @@ DRAG_BOUNDS_X_MAX_LSB_IN_BOUNDS: equ DRAG_BOUNDS_X_MAX_IN_BOUNDS - 256
 DRAG_BOUNDS_Y_MIN:               equ 16
 DRAG_BOUNDS_Y_MAX:               equ 255 - 16
 DRAG_BOUNDS_Y_MAX_IN_BOUNDS:     equ DRAG_BOUNDS_Y_MAX - 1
+
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -89,6 +92,9 @@ createSlotsTiles:
     ld a,(hl)
     or a
     jr z, .endOfWord
+
+    cp CHAR_NEWLINE
+    jr z,.endOfWord
 
     ;new tile
     ld (ix+tileStruct.id),c

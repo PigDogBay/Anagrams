@@ -11,7 +11,7 @@ UT_createSlotsTiles1:
     nop ; ASSERTION c == 42 + (5 + 8)*2
     TEST_MEMORY_BYTE Tile.tileCount,13
     ;Extra slot for the spacer slot
-    
+
     TEST_MEMORY_BYTE Tile.slotCount,14
 
     ;Check tileList[1] C
@@ -26,7 +26,7 @@ UT_createSlotsTiles1:
     TC_END
 .data:
     ;Number of words, word 1, word 2 ...
-    db 2,"ACORN",0,"ELECTRON",0
+    db 2,"ACORN\n","ELECTRON",0
 
 UT_tileToSprite1:
     ld a,10
@@ -67,7 +67,7 @@ UT_tilesToSprites1:
     TC_END
 .data:
     ;Number of words, word 1, word 2 ...
-    db 4,"FISH",0,"AND",0,"CHIP",0,"FRIDAY",0
+    db 4,"FISH",0,"AND\n","CHIP",0,"FRIDAY",0
 
 
 UT_nextColumn1:
