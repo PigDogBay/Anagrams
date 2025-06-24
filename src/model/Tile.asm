@@ -120,54 +120,8 @@ tileToSprite:
     sub ASCII_PATTERN_OFFSET
     ld (ix + spriteItem.pattern),a
       
-    call rowColumnToPixel
+    call Grid.rowColumnToPixel
     ret
-
-;-----------------------------------------------------------------------------------
-;
-; Function: rowColumnToPixel(uint16 ptrSprite)
-;
-; Convert letterRow and letterColumn to pixel co-ordinates and store then in the
-; spriteItem struct.
-;
-; In: IX - pointer to spriteItem struct
-; 
-; Dirty A
-;
-;-----------------------------------------------------------------------------------
-rowColumnToPixel:
-    push bc
-
-    ; Each row is 24 pixels high, so need to multiply row by 24
-    ; y = row * 24 = 8(2r + r)
-    ld a,(letterRow)
-    ; x3
-    ld b,a
-    sla a
-    add b
-    ; x8
-    
-    sla a: sla a: sla a
-    ld (ix + spriteItem.y),a
-
-    ; Each column is 20 pixels, so need to multiply column by 20
-    ; y = col * 20 = 4(4c + c)
-    ld a,(letterColumn)
-    ;x5
-    ld b,a
-    sla a: sla a
-    add b
-    ;x4
-    sla a: sla a
-    ld (ix + spriteItem.x),a
-    ; Copy carry flag into x's high byte
-    ld a,0
-    adc a
-    ld (ix + spriteItem.x + 1),a
- 
-    pop bc
-    ret
-
 
 
 ;-----------------------------------------------------------------------------------
@@ -185,10 +139,10 @@ tilesToSprites:
 
     ;init vars for layout
     call getTileStartColumn
-    ld (letterColumn),a
+    ld (Grid.column),a
 
     ld a, LAYOUT_TILE_START_ROW
-    ld (letterRow),a
+    ld (Grid.row),a
 
     ld a, (tileCount)
     ld b, a
@@ -226,7 +180,7 @@ tilesLayout:
     ;Calculate max column
     call getMaxTilesPerRow
     ld b,a
-    ld a,(letterColumn)
+    ld a,(Grid.column)
     cp b
     jr nz, .noColumnOverflow
 
@@ -234,16 +188,16 @@ tilesLayout:
     ; So move to next row and start column
 
     ; Increase row
-    ld a,(letterRow)
+    ld a,(Grid.row)
     inc a
-    ld (letterRow),a
+    ld (Grid.row),a
 
     call getTileStartColumn
     dec a
 
 .noColumnOverflow:
     inc a
-    ld (letterColumn),a
+    ld (Grid.column),a
     pop bc
     ret
 
@@ -361,11 +315,6 @@ boundsCheck:
     xor a
     ret
 
-; private variables Used by nextColumn()
-letterRow:
-    db 0
-letterColumn:
-    db 0
 
 
 tileCount:

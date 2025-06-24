@@ -169,7 +169,7 @@ slotToSprite:
 
     ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN
 
-    call Tile.rowColumnToPixel
+    call Grid.rowColumnToPixel
     ret
 
 
@@ -188,7 +188,7 @@ slotsToSprites:
 
     ;init vars for layout
     ld a, LAYOUT_SLOT_START_ROW
-    ld (Tile.letterRow),a
+    ld (Grid.row),a
 
     ld a, (slotCount)
     ld b, a
@@ -209,9 +209,9 @@ slotsToSprites:
     call slotToSprite
 .spacer:
     ; Next column
-    ld a,(Tile.letterColumn)
+    ld a,(Grid.column)
     inc a
-    ld (Tile.letterColumn),a
+    ld (Grid.column),a
 
     ; point to the next slot
     add iy,de
@@ -221,10 +221,10 @@ slotsToSprites:
 .newLine:
     ;Column start position is stored in TileId
     ld a,(iy + slotStruct.tileId)
-    ld (Tile.letterColumn),a
-    ld a,(Tile.letterRow)
+    ld (Grid.column),a
+    ld a,(Grid.row)
     inc a
-    ld (Tile.letterRow),a
+    ld (Grid.row),a
     add iy,de
     djnz .nextSlot
     

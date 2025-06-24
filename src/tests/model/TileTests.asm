@@ -24,9 +24,9 @@ UT_createTiles1:
 
 UT_tileToSprite1:
     ld a,10
-    ld (Tile.letterRow),a
+    ld (Grid.row),a
     ld a,15
-    ld (Tile.letterColumn),a
+    ld (Grid.column),a
     ld iy, .tileData
     ld ix, .spriteData
     call Tile.tileToSprite
@@ -65,22 +65,22 @@ UT_tilesToSprites1:
 
 UT_tilesLayout1:
     ld a,10
-    ld (Tile.letterRow),a
+    ld (Grid.row),a
     ld a,8
-    ld (Tile.letterColumn),a
+    ld (Grid.column),a
     call Tile.tilesLayout
-    TEST_MEMORY_BYTE Tile.letterRow,10
-    TEST_MEMORY_BYTE Tile.letterColumn,9
+    TEST_MEMORY_BYTE Grid.row,10
+    TEST_MEMORY_BYTE Grid.column,9
     TC_END
 
 UT_tilesLayout2:
     ld a,10
-    ld (Tile.letterRow),a
+    ld (Grid.row),a
     ld a,42
-    ld (Tile.letterColumn),a
+    ld (Grid.column),a
     call Tile.tilesLayout
-    TEST_MEMORY_BYTE Tile.letterRow,11
-    TEST_MEMORY_BYTE Tile.letterColumn,0
+    TEST_MEMORY_BYTE Grid.row,11
+    TEST_MEMORY_BYTE Grid.column,0
     TC_END
 
 
