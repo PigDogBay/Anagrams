@@ -5,6 +5,7 @@ ASCII_PATTERN_OFFSET:       equ 'A' - SPRITE_PATTERN_OFFSET_A
 SLOT_SPRITE_PATTERN:        equ 6
 
 LAYOUT_TILE_START_ROW:      equ 10
+LAYOUT_TILE_CENTER_COLUMN:  equ 8
 LAYOUT_TILE_START_COLUMN:   equ 5
 LAYOUT_SLOT_START_ROW:      equ 1
 LAYOUT_SLOT_CENTER_COLUMN:  equ 8
@@ -247,10 +248,11 @@ tilesToSprites:
     push de
 
     ;init vars for layout
+    call getTileStartColumn
+    ld (letterColumn),a
+
     ld a, LAYOUT_TILE_START_ROW
     ld (letterRow),a
-    ld a, LAYOUT_TILE_START_COLUMN
-    ld (letterColumn),a
 
     ld a, (tileCount)
     ld b, a
@@ -284,21 +286,70 @@ tilesToSprites:
 ; 
 ;-----------------------------------------------------------------------------------
 tilesLayout:
+    push bc
+    ;Calculate max column
+    call getMaxTilesPerRow
+    ld b,a
     ld a,(letterColumn)
-    cp MAX_COLUMN
+    cp b
     jr nz, .noColumnOverflow
+
+    ; Maximum number of tiles in this row
+    ; So move to next row and start column
+
     ; Increase row
     ld a,(letterRow)
     inc a
     ld (letterRow),a
-    ; 0 column
-    ld a,255
+
+    call getTileStartColumn
+    dec a
+
 .noColumnOverflow:
     inc a
     ld (letterColumn),a
+    pop bc
     ret
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: getTileStartColumn() -> uint8
+;
+; Helper function to layout out the tiles
+; Start Position = Center column - (tile count + 1) / 2
+; 
+; In: -
+; Out: A first column to start placing tiles
+; 
+; Dirty A
+; 
+;-----------------------------------------------------------------------------------
+getTileStartColumn:
+    ld a,(tileCount)
+    inc a
+    srl a
+    neg
+    ; -1 as there is an inc a next
+    add LAYOUT_TILE_CENTER_COLUMN
+    ret
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: getMaxTilesPerRow() -> uint8
+;
+; Helper function to layout the tiles
+; 
+; In: -
+; Out: A maximum number of tiles per row
+; 
+; Dirty A
+; 
+;-----------------------------------------------------------------------------------
+getMaxTilesPerRow:
+    ld a,(tileCount)
+    inc a
+    srl a
+    ret
 
 
 ;-----------------------------------------------------------------------------------
