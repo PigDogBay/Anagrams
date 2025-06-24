@@ -187,5 +187,5 @@ spriteId:               db 0
 dragSpriteItem:         dw 0
 
 anagram:
-    db 4,"THE ACE\nOF SPADES."
+    db "THE ACE\nOF SPADES."
     endmodule

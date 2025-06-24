@@ -85,10 +85,10 @@ removeAll:
 ;
 ;-----------------------------------------------------------------------------------
 createSlotsTiles:
-    ; b = number of words
-    ld b, (hl)
     ld ix, tileList
     ld iy, slotList
+    ;Cancel out the first time inc hl
+    dec hl
 .nextLetter:
     inc hl
     ld a,(hl)
@@ -140,7 +140,7 @@ createSlotsTiles:
     ld a, (slotCount)
     inc a
     ld (slotCount),a
-    djnz .nextLetter
+    jr .nextLetter
 
 .exit:
     ; ;Remove trailing spacer slot
