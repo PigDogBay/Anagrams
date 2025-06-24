@@ -17,7 +17,7 @@ UT_createTiles1:
 
     TC_END
 .data:
-    db "ACORN\nELECTRON."
+    db "ACORN\nELECTRON",0
 
 
 
@@ -60,7 +60,7 @@ UT_tilesToSprites1:
 
     TC_END
 .data:
-    db "FISH AND\nCHIP FRIDAY."
+    db "FISH AND\nCHIP FRIDAY",0
 
 
 UT_tilesLayout1:

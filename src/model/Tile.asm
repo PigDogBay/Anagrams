@@ -59,7 +59,7 @@ createTiles:
     cp CHAR_NEWLINE
     jr z,.nextLetter
 
-    cp CHAR_END
+    or a
     jr z,.exit
 
     ;new tile

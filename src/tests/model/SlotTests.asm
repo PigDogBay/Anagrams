@@ -17,7 +17,7 @@ UT_createSlots1:
 
     TC_END
 .data:
-    db "ACORN\nELECTRON."
+    db "ACORN\nELECTRON",0
 
 
 
@@ -27,7 +27,7 @@ UT_justifySlots1:
     nop ; ASSERTION A == Slot.LAYOUT_SLOT_CENTER_COLUMN -2
     TC_END
 .data:
-    db "ACORN\nELECTRON."
+    db "ACORN\nELECTRON",0
 
 UT_justifySlots2:
     ld hl,.data
@@ -35,7 +35,7 @@ UT_justifySlots2:
     nop ; ASSERTION A == Slot.LAYOUT_SLOT_CENTER_COLUMN - 4
     TC_END
 .data:
-    db "SPECTRUM."
+    db "SPECTRUM",0
 
 UT_justifySlots3:
     ld hl,.data
@@ -43,7 +43,7 @@ UT_justifySlots3:
     nop ; ASSERTION A == Slot.LAYOUT_SLOT_CENTER_COLUMN - 3
     TC_END
 .data:
-    db "THE ACE\nOF SPADES."
+    db "THE ACE\nOF SPADES",0
 
 
 

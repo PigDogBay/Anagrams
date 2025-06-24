@@ -56,7 +56,7 @@ createSlots:
     cp CHAR_NEWLINE
     jr z,.newLine
 
-    cp CHAR_END
+    or a
     jr z,.exit
 
     ;new slot
