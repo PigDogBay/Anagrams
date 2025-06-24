@@ -25,8 +25,32 @@ UT_createSlotsTiles1:
 
     TC_END
 .data:
-    ;Number of words, word 1, word 2 ...
     db "ACORN\nELECTRON."
+
+UT_justifySlots1:
+    ld hl,.data
+    call Tile.justifySlots
+    nop ; ASSERTION A == Tile.LAYOUT_TILE_CENTER_COLUMN -2
+    TC_END
+.data:
+    db "ACORN\nELECTRON."
+
+UT_justifySlots2:
+    ld hl,.data
+    call Tile.justifySlots
+    nop ; ASSERTION A == Tile.LAYOUT_TILE_CENTER_COLUMN - 4
+    TC_END
+.data:
+    db "SPECTRUM."
+
+UT_justifySlots3:
+    ld hl,.data
+    call Tile.justifySlots
+    nop ; ASSERTION A == Tile.LAYOUT_TILE_CENTER_COLUMN - 3
+    TC_END
+.data:
+    db "THE ACE\nOF SPADES."
+
 
 UT_tileToSprite1:
     ld a,10
@@ -66,8 +90,7 @@ UT_tilesToSprites1:
 
     TC_END
 .data:
-    ;Number of words, word 1, word 2 ...
-    db "FISH AND CHIP FRIDAY."
+    db "FISH AND\nCHIP FRIDAY."
 
 
 UT_tilesLayout1:

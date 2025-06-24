@@ -8,6 +8,7 @@ LAYOUT_TILE_START_ROW:      equ 10
 LAYOUT_TILE_START_COLUMN:   equ 5
 LAYOUT_SLOT_START_ROW:      equ 2
 LAYOUT_SLOT_START_COLUMN:   equ 5
+LAYOUT_TILE_CENTER_COLUMN:  equ 10
 
 CHAR_SPACE:                 equ " "
 CHAR_NEWLINE:               equ "\n"
@@ -367,7 +368,37 @@ slotsToSprites:
 
 
 
+;-----------------------------------------------------------------------------------
+; 
+; function justifySlots(uint16 ptr) -> uint8
+; 
+; Helper function to centre a line of slots
+; 
+; In: HL pointer to the start of the line in the anagram string 
+; Out: A, column to place first slot of the line
+; 
+;-----------------------------------------------------------------------------------
+justifySlots:
+    ld a,CHAR_END
+    call String.lenUptoChar
+    ld b,a
 
+    ld a,CHAR_NEWLINE
+    call String.lenUptoChar
+
+    ;find lowest index
+    cp b
+    ; If carry, new line found first
+    jr c, .exit
+    ; no newline, use fullstop index
+    ld a,b
+
+.exit:
+    ; Halve the lenght, negate it and ad it to the center Column position
+    sra a
+    neg
+    add LAYOUT_TILE_CENTER_COLUMN
+    ret
 
 
 ;-----------------------------------------------------------------------------------
