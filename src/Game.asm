@@ -18,13 +18,16 @@ init:
     ; First sprite always the mouse pointer so that it is on top
     call addMouseSpritePointer
 
+    call Slot.removeAll
     call Tile.removeAll
     ld hl,anagram
     ;TODO, start game ID at 16 for tiles and slots, need better management of this
     ld c, 16
-    call Tile.createSlotsTiles
+    call Slot.createSlots
+    ld hl,anagram
+    call Tile.createTiles
     call Tile.tilesToSprites
-    call Tile.slotsToSprites
+    call Slot.slotsToSprites
     ret
 
 run:

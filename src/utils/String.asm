@@ -15,6 +15,10 @@
     module String
 
 
+@CHAR_SPACE:                 equ " "
+@CHAR_NEWLINE:               equ "\n"
+@CHAR_END:                   equ "."
+
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: len(uint16 ptr) -> uint8

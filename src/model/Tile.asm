@@ -2,18 +2,9 @@
 
 SPRITE_PATTERN_OFFSET_A:    equ 8
 ASCII_PATTERN_OFFSET:       equ 'A' - SPRITE_PATTERN_OFFSET_A
-SLOT_SPRITE_PATTERN:        equ 6
 
 LAYOUT_TILE_START_ROW:      equ 8
 LAYOUT_TILE_CENTER_COLUMN:  equ 8
-LAYOUT_SLOT_START_ROW:      equ 1
-LAYOUT_SLOT_CENTER_COLUMN:  equ 8
-
-CHAR_SPACE:                 equ " "
-CHAR_NEWLINE:               equ "\n"
-CHAR_END:                   equ "."
-
-MAX_COLUMN:                 equ 15
 
 DRAG_BOUNDS_X_MIN:               equ 16
 DRAG_BOUNDS_X_MAX:               equ 319 - 16
@@ -37,43 +28,12 @@ id          byte
 letter      byte
     ends
 
-;-----------------------------------------------------------------------------------
-; 
-; struct: slotStruct
-; 
-; .tileId is the slotted tile ID, if 0 then this indicates no tile has been slotted
-; .letter is the expected letter, 
-; .id id of the slot
-; 
-; 
-;-----------------------------------------------------------------------------------
-    struct @slotStruct
-id          byte
-letter      byte
-tileId      byte
-    ends
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: removeAll()
-;
-; Sets slot and tile count to 0
-;
-; Dirty: A, HL 
-;
-;-----------------------------------------------------------------------------------
-removeAll:
-    ;reset variables
-    xor a
-    ld (tileCount),a
-    ld (slotCount),a
-    ret
-
-;-----------------------------------------------------------------------------------
-;
-; Function: createSlotsTiles(uint8 id, uint16 ptr) -> uint8 nextId
+; Function: createTiles(uint8 id, uint16 ptr) -> uint8 nextId
 ; 
-; Sets up the tile and slot lists from the puzzle data
+; Sets up the tile lists from the puzzle data
 ; 
 ; In: 
 ;     C - gameId of the first item
@@ -81,22 +41,23 @@ removeAll:
 ;
 ; Out C - gameId advanced ready for next game item
 ;
-; Dirty: A, BC, HL, DE, IX, IY
+; Dirty: A, BC, HL, DE, IX
 ;
 ;-----------------------------------------------------------------------------------
-createSlotsTiles:
+createTiles:
     ld ix, tileList
-    ld iy, slotList
-    ; Prepend a newline slot, this will contain the column position
-    call addNewLineSlot
+
+    ; loop starts off by inc hl, so cancel it out here
+    dec hl
 .nextLetter:
+    inc hl
     ld a,(hl)
 
     cp CHAR_SPACE
-    jr z,.whiteSpace
+    jr z,.nextLetter
 
     cp CHAR_NEWLINE
-    jr z,.newLine
+    jr z,.nextLetter
 
     cp CHAR_END
     jr z,.exit
@@ -109,85 +70,33 @@ createSlotsTiles:
     ;advance gameId
     inc c
 
-    ;new slot
-    ld (iy+slotStruct.id),c
-    ld (iy+slotStruct.letter),a
-    ld (iy+slotStruct.tileId),0
-    ld de,slotStruct
-    add iy,de
-    ;advance gameId
-    inc c
-
     ld a, (tileCount)
     inc a
     ld (tileCount),a
 
-    ld a, (slotCount)
-    inc a
-    ld (slotCount),a
-
     ;next letter
-    inc hl
     jr .nextLetter
 
-.whiteSpace:    
-    ; Add a spacer slot
-    ld (iy+slotStruct.id),0
-    ld (iy+slotStruct.letter),CHAR_SPACE
-    ld (iy+slotStruct.tileId),0
-    ld de,slotStruct
-    add iy,de
-
-    ld a, (slotCount)
-    inc a
-    ld (slotCount),a
-
-    ;next letter
-    inc hl
-    jr .nextLetter
-
-.newLine:    
-    ;next letter
-    inc hl
-    call addNewLineSlot
-    jr .nextLetter
 .exit:
-    ; ;Remove trailing spacer slot
-    ; ld a, (slotCount)
-    ; dec a
-    ; ld (slotCount),a
-
     ret
+
+
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: addNewLineSlot(uint16 strPtr, uint16 slotPtr)
-; 
-; Helper function for createSlotTiles(), adds a Slot representing a New Line marker
-; this slot also contains formatting information  - column start position
-; 
-; In: 
-;     HL - pointer to puzzle data
-;     IY - Slot pointer
-; Out:
-;     IY - Next slot
+; Function: removeAll()
 ;
-; Dirty: A, DE
+; Sets tile count to 0
+;
+; Dirty: A
 ;
 ;-----------------------------------------------------------------------------------
-addNewLineSlot:
-    ld (iy+slotStruct.id),0
-    ld (iy+slotStruct.letter),CHAR_NEWLINE
-    call justifySlots
-    ld (iy+slotStruct.tileId),a
-    ld de,slotStruct
-    add iy,de
-
-    ld a, (slotCount)
-    inc a
-    ld (slotCount),a
-
+removeAll:
+    ;reset variables
+    xor a
+    ld (tileCount),a
     ret
+
 
 ;-----------------------------------------------------------------------------------
 ;
@@ -381,128 +290,6 @@ getMaxTilesPerRow:
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: slotToSprite(uint16 ptrSprite, uint16 ptrSlot)
-;
-; Convert slotStruct to a spriteItem
-;
-; In: IX - pointer to spriteItem struct
-;     IY - pointer to slotStruct
-; 
-; Dirty A
-;
-;-----------------------------------------------------------------------------------
-slotToSprite:
-    ;Use tile ID as game ID
-    ld a,(iy + slotStruct.id)
-    ld (ix + spriteItem.gameId),a
-
-    ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN
-
-    call rowColumnToPixel
-    ret
-
-
-;-----------------------------------------------------------------------------------
-;
-; Function: slotsToSprites()
-;
-; Add all the items in the slot list to the sprite list
-;
-; Dirty A, IX, IY
-;
-;-----------------------------------------------------------------------------------
-slotsToSprites:
-    push bc
-    push de
-
-    ;init vars for layout
-    ld a, LAYOUT_SLOT_START_ROW
-    ld (letterRow),a
-
-    ld a, (slotCount)
-    ld b, a
-    ld iy, slotList
-    ld de,slotStruct
-.nextSlot:
-    ;Skip over spacer slots, but leave a space
-    ld a,(iy + slotStruct.letter)
-    cp CHAR_SPACE
-    jr z, .spacer
-
-    cp CHAR_NEWLINE
-    jr z, .newLine
-
-    ; Create a spriteItem, returns IX ptr to spriteItem 
-    call SpriteList.reserveSprite
-    ; Takes IX, IY
-    call slotToSprite
-.spacer:
-    ; Next column
-    ld a,(letterColumn)
-    inc a
-    ld (letterColumn),a
-
-    ; point to the next slot
-    add iy,de
-    djnz .nextSlot
-    jr .exit
-
-.newLine:
-    ;Column start position is stored in TileId
-    ld a,(iy + slotStruct.tileId)
-    ld (letterColumn),a
-    ld a,(letterRow)
-    inc a
-    ld (letterRow),a
-    add iy,de
-    djnz .nextSlot
-    
-.exit:
-    pop de
-    pop bc
-    ret
-
-
-
-;-----------------------------------------------------------------------------------
-; 
-; function justifySlots(uint16 ptr) -> uint8
-; 
-; Helper function to centre a line of slots
-; 
-; In: HL pointer to the start of the line in the anagram string 
-; Out: A, column to place first slot of the line
-; 
-;-----------------------------------------------------------------------------------
-justifySlots:
-    push bc
-
-    ld a,CHAR_END
-    call String.lenUptoChar
-    ld b,a
-
-    ld a,CHAR_NEWLINE
-    call String.lenUptoChar
-
-    ;find lowest index
-    cp b
-    ; If carry, new line found first
-    jr c, .exit
-    ; no newline, use fullstop index
-    ld a,b
-
-.exit:
-    ; Halve the lenght, negate it and ad it to the center Column position
-    sra a
-    neg
-    add LAYOUT_SLOT_CENTER_COLUMN
-    
-    pop bc
-    ret
-
-
-;-----------------------------------------------------------------------------------
-;
 ; Function: boundsCheck
 ;
 ; Checks if the tile is in bounds, if not the tile X,Y is corrected to be back within 
@@ -584,11 +371,6 @@ letterColumn:
 tileCount:
     db 0
 tileList:
-    block tileStruct * 64
-
-slotCount:
-    db 0
-slotList:
     block tileStruct * 64
 
     endmodule

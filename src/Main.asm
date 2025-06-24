@@ -22,9 +22,10 @@
     include "hardware/MouseDriver.asm"
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
+    include "model/Tile.asm"
+    include "model/Slot.asm"
     include "Game.asm"
     include "Text.asm"
-    include "model/Tile.asm"
     include "utils/Maths.asm"
     include "utils/String.asm"
 

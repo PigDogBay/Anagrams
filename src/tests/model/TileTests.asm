@@ -2,54 +2,24 @@
     ; DeZog will collect all these labels and offer them for execution.
     module TestSuite_Tile
 
-UT_createSlotsTiles1:
+UT_createTiles1:
     call Tile.removeAll
     ld c,42
     ld hl,.data
-    call Tile.createSlotsTiles
+    call Tile.createTiles
     ; gameId will be increased by number of slots + tiles created
-    nop ; ASSERTION c == 42 + (5 + 8)*2
+    nop ; ASSERTION c == 42 + (5 + 8)
     TEST_MEMORY_BYTE Tile.tileCount,13
-    ;Extra slot for the spacer slot
-
-    TEST_MEMORY_BYTE Tile.slotCount,15
 
     ;Check tileList[1] C
-    TEST_MEMORY_BYTE Tile.tileList+tileStruct+tileStruct.id,44
+    TEST_MEMORY_BYTE Tile.tileList+tileStruct+tileStruct.id,43
     TEST_MEMORY_BYTE Tile.tileList+tileStruct+tileStruct.letter,'C'
 
-    ;Check slotList[3] O
-    TEST_MEMORY_BYTE Tile.slotList+slotStruct*3+slotStruct.id,47
-    TEST_MEMORY_BYTE Tile.slotList+slotStruct*3+slotStruct.letter,'O'
-    TEST_MEMORY_BYTE Tile.slotList+slotStruct*3+slotStruct.tileId,0
-
     TC_END
 .data:
     db "ACORN\nELECTRON."
 
-UT_justifySlots1:
-    ld hl,.data
-    call Tile.justifySlots
-    nop ; ASSERTION A == Tile.LAYOUT_SLOT_CENTER_COLUMN -2
-    TC_END
-.data:
-    db "ACORN\nELECTRON."
 
-UT_justifySlots2:
-    ld hl,.data
-    call Tile.justifySlots
-    nop ; ASSERTION A == Tile.LAYOUT_SLOT_CENTER_COLUMN - 4
-    TC_END
-.data:
-    db "SPECTRUM."
-
-UT_justifySlots3:
-    ld hl,.data
-    call Tile.justifySlots
-    nop ; ASSERTION A == Tile.LAYOUT_SLOT_CENTER_COLUMN - 3
-    TC_END
-.data:
-    db "THE ACE\nOF SPADES."
 
 
 UT_tileToSprite1:
@@ -78,7 +48,7 @@ UT_tilesToSprites1:
     call Tile.removeAll
     ld c,100
     ld hl,.data
-    call Tile.createSlotsTiles
+    call Tile.createTiles
     call Tile.tilesToSprites
 
     TEST_MEMORY_BYTE SpriteList.count,17
@@ -106,7 +76,7 @@ UT_tilesLayout1:
 UT_tilesLayout2:
     ld a,10
     ld (Tile.letterRow),a
-    ld a,Tile.MAX_COLUMN
+    ld a,42
     ld (Tile.letterColumn),a
     call Tile.tilesLayout
     TEST_MEMORY_BYTE Tile.letterRow,11
