@@ -10,6 +10,7 @@ LAYOUT_SLOT_START_ROW:      equ 2
 LAYOUT_SLOT_START_COLUMN:   equ 5
 
 CHAR_NEWLINE:               equ "\n"
+CHAR_END:                   equ "."
 
 MAX_COLUMN:                 equ 15
 
@@ -96,6 +97,9 @@ createSlotsTiles:
     cp CHAR_NEWLINE
     jr z,.whiteSpace
 
+    cp CHAR_END
+    jr z,.exit
+
     ;new tile
     ld (ix+tileStruct.id),c
     ld (ix+tileStruct.letter),a
@@ -136,10 +140,11 @@ createSlotsTiles:
     ld (slotCount),a
     djnz .nextLetter
 
-    ;Remove trailing spacer slot
-    ld a, (slotCount)
-    dec a
-    ld (slotCount),a
+.exit:
+    ; ;Remove trailing spacer slot
+    ; ld a, (slotCount)
+    ; dec a
+    ; ld (slotCount),a
 
     ret
 
