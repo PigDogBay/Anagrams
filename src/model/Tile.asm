@@ -88,12 +88,9 @@ removeAll:
 createSlotsTiles:
     ld ix, tileList
     ld iy, slotList
-    ;Cancel out the first time inc hl
-    dec hl
     ; Prepend a newline slot, this will contain the column position
-    jr .newLine
+    call addNewLineSlot
 .nextLetter:
-    inc hl
     ld a,(hl)
 
     cp CHAR_SPACE
@@ -130,6 +127,8 @@ createSlotsTiles:
     inc a
     ld (slotCount),a
 
+    ;next letter
+    inc hl
     jr .nextLetter
 
 .whiteSpace:    
@@ -143,19 +142,15 @@ createSlotsTiles:
     ld a, (slotCount)
     inc a
     ld (slotCount),a
+
+    ;next letter
+    inc hl
     jr .nextLetter
 
 .newLine:    
-    ; Add a spacer slot
-    ld (iy+slotStruct.id),0
-    ld (iy+slotStruct.letter),CHAR_NEWLINE
-    ld (iy+slotStruct.tileId),0
-    ld de,slotStruct
-    add iy,de
-
-    ld a, (slotCount)
-    inc a
-    ld (slotCount),a
+    ;next letter
+    inc hl
+    call addNewLineSlot
     jr .nextLetter
 .exit:
     ; ;Remove trailing spacer slot
@@ -165,6 +160,35 @@ createSlotsTiles:
 
     ret
 
+;-----------------------------------------------------------------------------------
+;
+; Function: addNewLineSlot(uint16 strPtr, uint16 slotPtr)
+; 
+; Helper function for createSlotTiles(), adds a Slot representing a New Line marker
+; this slot also contains formatting information  - column start position
+; 
+; In: 
+;     HL - pointer to puzzle data
+;     IY - Slot pointer
+; Out:
+;     IY - Next slot
+;
+; Dirty: A, DE
+;
+;-----------------------------------------------------------------------------------
+addNewLineSlot:
+    ld (iy+slotStruct.id),0
+    ld (iy+slotStruct.letter),CHAR_NEWLINE
+    call justifySlots
+    ld (iy+slotStruct.tileId),a
+    ld de,slotStruct
+    add iy,de
+
+    ld a, (slotCount)
+    inc a
+    ld (slotCount),a
+
+    ret
 
 ;-----------------------------------------------------------------------------------
 ;
@@ -393,6 +417,8 @@ slotsToSprites:
 ; 
 ;-----------------------------------------------------------------------------------
 justifySlots:
+    push bc
+
     ld a,CHAR_END
     call String.lenUptoChar
     ld b,a
@@ -412,6 +438,8 @@ justifySlots:
     sra a
     neg
     add LAYOUT_TILE_CENTER_COLUMN
+    
+    pop bc
     ret
 
 
