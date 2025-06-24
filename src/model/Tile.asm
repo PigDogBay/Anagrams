@@ -91,10 +91,10 @@ createSlotsTiles:
     inc hl
     ld a,(hl)
     or a
-    jr z, .endOfWord
+    jr z, .whiteSpace
 
     cp CHAR_NEWLINE
-    jr z,.endOfWord
+    jr z,.whiteSpace
 
     ;new tile
     ld (ix+tileStruct.id),c
@@ -123,10 +123,10 @@ createSlotsTiles:
 
     jr .nextLetter
 
-.endOfWord:    
+.whiteSpace:    
     ; Add a spacer slot
     ld (iy+slotStruct.id),0
-    ld (iy+slotStruct.letter),0
+    ld (iy+slotStruct.letter),a
     ld (iy+slotStruct.tileId),0
     ld de,slotStruct
     add iy,de
@@ -299,6 +299,9 @@ slotsToSprites:
     or a
     jr z, .spacer
 
+    cp CHAR_NEWLINE
+    jr z, .newLine
+
     ; Create a spriteItem, returns IX ptr to spriteItem 
     call SpriteList.reserveSprite
     ; Takes IX, IY
@@ -307,9 +310,20 @@ slotsToSprites:
     call nextColumn
     ; point to the next slot
     add iy,de
+    djnz .nextSlot
+    jr .exit
 
+.newLine:
+    ld a,LAYOUT_TILE_START_COLUMN
+    ld (letterColumn),a
+    ld a,(letterRow)
+    inc a
+    ld (letterRow),a
+    add iy,de
     djnz .nextSlot
 
+    
+.exit:
     pop de
     pop bc
     ret
