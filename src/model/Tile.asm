@@ -4,7 +4,7 @@ SPRITE_PATTERN_OFFSET_A:    equ 8
 ASCII_PATTERN_OFFSET:       equ 'A' - SPRITE_PATTERN_OFFSET_A
 SLOT_SPRITE_PATTERN:        equ 6
 
-LAYOUT_TILE_START_ROW:      equ 10
+LAYOUT_TILE_START_ROW:      equ 8
 LAYOUT_TILE_CENTER_COLUMN:  equ 8
 LAYOUT_SLOT_START_ROW:      equ 1
 LAYOUT_SLOT_CENTER_COLUMN:  equ 8
@@ -210,27 +210,54 @@ tileToSprite:
     ld a,(iy + tileStruct.letter)
     sub ASCII_PATTERN_OFFSET
     ld (ix + spriteItem.pattern),a
-    
-    ; Each row is 16 pixels, so need to multiply row by 16
-    ; also add 32 as rows do not use the border
-    ; y = row * 16 + 32 = (row + 2) * 16
+      
+    call rowColumnToPixel
+    ret
+
+;-----------------------------------------------------------------------------------
+;
+; Function: rowColumnToPixel(uint16 ptrSprite)
+;
+; Convert letterRow and letterColumn to pixel co-ordinates and store then in the
+; spriteItem struct.
+;
+; In: IX - pointer to spriteItem struct
+; 
+; Dirty A
+;
+;-----------------------------------------------------------------------------------
+rowColumnToPixel:
+    push bc
+
+    ; Each row is 24 pixels high, so need to multiply row by 24
+    ; y = row * 24 = 8(2r + r)
     ld a,(letterRow)
-    inc a : inc a
-    rla : rla : rla : rla
+    ; x3
+    ld b,a
+    rla
+    add b
+    ; x8
+    rla : rla : rla
     ld (ix + spriteItem.y),a
 
-    ; Each column is 16 pixels, so need to multiply column by 16
-    ; also add 32 as columns do not use the border
-    ; y = col * 16 + 32 = (col + 2) * 16
+    ; Each column is 20 pixels, so need to multiply column by 20
+    ; y = col * 20 = 4(4c + c)
     ld a,(letterColumn)
-    inc a : inc a
-    rla : rla : rla : rla
+    ;x5
+    ld b,a
+    rla:rla
+    add b
+    ;x4
+    rla : rla
     ld (ix + spriteItem.x),a
     ; Copy carry flag into x's high byte
     ld a,0
     adc a
     ld (ix + spriteItem.x + 1),a
+ 
+    pop bc
     ret
+
 
 
 ;-----------------------------------------------------------------------------------
@@ -278,8 +305,8 @@ tilesToSprites:
 
 ;-----------------------------------------------------------------------------------
 ;
-; private function tilesLayout()
-;   helper function to layout the tiles
+; Function tilesLayout()
+; helper function to layout the tiles
 ; 
 ; Dirty A
 ; 
@@ -328,7 +355,6 @@ getTileStartColumn:
     inc a
     srl a
     neg
-    ; -1 as there is an inc a next
     add LAYOUT_TILE_CENTER_COLUMN
     ret
 
@@ -348,6 +374,7 @@ getMaxTilesPerRow:
     ld a,(tileCount)
     inc a
     srl a
+
     ret
 
 
@@ -364,39 +391,13 @@ getMaxTilesPerRow:
 ;
 ;-----------------------------------------------------------------------------------
 slotToSprite:
-    push bc
     ;Use tile ID as game ID
     ld a,(iy + slotStruct.id)
     ld (ix + spriteItem.gameId),a
 
     ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN
-    
-    ; Each row is 24 pixels high, so need to multiply row by 24
-    ; y = row * 24 = 8(2r + r)
-    ld a,(letterRow)
-    ; x3
-    ld b,a
-    rla
-    add b
-    ; x8
-    rla : rla : rla
-    ld (ix + spriteItem.y),a
 
-    ; Each column is 20 pixels, so need to multiply column by 20
-    ; y = col * 20 = 4(4c + c)
-    ld a,(letterColumn)
-    ;x5
-    ld b,a
-    rla:rla
-    add b
-    ;x4
-    rla : rla
-    ld (ix + spriteItem.x),a
-    ; Copy carry flag into x's high byte
-    ld a,0
-    adc a
-    ld (ix + spriteItem.x + 1),a
-    pop bc
+    call rowColumnToPixel
     ret
 
 
