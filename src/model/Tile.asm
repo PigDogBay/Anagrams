@@ -9,6 +9,7 @@ LAYOUT_TILE_START_COLUMN:   equ 5
 LAYOUT_SLOT_START_ROW:      equ 2
 LAYOUT_SLOT_START_COLUMN:   equ 5
 
+CHAR_SPACE:                 equ " "
 CHAR_NEWLINE:               equ "\n"
 CHAR_END:                   equ "."
 
@@ -91,8 +92,9 @@ createSlotsTiles:
 .nextLetter:
     inc hl
     ld a,(hl)
-    or a
-    jr z, .whiteSpace
+
+    cp CHAR_SPACE
+    jr z,.whiteSpace
 
     cp CHAR_NEWLINE
     jr z,.whiteSpace
@@ -328,7 +330,7 @@ slotsToSprites:
 .nextSlot:
     ;Skip over spacer slots, but leave a space
     ld a,(iy + slotStruct.letter)
-    or a
+    cp CHAR_SPACE
     jr z, .spacer
 
     cp CHAR_NEWLINE

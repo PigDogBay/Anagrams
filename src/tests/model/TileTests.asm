@@ -26,7 +26,7 @@ UT_createSlotsTiles1:
     TC_END
 .data:
     ;Number of words, word 1, word 2 ...
-    db 2,"ACORN\n","ELECTRON."
+    db 2,"ACORN\nELECTRON."
 
 UT_tileToSprite1:
     ld a,10
@@ -67,7 +67,7 @@ UT_tilesToSprites1:
     TC_END
 .data:
     ;Number of words, word 1, word 2 ...
-    db 4,"FISH",0,"AND\n","CHIP",0,"FRIDAY."
+    db 4,"FISH AND CHIP FRIDAY."
 
 
 UT_tilesLayout1:
