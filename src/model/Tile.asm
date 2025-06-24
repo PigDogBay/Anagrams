@@ -391,7 +391,8 @@ slotsToSprites:
     jr .exit
 
 .newLine:
-    ld a,LAYOUT_TILE_START_COLUMN
+    ;Column start position is stored in TileId
+    ld a,(iy + slotStruct.tileId)
     ld (letterColumn),a
     ld a,(letterRow)
     inc a
