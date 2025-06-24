@@ -234,10 +234,11 @@ rowColumnToPixel:
     ld a,(letterRow)
     ; x3
     ld b,a
-    rla
+    sla a
     add b
     ; x8
-    rla : rla : rla
+    
+    sla a: sla a: sla a
     ld (ix + spriteItem.y),a
 
     ; Each column is 20 pixels, so need to multiply column by 20
@@ -245,10 +246,10 @@ rowColumnToPixel:
     ld a,(letterColumn)
     ;x5
     ld b,a
-    rla:rla
+    sla a: sla a
     add b
     ;x4
-    rla : rla
+    sla a: sla a
     ld (ix + spriteItem.x),a
     ; Copy carry flag into x's high byte
     ld a,0
