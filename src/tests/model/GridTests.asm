@@ -128,7 +128,9 @@ UT_getTileStartColumn1:
 
     TC_END
 
-
+;
+; [0] [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15]
+;                                  ^ Center
 UT_getColumnBounds1:
 
     ld a,0
@@ -153,8 +155,8 @@ UT_getColumnBounds1:
 
     ld a,9
     call Grid.getColumnBounds
-    nop ; ASSERTION B == Grid.GRID_CENTER_COLUMN - 4
-    nop ; ASSERTION C == Grid.GRID_CENTER_COLUMN + 4
+    nop ; ASSERTION B == Grid.GRID_CENTER_COLUMN - 5
+    nop ; ASSERTION C == Grid.GRID_CENTER_COLUMN + 3
 
     TC_END
 
