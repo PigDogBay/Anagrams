@@ -25,7 +25,7 @@ GRID_CENTER_ROW:            equ GRID_ROWS/2
 ; Helper function to layout the tiles, works out how many tiles should fit
 ; on to each row, the idea is to fill the rows as equally as possible.
 ;
-; < 10 tiles: 1 row max 10 tiles max (default)
+; < 10 tiles: 1 row max return number of tiles
 ; < 20 tiles: 2 rows 5 - 10 tiles max
 ; < 30 tiles: 3 rows, 7 - 10 tiles max
 ; < 40 tiles: 4 rows, 10 tiles max (default)
@@ -39,7 +39,7 @@ GRID_CENTER_ROW:            equ GRID_ROWS/2
 getMaxTilesPerRow:
     ;If under 10 tiles show on one line
     cp MAX_TILES_PER_ROW
-    jr c, .exit
+    ret c
 
     cp 20
     jr nc, .lessThan22
@@ -80,7 +80,7 @@ getMaxTilesPerRow:
 ; Helper function to layout out the tiles
 ; Start Position = Center column - (tilesPerRow + 1) / 2
 ; 
-; In: A - total number of tiles
+; In: A - max tiles per row
 ; Out: A first column to start placing tiles
 ; 
 ; Dirty A
@@ -94,6 +94,39 @@ getTileStartColumn:
     ret
 
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: getColumnBounds(uint8 totalTiles) -> uint8,uint8
+;
+; Works out what the first and last columns are for a center-justified row
+; The function takes into consideration that the tiles maybe split up over
+; several rows
+; 
+; In: A - total number of tiles
+; Out: B first column to start placing tiles
+;      C last column, after this move to the next row
+;
+; Dirty A
+; 
+;-----------------------------------------------------------------------------------
+getColumnBounds:
+
+    ;0 and 1 case
+    ld B,GRID_CENTER_COLUMN
+    ld c,GRID_CENTER_COLUMN
+    cp 2
+    ret c
+
+    call getMaxTilesPerRow
+    ; a = tiles per row
+    ld c,a
+    call getTileStartColumn
+    ld b,a
+    ; Last = start + tilesPerRow -1
+    add a,c
+    dec a
+    ld c,a
+    ret
 
 ;-----------------------------------------------------------------------------------
 ;

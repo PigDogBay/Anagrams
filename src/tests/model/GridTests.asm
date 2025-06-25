@@ -45,13 +45,13 @@ UT_colToPixel1:
 UT_getMaxTilesPerRow1:
     ld a,0
     call Grid.getMaxTilesPerRow
-    nop ; ASSERTION A == Grid.MAX_TILES_PER_ROW
+    nop ; ASSERTION A == 0
     ld a,5
     call Grid.getMaxTilesPerRow
-    nop ; ASSERTION A == Grid.MAX_TILES_PER_ROW
+    nop ; ASSERTION A == 5
     ld a,9
     call Grid.getMaxTilesPerRow
-    nop ; ASSERTION A == Grid.MAX_TILES_PER_ROW
+    nop ; ASSERTION A == 9
     TC_END
 
 ;Less than 10 - 19 tiles
@@ -102,15 +102,79 @@ UT_getTileStartColumn1:
     call Grid.getTileStartColumn
     nop ; ASSERTION A == Grid.GRID_CENTER_COLUMN - 1
     
+    ld a,2
+    call Grid.getTileStartColumn
+    nop ; ASSERTION A == Grid.GRID_CENTER_COLUMN - 1
+    
     ld a,5
     call Grid.getTileStartColumn
     nop ; ASSERTION A == Grid.GRID_CENTER_COLUMN - 3
+
+    ld a,6
+    call Grid.getTileStartColumn
+    nop ; ASSERTION A == Grid.GRID_CENTER_COLUMN - 3
     
+    ld a,8
+    call Grid.getTileStartColumn
+    nop ; ASSERTION A == Grid.GRID_CENTER_COLUMN - 4
+
+    ld a,9
+    call Grid.getTileStartColumn
+    nop ; ASSERTION A == Grid.GRID_CENTER_COLUMN - 5
+
     ld a,10
     call Grid.getTileStartColumn
     nop ; ASSERTION A == Grid.GRID_CENTER_COLUMN - 5
 
     TC_END
 
+
+UT_getColumnBounds1:
+
+    ld a,0
+    call Grid.getColumnBounds
+    nop ; ASSERTION B == Grid.GRID_CENTER_COLUMN 
+    nop ; ASSERTION C == Grid.GRID_CENTER_COLUMN
+
+    ld a,1
+    call Grid.getColumnBounds
+    nop ; ASSERTION B == Grid.GRID_CENTER_COLUMN 
+    nop ; ASSERTION C == Grid.GRID_CENTER_COLUMN
+
+    ld a,2
+    call Grid.getColumnBounds
+    nop ; ASSERTION B == Grid.GRID_CENTER_COLUMN - 1
+    nop ; ASSERTION C == Grid.GRID_CENTER_COLUMN
+
+    ld a,8
+    call Grid.getColumnBounds
+    nop ; ASSERTION B == Grid.GRID_CENTER_COLUMN - 4
+    nop ; ASSERTION C == Grid.GRID_CENTER_COLUMN + 3
+
+    ld a,9
+    call Grid.getColumnBounds
+    nop ; ASSERTION B == Grid.GRID_CENTER_COLUMN - 4
+    nop ; ASSERTION C == Grid.GRID_CENTER_COLUMN + 4
+
+    TC_END
+
+UT_getColumnBounds2:
+
+    ld a,15
+    call Grid.getColumnBounds
+    nop ; ASSERTION B == Grid.GRID_CENTER_COLUMN - 4
+    nop ; ASSERTION C == Grid.GRID_CENTER_COLUMN + 3
+
+    ld a,27
+    call Grid.getColumnBounds
+    nop ; ASSERTION B == Grid.GRID_CENTER_COLUMN - 5
+    nop ; ASSERTION C == Grid.GRID_CENTER_COLUMN + 3
+
+    ld a,28
+    call Grid.getColumnBounds
+    nop ; ASSERTION B == Grid.GRID_CENTER_COLUMN - 5
+    nop ; ASSERTION C == Grid.GRID_CENTER_COLUMN + 4
+
+    TC_END
 
     endmodule
