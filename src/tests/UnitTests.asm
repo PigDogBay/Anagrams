@@ -22,6 +22,7 @@
     include "tests/UnitTests.inc"
     include "tests/hardware/MouseDriverTests.asm"
     include "tests/model/MouseTests.asm"
+    include "tests/model/GridTests.asm"
     include "tests/model/TileTests.asm"
     include "tests/model/SlotTests.asm"
     include "tests/model/SpriteListTests.asm"
