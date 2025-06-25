@@ -138,7 +138,12 @@ tilesToSprites:
     push de
 
     ;init vars for layout
-    call getTileStartColumn
+    ;What are the start/end columns
+    ld a,(tileCount)
+    call Grid.getColumnBounds
+    ld (endCol),bc
+    
+    ld a,b
     ld (Tile.column),a
 
     ld a, LAYOUT_TILE_START_ROW
@@ -177,8 +182,7 @@ tilesToSprites:
 ;-----------------------------------------------------------------------------------
 tilesLayout:
     push bc
-    ;Calculate max column
-    call Grid.getMaxTilesPerRow
+    ld a,(endCol)
     ld b,a
     ld a,(Tile.column)
     cp b
@@ -192,9 +196,8 @@ tilesLayout:
     inc a
     ld (Tile.row),a
 
-    call getTileStartColumn
+    ld a,(startCol)
     dec a
-
 .noColumnOverflow:
     inc a
     ld (Tile.column),a
@@ -349,6 +352,11 @@ row:
     db 0
 column:
     db 0
+endCol:
+    db 0
+startCol:
+    db 0
+
 tileCount:
     db 0
 tileList:

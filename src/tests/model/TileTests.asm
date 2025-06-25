@@ -60,23 +60,23 @@ UT_tilesToSprites1:
 
 
 UT_tilesLayout1:
-    ld a,10
-    ld (Tile.row),a
-    ld a,8
-    ld (Tile.column),a
+    WRITE_BYTE Tile.startCol,8
+    WRITE_BYTE Tile.endCol,12
+    WRITE_BYTE Tile.row,10
+    WRITE_BYTE Tile.column,8
     call Tile.tilesLayout
     TEST_MEMORY_BYTE Tile.row,10
     TEST_MEMORY_BYTE Tile.column,9
     TC_END
 
 UT_tilesLayout2:
-    ld a,10
-    ld (Tile.row),a
-    ld a,42
-    ld (Tile.column),a
+    WRITE_BYTE Tile.startCol,8
+    WRITE_BYTE Tile.endCol,12
+    WRITE_BYTE Tile.row,10
+    WRITE_BYTE Tile.column,12
     call Tile.tilesLayout
     TEST_MEMORY_BYTE Tile.row,11
-    TEST_MEMORY_BYTE Tile.column,0
+    TEST_MEMORY_BYTE Tile.column,8
     TC_END
 
 
