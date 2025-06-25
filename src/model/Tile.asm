@@ -3,7 +3,7 @@
 SPRITE_PATTERN_OFFSET_A:    equ 8
 ASCII_PATTERN_OFFSET:       equ 'A' - SPRITE_PATTERN_OFFSET_A
 
-LAYOUT_TILE_START_ROW:      equ 8
+LAYOUT_TILE_START_ROW:      equ 7
 
 DRAG_BOUNDS_X_MIN:               equ 16
 DRAG_BOUNDS_X_MAX:               equ 319 - 16

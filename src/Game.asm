@@ -193,4 +193,8 @@ dragSpriteItem:         dw 0
 
 anagram:
     db "THE ACE\nOF SPADES",0
+;     db "BANG",0
+;     db "THE DOG",0
+;     db "ONE FLEW\nOVER THE\nCUCKOOS\nNEST",0
+;     db "THE LORD\nOF THE\nRINGS THE\nFELLOWSHIP\nOF THE RING",0
     endmodule
