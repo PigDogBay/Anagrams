@@ -4,7 +4,6 @@ SPRITE_PATTERN_OFFSET_A:    equ 8
 ASCII_PATTERN_OFFSET:       equ 'A' - SPRITE_PATTERN_OFFSET_A
 
 LAYOUT_TILE_START_ROW:      equ 8
-LAYOUT_TILE_CENTER_COLUMN:  equ 8
 
 DRAG_BOUNDS_X_MIN:               equ 16
 DRAG_BOUNDS_X_MAX:               equ 319 - 16
@@ -204,45 +203,6 @@ tilesLayout:
     pop bc
     ret
 
-;-----------------------------------------------------------------------------------
-; 
-; Function: getTileStartColumn() -> uint8
-;
-; Helper function to layout out the tiles
-; Start Position = Center column - (tile count + 1) / 2
-; 
-; In: -
-; Out: A first column to start placing tiles
-; 
-; Dirty A
-; 
-;-----------------------------------------------------------------------------------
-getTileStartColumn:
-    ld a,(tileCount)
-    inc a
-    srl a
-    neg
-    add LAYOUT_TILE_CENTER_COLUMN
-    ret
-
-;-----------------------------------------------------------------------------------
-; 
-; Function: getMaxTilesPerRow() -> uint8
-;
-; Helper function to layout the tiles
-; 
-; In: -
-; Out: A maximum number of tiles per row
-; 
-; Dirty A
-; 
-;-----------------------------------------------------------------------------------
-getMaxTilesPerRow:
-    ld a,(tileCount)
-    inc a
-    srl a
-
-    ret
 
 
 ;-----------------------------------------------------------------------------------
