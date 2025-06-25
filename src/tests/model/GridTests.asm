@@ -93,4 +93,24 @@ UT_getMaxTilesPerRow4:
     nop ; ASSERTION A == Grid.MAX_TILES_PER_ROW
     TC_END
 
+UT_getTileStartColumn1:
+    ld a,0
+    call Grid.getTileStartColumn
+    nop ; ASSERTION A == Grid.GRID_CENTER_COLUMN
+
+    ld a,1
+    call Grid.getTileStartColumn
+    nop ; ASSERTION A == Grid.GRID_CENTER_COLUMN - 1
+    
+    ld a,5
+    call Grid.getTileStartColumn
+    nop ; ASSERTION A == Grid.GRID_CENTER_COLUMN - 3
+    
+    ld a,10
+    call Grid.getTileStartColumn
+    nop ; ASSERTION A == Grid.GRID_CENTER_COLUMN - 5
+
+    TC_END
+
+
     endmodule

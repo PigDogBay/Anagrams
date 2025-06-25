@@ -4,7 +4,7 @@
 ; 
 ; Helper functions to layout the the tiles and slots in a grid
 ; 
-; 
+; Grid is 16x10 sqaures of 20x24px 
 ; 
 ;-----------------------------------------------------------------------------------
 
@@ -12,6 +12,10 @@
 
 
 MAX_TILES_PER_ROW:          equ 10
+GRID_COLUMNS:               equ 16
+GRID_ROWS:                  equ 10
+GRID_CENTER_COLUMN:         equ GRID_COLUMNS/2
+GRID_CENTER_ROW:            equ GRID_ROWS/2
 
 
 ;-----------------------------------------------------------------------------------
@@ -67,6 +71,29 @@ getMaxTilesPerRow:
     ;default value
     ld a,MAX_TILES_PER_ROW
     ret
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getTileStartColumn(uint8 tilesPerRow) -> uint8
+;
+; Helper function to layout out the tiles
+; Start Position = Center column - (tilesPerRow + 1) / 2
+; 
+; In: A - total number of tiles
+; Out: A first column to start placing tiles
+; 
+; Dirty A
+; 
+;-----------------------------------------------------------------------------------
+getTileStartColumn:
+    inc a
+    sra a
+    neg
+    add GRID_CENTER_COLUMN
+    ret
+
+
 
 ;-----------------------------------------------------------------------------------
 ;
