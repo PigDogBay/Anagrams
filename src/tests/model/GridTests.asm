@@ -2,6 +2,45 @@
     ; DeZog will collect all these labels and offer them for execution.
     module TestSuite_Grid
 
+UT_rowToPixel1:
+    ld a,0
+    call Grid.rowToPixel
+    nop ; ASSERTION A == 0
+
+    ld a,1
+    call Grid.rowToPixel
+    nop ; ASSERTION A == 24
+
+    ld a,5
+    call Grid.rowToPixel
+    nop ; ASSERTION A == 120
+
+    ld a,10
+    call Grid.rowToPixel
+    nop ; ASSERTION A == 240
+    TC_END
+
+
+UT_colToPixel1:
+    ld a,0
+    call Grid.colToPixel
+    nop ; ASSERTION BC == 0
+
+    ld a,1
+    call Grid.colToPixel
+    nop ; ASSERTION BC == 20
+
+    ld a,5
+    call Grid.colToPixel
+    nop ; ASSERTION BC == 100
+
+    ld a,15
+    call Grid.colToPixel
+    nop ; ASSERTION BC == 300
+    TC_END
+
+
+
 ;Less than 10 tiles
 UT_getMaxTilesPerRow1:
     ld a,0

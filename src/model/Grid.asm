@@ -68,6 +68,60 @@ getMaxTilesPerRow:
     ld a,MAX_TILES_PER_ROW
     ret
 
+;-----------------------------------------------------------------------------------
+;
+; Function: rowToPixel(uint8 row) -> uint8
+;
+; Convert row ato pixel co-ordinates
+;
+; In: A row
+; Out: A pixel (y-coord) of the top of the row 
+;
+;-----------------------------------------------------------------------------------
+rowToPixel:
+    push bc
+
+    ; Each row is 24 pixels high, so need to multiply row by 24
+    ; y = row * 24 = 8(2r + r)
+    ; x3
+    ld b,a
+    sla a
+    add b
+    ; x8
+    sla a: sla a: sla a
+
+    pop bc
+    ret
+
+;-----------------------------------------------------------------------------------
+;
+; Function: colToPixel(uint8 row) -> uint8
+;
+; Convert column to pixel co-ordinates
+;
+; In: A coloumn
+; Out: BC pixel (x-coord) of the left hand side of the column 
+; 
+; Dirty A
+;
+;-----------------------------------------------------------------------------------
+colToPixel:
+    ; Each column is 20 pixels, so need to multiply column by 20
+    ; y = col * 20 = 4(4c + c)
+    ;x5
+    ld b,a
+    sla a: sla a
+    add b
+    ;x4
+    sla a: sla a
+    ld c,a
+    ld (ix + spriteItem.x),a
+    ; Copy carry flag into x's high byte
+    ld a,0
+    adc a
+    ld b,a
+    ret
+
 
 ;-----------------------------------------------------------------------------------
 ;
