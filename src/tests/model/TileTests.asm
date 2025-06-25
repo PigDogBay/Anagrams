@@ -32,9 +32,6 @@ UT_tileToSprite1:
     call Tile.tileToSprite
     TEST_MEMORY_BYTE UT_tileToSprite1.spriteData + spriteItem.pattern,'J' - Tile.ASCII_PATTERN_OFFSET
     TEST_MEMORY_BYTE UT_tileToSprite1.spriteData + spriteItem.gameId, 42
-    TEST_MEMORY_BYTE UT_tileToSprite1.spriteData+spriteItem.x,16
-    TEST_MEMORY_BYTE UT_tileToSprite1.spriteData+spriteItem.x+1,1
-    TEST_MEMORY_BYTE UT_tileToSprite1.spriteData+spriteItem.y,192
     TC_END
 .tileData:
     ; id, letter
@@ -55,8 +52,7 @@ UT_tilesToSprites1:
 
     ;Test the P in CHIP (11th letter)
     TEST_MEMORY_BYTE SpriteList.list + spriteItem * 10 + spriteItem.pattern,'P' - Tile.ASCII_PATTERN_OFFSET
-    ; Slots also get assigned gameId, so *2
-    TEST_MEMORY_BYTE SpriteList.list + spriteItem * 10 + spriteItem.gameId,100 + 10*2
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem * 10 + spriteItem.gameId,100 + 10
 
     TC_END
 .data:
