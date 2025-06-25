@@ -120,7 +120,7 @@ tileToSprite:
     sub ASCII_PATTERN_OFFSET
     ld (ix + spriteItem.pattern),a
       
-    call Grid.rowColumnToPixel
+    call Tile.rowColumnToPixel
     ret
 
 
@@ -139,10 +139,10 @@ tilesToSprites:
 
     ;init vars for layout
     call getTileStartColumn
-    ld (Grid.column),a
+    ld (Tile.column),a
 
     ld a, LAYOUT_TILE_START_ROW
-    ld (Grid.row),a
+    ld (Tile.row),a
 
     ld a, (tileCount)
     ld b, a
@@ -178,9 +178,9 @@ tilesToSprites:
 tilesLayout:
     push bc
     ;Calculate max column
-    call getMaxTilesPerRow
+    call Grid.getMaxTilesPerRow
     ld b,a
-    ld a,(Grid.column)
+    ld a,(Tile.column)
     cp b
     jr nz, .noColumnOverflow
 
@@ -188,16 +188,16 @@ tilesLayout:
     ; So move to next row and start column
 
     ; Increase row
-    ld a,(Grid.row)
+    ld a,(Tile.row)
     inc a
-    ld (Grid.row),a
+    ld (Tile.row),a
 
     call getTileStartColumn
     dec a
 
 .noColumnOverflow:
     inc a
-    ld (Grid.column),a
+    ld (Tile.column),a
     pop bc
     ret
 
@@ -316,10 +316,43 @@ boundsCheck:
     ret
 
 
+;-----------------------------------------------------------------------------------
+;
+; Function: rowColumnToPixel(uint16 ptrSprite)
+;
+; Convert row and column variables to pixel co-ordinates and store then in the
+; spriteItem struct.
+;
+; In: IX - pointer to spriteItem struct
+; 
+; Dirty A
+;
+;-----------------------------------------------------------------------------------
+rowColumnToPixel:
+    push bc
 
+    ld a,(row)
+    call Grid.rowToPixel
+    ld (ix + spriteItem.y),a
+
+    ld a,(column)
+    call Grid.colToPixel
+    ld (ix + spriteItem.x),c
+    ld (ix + spriteItem.x + 1),b
+ 
+    pop bc
+    ret
+
+
+
+row:
+    db 0
+column:
+    db 0
 tileCount:
     db 0
 tileList:
     block tileStruct * 64
+
 
     endmodule

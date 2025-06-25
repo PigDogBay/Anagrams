@@ -169,7 +169,7 @@ slotToSprite:
 
     ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN
 
-    call Grid.rowColumnToPixel
+    call rowColumnToPixel
     ret
 
 
@@ -188,7 +188,7 @@ slotsToSprites:
 
     ;init vars for layout
     ld a, LAYOUT_SLOT_START_ROW
-    ld (Grid.row),a
+    ld (row),a
 
     ld a, (slotCount)
     ld b, a
@@ -209,9 +209,9 @@ slotsToSprites:
     call slotToSprite
 .spacer:
     ; Next column
-    ld a,(Grid.column)
+    ld a,(column)
     inc a
-    ld (Grid.column),a
+    ld (column),a
 
     ; point to the next slot
     add iy,de
@@ -221,10 +221,10 @@ slotsToSprites:
 .newLine:
     ;Column start position is stored in TileId
     ld a,(iy + slotStruct.tileId)
-    ld (Grid.column),a
-    ld a,(Grid.row)
+    ld (column),a
+    ld a,(row)
     inc a
-    ld (Grid.row),a
+    ld (row),a
     add iy,de
     djnz .nextSlot
     
@@ -271,7 +271,38 @@ justifySlots:
     pop bc
     ret
 
+;-----------------------------------------------------------------------------------
+;
+; Function: rowColumnToPixel(uint16 ptrSprite)
+;
+; Convert row and column variables to pixel co-ordinates and store then in the
+; spriteItem struct.
+;
+; In: IX - pointer to spriteItem struct
+; 
+; Dirty A
+;
+;-----------------------------------------------------------------------------------
+rowColumnToPixel:
+    push bc
 
+    ld a,(row)
+    call Grid.rowToPixel
+    ld (ix + spriteItem.y),a
+
+    ld a,(column)
+    call Grid.colToPixel
+    ld (ix + spriteItem.x),c
+    ld (ix + spriteItem.x + 1),b
+ 
+    pop bc
+    ret
+
+
+row:
+    db 0
+column:
+    db 0
 
 slotCount:
     db 0
