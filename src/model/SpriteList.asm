@@ -166,16 +166,7 @@ bringToFront:
     ld hl, list+spriteItem
     ret
 
-nextEntryPtr:
-    dw list
-nextSpriteId:
-    db 0
 
-count:
-    db 0
-list:
-    ;Reserve enough space for rest of sprites (Max 128)
-    block spriteItem * 128
 
 
 
@@ -228,5 +219,16 @@ collisionCheck:
     pop bc
     ret
 
+
+nextEntryPtr:
+    dw list
+nextSpriteId:
+    db 0
+
+count:
+    db 0
+list:
+    ;Reserve enough space for rest of sprites (Max 128)
+    block spriteItem * 128
 
     endmodule
