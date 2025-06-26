@@ -113,9 +113,12 @@ rnd:
 ;
 ; Find the absolute difference between 2 8-bit values
 ;
-; In: D - value 1
-;     E - value 2
-; Out: A = abs(value 1 - value 2)
+; In:  D - val1
+;      E - val2
+;
+; Out: A = abs(val1 - val2)
+;
+; Dirty A
 ;
 ;--------------------------------------------------------------------------
 difference:
@@ -126,7 +129,49 @@ difference:
 .done:
     ret 
 
+;--------------------------------------------------------------------------
+;
+; Function: difference(uint16 val1, uint16 val2) -> uint16
+;
+; Find the absolute difference between 2 8-bit values
+;
+; In:  HL - val1
+;      DE - val2
+; 
+; Out: HL = abs(val1 - val2)
+;
+; Dirty A
+;
+;
+;--------------------------------------------------------------------------
+difference16:
+    ; Clear carry flag
+    or    a
+    sbc   hl, de
+    ; If carry, result is negative
+    jr c, negate  
+    ret
 
-
+;--------------------------------------------------------------------------
+;
+; Function: negate(uint16 val) -> uint16
+;
+; Negates the 16bit value
+;
+; In:  HL = val
+; 
+; Out: HL = -val
+;
+; Dirty A
+;
+;--------------------------------------------------------------------------
+negate:
+    xor   a         ; Clear A
+    sub   l         ; A = 0 - L
+    ld    l, a      ; L = -L
+    sbc   a, a      ; A = 0 - carry (effectively -H if carry was set)
+    sub   h         ; A = -H
+    ld    h, a      ; H = -H
+    ret
 
     endmodule

@@ -86,6 +86,9 @@ UT_rnd1:
 
     TC_END
 
+;
+; difference tests
+;
     macro DIFF_TEST val1, val2, expectedDiff
     ld d, val1
     ld e, val2
@@ -103,7 +106,57 @@ UT_difference1:
     DIFF_TEST 0,255,255
     DIFF_TEST 255,0,255
     TC_END
-    
+
+
+;
+; difference16 tests
+;
+    macro DIFF16_TEST val1, val2, expectedDiff
+    ld hl, val1
+    ld de, val2
+    call Maths.difference16
+    ld de, expectedDiff
+    nop ; ASSERTION HL == DE
+    endm
+
+UT_difference16_1:
+    DIFF16_TEST 0,0,0
+    DIFF16_TEST 0,1,1
+    DIFF16_TEST 1,1,0
+    DIFF16_TEST 42,142,100
+    DIFF16_TEST 142,42,100
+    DIFF16_TEST 0,255,255
+    DIFF16_TEST 255,0,255
+
+    DIFF16_TEST 10000,25000,15000
+    DIFF16_TEST 25000,10000,15000
+
+    DIFF16_TEST 0,65535,65535
+    DIFF16_TEST 65535,0,65535
+
+    TC_END
+
+
+
+;
+; negate tests
+;
+    macro NEGATE_TEST val,expected
+    ld hl,val
+    call Maths.negate
+    ld de, expected
+    nop ; ASSERTION HL == DE
+    endm
+
+UT_negate1:
+    NEGATE_TEST 0,0
+    NEGATE_TEST 1,65535
+    NEGATE_TEST 65535,1
+    NEGATE_TEST 1000,65536-1000
+    NEGATE_TEST 65536-1000,1000
+
+    TC_END
+
     
     endmodule
 
