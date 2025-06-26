@@ -177,4 +177,55 @@ list:
     ;Reserve enough space for rest of sprites (Max 128)
     block spriteItem * 128
 
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function: collisionCheck(uint16 ptr1, uint16 ptr2) -> bool
+;
+; Reserves a place in the sprite list, the sprites ID will be set and 
+; the sprite count incremented
+;
+; In:
+;       IX - ptr to sprite1
+;       IY - ptr to sprite2
+;       A  - Overlap (0-15)
+; Out: A - 0 no collision, 1 collision
+;
+;-----------------------------------------------------------------------------------
+collisionCheck:
+    push bc
+    push de
+    push hl
+
+    ld b,a
+    ;Check y-co-ords first
+    ld d, (ix+spriteItem.y)
+    ld e, (iy+spriteItem.y)
+    call Maths.difference
+    cp b
+    ld a,0
+    jr nc, .exit
+
+    ;Check x-coords
+    ld hl,(ix + spriteItem.x)
+    ;Little endian, LSB into e, then MSB into d
+    ld e,(iy+spriteItem.x)
+    ld d,(iy+spriteItem.x+1)
+    call Maths.difference16
+    ld d,0
+    ld e,b
+    xor a
+    sbc hl,de
+    jr nc, .exit
+
+    ;Collided
+    ld a,1
+
+.exit:
+    pop hl
+    pop de
+    pop bc
+    ret
+
     endmodule

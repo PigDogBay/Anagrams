@@ -140,4 +140,42 @@ bringToFrontData:
     spriteItem 2,20,10,0,8,75,0
 
 
+
+;
+; collisionCheck tests
+;
+
+    macro COLLISION_TEST x1,y1, x2,y2, overlap, expected
+    ld hl, x1
+    ld (.sprite1 + spriteItem.x),hl
+    ld a, y1
+    ld (.sprite1 + spriteItem.y),a
+    
+    ld hl, x2
+    ld (.sprite2 + spriteItem.x),hl
+    ld a, y2
+    ld (.sprite2 + spriteItem.y),a
+
+    ld ix,.sprite1
+    ld iy,.sprite2
+    ld a, overlap
+    call SpriteList.collisionCheck
+    ld b, expected
+    nop ; ASSERTION A == b
+
+    endm
+
+UT_collisionCheck:
+    COLLISION_TEST 0,0,0,0,5,1
+    COLLISION_TEST 100,200,103,203,5,1
+    COLLISION_TEST 103,203,100,200,5,1
+    COLLISION_TEST 100,200,105,203,5,0
+    COLLISION_TEST 100,200,103,205,5,0
+    COLLISION_TEST 300,200,307,207,8,1
+    TC_END
+.sprite1:
+    spriteItem 0,160,128,0,0,0,0
+.sprite2:
+    spriteItem 1,160,128,0,0,0,0
+
     endmodule
