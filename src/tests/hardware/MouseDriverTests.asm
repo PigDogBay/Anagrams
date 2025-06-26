@@ -2,12 +2,12 @@
     ; DeZog will collect all these labels and offer them for execution.
     module TestSuite_MouseDriver
 
-    macro UPDATE_STATE spriteId, buttons, currentState, expectedState
+    macro UPDATE_STATE flags, buttons, currentState, expectedState
         ld a, buttons
         ld (MouseDriver.buttons), a
         ld a, currentState
         ld (MouseDriver.state), a
-        ld a, spriteId
+        ld a, flags
         call MouseDriver.updateState
         TEST_MEMORY_BYTE MouseDriver.state, expectedState
     endm
@@ -32,17 +32,17 @@ UT_ready3:
 
 ; Mouse over a sprite, pressed, expect DRAG_START
 UT_read4:
-    UPDATE_STATE 8, PRESSED, MouseDriver.STATE_READY, MouseDriver.STATE_DRAG_START
+    UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, PRESSED, MouseDriver.STATE_READY, MouseDriver.STATE_DRAG_START
     TC_END
 
 ; Mouse over a sprite, not pressed, expect HOVER
 UT_hover1:
-    UPDATE_STATE 8, NOT_PRESSED, MouseDriver.STATE_READY, MouseDriver.STATE_HOVER
+    UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, NOT_PRESSED, MouseDriver.STATE_READY, MouseDriver.STATE_HOVER
     TC_END
 
 ; Mouse over a sprite, not pressed, expect to stay in HOVER
 UT_hover2:
-    UPDATE_STATE 8, NOT_PRESSED, MouseDriver.STATE_HOVER, MouseDriver.STATE_HOVER
+    UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, NOT_PRESSED, MouseDriver.STATE_HOVER, MouseDriver.STATE_HOVER
     TC_END
 
 ; Mouse not over a sprite, not pressed, expect to hover_end
@@ -52,23 +52,28 @@ UT_hover3:
 
 ; Mouse over a sprite, pressed, expect DRAG_START
 UT_hover4:
-    UPDATE_STATE 1, PRESSED, MouseDriver.STATE_HOVER, MouseDriver.STATE_DRAG_START
+    UPDATE_STATE MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE , PRESSED, MouseDriver.STATE_HOVER, MouseDriver.STATE_DRAG_START
+    TC_END
+
+; Mouse over a sprite, pressed, but not draggable expect STATE_PRESSED
+UT_hover5:
+    UPDATE_STATE MouseDriver.MASK_HOVERABLE , PRESSED, MouseDriver.STATE_HOVER, MouseDriver.STATE_PRESSED
     TC_END
 
 ; Expect to return to READY, whatever mouse is doing
 UT_hover_end1:
     UPDATE_STATE 0, NOT_PRESSED, MouseDriver.STATE_HOVER_END, MouseDriver.STATE_READY
-    UPDATE_STATE 1, PRESSED, MouseDriver.STATE_HOVER_END, MouseDriver.STATE_READY
+    UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, PRESSED, MouseDriver.STATE_HOVER_END, MouseDriver.STATE_READY
     TC_END
 
 ; If still pressed stay pressed
 UT_pressed1:
-    UPDATE_STATE 8, PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_PRESSED
+    UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_PRESSED
     TC_END
 
 ; If stopped pressing pressed->ready
 UT_pressed2:
-    UPDATE_STATE 0, NOT_PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_READY
+    UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, NOT_PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_READY
     TC_END
 
 ; Mouse over (assumed if dragging), pressed, expect DRAG_START->DRAG
@@ -83,19 +88,19 @@ UT_dragStart2:
 
 ; Mouse over (assumed if dragging), pressed, expect DRAG->DRAG
 UT_drag1:
-    UPDATE_STATE 8, PRESSED, MouseDriver.STATE_DRAG, MouseDriver.STATE_DRAG
+    UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, PRESSED, MouseDriver.STATE_DRAG, MouseDriver.STATE_DRAG
     TC_END
 
 ; Mouse over (assumed if dragging), not pressed, expect DRAG->DRAG_END
 UT_drag2:
-    UPDATE_STATE 8, NOT_PRESSED, MouseDriver.STATE_DRAG, MouseDriver.STATE_DRAG_END
+    UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, NOT_PRESSED, MouseDriver.STATE_DRAG, MouseDriver.STATE_DRAG_END
     TC_END
 
 ; This state exists to notify client that dragging has stop
 ; not affected by inputs
 ; expect DRAG_END->READY
 UT_dragEnd1:
-    UPDATE_STATE 8, NOT_PRESSED, MouseDriver.STATE_DRAG_END, MouseDriver.STATE_READY
+    UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, NOT_PRESSED, MouseDriver.STATE_DRAG_END, MouseDriver.STATE_READY
     TC_END
 
 UT_dragOutOfBounds1:

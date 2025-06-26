@@ -33,6 +33,13 @@ STATE_DRAG:                      equ 6
 STATE_DRAG_OUT_OF_BOUNDS:        equ 7
 STATE_DRAG_END:                  equ 8
 
+MASK_HOVERABLE:                  equ %00000001
+MASK_DRAGABLE:                   equ %00000010
+MASK_CLICKABLE:                  equ %00000100
+BIT_HOVERABLE:                   equ 0
+BIT_DRAGABLE:                    equ 1
+BIT_CLICKABLE:                   equ 2
+
 stateJumpTable:
     dw stateReady
     dw stateHover
@@ -245,7 +252,10 @@ dragOutOfBounds:
 ; This state machine uses a jump table to implement the various states
 ; Of clicking and dragging
 ; 
-; In - A: flag true over sprite, false (0) not over sprite
+; In - A: Interaction Flags
+;       bit 2: Clickable - sprite can be clicked
+;       bit 1: Draggable - sprite can be dragged
+;       bit 0: Hoverable - sprite will react if pointer is hovering over it 
 ; 
 ;-----------------------------------------------------------------------------------
 updateState:
@@ -265,7 +275,7 @@ updateState:
 ; Waiting for the user to hover over or click on a sprite
 ;     
 stateReady:
-    ; Get spriteId
+    ; Get flags from B and see if any are set
     ld a,b
     or a
     ; Jump if hovering
@@ -292,19 +302,26 @@ stateReady:
 ; left mouse button they can begin dragging the sprite     
 ;
 stateHover:
-    ;Is the mouse still hovering
+    ;Is the mouse still hovering, check if any flags are set
     ld a,b
     or a
     jr z, .hoverEnd
 
+    ;If mouse is not pressed, stay in the hover state
     ld a,(MouseDriver.buttons)
     bit 1,a
+    ld a, STATE_HOVER
     jr nz, .exit
-    ; Mouse clicked onto a sprite
+    ; Mouse clicked onto a sprite, check if can be dragged
     ld a, STATE_DRAG_START
-    ld (state),a
+    bit BIT_DRAGABLE,b
+    jr nz, .exit
+
+    ld a, STATE_PRESSED
 .exit:
+    ld (state),a
     ret
+
 
 .hoverEnd:
     ld a,STATE_HOVER_END
