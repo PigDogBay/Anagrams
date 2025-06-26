@@ -88,7 +88,11 @@ updateMouse:
     ld (spriteId),a
 
     ; Update the mouse pointer state
-    ; In A - spriteID or 0 if not over a sprite
+    ; In A - interaction flags, or 0 if not over a sprite
+    or a
+    jr z, .noSpriteOver
+    ld a,(ix+spriteItem.flags)
+.noSpriteOver:    
     call MouseDriver.updateState
 
     ld a, (MouseDriver.state)
