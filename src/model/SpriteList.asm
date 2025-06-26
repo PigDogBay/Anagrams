@@ -229,30 +229,4 @@ collisionCheck:
     ret
 
 
-
-;-----------------------------------------------------------------------------------
-;
-; Function: snapTileToSlot(uint16 ptrTile, uint16 ptrSlot)
-;
-; Set the Tile's x-y coords Slot.x+1,Slot.y+1 
-; so you can still see the slot underneath
-; 
-;
-; In:
-;       IX - ptr to tile sprite
-;       IY - ptr to slot sprite
-;
-; Dirty: A, HL
-;
-;-----------------------------------------------------------------------------------
-snapTileToSlot:
-    ld hl,(ix+spriteItem.x)
-    inc hl
-    ld (iy+spriteItem.x),hl
-    ld a, (ix+spriteItem.y)
-    inc a
-    ld (iy+spriteItem.y),a
-   
-    ret
-
     endmodule

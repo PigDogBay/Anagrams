@@ -24,6 +24,31 @@ letter      byte
 tileId      byte
     ends
 
+;-----------------------------------------------------------------------------------
+;
+; Function: find(uint8 gameId) -> uint16
+;
+; Finds the slotStruct with matching gameId
+;
+; In:    A - id
+; Out:   HL - ptr to slot's struct, null if not found
+;
+; Dirty: B,HL
+;
+;-----------------------------------------------------------------------------------
+find:
+    ld hl,slotCount
+    ld b,(hl)
+    ; point to list
+    inc hl
+.next
+    cp (hl)
+    ret z
+    add hl,slotStruct
+    djnz .next
+    ; no match found
+    ld hl,0
+    ret
 
 
 
@@ -297,6 +322,54 @@ rowColumnToPixel:
  
     pop bc
     ret
+
+
+
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function: snapTileToSlot(uint16 ptrTile, uint16 ptrSlot)
+;
+; Set the Tile's x-y coords Slot.x+1,Slot.y+1, so you can still see the slot underneath.
+; Sets the slot's tileId to the game ID of the tile sprite
+;
+; In:
+;       IX - ptr to tile sprite
+;       IY - ptr to slot sprite
+;
+; Dirty: A, HL
+;
+;-----------------------------------------------------------------------------------
+snapTileToSlot:
+    ;Tile's x-y coords  = Slot.x+1,Slot.y+1
+    ld hl,(iy+spriteItem.x)
+    inc hl
+    ld (ix+spriteItem.x),hl
+    ld a, (iy+spriteItem.y)
+    inc a
+    ld (ix+spriteItem.y),a
+
+    ;Find the matching slotStruct (result in HL)
+    ld a,(iy+spriteItem.gameId)
+    call find
+
+    ;check if HL is not 0
+    ld a,h
+    or l
+    jr z, .nullPointer
+
+    ; Point HL to slotStruct.tileId field
+    ld a, slotStruct.tileId
+    add hl,a
+    ;Get tile's gameId from the sprite
+    ld a, (ix+spriteItem.gameId)
+    ;slot.tileId = tileSpriteItem.gameId
+    ld (hl),a
+
+.nullPointer:
+    ret
+
 
 
 row:
