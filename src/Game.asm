@@ -172,13 +172,24 @@ stateMouseDragEnd:
     ld a,0
     ld (SpriteList.list + spriteItem.pattern),a
     
-    call Board.isTileOverSlot
+    ;Out:   A - 0 if not over slot
+    ;       IX - tile sprite
+    ;       IY - slot sprite
+    call Board.isSelectedTileOverSlot
     or a
     ret z
-    ;TODO if slot is occupied bounce tile downwards
-    ;
+    
+    ;if slot is occupied bounce tile downwards
+    call Board.placeTile
+    or a
+    jr nz, .slotOccuppied
+    ;TODO move this function from Slot:: to Board::
     call Slot.snapTileToSlot
     ret
+.slotOccuppied:
+    call Board.bounceTile
+    ret
+
 
 
 ;-----------------------------------------------------------------------------------

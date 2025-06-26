@@ -12,6 +12,7 @@
     include "model/Grid.asm"
     include "model/Tile.asm"
     include "model/Slot.asm"
+    include "model/Board.asm"
     include "Game.asm"
     include "Text.asm"
     include "utils/Maths.asm"
@@ -26,6 +27,7 @@
     include "tests/model/TileTests.asm"
     include "tests/model/SlotTests.asm"
     include "tests/model/SpriteListTests.asm"
+    include "tests/model/BoardTests.asm"
     include "tests/utils/MathsTests.asm"
     include "tests/utils/StringTests.asm"
 
