@@ -105,4 +105,28 @@ rnd:
     ret
 
 
+
+
+;--------------------------------------------------------------------------
+;
+; Function: difference(uint8 val1, uint8 val2) -> uint8
+;
+; Find the absolute difference between 2 8-bit values
+;
+; In: D - value 1
+;     E - value 2
+; Out: A = abs(value 1 - value 2)
+;
+;--------------------------------------------------------------------------
+difference:
+    ld a,d
+    sub e
+    jr nc, .done
+    neg
+.done:
+    ret 
+
+
+
+
     endmodule

@@ -86,5 +86,24 @@ UT_rnd1:
 
     TC_END
 
+    macro DIFF_TEST val1, val2, expectedDiff
+    ld d, val1
+    ld e, val2
+    call Maths.difference
+    ld d, expectedDiff
+    nop ; ASSERTION A == D
+    endm
+
+UT_difference1:
+    DIFF_TEST 0,0,0
+    DIFF_TEST 0,1,1
+    DIFF_TEST 1,1,0
+    DIFF_TEST 42,142,100
+    DIFF_TEST 142,42,100
+    DIFF_TEST 0,255,255
+    DIFF_TEST 255,0,255
+    TC_END
+    
+    
     endmodule
 
