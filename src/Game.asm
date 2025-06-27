@@ -1,4 +1,4 @@
-    module game
+    module Game
 
 mouseStateJumpTable:
     dw stateMouseReady

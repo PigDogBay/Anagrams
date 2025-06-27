@@ -63,8 +63,8 @@ main:
     call titleScreen
 
     call MouseDriver.init
-    call game.init
-    call game.run
+    call Game.init
+    call Game.run
 
 main_loop:
     jr main_loop
