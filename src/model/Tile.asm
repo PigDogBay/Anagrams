@@ -27,6 +27,32 @@ id          byte
 letter      byte
     ends
 
+;-----------------------------------------------------------------------------------
+;
+; Function: find(uint8 gameId) -> uint16
+;
+; Finds the tileStruct with matching gameId
+;
+; In:    A - id
+; Out:   HL - ptr to slot's struct, null if not found
+;
+; Dirty: B,HL
+;
+;-----------------------------------------------------------------------------------
+find:
+    ld hl,tileCount
+    ld b,(hl)
+    ; point to list
+    inc hl
+.next
+    cp (hl)
+    ret z
+    add hl,tileStruct
+    djnz .next
+    ; no match found
+    ld hl,0
+    ret
+
 
 ;-----------------------------------------------------------------------------------
 ;
