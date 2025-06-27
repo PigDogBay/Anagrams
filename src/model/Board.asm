@@ -168,6 +168,67 @@ snapTileToSlot:
     ret
 
 
+;-----------------------------------------------------------------------------------
+;
+; Function: isSolved() -> Bool
+;
+; Checks each slot to see if the slotted tile matches it letter
+;
+; Out: Z set not solved, cleared solved
+; 
+; Dirty A,DE,IX
+;
+;-----------------------------------------------------------------------------------
+isSolved:
+    ld a,(Slot.slotCount)
+    ld b,a
+    ld de, slotStruct
+    ld iy, Slot.slotList
+.loop:
+.skip
+    add iy,de
+    djnz .loop
+
+    ;solved
+    ld a,1
+    or a
+    ret
+
+.notSolved:
+    xor a
+    ret
+
+;-----------------------------------------------------------------------------------
+;
+; Function: isSlotSolved(uint16 ptr) -> Bool
+;
+; If the slotted tile matches the slot's letter
+;
+;  In: IY pointer to slotStruct
+; Out: Z set not solved, cleared solved
+; 
+; Dirty A,DE,IX
+;
+;-----------------------------------------------------------------------------------
+isSlotSolved:
+    ;Check for whitespace slot
+    ld a,(iy+slotStruct.id)
+    or a
+    ret z
+
+    ;Check has slotted tile
+    ld a,(iy+slotStruct.tileId)
+    or a
+    ret z
+
+    ;TODO
+    ;find the tileStruct
+    ;Throw exception if ptr is null
+    ;get letter
+    ;does it match the slots letter?
+    ret
+
+
 
 
 
