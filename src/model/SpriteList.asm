@@ -142,13 +142,14 @@ find:
 ; Moves the Sprite in front of the other sprites (except the mouse)
 ; Code uses HL instead of IX for speed
 ; 
-; In:    HL - ptr to spriteItem struct
-; Out:   HL - updated ptr to the spriteItem struct
+; In:    IX - ptr to spriteItem struct
+; Out:   IX - updated ptr to the spriteItem struct
 ; 
-; Dirty A, BC, DE
+; Dirty A, BC, DE, HL, IX
 ;
 ;-----------------------------------------------------------------------------------
 bringToFront:
+    ld hl,ix
     ; Point to entry for sprite ID 1
     ld de,list+spriteItem
     ;Skip ID, just swap other data
@@ -163,7 +164,7 @@ bringToFront:
     ld (de),a
     djnz .next
 
-    ld hl, list+spriteItem
+    ld ix, list+spriteItem
     ret
 
 

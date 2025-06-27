@@ -95,7 +95,7 @@ UT_bringToFront1:
     ld hl, bringToFrontData + spriteItem * 2
     call SpriteList.addSprite
 
-    ld hl, SpriteList.list + spriteItem * 2
+    ld ix, SpriteList.list + spriteItem * 2
     call SpriteList.bringToFront
 
     TEST_MEMORY_BYTE SpriteList.list + spriteItem + spriteItem.id,1
@@ -104,7 +104,7 @@ UT_bringToFront1:
     TEST_MEMORY_BYTE SpriteList.list + spriteItem * 2 + spriteItem.gameId,42
 
     ; Check HL points to index[1] of the list
-    nop     ;ASSERTION hl == SpriteList.list + spriteItem
+    nop     ;ASSERTION ix == SpriteList.list + spriteItem
 
     TC_END
 ; If HL points to first item check nothing is swapped
@@ -122,7 +122,7 @@ UT_bringToFront2:
     call SpriteList.addSprite
 
     ; Point to index[1]
-    ld hl, SpriteList.list + spriteItem * 1
+    ld ix, SpriteList.list + spriteItem * 1
     call SpriteList.bringToFront
 
     TEST_MEMORY_BYTE SpriteList.list + spriteItem + spriteItem.id,1
@@ -131,7 +131,7 @@ UT_bringToFront2:
     TEST_MEMORY_BYTE SpriteList.list + spriteItem * 2 + spriteItem.gameId,75
 
     ; Check HL points to index[1] of the list
-    nop     ;ASSERTION hl == SpriteList.list + spriteItem
+    nop     ;ASSERTION ix == SpriteList.list + spriteItem
 
     TC_END
 bringToFrontData:

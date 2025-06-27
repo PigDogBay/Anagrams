@@ -136,12 +136,7 @@ stateMouseDragStart:
     ;bring the sprite to the front
     ;bringToFront In: HL points to spriteItem and will be swapped with the front most sprite
     ;bringToFrontOut: HL will now point to the front most sprite
-    ld hl,ix
     call SpriteList.bringToFront
-    ; Store spriteItem ptr
-    ld (dragSpriteItem),hl
-    ; In: IX pointer to spriteItem
-    ld ix,hl
     call Mouse.dragStart
 
     ;Update mouse pointer pattern
@@ -151,8 +146,8 @@ stateMouseDragStart:
     ret
 
 stateMouseDrag:
-    ; DRAG update
-    ld ix,(dragSpriteItem)
+    ; DRAG update, dragged sprite is at index[1]
+    ld ix,SpriteList.list + spriteItem
     call Mouse.dragSprite
     call Tile.boundsCheck
     ret nz
@@ -211,7 +206,6 @@ pointerSpriteItem:
 
 
 spriteId:               db 0
-dragSpriteItem:         dw 0
 
 anagram:
     db "THE ACE\nOF SPADES",0
