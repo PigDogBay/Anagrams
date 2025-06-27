@@ -32,6 +32,7 @@
     include "tests/model/BoardTests.asm"
     include "tests/utils/MathsTests.asm"
     include "tests/utils/StringTests.asm"
+    include "tests/utils/ExceptionsTests.asm"
 
     ; Initialization routine called before all unit tests are started
     UNITTEST_INITIALIZE
