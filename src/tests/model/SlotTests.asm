@@ -59,6 +59,22 @@ UT_slotTile1:
     TEST_MEMORY_BYTE Slot.slotList+slotStruct*5+slotStruct.tileId,42 ;[N]
     TEST_MEMORY_BYTE Slot.slotList+slotStruct*7+slotStruct.tileId,0  ;[E]
 
+    CHECK_SLOT_NOT_FOUND_NOT_CALLED
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+;Test SlotNotFound exception is thrown
+UT_slotTile2:
+    EXCEPTIONS_CLEAR
+    call Slot.removeAll
+    ld c,10
+    ld hl,.data
+    call Slot.createSlots
+    ld a,85
+    ld c,15
+    call Slot.slotTile
+    CHECK_SLOT_NOT_FOUND_CALLED
     TC_END
 .data:
     db "ACORN\nELECTRON",0
