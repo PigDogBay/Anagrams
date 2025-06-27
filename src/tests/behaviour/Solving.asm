@@ -30,7 +30,11 @@ UT_solving1:
     TC_END
 anagram:
     db "ZX\nSPECTRUM",0
-
+    ;Padding to stop debugger watchpoint being hit, 
+    ;String.lenToChar scans past the string hunting for \n
+    ;and strays into Stack territory
+    ;TODO lenUpToChar should have a counter parameter
+    block 256
 
 
     endmodule

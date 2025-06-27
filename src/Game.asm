@@ -107,7 +107,8 @@ pointerSpriteItem:
 
 
 anagram:
-    db "THE ACE\nOF SPADES",0
+;    db "THE ACE\nOF SPADES",0
+    db "ZX\nSPECTRUM",0
 ;     db "BANG",0
 ;     db "THE DOG",0
 ;     db "ONE FLEW\nOVER THE\nCUCKOOS\nNEST",0
