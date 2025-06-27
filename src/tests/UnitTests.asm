@@ -13,6 +13,7 @@
     include "model/Tile.asm"
     include "model/Slot.asm"
     include "model/Board.asm"
+    include "model/MouseListener.asm"
     include "Game.asm"
     include "Text.asm"
     include "utils/Maths.asm"
