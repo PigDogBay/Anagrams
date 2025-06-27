@@ -25,6 +25,13 @@ slotNotFound:
 .loop:
     jr .loop
 
+tileNotFound:
+    ; Copy stack pointer to HL, so you can see who raised the exception
+    pop hl
+    push hl
+.loop:
+    jr .loop
+
 
 
     endmodule

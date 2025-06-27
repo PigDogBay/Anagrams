@@ -15,6 +15,7 @@
         xor A
         ld (Exceptions.nullPointer.callFlag),a
         ld (Exceptions.slotNotFound.callFlag),a
+        ld (Exceptions.tileNotFound.callFlag),a
     endm
 
     macro CHECK_NULL_POINTER_CALLED
@@ -37,6 +38,16 @@
         nop ; ASSERTION A == 0
     endm
 
+    macro CHECK_TILE_NOT_FOUND_CALLED
+        ld a, (Exceptions.tileNotFound.callFlag)
+        nop ; ASSERTION A == 1
+    endm
+
+    macro CHECK_TILE_NOT_FOUND_NOT_CALLED
+        ld a, (Exceptions.tileNotFound.callFlag)
+        nop ; ASSERTION A == 0
+    endm
+
 nullPointer:
     ld a,1
     ld (.callFlag),a
@@ -50,6 +61,14 @@ slotNotFound:
     ret
 .callFlag:
     db 0
+
+tileNotFound:
+    ld a,1
+    ld (.callFlag),a
+    ret
+.callFlag:
+    db 0
+
 
 
 

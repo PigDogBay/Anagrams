@@ -185,17 +185,14 @@ isSolved:
     ld de, slotStruct
     ld iy, Slot.slotList
 .loop:
-.skip
+    call isSlotSolved
+    ret z
     add iy,de
     djnz .loop
 
-    ;solved
+    ;Solved Clear Z flag
     ld a,1
     or a
-    ret
-
-.notSolved:
-    xor a
     ret
 
 ;-----------------------------------------------------------------------------------
@@ -207,7 +204,7 @@ isSolved:
 ;  In: IY pointer to slotStruct
 ; Out: Z set not solved, cleared solved
 ; 
-; Dirty A,DE,IX
+; Dirty A,HL
 ;
 ;-----------------------------------------------------------------------------------
 isSlotSolved:
@@ -222,10 +219,16 @@ isSlotSolved:
     ret z
 
     ;TODO
-    ;find the tileStruct
-    ;Throw exception if ptr is null
-    ;get letter
+    call Tile.find
+    ;Throw exception if tile is not found
+    ld a,h
+    or l
+    call z, Exceptions.tileNotFound
+    ;get the letter from the tileStruct
+    add hl, tileStruct.letter
+    ld a,(hl)
     ;does it match the slots letter?
+    cp (iy+slotStruct.letter)
     ret
 
 
