@@ -10,6 +10,85 @@ UT_bounceTile:
     //TODO WRITE TEST
     TC_END
 
+;Case 1: no tile slotted
+UT_isSlotSolved1:
+    ld iy, Slot.slotList
+    ld (iy + slotStruct.id),2
+    ld (iy + slotStruct.letter),"X"
+    ld (iy + slotStruct.tileId),0
+    call Board.isSlotSolved
+    TEST_FLAG_Z
+    TC_END
+
+;Case 1: whitespace tile slotted
+UT_isSlotSolved2:
+    ld iy, Slot.slotList
+    ld (iy + slotStruct.id),0
+    ld (iy + slotStruct.letter),CHAR_SPACE
+    ld (iy + slotStruct.tileId),0
+    call Board.isSlotSolved
+    TEST_FLAG_Z
+
+    TC_END
+
+;Case 2: correct tile slotted
+UT_isSlotSolved3:
+    call Tile.removeAll
+    ld c,100
+    ld hl,.data
+    call Tile.createTiles
+
+
+    ld iy, Slot.slotList
+    ld (iy + slotStruct.id),10
+    ld (iy + slotStruct.letter),"R"
+    ld (iy + slotStruct.tileId),103
+    call Board.isSlotSolved
+    TEST_FLAG_NZ
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+
+;Case 2: wrong tile slotted
+UT_isSlotSolved4:
+    call Tile.removeAll
+    ld c,100
+    ld hl,.data
+    call Tile.createTiles
+
+
+    ld iy, Slot.slotList
+    ld (iy + slotStruct.id),10
+    ld (iy + slotStruct.letter),"N"
+    ld (iy + slotStruct.tileId),103
+    call Board.isSlotSolved
+    TEST_FLAG_Z
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+
+;Case 4: non-existant tile slotted
+UT_isSlotSolved5:
+    EXCEPTIONS_CLEAR
+    call Tile.removeAll
+    ld c,100
+    ld hl,.data
+    call Tile.createTiles
+
+
+    ld iy, Slot.slotList
+    ld (iy + slotStruct.id),10
+    ld (iy + slotStruct.letter),"R"
+    ld (iy + slotStruct.tileId),200
+    call Board.isSlotSolved
+    CHECK_TILE_NOT_FOUND_CALLED
+.data:
+    db "ACORN\nELECTRON",0
+    TC_END
 
 
     ;add some slots

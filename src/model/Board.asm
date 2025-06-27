@@ -218,7 +218,6 @@ isSlotSolved:
     or a
     ret z
 
-    ;TODO
     call Tile.find
     ;Throw exception if tile is not found
     ld a,h
@@ -229,6 +228,11 @@ isSlotSolved:
     ld a,(hl)
     ;does it match the slots letter?
     cp (iy+slotStruct.letter)
+    jr z, .isSolved
+    xor a
+    ret
+.isSolved:
+    or a
     ret
 
 
