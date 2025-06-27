@@ -183,8 +183,7 @@ stateMouseDragEnd:
     call Board.placeTile
     or a
     jr nz, .slotOccuppied
-    ;TODO move this function from Slot:: to Board::
-    call Slot.snapTileToSlot
+    call Board.snapTileToSlot
     ret
 .slotOccuppied:
     call Board.bounceTile

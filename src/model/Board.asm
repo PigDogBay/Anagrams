@@ -112,4 +112,54 @@ bounceTile:
     ret
 
 
+
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function: snapTileToSlot(uint16 ptrTile, uint16 ptrSlot)
+;
+; Set the Tile's x-y coords Slot.x+1,Slot.y+1, so you can still see the slot underneath.
+; Sets the slot's tileId to the game ID of the tile sprite
+;
+; In:
+;       IX - ptr to tile sprite
+;       IY - ptr to slot sprite
+;
+; Dirty: A, HL
+;
+;-----------------------------------------------------------------------------------
+snapTileToSlot:
+    ;Tile's x-y coords  = Slot.x+1,Slot.y+1
+    ld hl,(iy+spriteItem.x)
+    inc hl
+    ld (ix+spriteItem.x),hl
+    ld a, (iy+spriteItem.y)
+    inc a
+    ld (ix+spriteItem.y),a
+
+    ;Find the matching slotStruct (result in HL)
+    ld a,(iy+spriteItem.gameId)
+    call Slot.find
+
+    ;check if HL is not 0
+    ld a,h
+    or l
+    jr z, .nullPointer
+
+    ; Point HL to slotStruct.tileId field
+    ld a, slotStruct.tileId
+    add hl,a
+    ;Get tile's gameId from the sprite
+    ld a, (ix+spriteItem.gameId)
+    ;slot.tileId = tileSpriteItem.gameId
+    ld (hl),a
+
+.nullPointer:
+    ret
+
+
+
+
+
     endmodule
