@@ -45,6 +45,44 @@ UT_justifySlots3:
     db "THE ACE\nOF SPADES",0
 
 
+UT_slotTile1:
+    call Slot.removeAll
+    ld c,10
+    ld hl,.data
+    call Slot.createSlots
+    ld a,14
+    ld c,42
+    call Slot.slotTile
+
+    ;[\n][A][C][O][R][N][\n][E]
+    TEST_MEMORY_BYTE Slot.slotList+slotStruct*4+slotStruct.tileId,0  ;[R]
+    TEST_MEMORY_BYTE Slot.slotList+slotStruct*5+slotStruct.tileId,42 ;[N]
+    TEST_MEMORY_BYTE Slot.slotList+slotStruct*7+slotStruct.tileId,0  ;[E]
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+UT_unslotTile1:
+    call Slot.removeAll
+    ld c,10
+    ld hl,.data
+    call Slot.createSlots
+    ld a,14
+    ld c,42
+    call Slot.slotTile
+
+    ;[\n][A][C][O][R][N][\n][E]
+    TEST_MEMORY_BYTE Slot.slotList+slotStruct*5+slotStruct.tileId,42 ;[N]
+
+    ld a,42
+    call Slot.unslotTile
+    TEST_MEMORY_BYTE Slot.slotList+slotStruct*5+slotStruct.tileId,0
+
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
 
 
     endmodule

@@ -47,10 +47,13 @@ stateMouseClicked:
 
 stateMouseDragStart:
     ;bring the sprite to the front
-    ;bringToFront In: HL points to spriteItem and will be swapped with the front most sprite
-    ;bringToFrontOut: HL will now point to the front most sprite
+    ;bringToFront In: IX points to spriteItem and will be swapped with the front most sprite
+    ;bringToFrontOut: IX will now point to the front most sprite
     call SpriteList.bringToFront
     call Mouse.dragStart
+    ;Unslot the tile incase it was alreay in a slot
+    ld a, (ix+spriteItem.gameId)
+    call Slot.unslotTile
 
     ;Update mouse pointer pattern
     ld a,1

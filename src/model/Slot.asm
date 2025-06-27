@@ -323,6 +323,61 @@ rowColumnToPixel:
     pop bc
     ret
 
+;-----------------------------------------------------------------------------------
+;
+; Function: slotTile(uint8 slotId, uint8 tileId)
+;
+; Will search the list of slots to find with matching slotId,
+; this slots .tileId field will be set to tileId, replacing the 
+; previous value.
+;
+; Throws SlotNotFound exception if no matching slot found
+;
+; In: A - slot ID to find
+;     C - tile ID to slot
+;
+; Dirty A,B,HL
+;
+;-----------------------------------------------------------------------------------
+slotTile:
+    call find
+    ;check if HL is not 0
+    ld a,h
+    or l
+    call z, Exceptions.slotNotFound
+    ld a, slotStruct.tileId
+    add hl,a
+    ld (hl),c
+    ret
+
+;-----------------------------------------------------------------------------------
+;
+; Function: unslotTile(uint8 tileId)
+;
+; Will search the list of slots to find a slot that has the matching tileId slotted,
+; this slots .tileId will be set to 0.
+;
+; In: A - tile ID to unslot
+; 
+; Dirty A,BC,DE,IX
+;
+;-----------------------------------------------------------------------------------
+unslotTile:
+    ld c,a
+    ld a, (slotCount)
+    ld b,a
+    ld ix,slotList
+    ld de, slotStruct
+.next:
+    ld a,(ix+slotStruct.tileId)
+    cp c
+    jr z, .unslot
+    add ix,de
+    djnz .next
+    ret
+.unslot:
+    ld (ix+slotStruct.tileId),0
+    ret
 
 
 row:

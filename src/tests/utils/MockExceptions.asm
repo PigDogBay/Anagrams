@@ -4,6 +4,8 @@
 nullPointer:
     ret
 
+slotNotFound:
+    ret
 
 
 

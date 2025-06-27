@@ -4,6 +4,8 @@
 nullPointer:
     jr nullPointer
 
+slotNotFound:
+    jr slotNotFound
 
 
 
