@@ -33,6 +33,7 @@ STATE_DRAG:                      equ 6
 STATE_DRAG_OUT_OF_BOUNDS:        equ 7
 STATE_DRAG_END:                  equ 8
 
+MOUSE_FLAGS_MASK:                equ %00000111
 MASK_HOVERABLE:                  equ %00000001
 MASK_DRAGABLE:                   equ %00000010
 MASK_CLICKABLE:                  equ %00000100
@@ -259,7 +260,8 @@ dragOutOfBounds:
 ; 
 ;-----------------------------------------------------------------------------------
 updateState:
-    ; Store spriteId in B
+    ; Mask off any other bits, Store flags in B
+    and MOUSE_FLAGS_MASK
     ld b,a
     ld a,(state)
     ld hl, stateJumpTable
