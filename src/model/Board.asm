@@ -10,6 +10,11 @@
 TILE_SLOT_OVERLAP:              equ 12
 BOUNCE_PIXELS_OFFSET:           equ 8
 
+;Reserve flags 7-4 for use by the Sprite engine
+SPRITE_FLAGS_MASK:               equ %11110000
+MASK_IS_SLOT:                    equ %10000000
+BIT_IS_SLOT:                     equ 7
+
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: isSelectedTileOverSlot() -> bool, uint16
@@ -38,10 +43,16 @@ isSelectedTileOverSlot:
     ld iy,SpriteList.list + spriteItem*2
     ld de, spriteItem
 .next:
+    ;Is sprite a slot?
+    ld a,(iy+spriteItem.flags)
+    bit BIT_IS_SLOT,a
+    jr z,.notASlot
+    
     ld a, TILE_SLOT_OVERLAP
     call SpriteList.collisionCheck
     or a
     jr nz, .collisionDetected
+.notASlot:
     add iy,de
     djnz .next
 

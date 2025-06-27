@@ -193,7 +193,7 @@ slotToSprite:
     ld (ix + spriteItem.gameId),a
 
     ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN
-    ld (ix + spriteItem.flags),MouseDriver.MASK_HOVERABLE
+    ld (ix + spriteItem.flags),MouseDriver.MASK_HOVERABLE | Board.MASK_IS_SLOT
     call rowColumnToPixel
     ret
 
