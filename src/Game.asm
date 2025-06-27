@@ -84,8 +84,6 @@ updateMouse:
     ; A - sprite ID and IX - spriteItem if over a sprite
     ; A = 0 not over a sprite
     call Mouse.mouseOver
-    ; Store A for later use, IX is kept clean
-    ld (spriteId),a
 
     ; Update the mouse pointer state
     ; In A - interaction flags, or 0 if not over a sprite
@@ -204,8 +202,6 @@ pointerSpriteItem:
     spriteItem 0,0,0,0,0,0
 
 
-
-spriteId:               db 0
 
 anagram:
     db "THE ACE\nOF SPADES",0
