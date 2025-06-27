@@ -74,8 +74,7 @@ placeTile:
     ;check if HL is not 0
     ld a,h
     or l
-    ;TODO jump to NPE trap
-    ret z
+    call z, Exceptions.nullPointer
     
     ;Get exisiting tileId
     ld a,slotStruct.tileId
@@ -145,7 +144,7 @@ snapTileToSlot:
     ;check if HL is not 0
     ld a,h
     or l
-    jr z, .nullPointer
+    call z, Exceptions.nullPointer
 
     ; Point HL to slotStruct.tileId field
     ld a, slotStruct.tileId
@@ -155,7 +154,6 @@ snapTileToSlot:
     ;slot.tileId = tileSpriteItem.gameId
     ld (hl),a
 
-.nullPointer:
     ret
 
 

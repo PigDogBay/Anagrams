@@ -1,6 +1,6 @@
     ; A unit testcase needs to start with "UT_" (upper case letters).
     ; DeZog will collect all these labels and offer them for execution.
-    module TestSuite_Grid
+    module TestSuite_Board
 
 UT_placeTile1:
     //TODO WRITE TEST

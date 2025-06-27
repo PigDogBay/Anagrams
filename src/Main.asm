@@ -31,6 +31,7 @@
     include "Text.asm"
     include "utils/Maths.asm"
     include "utils/String.asm"
+    include "utils/Exceptions.asm"
 
 
 ;===========================================================================

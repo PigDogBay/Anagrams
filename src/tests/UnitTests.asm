@@ -18,6 +18,7 @@
     include "Text.asm"
     include "utils/Maths.asm"
     include "utils/String.asm"
+    include "tests/utils/MockExceptions.asm"
     include "tests/Macros.asm"
 
     ;Test includes
