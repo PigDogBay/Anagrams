@@ -1,14 +1,14 @@
 ;-----------------------------------------------------------------------------------
 ; 
-; State: play
+; State: tilePlaced
 ; 
-; Player drags tiles
+; Checks if the puzzle is solved
 ; 
 ;-----------------------------------------------------------------------------------
 
-    module GameStatePlay
+    module GameState_TilePlaced
 
-state: 
+@GS_TILE_PLACED: 
     stateStruct enter,update
 
 

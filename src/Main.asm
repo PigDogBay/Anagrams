@@ -27,16 +27,16 @@
     include "model/Slot.asm"
     include "model/Board.asm"
     include "model/MouseListener.asm"
-    include "Game.asm"
     include "Text.asm"
     include "utils/Maths.asm"
     include "utils/String.asm"
     include "utils/Exceptions.asm"
-    include "gameStates/StateMachine.asm"
-    include "gameStates/Start.asm"
-    include "gameStates/Play.asm"
-    include "gameStates/TilePlaced.asm"
-    include "gameStates/Solved.asm"
+    include "game/Game.asm"
+    include "game/StateMachine.asm"
+    include "game/Start.asm"
+    include "game/Play.asm"
+    include "game/TilePlaced.asm"
+    include "game/Solved.asm"
 
 ;===========================================================================
 ; main routine - the code execution starts here.

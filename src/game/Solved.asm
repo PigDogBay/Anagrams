@@ -1,14 +1,14 @@
 ;-----------------------------------------------------------------------------------
 ; 
-; State: tilePlaced
+; State: solved
 ; 
-; Checks if the puzzle is solved
+; Sets up a new puzzle to solved
 ; 
 ;-----------------------------------------------------------------------------------
 
-    module GameStateTilePlaced
+    module GameState_Solved
 
-state: 
+@GS_SOLVED: 
     stateStruct enter,update
 
 

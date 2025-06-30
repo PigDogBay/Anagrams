@@ -34,7 +34,7 @@ enter:
 
 update:
     ; next state
-    ld hl, GameStatePlay.state
+    ld hl, GS_PLAY
     call GameStateMachine.change
 
     ret

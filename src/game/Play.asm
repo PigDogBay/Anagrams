@@ -1,14 +1,14 @@
 ;-----------------------------------------------------------------------------------
 ; 
-; State: solved
+; State: play
 ; 
-; Sets up a new puzzle to solved
+; Player drags tiles
 ; 
 ;-----------------------------------------------------------------------------------
 
-    module GameStateSolved
+    module GameState_Play
 
-state: 
+@GS_PLAY:
     stateStruct enter,update
 
 
