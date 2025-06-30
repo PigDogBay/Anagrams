@@ -5,17 +5,38 @@
 ; Initializes the game
 ; 
 ;-----------------------------------------------------------------------------------
-    module GameStateStart
+    module GameState_Start
 
-state: 
+@GS_START: 
     stateStruct enter,update
 
 
 enter:
-    ; do nothing
+    ld a,30
+    call NextSprite.load
+    call SpriteList.removeAll
+    ; First sprite always the mouse pointer so that it is on top
+    call Game.addMouseSpritePointer
+
+    call Slot.removeAll
+    call Tile.removeAll
+    ld hl,Game.anagram
+    ;TODO, start game ID at 16 for tiles and slots, need better management of this
+    ld c, 16
+    call Slot.createSlots
+    ld hl,Game.anagram
+    ; Randomize letters
+    call String.shuffle
+    call Tile.createTiles
+    call Tile.tilesToSprites
+    call Slot.slotsToSprites
     ret
 
 update:
+    ; next state
+    ld hl, GameStatePlay.state
+    call GameStateMachine.change
+
     ret
 
 

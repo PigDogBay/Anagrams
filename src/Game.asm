@@ -1,29 +1,14 @@
     module Game
 
 init:
-    ld a,30
-    call NextSprite.load
-    call SpriteList.removeAll
-    ; First sprite always the mouse pointer so that it is on top
-    call addMouseSpritePointer
-
-    call Slot.removeAll
-    call Tile.removeAll
-    ld hl,anagram
-    ;TODO, start game ID at 16 for tiles and slots, need better management of this
-    ld c, 16
-    call Slot.createSlots
-    ld hl,anagram
-    ; Randomize letters
-    call String.shuffle
-    call Tile.createTiles
-    call Tile.tilesToSprites
-    call Slot.slotsToSprites
+    ld hl, GS_START
+    call GameStateMachine.change
     ret
 
 run:
     call updateMouse
     call MouseListener.update
+    call GameStateMachine.update
     call updateSprites
 
     BORDER 5
