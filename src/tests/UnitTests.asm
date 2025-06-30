@@ -14,6 +14,11 @@
     include "model/Slot.asm"
     include "model/Board.asm"
     include "model/MouseListener.asm"
+    include "gameStates/StateMachine.asm"
+    include "gameStates/Start.asm"
+    include "gameStates/Play.asm"
+    include "gameStates/TilePlaced.asm"
+    include "gameStates/Solved.asm"
     include "Game.asm"
     include "Text.asm"
     include "utils/Maths.asm"
@@ -34,6 +39,7 @@
     include "tests/utils/StringTests.asm"
     include "tests/utils/ExceptionsTests.asm"
     include "tests/behaviour/Solving.asm"
+    include "tests/gameStates/StateMachineTests.asm"
 
     ; Initialization routine called before all unit tests are started
     UNITTEST_INITIALIZE

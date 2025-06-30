@@ -32,7 +32,11 @@
     include "utils/Maths.asm"
     include "utils/String.asm"
     include "utils/Exceptions.asm"
-
+    include "gameStates/StateMachine.asm"
+    include "gameStates/Start.asm"
+    include "gameStates/Play.asm"
+    include "gameStates/TilePlaced.asm"
+    include "gameStates/Solved.asm"
 
 ;===========================================================================
 ; main routine - the code execution starts here.
