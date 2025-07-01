@@ -176,7 +176,7 @@ snapTileToSlot:
 ;
 ; Out: A 1 = Solved, 0 = not solved
 ; 
-; Dirty A,DE,IX
+; Dirty A,B,DE,IY
 ;
 ;-----------------------------------------------------------------------------------
 isSolved:
@@ -254,7 +254,6 @@ isSlotSolved:
 ;
 ;-----------------------------------------------------------------------------------
 findEmptyMatchingSlot:
-
     ld a,(Slot.slotCount)
     ld b,a
     ld de, slotStruct

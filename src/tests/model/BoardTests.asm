@@ -82,7 +82,7 @@ UT_isSlotSolved5:
     db "ACORN\nELECTRON",0
 
 
-;Case 4: non-existant tile slotted
+;non-existant tile slotted
 UT_isSlotSolved6:
     EXCEPTIONS_CLEAR
     call Tile.removeAll
@@ -101,9 +101,11 @@ UT_isSlotSolved6:
     db "ACORN\nELECTRON",0
     TC_END
 
-;Case 4: non-existant tile slotted
+
+;Manually fill slots with tiles
 UT_isSolved1:
     call Tile.removeAll
+    call Slot.removeAll
     
     ld c,100
     ld hl,.data
@@ -113,15 +115,81 @@ UT_isSolved1:
     ld hl,.data
     call Tile.createTiles
 
-
+    ld ix, Tile.tileList
     ld iy, Slot.slotList
-    ld (iy + slotStruct.id),10
-    ld (iy + slotStruct.letter),"R"
-    ld (iy + slotStruct.tileId),200
-    call Board.isSlotSolved
+
+    ld b,10
+.next:
+    ;next slot
+    ld de,slotStruct
+    add iy,de
+
+    ld a, (iy+slotStruct.id)
+    or a
+    ;skip white space
+    jr z, .next
+
+
+    ; place tile
+    ld a,(ix+tileStruct.id)
+    ld (iy+slotStruct.tileId),a
+    ;next tile
+    ld de,tileStruct
+    add ix,de
+    djnz .next
+
+    call Board.isSolved
+    nop ; ASSERTION A == 1
 .data:
-    db "ACORN\nELECTRON",0
+    db "ZX\nSPECTRUM",0
     TC_END
+
+;Use Board.findEmptyMatchingSlot to slot each tile
+UT_isSolved2:
+    call Tile.removeAll
+    call Slot.removeAll
+    
+    ld c,16
+    ld hl,.data
+    call Slot.createSlots
+    
+    ld c,32
+    ld hl,.random
+    call Tile.createTiles
+
+
+    FIRST_TILE ix
+    ld b,10
+.next:
+    push bc
+    call Board.findEmptyMatchingSlot
+    nop ; ASSERTION A!=0
+
+    ;Board should not be solved yet
+    push iy
+    call Board.isSolved
+    pop iy
+    pop bc
+    nop ; ASSERTION A == 0
+
+    ; place tile
+    ld a,(ix+tileStruct.id)
+    ld (iy+slotStruct.tileId),a
+
+    NEXT_TILE ix
+    djnz .next
+
+    call Board.isSolved
+    nop ; ASSERTION A == 1
+.data:
+    db "ZX\nSPECTRUM",0
+.random:
+    db "XC\nZMREUPST",0
+    TC_END
+
+
+
+
 
 
     ;add some slots
