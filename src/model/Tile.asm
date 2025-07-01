@@ -69,22 +69,26 @@ letter      byte
 ; In:    A - id
 ; Out:   HL - ptr to slot's struct, null if not found
 ;
-; Dirty: B,HL
+; Dirty: HL
 ;
 ;-----------------------------------------------------------------------------------
 find:
+    push bc
     ld hl,tileCount
     ld b,(hl)
     ; point to list
     inc hl
 .next
     cp (hl)
-    ret z
+    jr z, .found
     add hl,tileStruct
     djnz .next
     ; no match found
     ld hl,0
+.found:
+    pop bc
     ret
+    
 
 
 ;-----------------------------------------------------------------------------------
