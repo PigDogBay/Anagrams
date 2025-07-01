@@ -35,7 +35,6 @@
     include "game/StateMachine.asm"
     include "game/Start.asm"
     include "game/Play.asm"
-    include "game/TilePlaced.asm"
     include "game/Solved.asm"
 
 ;===========================================================================
