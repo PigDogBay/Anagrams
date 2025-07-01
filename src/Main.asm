@@ -62,9 +62,6 @@ main:
     ;set the border color
     BORDER 0
     CLS
-    ld a,5
-    call Graphics.fillLayer2_320
-    call Graphics.layer2Test320
     call NextSprite.removeAll
     call titleScreen
 
