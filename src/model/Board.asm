@@ -240,5 +240,54 @@ isSlotSolved:
 
 
 
+;-----------------------------------------------------------------------------------
+;
+; Function: findEmptyMatchingSlot(uint16 ptrTile) -> uint8, uint16
+;
+; Finds the first available slot that correctly matches the tile's letter
+;
+;  In: IX ptr to tile struct
+; Out: A  0 = no matching slot
+;      IY ptr to slot if A is not 0
+; 
+; Dirty A,DE, BC, IY
+;
+;-----------------------------------------------------------------------------------
+findEmptyMatchingSlot:
+
+    ld a,(Slot.slotCount)
+    ld b,a
+    ld de, slotStruct
+    ld iy, Slot.slotList
+
+    ;save tile letter in C
+    ld a,(IX + tileStruct.letter)
+    ld c,a
+
+.loop:
+
+    ;Skip whitespace slots
+    ld a,(iy+slotStruct.id)
+    or a
+    jr z, .skip
+
+    ;Skip occupied slots
+    ld a,(iy+slotStruct.tileId)
+    or a
+    jr nz, .skip
+
+    ;does letter match tile?
+    ld a,c
+    cp (iy + slotStruct.letter)
+    ret z
+
+.skip:
+    add iy,de
+    djnz .loop
+
+    ; no matching empty slot found
+    xor a    
+    ret
+
 
     endmodule

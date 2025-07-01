@@ -28,6 +28,39 @@ letter      byte
     ends
 
 ;-----------------------------------------------------------------------------------
+; 
+;   Macro to return pointer to the first tile in the list
+;
+;   Dirty: indexRegister
+;
+;-----------------------------------------------------------------------------------
+    macro FIRST_TILE indexRegister
+        ld indexRegister, Tile.tileList
+    endm
+
+;-----------------------------------------------------------------------------------
+; 
+;   Macro to return pointer to the tile at the specified index (0 based)
+;
+;   Dirty: indexRegister
+;
+;-----------------------------------------------------------------------------------
+    macro TILE_AT indexRegister, index
+        ld indexRegister, Tile.tileList + tileStruct * index
+    endm
+
+;-----------------------------------------------------------------------------------
+; 
+;   Macro Move the pointer to the next tile in the list
+;
+;   Dirty: DE, indexRegister
+;
+;-----------------------------------------------------------------------------------
+    macro NEXT_TILE indexRegister
+        ld de, tileStruct
+        add indexRegister, de
+    endm
+;-----------------------------------------------------------------------------------
 ;
 ; Function: find(uint8 gameId) -> uint16
 ;
