@@ -10,29 +10,40 @@ UT_bounceTile:
     //TODO WRITE TEST
     TC_END
 
-;Case 1: no tile slotted
+;No tile slotted
 UT_isSlotSolved1:
     ld iy, Slot.slotList
     ld (iy + slotStruct.id),2
     ld (iy + slotStruct.letter),"X"
     ld (iy + slotStruct.tileId),0
     call Board.isSlotSolved
-    TEST_FLAG_Z
+    nop ; ASSERTION A==0
     TC_END
 
-;Case 1: whitespace tile slotted
+;Space tile slotted - always solved
 UT_isSlotSolved2:
     ld iy, Slot.slotList
     ld (iy + slotStruct.id),0
     ld (iy + slotStruct.letter),CHAR_SPACE
     ld (iy + slotStruct.tileId),0
     call Board.isSlotSolved
-    TEST_FLAG_Z
+    nop ; ASSERTION A==1
 
     TC_END
 
-;Case 2: correct tile slotted
+;Newline tile slotted - always solved
 UT_isSlotSolved3:
+    ld iy, Slot.slotList
+    ld (iy + slotStruct.id),0
+    ld (iy + slotStruct.letter),CHAR_NEWLINE
+    ld (iy + slotStruct.tileId),0
+    call Board.isSlotSolved
+    nop ; ASSERTION A==1
+
+    TC_END
+
+;Correct tile slotted
+UT_isSlotSolved4:
     call Tile.removeAll
     ld c,100
     ld hl,.data
@@ -44,7 +55,7 @@ UT_isSlotSolved3:
     ld (iy + slotStruct.letter),"R"
     ld (iy + slotStruct.tileId),103
     call Board.isSlotSolved
-    TEST_FLAG_NZ
+    nop ; ASSERTION A==1
 
     TC_END
 .data:
@@ -52,7 +63,7 @@ UT_isSlotSolved3:
 
 
 ;Case 2: wrong tile slotted
-UT_isSlotSolved4:
+UT_isSlotSolved5:
     call Tile.removeAll
     ld c,100
     ld hl,.data
@@ -64,7 +75,7 @@ UT_isSlotSolved4:
     ld (iy + slotStruct.letter),"N"
     ld (iy + slotStruct.tileId),103
     call Board.isSlotSolved
-    TEST_FLAG_Z
+    nop ; ASSERTION A==0
 
     TC_END
 .data:
@@ -72,7 +83,7 @@ UT_isSlotSolved4:
 
 
 ;Case 4: non-existant tile slotted
-UT_isSlotSolved5:
+UT_isSlotSolved6:
     EXCEPTIONS_CLEAR
     call Tile.removeAll
     ld c,100

@@ -174,7 +174,7 @@ snapTileToSlot:
 ;
 ; Checks each slot to see if the slotted tile matches it letter
 ;
-; Out: Z set not solved, cleared solved
+; Out: A 1 = Solved, 0 = not solved
 ; 
 ; Dirty A,DE,IX
 ;
@@ -202,21 +202,21 @@ isSolved:
 ; If the slotted tile matches the slot's letter
 ;
 ;  In: IY pointer to slotStruct
-; Out: Z set not solved, cleared solved
+; Out: A 1 = Solved, 0 = not solved
 ; 
 ; Dirty A,HL
 ;
 ;-----------------------------------------------------------------------------------
 isSlotSolved:
-    ;Check for whitespace slot
+    ;Check for whitespace slot - whitespace is solved
     ld a,(iy+slotStruct.id)
     or a
-    ret z
+    jr z, .solved
 
     ;Check has slotted tile
     ld a,(iy+slotStruct.tileId)
     or a
-    ret z
+    jr z, .notSolved
 
     call Tile.find
     ;Throw exception if tile is not found
@@ -228,11 +228,13 @@ isSlotSolved:
     ld a,(hl)
     ;does it match the slots letter?
     cp (iy+slotStruct.letter)
-    jr z, .isSolved
+    jr z, .solved
+
+.notSolved:
     xor a
     ret
-.isSolved:
-    or a
+.solved:
+    ld a,1
     ret
 
 
