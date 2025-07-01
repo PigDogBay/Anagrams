@@ -1,11 +1,10 @@
     module Game
 
-init:
+run:
     ld hl, GS_START
     call GameStateMachine.change
-    ret
 
-run:
+.loop:
     call GameStateMachine.update
 
     BORDER 5
@@ -13,7 +12,7 @@ run:
     ; Set border to blue, size of border indicates how much time is spent updating the game
     BORDER 1
 
-    jr run
+    jr .loop
 
 
 ;-----------------------------------------------------------------------------------
