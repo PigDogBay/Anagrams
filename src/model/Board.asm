@@ -186,13 +186,13 @@ isSolved:
     ld iy, Slot.slotList
 .loop:
     call isSlotSolved
+    or a
     ret z
     add iy,de
     djnz .loop
 
-    ;Solved Clear Z flag
+    ;Solved, set A to 1 (TRUE)
     ld a,1
-    or a
     ret
 
 ;-----------------------------------------------------------------------------------

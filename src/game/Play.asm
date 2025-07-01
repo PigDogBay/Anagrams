@@ -47,6 +47,7 @@ dragEnd:
     call Board.snapTileToSlot
 
     call Board.isSolved
+    or a
     ret z
     ld hl, GS_SOLVED
     call GameStateMachine.change
