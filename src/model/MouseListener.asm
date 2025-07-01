@@ -82,23 +82,6 @@ stateMouseDragEnd:
     ;Update mouse pointer pattern
     ld a,0
     ld (SpriteList.list + spriteItem.pattern),a
-    
-    ;Out:   A - 0 if not over slot
-    ;       IX - tile sprite
-    ;       IY - slot sprite
-    call Board.isSelectedTileOverSlot
-    or a
-    ret z
-    
-    ;if slot is occupied bounce tile downwards
-    call Board.placeTile
-    or a
-    jr nz, .slotOccuppied
-    call Board.snapTileToSlot
-    ret
-.slotOccuppied:
-    call Board.bounceTile
-    ret
-
+    jp GameState_Play.dragEnd
 
     endmodule
