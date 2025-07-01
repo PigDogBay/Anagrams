@@ -6,10 +6,7 @@ init:
     ret
 
 run:
-    call updateMouse
-    call MouseListener.update
     call GameStateMachine.update
-    call updateSprites
 
     BORDER 5
     call Graphics.waitRaster

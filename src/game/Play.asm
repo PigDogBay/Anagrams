@@ -16,6 +16,9 @@ enter:
     ret
 
 update:
+    call Game.updateMouse
+    call MouseListener.update
+    call Game.updateSprites
     ret
 
 
