@@ -31,7 +31,15 @@ enter:
 update:
     ;wait for use to click mouse button
     call Game.updateMouse
+    cp MouseDriver.STATE_PRESSED
+    jr z, .mousePressed
+    
     call Game.updateSprites
+    ret nz
+
+.mousePressed:
+    ld hl, GS_START
+    call GameStateMachine.change
     ret
 
 titleText:
