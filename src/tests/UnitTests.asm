@@ -22,6 +22,7 @@
     include "Text.asm"
     include "utils/Maths.asm"
     include "utils/String.asm"
+    include "utils/Timing.asm"
     include "tests/utils/MockExceptions.asm"
     include "tests/Macros.asm"
 
@@ -36,6 +37,7 @@
     include "tests/model/BoardTests.asm"
     include "tests/utils/MathsTests.asm"
     include "tests/utils/StringTests.asm"
+    include "tests/utils/TimingTests.asm"
     include "tests/utils/ExceptionsTests.asm"
     include "tests/behaviour/Solving.asm"
     include "tests/gameStates/StateMachineTests.asm"

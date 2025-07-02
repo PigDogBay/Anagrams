@@ -31,6 +31,7 @@
     include "utils/Maths.asm"
     include "utils/String.asm"
     include "utils/Exceptions.asm"
+    include "utils/Timing.asm"
     include "game/Game.asm"
     include "game/StateMachine.asm"
     include "game/Start.asm"

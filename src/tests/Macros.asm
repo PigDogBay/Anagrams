@@ -9,3 +9,10 @@
         ld a,value
         ld (addr),a
     ENDM
+
+    MACRO WRITE_WORD addr, value
+        push hl
+        ld hl,value
+        ld (addr),hl
+        pop hl
+    ENDM
