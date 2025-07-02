@@ -12,8 +12,6 @@
 
 
 enter:
-    ld a,30
-    call NextSprite.load
     call SpriteList.removeAll
     ; First sprite always the mouse pointer so that it is on top
     call Game.addMouseSpritePointer

@@ -63,7 +63,10 @@ main:
     ;set the border color
     BORDER 0
     CLS
-    call NextSprite.removeAll
+
+    ld a,30
+    call NextSprite.load
+
 //    call titleScreen
 
     call MouseDriver.init

@@ -17,6 +17,8 @@ enter:
     call SpriteList.removeAll
     ld a,5
     call Graphics.fillLayer2_320
+    ; First sprite always the mouse pointer so that it is on top
+    call Game.addMouseSpritePointer
     ret
 
 update:
