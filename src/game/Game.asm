@@ -23,7 +23,10 @@ run:
 ;-----------------------------------------------------------------------------------
 updateSprites:
     ld hl, SpriteList.count
-    ld b,(hl)
+    ld a,(hl)
+    or a
+    ret z
+    ld b,a
     inc hl
 .next:
     call NextSprite.update
