@@ -19,6 +19,13 @@ enter:
     call Graphics.fillLayer2_320
     ; First sprite always the mouse pointer so that it is on top
     call Game.addMouseSpritePointer
+
+    call Tile.removeAll
+    ld hl,titleText
+    ld c, 16
+    call Tile.createTiles
+    call Tile.tilesToSprites
+
     ret
 
 update:
@@ -27,5 +34,7 @@ update:
     call Game.updateSprites
     ret
 
+titleText:
+    db "AMAZOGRAMS",0
 
     endmodule
