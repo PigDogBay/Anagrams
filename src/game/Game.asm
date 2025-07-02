@@ -1,7 +1,7 @@
     module Game
 
 run:
-    ld hl, GS_START
+    ld hl, GS_TITLE
     call GameStateMachine.change
 
 .loop:

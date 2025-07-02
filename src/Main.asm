@@ -34,6 +34,7 @@
     include "utils/Timing.asm"
     include "game/Game.asm"
     include "game/StateMachine.asm"
+    include "game/Title.asm"
     include "game/Start.asm"
     include "game/Play.asm"
     include "game/Solved.asm"
@@ -63,7 +64,7 @@ main:
     BORDER 0
     CLS
     call NextSprite.removeAll
-    call titleScreen
+//    call titleScreen
 
     call MouseDriver.init
     jp Game.run
