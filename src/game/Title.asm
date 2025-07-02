@@ -33,9 +33,8 @@ update:
     call Game.updateMouse
     cp MouseDriver.STATE_PRESSED
     jr z, .mousePressed
-    
     call Game.updateSprites
-    ret nz
+    ret
 
 .mousePressed:
     ld hl, GS_START
@@ -43,6 +42,6 @@ update:
     ret
 
 titleText:
-    db "AMAZOGRAMS",0
+    db "TITLE",0
 
     endmodule
