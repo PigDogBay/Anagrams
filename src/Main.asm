@@ -67,8 +67,6 @@ main:
     ld a,30
     call NextSprite.load
 
-//    call titleScreen
-
     call MouseDriver.init
     jp Game.run
 

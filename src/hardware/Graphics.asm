@@ -200,8 +200,26 @@ loadLayer2_9BitPalette:
 fillLayer2_320:
     push bc
     push hl
+
+    ;DMA.fill8kBank params
     ld h, LAYER2_START_8K_BANK
+    ;DMA.fill8kBank, takes fill value in L
     ld l,a
+
+    ; Enable layer 2
+    ld bc, L2_ACCESS_PORT
+    ; Bits
+    ; 7-6 = 00 Bank select, first 16k
+    ; 3 = 0 Layer 2 ram page register
+    ; 2 = 0 Read disabled
+    ; 1 = 1 Layer 2 visible
+    ; 2 = 0 Write disabled
+    ld a, %00000010
+    out (c),a
+
+    ;Set the 16k bank number where layer 2 video memory begins
+    nextreg LAYER_2_RAM_PAGE, LAYER2_START_16K_BANK
+
     ld b,LAYER2_NUM_BANKS
 .nextBank:
     call DMA.fill8kBank
