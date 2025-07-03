@@ -31,7 +31,7 @@ enter:
 
 update:
     ;wait for use to click mouse button
-    call Game.updateMouseNoSprite
+    call mouseUpdate
     cp MouseDriver.STATE_CLICKED
     jr z, .mousePressed
     call Game.updateSprites
@@ -49,6 +49,66 @@ addButtons:
     ld hl, bigRedButton
     call SpriteList.addSprite
     ret
+
+
+mouseUpdate:
+    ; Get the latest mouse X,Y and buttons
+    call MouseDriver.update
+    ld hl,(MouseDriver.mouseX)
+    ld a,(MouseDriver.mouseY)
+    ; Store X,Y in mouse's spriteItem
+    ld (SpriteList.list + spriteItem.x),hl
+    ld (SpriteList.list + spriteItem.y),a
+    ;A=0 no sprites
+    xor a
+    call MouseDriver.updateState
+    ld a, (MouseDriver.state)
+
+    call mouseStateHandler
+    ret
+
+jumpTable:
+    dw stateMouseReady
+    dw stateMouseHover
+    dw stateMouseHoverEnd
+    dw stateMousePressed
+    dw stateMouseClicked
+    dw stateMouseDragStart
+    dw stateMouseDrag
+    dw stateMouseDragOutOfBounds
+    dw stateMouseDragEnd
+
+;-----------------------------------------------------------------------------------
+;
+; Function: mouseStateHandler
+;
+; Updates the game based on the current mouse state 
+; In - A current mouse state
+;    - IX pointer to sprite that mouse is over
+;-----------------------------------------------------------------------------------
+mouseStateHandler:
+    ld hl, jumpTable
+    ; Add twice, as table is two bytes per entry
+    add hl,a
+    add hl,a
+    ; get jump entry
+    ld de,(hl)
+    ld hl,de
+    jp hl
+
+stateMouseReady:
+stateMouseHover:
+stateMouseHoverEnd:
+stateMousePressed:
+stateMouseClicked:
+stateMouseDragStart:
+stateMouseDrag:
+stateMouseDragOutOfBounds:
+stateMouseDragEnd:
+    ; Do nothing
+    ret
+
+
 
 
 titleText:
