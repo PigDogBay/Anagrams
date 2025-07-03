@@ -11,6 +11,11 @@
 @GS_BATTLEGROUND: 
     stateStruct enter,update
 
+xPos:
+    db 160
+yPos:
+    db 100
+
 
 enter:
     call NextSprite.removeAll
@@ -48,6 +53,18 @@ addButtons:
     call SpriteList.addSprite
     ld hl, bigRedButton
     call SpriteList.addSprite
+    ld hl, upSprite
+    call SpriteList.addSprite
+    ld hl, downSprite
+    call SpriteList.addSprite
+    ld hl, leftSprite
+    call SpriteList.addSprite
+    ld hl, rightSprite
+    call SpriteList.addSprite
+    ret
+
+updatePosition:
+
     ret
 
 
@@ -122,10 +139,18 @@ titleText:
 
 buttonSprite:
     ; id, x, y, palette, pattern, gameId, flags
-    spriteItem 0, 174, 50, 0, 36, 200, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 174, 50, 0, 36, 210, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
 bigRedButton:
-    ; id, x, y, palette, pattern, gameId, flags
-    spriteItem 0, 130, 50, 0, 37, 201, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 130, 50, 0, 37, 211, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+
+upSprite:
+    spriteItem 0, 8, 50, 0, 28, 201, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+downSprite:
+    spriteItem 0, 8, 70, 0, 11, 202, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+leftSprite:
+    spriteItem 0, 8, 90, 0, 19, 203, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+rightSprite:
+    spriteItem 0, 8, 110, 0, 25, 204, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
     endmodule
