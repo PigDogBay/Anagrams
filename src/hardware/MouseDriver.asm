@@ -385,25 +385,20 @@ stateDragOutOfBounds:
 .exit:
     ret
 
-; 
-; Currently unused 
-;     
 statePressed:
     ld a,(MouseDriver.buttons)
     bit 1,a
     jr z, .exit
-    ; No longer pressed, go back to ready state
-    ld a, STATE_READY
+    ; No longer pressed
+    ld a, STATE_CLICKED
     ld (state),a
 .exit:
     ret
 
 
-; 
-; Currently unused 
-;     
 stateClicked:
-.exit:
+    ld a, STATE_READY
+    ld (state),a
     ret
 
 
