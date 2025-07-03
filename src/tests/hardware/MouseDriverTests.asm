@@ -39,9 +39,15 @@ UT_ready3:
     TC_END
 
 ; Mouse over a sprite, pressed, expect DRAG_START
-UT_read4:
+UT_ready4:
     UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, ID_DRAGGABLE, PRESSED, MouseDriver.STATE_READY, MouseDriver.STATE_DRAG_START
     TC_END
+
+; Mouse over a clickable sprite, pressed, expect PRESSED
+UT_ready5:
+    UPDATE_STATE  MouseDriver.MASK_CLICKABLE | MouseDriver.MASK_HOVERABLE, ID_CLICKABLE, PRESSED, MouseDriver.STATE_READY, MouseDriver.STATE_PRESSED
+    TC_END
+
 
 ; Mouse over a sprite, not pressed, expect HOVER
 UT_hover1:
@@ -68,6 +74,12 @@ UT_hover5:
     UPDATE_STATE MouseDriver.MASK_HOVERABLE, ID_HOVERABLE, PRESSED, MouseDriver.STATE_HOVER, MouseDriver.STATE_BACKGROUND_PRESSED
     TC_END
 
+; Mouse over a clickable sprite, pressed, expect PRESSED
+UT_hover6:
+    UPDATE_STATE  MouseDriver.MASK_CLICKABLE | MouseDriver.MASK_HOVERABLE, ID_CLICKABLE, PRESSED, MouseDriver.STATE_HOVER, MouseDriver.STATE_PRESSED
+    TC_END
+
+
 ; Expect to return to READY, whatever mouse is doing
 UT_hover_end1:
     UPDATE_STATE 0, ID_BG, NOT_PRESSED, MouseDriver.STATE_HOVER_END, MouseDriver.STATE_READY
@@ -75,13 +87,23 @@ UT_hover_end1:
     TC_END
 
 ; If still pressed stay pressed
-UT_pressed1:
+UT_bg_pressed1:
     UPDATE_STATE  0, ID_BG, PRESSED, MouseDriver.STATE_BACKGROUND_PRESSED, MouseDriver.STATE_BACKGROUND_PRESSED
     TC_END
 
 ; If stopped pressing pressed->ready
-UT_pressed2:
+UT_bg_pressed2:
     UPDATE_STATE  0, ID_BG, NOT_PRESSED, MouseDriver.STATE_BACKGROUND_PRESSED, MouseDriver.STATE_BACKGROUND_CLICKED
+    TC_END
+
+; If still pressed stay pressed
+UT_pressed1:
+    UPDATE_STATE  MouseDriver.MASK_CLICKABLE, ID_CLICKABLE, PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_PRESSED
+    TC_END
+
+; If stopped pressing pressed->ready
+UT_pressed2:
+    UPDATE_STATE  MouseDriver.MASK_CLICKABLE, ID_CLICKABLE, NOT_PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_CLICKED
     TC_END
 
 ; Mouse over (assumed if dragging), pressed, expect DRAG_START->DRAG

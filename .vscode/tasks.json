@@ -77,8 +77,8 @@
                 }
             },
             "group": {
-                "kind": "build",
-                "isDefault": false
+                "kind": "test",
+                "isDefault": true
             }
         },
         {
