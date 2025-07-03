@@ -19,8 +19,8 @@ PRESSED: equ $00
 ID_BG: equ 0
 ID_DRAGGABLE: equ 42
 ID_CLICKABLE: equ 80
+ID_CLICKABLE_OTHER: equ 90
 ID_HOVERABLE: equ 81
-
 
 
 ; Not over sprite, no press, expect stay in ready state
@@ -86,24 +86,43 @@ UT_hover_end1:
     UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, PRESSED, ID_CLICKABLE, MouseDriver.STATE_HOVER_END, MouseDriver.STATE_READY
     TC_END
 
-; If still pressed stay pressed
 UT_bg_pressed1:
+    UPDATE_STATE  0, ID_BG, PRESSED, MouseDriver.STATE_READY, MouseDriver.STATE_BACKGROUND_PRESSED
+    TC_END
+
+; If still pressed stay pressed
+UT_bg_pressed2:
     UPDATE_STATE  0, ID_BG, PRESSED, MouseDriver.STATE_BACKGROUND_PRESSED, MouseDriver.STATE_BACKGROUND_PRESSED
     TC_END
 
-; If stopped pressing pressed->ready
-UT_bg_pressed2:
+; If stopped pressing pressed->clicked
+UT_bg_clicked1:
     UPDATE_STATE  0, ID_BG, NOT_PRESSED, MouseDriver.STATE_BACKGROUND_PRESSED, MouseDriver.STATE_BACKGROUND_CLICKED
     TC_END
 
-; If still pressed stay pressed
+
 UT_pressed1:
+    UPDATE_STATE  MouseDriver.MASK_CLICKABLE, ID_CLICKABLE, PRESSED, MouseDriver.STATE_READY, MouseDriver.STATE_PRESSED
+    TC_END
+
+; If still pressed stay pressed
+UT_pressed2:
     UPDATE_STATE  MouseDriver.MASK_CLICKABLE, ID_CLICKABLE, PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_PRESSED
     TC_END
 
 ; If stopped pressing pressed->ready
-UT_pressed2:
+UT_clicked1:
     UPDATE_STATE  MouseDriver.MASK_CLICKABLE, ID_CLICKABLE, NOT_PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_CLICKED
+    TC_END
+
+; Mouse has stopped pressing, but has been dragged off the sprite whilst pressing, expect clicked_off
+UT_clicked2:
+    UPDATE_STATE  MouseDriver.MASK_CLICKABLE, ID_BG, NOT_PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_CLICKED_OFF
+    TC_END
+
+; Mouse has stopped pressing, but has been dragged off onto another sprite whilst pressing, expect clicked_off
+UT_clicked3:
+    UPDATE_STATE  MouseDriver.MASK_CLICKABLE, ID_CLICKABLE_OTHER, NOT_PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_CLICKED_OFF
     TC_END
 
 ; Mouse over (assumed if dragging), pressed, expect DRAG_START->DRAG
