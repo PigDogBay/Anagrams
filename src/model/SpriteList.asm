@@ -7,6 +7,8 @@
 ; Sprite attributes data struct
 ; Note @ overides local behaviour so clients do not need module prefix
 ;
+; id, x, y, palette, pattern, gameId, flags
+;
 ;-----------------------------------------------------------------------------------
     struct @spriteItem
 id          byte

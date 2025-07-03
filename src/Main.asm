@@ -38,6 +38,8 @@
     include "game/Start.asm"
     include "game/Play.asm"
     include "game/Solved.asm"
+    ;Debug code, omit from release
+    include "game/Battleground.asm"
 
 ;===========================================================================
 ; main routine - the code execution starts here.
