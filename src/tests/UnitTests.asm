@@ -10,6 +10,7 @@
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
     include "model/Grid.asm"
+    include "model/GameId.asm"
     include "model/Tile.asm"
     include "model/Slot.asm"
     include "model/Board.asm"
