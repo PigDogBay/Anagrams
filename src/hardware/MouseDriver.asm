@@ -32,6 +32,9 @@ STATE_DRAG_START                 equ 5
 STATE_DRAG:                      equ 6
 STATE_DRAG_OUT_OF_BOUNDS:        equ 7
 STATE_DRAG_END:                  equ 8
+STATE_CLICKED_OFF:               equ 9
+STATE_BACKGROUND_PRESSED:        equ 10
+STATE_BACKGROUND_CLICKED:        equ 11
 
 MOUSE_FLAGS_MASK:                equ %00000111
 MASK_HOVERABLE:                  equ %00000001
@@ -51,7 +54,9 @@ stateJumpTable:
     dw stateDrag
     dw stateDragOutOfBounds
     dw stateDragEnd
-
+    dw stateClickedOff
+    dw stateBackgroundPressed
+    dw stateBackgroundClicked
 
 ;-----------------------------------------------------------------------------------
 ;
@@ -417,6 +422,35 @@ stateDragEnd:
     ld (state),a
     ret
 
+
+;
+; The user clicked on a sprite, but then moved the pointer off the sprite
+;
+stateClickedOff:
+    ld a, STATE_READY
+    ld (state),a
+    ret
+
+;
+; The user did not press on a sprite
+;
+stateBackgroundPressed:
+    ld a,(MouseDriver.buttons)
+    bit 1,a
+    jr z, .exit
+    ; No longer pressed
+    ld a, STATE_BACKGROUND_CLICKED
+    ld (state),a
+.exit:
+    ret
+
+;
+; The user did not press/click on a sprite
+;
+stateBackgroundClicked:
+    ld a, STATE_READY
+    ld (state),a
+    ret
 
 
 
