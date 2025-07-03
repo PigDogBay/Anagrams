@@ -12,7 +12,7 @@
 SLOT_ID:                  equ %10000000
 TILE_ID:                  equ %01000000
 BUTTON_ID:                equ %00000000
-
+BUTTON_MASK:              equ %11000000
 
 slotId:
     db 0
@@ -20,6 +20,60 @@ tileId:
     db 0
 buttonId:
     db 0
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: isSlot(uint8 slotId) -> Boolean
+; 
+; In: A slot ID
+; Out: Z flag, NZ = is slot, Z = not a slot
+;
+;-----------------------------------------------------------------------------------
+isSlot:
+    push bc
+    ld b,a
+    and SLOT_ID
+    ld a,b
+    pop bc
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: isTile(uint8 slotId) -> Boolean
+; 
+; In: A tile ID
+; Out: Z flag, NZ = is tile, Z = not a tile
+;
+;-----------------------------------------------------------------------------------
+isTile:
+    push bc
+    ld b,a
+    and TILE_ID
+    ld a,b
+    pop bc
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: isButton(uint8 buttonId) -> Boolean
+; 
+; In: A button ID
+; Out: Z flag, NZ = is button, Z = not a button
+;
+;-----------------------------------------------------------------------------------
+isButton:
+    push bc
+    ld b,a
+    and BUTTON_MASK
+    ld a,1
+    jr z, .invertFlag:
+    xor a
+.invertFlag:
+    or a
+    ld a,b
+    pop bc
+    ret
+
 
 
 ;-----------------------------------------------------------------------------------
