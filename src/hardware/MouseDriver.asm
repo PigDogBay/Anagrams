@@ -248,7 +248,7 @@ dragOutOfBounds:
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: updateState
+; Function: updateState(uint8 flags, uint8 id)
 ;
 ; This state machine uses a jump table to implement the various states
 ; Of clicking and dragging
@@ -257,6 +257,11 @@ dragOutOfBounds:
 ;       bit 2: Clickable - sprite can be clicked
 ;       bit 1: Draggable - sprite can be dragged
 ;       bit 0: Hoverable - sprite will react if pointer is hovering over it 
+;
+;      C: gameId of object mouse is interacting with, or 0 if not interacting
+;
+;
+; Dirty: AF, BC, DE, HL
 ; 
 ;-----------------------------------------------------------------------------------
 updateState:
