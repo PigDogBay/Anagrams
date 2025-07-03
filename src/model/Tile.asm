@@ -51,6 +51,18 @@ letter      byte
 
 ;-----------------------------------------------------------------------------------
 ; 
+;   Macro to the tile ID at the specified index (0 based)
+;
+;   Out: A = ID
+;
+;-----------------------------------------------------------------------------------
+    macro TILE_ID_AT index
+        ld a, (Tile.tileList + tileStruct * index)
+    endm
+
+
+;-----------------------------------------------------------------------------------
+; 
 ;   Macro Move the pointer to the next tile in the list
 ;
 ;   Dirty: DE, indexRegister

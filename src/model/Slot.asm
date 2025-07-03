@@ -25,6 +25,29 @@ tileId      byte
     ends
 
 ;-----------------------------------------------------------------------------------
+; 
+;   Macro to return pointer to the slot at the specified index (0 based)
+;
+;   Dirty: indexRegister
+;
+;-----------------------------------------------------------------------------------
+    macro SLOT_AT indexRegister, index
+        ld indexRegister, Slot.slotList + slotStruct * index
+    endm
+
+;-----------------------------------------------------------------------------------
+; 
+;   Macro to get the slot ID at the specified index (0 based)
+;
+;   Out: A = ID
+;
+;-----------------------------------------------------------------------------------
+    macro SLOT_ID_AT index
+        ld a, (Slot.slotList + slotStruct * index)
+    endm
+
+
+;-----------------------------------------------------------------------------------
 ;
 ; Function: find(uint8 gameId) -> uint16
 ;

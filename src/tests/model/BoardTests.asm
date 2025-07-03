@@ -45,7 +45,7 @@ UT_isSlotSolved3:
 ;Correct tile slotted
 UT_isSlotSolved4:
     call Tile.removeAll
-    ld c,100
+    call GameId.reset
     ld hl,.data
     call Tile.createTiles
 
@@ -53,7 +53,8 @@ UT_isSlotSolved4:
     ld iy, Slot.slotList
     ld (iy + slotStruct.id),10
     ld (iy + slotStruct.letter),"R"
-    ld (iy + slotStruct.tileId),103
+    TILE_ID_AT 3
+    ld (iy + slotStruct.tileId),a
     call Board.isSlotSolved
     nop ; ASSERTION A==1
 
@@ -65,7 +66,7 @@ UT_isSlotSolved4:
 ;Case 2: wrong tile slotted
 UT_isSlotSolved5:
     call Tile.removeAll
-    ld c,100
+    call GameId.reset
     ld hl,.data
     call Tile.createTiles
 
@@ -73,7 +74,9 @@ UT_isSlotSolved5:
     ld iy, Slot.slotList
     ld (iy + slotStruct.id),10
     ld (iy + slotStruct.letter),"N"
-    ld (iy + slotStruct.tileId),103
+    ;Matching tile is at index 4
+    TILE_ID_AT 6
+    ld (iy + slotStruct.tileId),a
     call Board.isSlotSolved
     nop ; ASSERTION A==0
 
@@ -86,7 +89,7 @@ UT_isSlotSolved5:
 UT_isSlotSolved6:
     EXCEPTIONS_CLEAR
     call Tile.removeAll
-    ld c,100
+    call GameId.reset
     ld hl,.data
     call Tile.createTiles
 
@@ -107,11 +110,10 @@ UT_isSolved1:
     call Tile.removeAll
     call Slot.removeAll
     
-    ld c,100
+    call GameId.reset
     ld hl,.data
     call Slot.createSlots
     
-    ld c,200
     ld hl,.data
     call Tile.createTiles
 
@@ -149,11 +151,10 @@ UT_isSolved2:
     call Tile.removeAll
     call Slot.removeAll
     
-    ld c,16
+    call GameId.reset
     ld hl,.data
     call Slot.createSlots
     
-    ld c,32
     ld hl,.random
     call Tile.createTiles
 
@@ -200,25 +201,30 @@ UT_isSolved2:
     ;check Slot.tileId
 UT_snapTileToSlot1:
     call Slot.removeAll
-    ld c,100
+    call GameId.reset
     ld hl,.data
     call Slot.createSlots
+
+    ;Set up sprite with correct slot ID, 
+    ; C is at index[2], [\n][A][C]
+    SLOT_ID_AT 2
+    ld (.slotSprite + spriteItem.gameId),a
+    
     ld ix, .tileSprite
     ld iy, .slotSprite
     call Board.snapTileToSlot
 
     TEST_MEMORY_WORD .tileSprite + spriteItem.x,101
     TEST_MEMORY_BYTE .tileSprite + spriteItem.y,81
-    ld a,101
-    call Slot.find
-    ld ix,hl
-    ld a,(ix+slotStruct.tileId)
+    SLOT_AT iy,2
+    ld a,(iy+slotStruct.tileId)
     nop ;ASSERTION A == 42
 
     TC_END
 .data:
     db "ACORN",0
 .tileSprite:
+    ; id, x, y, palette, pattern, gameId, flags
     spriteItem 0,160,128,0,0,42,0
 ;gameId = 'C' slot
 .slotSprite:
@@ -228,42 +234,34 @@ UT_snapTileToSlot1:
     ;Null Pointer test - IY has invalid game ID (slot ID)
     ;For now function just exits when it gets the null pointer
 UT_snapTileToSlot2:
+    EXCEPTIONS_CLEAR
     call Slot.removeAll
-    ld c,100
+    call GameId.reset
     ld hl,.data
     call Slot.createSlots
     ld ix, .tileSprite
     ld iy, .slotSprite
     call Board.snapTileToSlot
-
-    TEST_MEMORY_WORD .tileSprite + spriteItem.x,101
-    TEST_MEMORY_BYTE .tileSprite + spriteItem.y,81
-    ld a,101
-    call Slot.find
-    ld ix,hl
-    ld a,(ix+slotStruct.tileId)
-    ;Won't have found the slot, so tileID will still be 0
-    nop ;ASSERTION A == 0
+    CHECK_NULL_POINTER_CALLED
 
     TC_END
 .data:
     db "ACORN",0
 .tileSprite:
     spriteItem 0,160,128,0,0,42,0
-;gameId = 'C' slot
 .slotSprite:
-    spriteItem 1,100,80,0,0,200,0
+    ;12 should not be a valid slot ID
+    spriteItem 1,100,80,0,0,12,0
 
 
 UT_findEmptyMatchingSlot1:
     call Tile.removeAll
     call Slot.removeAll
     
-    ld c,100
+    call GameId.reset
     ld hl,.data
     call Slot.createSlots
     
-    ld c,200
     ld hl,.data
     call Tile.createTiles
 
@@ -282,11 +280,10 @@ UT_findEmptyMatchingSlot2:
     call Tile.removeAll
     call Slot.removeAll
     
-    ld c,100
+    call GameId.reset
     ld hl,.data
     call Slot.createSlots
     
-    ld c,200
     ld hl,.data
     call Tile.createTiles
 
@@ -306,11 +303,10 @@ UT_findEmptyMatchingSlot3:
     call Tile.removeAll
     call Slot.removeAll
     
-    ld c,100
+    call GameId.reset
     ld hl,.data
     call Slot.createSlots
     
-    ld c,200
     ld hl,.data
     call Tile.createTiles
 
@@ -328,11 +324,10 @@ UT_findEmptyMatchingSlot4:
     call Tile.removeAll
     call Slot.removeAll
     
-    ld c,100
+    call GameId.reset
     ld hl,.data
     call Slot.createSlots
     
-    ld c,200
     ld hl,.data
     call Tile.createTiles
 
@@ -342,8 +337,10 @@ UT_findEmptyMatchingSlot4:
     nop ; ASSERTION A!=0
 
     ;Check it chose the first M slot
+    SLOT_ID_AT 1
+    ld b,a
     ld a, (iy+slotStruct.id)
-    nop ; ASSERTION A==100
+    nop ; ASSERTION A==B
 
     ;Place tile
     ld a,(ix+tileStruct.id)
@@ -356,8 +353,10 @@ UT_findEmptyMatchingSlot4:
     nop ; ASSERTION A!=0
 
     ;Check it chose the second M slot
+    SLOT_ID_AT 11
+    ld b,a
     ld a, (iy+slotStruct.id)
-    nop ; ASSERTION A==109
+    nop ; ASSERTION A==B
 
 
 .data:
