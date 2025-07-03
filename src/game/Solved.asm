@@ -30,7 +30,7 @@ enter:
 
 update:
     ;wait for use to click mouse button
-    call Game.updateMouse
+    call Game.updateMouseNoSprite
     cp MouseDriver.STATE_PRESSED
     jr z, .mousePressed
     call Game.updateSprites

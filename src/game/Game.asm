@@ -69,6 +69,28 @@ updateMouse:
     ld a, (MouseDriver.state)
     ret
 
+;-----------------------------------------------------------------------------------
+;
+; Function updateMouseNoSprite()
+;
+; Updates the mouse x,y position and state
+;
+; Out: A - current mouse state
+;
+;-----------------------------------------------------------------------------------
+updateMouseNoSprite:
+    ; Get the latest mouse X,Y and buttons
+    call MouseDriver.update
+    ld hl,(MouseDriver.mouseX)
+    ld a,(MouseDriver.mouseY)
+    ; Store X,Y in mouse's spriteItem
+    ld (SpriteList.list + spriteItem.x),hl
+    ld (SpriteList.list + spriteItem.y),a
+    ;A=0 no sprites
+    xor a
+    call MouseDriver.updateState
+    ld a, (MouseDriver.state)
+    ret
 
 
 ;-----------------------------------------------------------------------------------
