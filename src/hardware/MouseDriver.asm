@@ -75,7 +75,8 @@ kempstonX:     db 0
 kempstonY:     db 0
 ; Mouse state, see STATE_X values above
 state:         db 0
-
+; Record the initial gameId when the mouse enters pressed stats
+pressedId:     db 0
 
 ;-----------------------------------------------------------------------------------
 ;
@@ -330,13 +331,20 @@ stateHover:
     jr nz, .exit
 
     ; Can sprite be clicked
-    ld a, STATE_PRESSED
     bit BIT_CLICKABLE,b
-    jr nz, .exit
+    jr nz, .pressed
 
     ;Treat sprite as background
     ld a, STATE_BACKGROUND_PRESSED
 .exit:
+    ld (state),a
+    ret
+
+.pressed:
+    ;Store id of the sprite being pressed
+    ld a,c
+    ld (pressedId),a
+    ld a, STATE_PRESSED
     ld (state),a
     ret
 
@@ -406,15 +414,26 @@ statePressed:
     bit 1,a
     jr z, .exit
     ; No longer pressed
+    ; Does pressId match Id
+    ld a,(pressedId)
+    cp c
+    ld a, STATE_CLICKED_OFF
+    jr nz, .clickedOff
+
     ld a, STATE_CLICKED
+.clickedOff:
     ld (state),a
 .exit:
     ret
+
 
 ;
 ; Call mouseOver to see which sprite has been clicked
 ;
 stateClicked:
+    ; clear pressedId
+    xor a
+    ld (pressedId),a
     ld a, STATE_READY
     ld (state),a
     ret
@@ -433,6 +452,9 @@ stateDragEnd:
 ; The user clicked on a sprite, but then moved the pointer off the sprite
 ;
 stateClickedOff:
+    ; clear pressedId
+    xor a
+    ld (pressedId),a
     ld a, STATE_READY
     ld (state),a
     ret

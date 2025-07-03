@@ -116,12 +116,12 @@ UT_clicked1:
     TC_END
 
 ; Mouse has stopped pressing, but has been dragged off the sprite whilst pressing, expect clicked_off
-UT_clicked2:
+UT_clicked_off1:
     UPDATE_STATE  MouseDriver.MASK_CLICKABLE, ID_BG, NOT_PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_CLICKED_OFF
     TC_END
 
 ; Mouse has stopped pressing, but has been dragged off onto another sprite whilst pressing, expect clicked_off
-UT_clicked3:
+UT_clicked_off2:
     UPDATE_STATE  MouseDriver.MASK_CLICKABLE, ID_CLICKABLE_OTHER, NOT_PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_CLICKED_OFF
     TC_END
 
