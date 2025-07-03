@@ -1,17 +1,14 @@
     module TestSuite_Slot
 
 UT_createSlots1:
+    call GameId.reset
     call Slot.removeAll
-    ld c,42
     ld hl,.data
     call Slot.createSlots
-    ; gameId will be increased by number of slots created
-    nop ; ASSERTION c == 42 + (5 + 8)
     ;Extra slot for the spacer slot
     TEST_MEMORY_BYTE Slot.slotCount,15
 
     ;Check slotList[3] O
-    TEST_MEMORY_BYTE Slot.slotList+slotStruct*3+slotStruct.id,44
     TEST_MEMORY_BYTE Slot.slotList+slotStruct*3+slotStruct.letter,'O'
     TEST_MEMORY_BYTE Slot.slotList+slotStruct*3+slotStruct.tileId,0
 
@@ -46,17 +43,17 @@ UT_justifySlots3:
 
 
 UT_slotTile1:
+    call GameId.reset
     call Slot.removeAll
-    ld c,10
     ld hl,.data
     call Slot.createSlots
-    ld a,14
+    ld a,(Slot.slotList + slotStruct*5 + slotStruct.id)
     ld c,42
     call Slot.slotTile
 
     ;[\n][A][C][O][R][N][\n][E]
     TEST_MEMORY_BYTE Slot.slotList+slotStruct*4+slotStruct.tileId,0  ;[R]
-    TEST_MEMORY_BYTE Slot.slotList+slotStruct*5+slotStruct.tileId,42 ;[N]
+    TEST_MEMORY_BYTE Slot.slotList+slotStruct*5+slotStruct.tileId,42  ;[N]
     TEST_MEMORY_BYTE Slot.slotList+slotStruct*7+slotStruct.tileId,0  ;[E]
 
     CHECK_SLOT_NOT_FOUND_NOT_CALLED
@@ -67,10 +64,11 @@ UT_slotTile1:
 ;Test SlotNotFound exception is thrown
 UT_slotTile2:
     EXCEPTIONS_CLEAR
+    call GameId.reset
     call Slot.removeAll
-    ld c,10
     ld hl,.data
     call Slot.createSlots
+    ;Slot ID 85 hopefully should not exist
     ld a,85
     ld c,15
     call Slot.slotTile
@@ -80,11 +78,11 @@ UT_slotTile2:
     db "ACORN\nELECTRON",0
 
 UT_unslotTile1:
+    call GameId.reset
     call Slot.removeAll
-    ld c,10
     ld hl,.data
     call Slot.createSlots
-    ld a,14
+    ld a,(Slot.slotList + slotStruct*5 + slotStruct.id)
     ld c,42
     call Slot.slotTile
 

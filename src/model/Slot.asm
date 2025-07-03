@@ -59,10 +59,8 @@ find:
 ; Sets up the slot lists from the puzzle data
 ; 
 ; In: 
-;     C - gameId of the first item
 ;     HL - pointer to puzzle data
 ;
-; Out C - gameId advanced ready for next game item
 ;
 ; Dirty: A, BC, HL, DE, IY
 ;
@@ -85,12 +83,11 @@ createSlots:
     jr z,.exit
 
     ;new slot
-    ld (ix+slotStruct.id),c
     ld (ix+slotStruct.letter),a
     ld (ix+slotStruct.tileId),0
+    call GameId.nextSlotId
+    ld (ix+slotStruct.id),a
     add ix,de
-    ;advance gameId
-    inc c
 
     ld a, (slotCount)
     inc a

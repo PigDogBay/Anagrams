@@ -98,10 +98,7 @@ find:
 ; Sets up the tile lists from the puzzle data
 ; 
 ; In: 
-;     C - gameId of the first item
 ;     HL - pointer to puzzle data
-;
-; Out C - gameId advanced ready for next game item
 ;
 ; Dirty: A, BC, HL, DE, IX
 ;
@@ -125,12 +122,11 @@ createTiles:
     jr z,.exit
 
     ;new tile
-    ld (ix+tileStruct.id),c
     ld (ix+tileStruct.letter),a
+    call GameId.nextTileId
+    ld (ix+tileStruct.id),a
     ld de,tileStruct
     add ix,de
-    ;advance gameId
-    inc c
 
     ld a, (tileCount)
     inc a

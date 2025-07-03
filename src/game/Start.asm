@@ -22,9 +22,10 @@ enter:
 
     call Slot.removeAll
     call Tile.removeAll
+
+    call GameId.reset
+
     ld hl,Game.anagram
-    ;TODO, start game ID at 16 for tiles and slots, need better management of this
-    ld c, 16
     call Slot.createSlots
     ld hl,Game.anagram
     ; Randomize letters

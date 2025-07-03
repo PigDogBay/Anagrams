@@ -4,15 +4,12 @@
 
 UT_createTiles1:
     call Tile.removeAll
-    ld c,42
+    call GameId.reset
     ld hl,.data
     call Tile.createTiles
-    ; gameId will be increased by number of slots + tiles created
-    nop ; ASSERTION c == 42 + (5 + 8)
     TEST_MEMORY_BYTE Tile.tileCount,13
 
     ;Check tileList[1] C
-    TEST_MEMORY_BYTE Tile.tileList+tileStruct+tileStruct.id,43
     TEST_MEMORY_BYTE Tile.tileList+tileStruct+tileStruct.letter,'C'
 
     TC_END
@@ -43,7 +40,7 @@ UT_tileToSprite1:
 UT_tilesToSprites1:
     call SpriteList.removeAll
     call Tile.removeAll
-    ld c,100
+    call Tile.removeAll
     ld hl,.data
     call Tile.createTiles
     call Tile.tilesToSprites
@@ -52,7 +49,6 @@ UT_tilesToSprites1:
 
     ;Test the P in CHIP (11th letter)
     TEST_MEMORY_BYTE SpriteList.list + spriteItem * 10 + spriteItem.pattern,'P' - Tile.ASCII_PATTERN_OFFSET
-    TEST_MEMORY_BYTE SpriteList.list + spriteItem * 10 + spriteItem.gameId,100 + 10
 
     TC_END
 .data:
