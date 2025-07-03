@@ -297,7 +297,7 @@ stateReady:
     bit 1,a
     jr nz, .exit
     ; button pressed, but not over any sprite
-    ld a, STATE_PRESSED
+    ld a, STATE_BACKGROUND_PRESSED
     ld (state),a
 .exit:
     ret
@@ -329,7 +329,13 @@ stateHover:
     bit BIT_DRAGABLE,b
     jr nz, .exit
 
+    ; Can sprite be clicked
     ld a, STATE_PRESSED
+    bit BIT_CLICKABLE,b
+    jr nz, .exit
+
+    ;Treat sprite as background
+    ld a, STATE_BACKGROUND_PRESSED
 .exit:
     ld (state),a
     ret
