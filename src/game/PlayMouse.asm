@@ -19,6 +19,9 @@ jumpTable:
     dw stateMouseDrag
     dw stateMouseDragOutOfBounds
     dw stateMouseDragEnd
+    dw stateMouseClickedOff
+    dw stateMouseBackgroundPressed
+    dw stateMouseBackgroundClicked
 
 ;-----------------------------------------------------------------------------------
 ;
@@ -93,6 +96,19 @@ stateMouseDragEnd:
     ld (SpriteList.list + spriteItem.pattern),a
     ld hl, (dragEndCallback)
     jp (hl)
+
+stateMouseClickedOff:
+    ; Do nothing
+    ret
+
+stateMouseBackgroundPressed:
+    ; Do nothing
+    ret
+
+stateMouseBackgroundClicked:
+    ; Do nothing
+    ret
+
 
 
 nullDragEndCallback:
