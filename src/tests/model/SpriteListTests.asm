@@ -37,7 +37,7 @@ UT_reserveSprite1:
 ;Mid list
 UT_find1:
     COPY_DATA findLen, findData
-    ld a,3
+    ld a,103
     call SpriteList.find
     ld de, SpriteList.list + spriteItem * 3
     nop ; ASSERTION HL == DE
@@ -55,7 +55,7 @@ UT_find2:
 ;End
 UT_find3:
     COPY_DATA findLen, findData
-    ld a,4
+    ld a,104
     call SpriteList.find
     ld de, SpriteList.list + spriteItem*4
     nop ; ASSERTION HL == DE
@@ -73,10 +73,10 @@ findData:
     ; id, x, y, palette, pattern, gameId, flags
     ; Mouse
     spriteItem 0,160,128,0,0,0,0
-    spriteItem 1,100,150,0,16,0,0
-    spriteItem 2,20,10,0,8,0,0
-    spriteItem 3,60,20,0,30,0,0
-    spriteItem 4,100,30,0,24,0,0
+    spriteItem 1,100,150,0,16,101,0
+    spriteItem 2,20,10,0,8,102,0
+    spriteItem 3,60,20,0,30,103,0
+    spriteItem 4,100,30,0,24,104,0
 findLen: equ $ - findData
 
 

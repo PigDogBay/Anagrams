@@ -116,25 +116,37 @@ removeAll:
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: find
+; Function: find(uint8 gameId) -> uint16
 ;
 ; Finds sprite data
 ;
-; In:    A - id
+; In:    A - game ID
 ; Out:   HL - ptr to sprite's struct
+;
+; Dirty: HL
 ;-----------------------------------------------------------------------------------
 find:
+    push BC
     ld hl,count
     ld b,(hl)
     ; point to list
     inc hl
+    add hl, spriteItem.gameId
 .next
     cp (hl)
-    ret z
+    jr z, .found
     add hl,spriteItem
     djnz .next
     ; no match found
     ld hl,0
+    pop bc
+    ret
+
+.found:
+    or a
+    ld bc, spriteItem.gameId
+    sbc hl,bc
+    pop bc
     ret
 
 ;-----------------------------------------------------------------------------------
