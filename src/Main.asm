@@ -159,6 +159,9 @@ stack_top:
     MMU 0,50, 0x0000
     incbin "assets/titleScreen/bg.nxp"
 */
+    DISPLAY "Stack top: ", stack_top
+    DISPLAY "Code size: ",/D, stack_top - 0x8000," bytes (",/H, stack_top - 0x8000, ")"
+
     SAVENEX OPEN "main.nex", main, stack_top, 2
     SAVENEX CORE 3, 1, 5
     SAVENEX CFG 7   ; Border color
