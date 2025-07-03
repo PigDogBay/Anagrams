@@ -14,8 +14,8 @@
 
 enter:
     ;Set up callback when drag ends
-    ld hl, PlayMouse.dragEndCallback
-    ld (hl),dragEnd
+    ld hl, dragEnd
+    ld (PlayMouse.dragEndCallback),hl
     ret
 
 update:
