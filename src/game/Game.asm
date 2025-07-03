@@ -1,7 +1,11 @@
     module Game
 
 run:
-    ld hl, GS_TITLE
+    IFDEF BATTLEGROUND
+        ld hl, GS_BATTLEGROUND
+    ELSE
+        ld hl, GS_TITLE
+    ENDIF
     call GameStateMachine.change
 
 .loop:

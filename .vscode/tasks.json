@@ -28,6 +28,33 @@
             }
         },
         {
+            "label": "Battleground",
+            "type": "shell",
+            "command": "sjasmplus",
+            "args": [
+                "src/Main.asm",
+                "-DBATTLEGROUND",
+                "--outprefix=bin/",
+                "--sld=bin/main.sld",
+                "--fullpath",
+            ],
+            "problemMatcher": {
+                "owner": "sjasmplus",
+                "fileLocation": "autoDetect",
+                "pattern": {
+                    "regexp": "^(.*)\\((\\d+)\\):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "severity": 3,
+                    "message": 4
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
             "label": "Unit Tests",
             "type": "shell",
             "command": "sjasmplus",

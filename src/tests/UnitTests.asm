@@ -51,3 +51,5 @@
     SAVENEX CFG 7   ; Border color
     SAVENEX AUTO
     SAVENEX CLOSE
+
+    DISPLAY " **** UNIT TESTS ****"
