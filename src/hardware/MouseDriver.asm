@@ -395,7 +395,9 @@ statePressed:
 .exit:
     ret
 
-
+;
+; Call mouseOver to see which sprite has been clicked
+;
 stateClicked:
     ld a, STATE_READY
     ld (state),a

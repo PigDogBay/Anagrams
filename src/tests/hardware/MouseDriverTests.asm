@@ -68,12 +68,12 @@ UT_hover_end1:
 
 ; If still pressed stay pressed
 UT_pressed1:
-    UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_PRESSED
+    UPDATE_STATE  0, PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_PRESSED
     TC_END
 
 ; If stopped pressing pressed->ready
 UT_pressed2:
-    UPDATE_STATE  MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_HOVERABLE, NOT_PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_READY
+    UPDATE_STATE  0, NOT_PRESSED, MouseDriver.STATE_PRESSED, MouseDriver.STATE_CLICKED
     TC_END
 
 ; Mouse over (assumed if dragging), pressed, expect DRAG_START->DRAG
