@@ -1,4 +1,13 @@
-    module MouseListener
+;-----------------------------------------------------------------------------------
+;
+; Module PlayMouse
+;
+; Handles mouse events when in the play state, eg dragging of tiles to slots
+;
+;-----------------------------------------------------------------------------------
+    
+    
+    module PlayMouse
         
 jumpTable:
     dw stateMouseReady
@@ -82,6 +91,14 @@ stateMouseDragEnd:
     ;Update mouse pointer pattern
     ld a,0
     ld (SpriteList.list + spriteItem.pattern),a
-    jp GameState_Play.dragEnd
+    ld hl, (dragEndCallback)
+    jp (hl)
+
+
+nullDragEndCallback:
+    ret
+
+dragEndCallback:
+    dw nullDragEndCallback
 
     endmodule

@@ -13,11 +13,14 @@
 
 
 enter:
+    ;Set up callback when drag ends
+    ld hl, PlayMouse.dragEndCallback
+    ld (hl),dragEnd
     ret
 
 update:
     call Game.updateMouse
-    call MouseListener.update
+    call PlayMouse.update
     call Game.updateSprites
     ret
 
