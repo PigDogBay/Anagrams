@@ -12,9 +12,9 @@
     stateStruct enter,update
 
 xPos:
-    db 160
+    dw 174
 yPos:
-    db 100
+    db 50
 
 
 enter:
@@ -25,9 +25,9 @@ enter:
     ; First sprite always the mouse pointer so that it is on top
     call Game.addMouseSpritePointer
 
+    call GameId.reset
     call Tile.removeAll
     ld hl,titleText
-    ld c, 16
     call Tile.createTiles
     call Tile.tilesToSprites
 
@@ -35,21 +35,15 @@ enter:
     ret
 
 update:
-    ;wait for use to click mouse button
     call mouseUpdate
-    cp MouseDriver.STATE_CLICKED
-    jr z, .mousePressed
+    call updatePosition
     call Game.updateSprites
     ret
 
-.mousePressed:
-    ld hl, GS_START
-;    call GameStateMachine.change
-    ret
 
 
 addButtons:
-    ld hl, buttonSprite
+    ld hl, spaceShipSprite
     call SpriteList.addSprite
     ld hl, bigRedButton
     call SpriteList.addSprite
@@ -64,7 +58,13 @@ addButtons:
     ret
 
 updatePosition:
-
+    ld a, SPACESHIP_ID
+    call SpriteList.find
+    ld ix,hl
+    ld a, (yPos)
+    ld (ix+spriteItem.y),a
+    ld hl,(xPos)
+    ld (ix+spriteItem.x),hl
     ret
 
 
@@ -147,6 +147,40 @@ stateMouseBackgroundClicked:
 stateMouseClicked:
     //TODO, C = Sprites GameID
     //Write Button pressed event
+
+    ld a,c
+    cp BUTTON_UP_ID
+    jr z, .upClicked
+
+    cp BUTTON_DOWN_ID
+    jr z, .downClicked
+
+    cp BUTTON_LEFT_ID
+    jr z, .leftClicked
+
+    cp BUTTON_RIGHT_ID
+    jr z, .rightClicked
+    ret
+
+.upClicked:
+    ld a,(yPos)
+    dec a
+    ld (yPos),a
+    ret
+.downClicked:
+    ld a,(yPos)
+    inc a
+    ld (yPos),a
+    ret
+.leftClicked:
+    ld hl,(xPos)
+    dec hl
+    ld (xPos),hl
+    ret
+.rightClicked:
+    ld hl,(xPos)
+    inc hl
+    ld (xPos),hl
     ret
 
 
@@ -154,20 +188,27 @@ stateMouseClicked:
 titleText:
     db "BATTLEGROUND",0
 
-buttonSprite:
+
+BUTTON_UP_ID: equ 1 
+BUTTON_DOWN_ID: equ 2
+BUTTON_LEFT_ID: equ 3
+BUTTON_RIGHT_ID: equ 4
+SPACESHIP_ID: equ 5
+
+spaceShipSprite:
     ; id, x, y, palette, pattern, gameId, flags
-    spriteItem 0, 174, 50, 0, 36, 210, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 174, 50, 0, 36, 5, 0
 
 bigRedButton:
-    spriteItem 0, 130, 50, 0, 37, 211, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 130, 50, 0, 37, 6, 0
 
 upSprite:
-    spriteItem 0, 8, 50, 0, 28, 201, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 8, 50, 0, 28, 1, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 downSprite:
-    spriteItem 0, 8, 70, 0, 11, 202, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 8, 70, 0, 11, 2, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 leftSprite:
-    spriteItem 0, 8, 90, 0, 19, 203, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 8, 90, 0, 19, 3, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 rightSprite:
-    spriteItem 0, 8, 110, 0, 25, 204, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 8, 110, 0, 25, 4, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
     endmodule
