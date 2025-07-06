@@ -42,6 +42,7 @@ LAYER_2_Y_OFFSET:                       equ $17
 CLIP_WINDOW_LAYER_2:                    equ $18
 CLIP_WINDOW_SPRITES:                    equ $19
 CLIP_WINDOW_ULA:                        equ $1A
+; X1, X2, Y1, Y2 
 CLIP_WINDOW_TILEMAP:                    equ $1B
 ;Bits
 ; 7-4 reserved
@@ -80,6 +81,19 @@ NR_CLIP_WINDOW_CONTROL:                equ $1C
 ACTIVE_VIDEO_LINE_MSB:                 equ $1E
 ACTIVE_VIDEO_LINE_LSB:                 equ $1F
 
+; Tilemap offset in pixel
+;
+; X: 0-319 for 40x32, 0-639 for 80x32
+; Y: 0-255
+;
+; Bits 0-1
+TILEMAP_OFFSET_X_MSB:                  equ $2F
+; Bits 0-7
+TILEMAP_OFFSET_X_LSB:                  equ $30
+; Bits 0-7
+TILEMAP_OFFSET_Y:                      equ $31
+
+
 PALETTE_INDEX:                         equ $40
 PALETTE_VALUE:                         equ $41
 PALETTE_ULA_INK_COLOR_MASK:            equ $42
@@ -107,6 +121,14 @@ PALETTE_ULA_CONTROL:                   equ $43
 ;     Bit 7: Layer 2 Priority, if 1 colour will always appear on top of every other layer
 ;     Bit 0: low bit of blue color
 PALETTE_ULA_PALETTE_EXTENSION:         equ $44
+
+; Bits:
+; 7-4 Reserved
+; 4-0 Index of transparent colour in the tilemap palette
+;
+; Note: The pixel index is compared before the palette offset is applied
+; so only need to specify the transparency colour once in the palette: 0-15
+TILEMAP_TRANSPARENCY_INDEX:            equ $4C
 
 
 MMU_0:                                 equ $50          ; Slot $0000 - $1FFF (0     - 8191)
@@ -152,11 +174,70 @@ SPRITE_ATTRIBUTE_UPLOAD:               equ $57
 ;see https://wiki.specnext.dev/Sprite_Pattern_Upload
 SPRITE_PATTERN_UPLOAD_256:             equ $005B
 
+
+; Bits
+;   7: 1 to disable ULA (default 0)
+; 6-5: Blending in SLU modes 6 and 7
+;    00 - ULA as blended colour
+;    01 - No blending
+;    10 - ULA/tilemap as blend colour
+;    11 - Tilemap as blend colour
+;  4: Cancel entries in 8x5 matrix for extended keys
+;  3: 1 to enable ULA+
+;  2: 1 to enable ULA half pixel scroll
+;  1: 0 Reserved  
+;  0: 1 to enable stencil mode when ULA and tilemap are enabled
+ULA_CONTROL:                           equ $68
+
+
 ;https://wiki.specnext.dev/Display_Control_1_Register
 DISPLAY_CONTROL_1:                     equ $69
 
-;$xx6B where xx is program length
-DMA_PORT:                              equ $6B
+; Bits
+; 7:  1 to enable Tilemap
+; 6:  1 for 80x32, 0 for 40x32
+; 5:  1 to eliminate the attribute entry in the tilemap
+; 4:  0 use first tilemap palette, 1 second
+; 3:  1 to enable text mode (tile pixels are 1-bit, like UDG)
+; 2:  Reserved 0
+; 1:  1 512 tiles, 0 256 tiles
+; 0:  1 to enfore tilemap over ULA priority
+TILEMAP_CONTROL:                       equ $6B
+
+; This attribute is used if bit 5 of TILEMAP_CONTROL is set
+;
+; Bits
+; 7-4: Palette Offset
+; 3: X Mirror
+; 2: Y Mirror
+; 1: Roate
+; 0: * 1 = ULA over tilemap, 0 = tilemap over ULA
+;
+; * If bit 1 of TILEMAP_CONTROL is set, used as ninth bit of tile ID (allowing 512 tiles)
+;   ULA over tilemap is default
+;
+;** If bit 3 of TILEMAP_CONTROL is set (text-mode), bits 7-1 are palette offset
+DEFAULT_TILEMAP_ATTRIBUTE:             equ $6C
+
+;
+; Bits
+;   7:  1 to select 8k bank 7, 0 for 16k bank 5
+;   6:  Reserved 0
+; 5-0: Page in the tilemap bank, Address = slot_address +  Page * 256
+;      default $2C (Address $6C00)
+;    0x4000-0x7f00 in bank 5
+;    0xc000-0xff00 in bank 7
+TILEMAP_BASE_ADDRESS:                  equ $6E
+;
+; Bits
+;   7:  1 to select 8k bank 7, 0 for 16k bank 5
+;   6:  Reserved 0
+; 5-0: Page in the tilemap bank, Address = slot_address +  Page * 256
+;      default $2C (Address $6C00)
+;    0x4000-0x7f00 in bank 5
+;    0xc000-0xff00 in bank 7
+TILEMAP_DEFINITIONS_BASE_ADDRESS:      equ $6F
+
 
 ;Bits
 ; 7-6 Reserved
@@ -171,6 +252,17 @@ LAYER_2_CONTROL:                       equ $70
 ; 7-1 Reserved, must be 0
 ; 0 MSB for X pixel offset
 LAYER_2_X_OFFSET_MSB:                  equ $71
+
+
+
+
+;
+; Ports
+;
+
+
+;$xx6B where xx is program length
+DMA_PORT:                              equ $6B
 
 
 ;Bits
