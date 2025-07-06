@@ -129,6 +129,31 @@
                 "cwd": "${config:mame_dir}"
             },
             "problemMatcher": []
-        }
+        },
+        {
+            "label": "Compile Font2Tile.c",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "tools/FontToTile.c",
+                "-obin/fontToTile.o"
+            ],
+            "problemMatcher": {
+                "owner": "gcc",
+                "fileLocation": "autoDetect",
+                "pattern": {
+                    "regexp": "^(.*)\\((\\d+)\\):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "severity": 3,
+                    "message": 4
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+
     ]
 }
