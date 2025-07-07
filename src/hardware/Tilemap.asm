@@ -24,6 +24,7 @@ START_OF_TILES		equ $6600	; Just after 40x32 tilemap
 
 OFFSET_OF_MAP		equ (START_OF_TILEMAP - START_OF_BANK_5) >> 8
 OFFSET_OF_TILES		equ (START_OF_TILES - START_OF_BANK_5) >> 8
+PALETTE_TRANSPARENT_INDEX: equ $0f
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -33,6 +34,11 @@ OFFSET_OF_TILES		equ (START_OF_TILES - START_OF_BANK_5) >> 8
 ; 
 ;-----------------------------------------------------------------------------------
 init:
+
+    ;Index in the palette that defines the transparent colour
+//    nextreg TILEMAP_TRANSPARENCY_INDEX,PALETTE_TRANSPARENT_INDEX
+    nextreg TILEMAP_TRANSPARENCY_INDEX,0
+
     ; Bits
     ; 7:  1 to enable Tilemap
     ; 6:  1 for 80x32, 0 for 40x32
@@ -85,8 +91,11 @@ init:
 ; 
 ;-----------------------------------------------------------------------------------
 clear:
-    ld bc, 40*32
-    ld de, START_OF_TILEMAP
+    ld bc, 40*32 - 1
+    ld hl, START_OF_TILEMAP
+    ld de,hl
+    inc de
+    ld (hl),0
     ldir
     ret
 
@@ -97,7 +106,6 @@ clear:
 ; 
 ;-----------------------------------------------------------------------------------
 palette:
-;    db $e3
     db %00000000  ; Black
     db %11100000  ; Red
     db %00011100  ; Green
@@ -116,6 +124,6 @@ palette:
     db %00000000  ; Black
     db %00000000  ; Black
     db %00000000  ; Black
-    db %00000000  ; Black
+    db $e3        ; Transparent
 
     endmodule

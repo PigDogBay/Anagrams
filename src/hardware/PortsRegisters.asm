@@ -128,6 +128,7 @@ PALETTE_ULA_PALETTE_EXTENSION:         equ $44
 ;
 ; Note: The pixel index is compared before the palette offset is applied
 ; so only need to specify the transparency colour once in the palette: 0-15
+; Default is 15
 TILEMAP_TRANSPARENCY_INDEX:            equ $4C
 
 
