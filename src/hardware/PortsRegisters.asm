@@ -12,7 +12,7 @@ ROM_PRINT:              equ $203c
 ;  (R/W) 0x07 (07) => Turbo mode:
 ;  bit 1-0 = Turbo (00 = 3.5MHz, 01 = 7MHz, 10 = 14MHz)
 ;  (00 after a PoR or Hard-reset)
-NR_TURBO_CONTROL:                       equ $07
+CPU_SPEED:                       equ $07
 
 ; Sets the layer 2 start 16k bank, for 256x192 requires 3x16k, 320x256 5x16k
 LAYER_2_RAM_PAGE:                       equ $12
@@ -20,7 +20,7 @@ LAYER_2_RAM_SHADOW_PAGE:                equ $13
 
 ;$E3 is the default value for the ULA transparency colour
 ;Set to $E7 for Bright Magenta (paper 3)
-NR_GLOBAL_TRANSPARENCY:                 equ $14
+GLOBAL_TRANSPARENCY:                 equ $14
 
 LAYER_2_X_OFFSET:                       equ $16
 LAYER_2_Y_OFFSET:                       equ $17
@@ -68,7 +68,7 @@ CLIP_WINDOW_CONTROL:                    equ $1C
 ;111 - S(U+L-5) ULA and Layer 2 combined, colours clamped to [0,7]
 ;bit 1 = Over border (1 = yes)(Back to 0 after a reset)
 ;bit 0 = Sprites visible (1 = visible)(Back to 0 after a reset)
-NR_SPRITE_CONTROL:                      equ $15
+SPRITE_LAYERS_SYSTEM:                  equ $15
 
 ;(W) 0x1C (28) => Clip Window control
 ;bit 3 - reset the tilemap clip index

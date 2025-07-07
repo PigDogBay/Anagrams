@@ -57,13 +57,13 @@ main:
     ld sp,stack_top
 
     ;Set clock to 28MHz
-    nextreg NR_TURBO_CONTROL,3
-    nextreg NR_SPRITE_CONTROL,%01001011
+    nextreg CPU_SPEED,3
+    nextreg SPRITE_LAYERS_SYSTEM,%01001011
     ;Transparent colour for ULA
     ;Should be $E3, (11100011)
     ;But only E7 (11100111) makes bright magenta transparent
     ;Set to 0 (black)
-    nextreg NR_GLOBAL_TRANSPARENCY,0
+    nextreg GLOBAL_TRANSPARENCY,0
     call Graphics.resetAllClipWindows
     ;Enable layer 2
     nextreg DISPLAY_CONTROL_1,%10000000
