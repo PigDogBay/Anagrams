@@ -61,15 +61,15 @@ addButtons:
 
 
 lifeLine1Sprite:
-    spriteItem 0, 4, 48, 0, 8, 1, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 4, 48, 0, 8, LIFELINE_1_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 lifeLine2Sprite:
-    spriteItem 0, 4, 72, 0, 9, 2, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 4, 72, 0, 9, LIFELINE_2_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 lifeLine3Sprite:
-    spriteItem 0, 4, 96, 0, 10, 3, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 4, 96, 0, 10, LIFELINE_3_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 lifeLine4Sprite:
-    spriteItem 0, 4, 120, 0, 11, 4, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 4, 120, 0, 11, LIFELINE_4_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 quitSprite:
-    spriteItem 0, 300, 4, 0, 24, 5, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 300, 4, 0, 24, QUIT_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
 
 

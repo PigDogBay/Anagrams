@@ -8,6 +8,12 @@
     
     
     module PlayMouse
+
+@QUIT_BUTTON:           equ 1
+@LIFELINE_1_BUTTON:     equ 2
+@LIFELINE_2_BUTTON:     equ 3
+@LIFELINE_3_BUTTON:     equ 4
+@LIFELINE_4_BUTTON:     equ 5
         
 jumpTable:
     dw stateMouseReady
@@ -54,8 +60,37 @@ stateMousePressed:
     ; Do nothing
     ret
 stateMouseClicked:
-    ; Do nothing
+    ld a,c
+    cp QUIT_BUTTON
+    jr z, .quitClicked
+
+    cp LIFELINE_1_BUTTON
+    jr z, .lifeLine1Clicked
+
+    cp LIFELINE_2_BUTTON
+    jr z, .lifeLine2Clicked
+
+    cp LIFELINE_3_BUTTON
+    jr z, .lifeLine3Clicked
+
+    cp LIFELINE_4_BUTTON
+    jr z, .lifeLine4Clicked
+
+.quitClicked:
+    ; next state
+    ld hl, GS_TITLE
+    call GameStateMachine.change
     ret
+
+.lifeLine1Clicked:
+    ret
+.lifeLine2Clicked:
+    ret
+.lifeLine3Clicked:
+    ret
+.lifeLine4Clicked:
+    ret
+
 
 stateMouseDragStart:
     ;bring the sprite to the front
