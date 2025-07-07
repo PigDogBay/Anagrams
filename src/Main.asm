@@ -12,9 +12,11 @@
     ; https://damieng.com/typography/zx-origins/
     
 
-;===========================================================================
+;-----------------------------------------------------------------------------------
+; 
 ; Include modules
-;===========================================================================
+; 
+;-----------------------------------------------------------------------------------
     include "hardware/PortsRegisters.asm"
     include "hardware/DMA.asm"
     include "hardware/Graphics.asm"
@@ -44,12 +46,14 @@
         include "game/Battleground.asm"
     ENDIF
 
-;===========================================================================
-; main routine - the code execution starts here.
-; Sets up the new interrupt routine, the memory
-; banks and jumps to the start loop.
-;===========================================================================
-
+;-----------------------------------------------------------------------------------
+; 
+; Entry Function: main()
+; 
+; Code execution starts here.  Initializes the Next's hardware and then jumps into
+; the game's state machine.
+;
+;-----------------------------------------------------------------------------------
 main:
 
     ; Disable interrupts
@@ -58,9 +62,12 @@ main:
 
     ;Set clock to 28MHz
     nextreg CPU_SPEED,3
+    ;Sprite priority 0 on top
+    ;Z order: Sprites - ULA - Layer2
+    ;Sprites over border and visible
     nextreg SPRITE_LAYERS_SYSTEM,%01001011
     ;Transparent colour for ULA
-    ;Should be $E3, (11100011)
+    ;Default is $E3, (11100011)
     ;But only E7 (11100111) makes bright magenta transparent
     ;Set to 0 (black)
     nextreg GLOBAL_TRANSPARENCY,0
@@ -70,6 +77,16 @@ main:
     ;Set fallback colour to be black
     nextreg TRANSPARENCY_COLOUR_FALLBACK,0
 
+    ;TODO Set up each layer's palette
+    ;
+    ; Layer2
+    ;
+    ld a,0
+    call Graphics.fillLayer2_320
+
+    ;
+    ;ULA
+    ;
     ;set the border color
     BORDER 0
     ld d,0
@@ -77,6 +94,15 @@ main:
     ld d,0
     call Graphics.setPixels
 
+    ;
+    ; Tilemap
+    ;
+    call Tilemap.init
+
+    ;
+    ; Sprites
+    ;
+    call NextSprite.removeAll
     ld a,30
     call NextSprite.load
 
@@ -85,6 +111,7 @@ main:
 
 main_loop:
     jr main_loop
+
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -125,10 +152,12 @@ titleScreen:
     nextreg LAYER_2_RAM_PAGE, 20
     ret
 
-;===========================================================================
-; Stack.
-;===========================================================================
 
+;-----------------------------------------------------------------------------------
+; 
+; Stack
+;
+;-----------------------------------------------------------------------------------
 
 ; Stack: this area is reserved for the stack
 STACK_SIZE: equ 100    ; in words
@@ -142,6 +171,12 @@ stack_top:
     ;defw 0
     defw 0  ; WPMEM, 2
 
+
+;-----------------------------------------------------------------------------------
+; 
+; NEX File
+;
+;-----------------------------------------------------------------------------------
     ORG 0x5c00
     INCBIN "assets/sysvars.bin" ; 0x5c00-0x5c3a
 
@@ -184,6 +219,11 @@ stack_top:
     SAVENEX AUTO
     SAVENEX CLOSE
 
+;-----------------------------------------------------------------------------------
+; 
+; Compilation Messages
+;
+;-----------------------------------------------------------------------------------
     IFDEF BATTLEGROUND
         DISPLAY "WARRIOR PREPARE FOR BATTLE!!!"
     ELSE
