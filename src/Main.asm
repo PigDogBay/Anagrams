@@ -58,7 +58,7 @@ main:
 
     ;Set clock to 28MHz
     nextreg NR_TURBO_CONTROL,3
-    nextreg NR_SPRITE_CONTROL,%01000011
+    nextreg NR_SPRITE_CONTROL,%01001011
     ;Transparent colour for ULA
     nextreg NR_GLOBAL_TRANSPARENCY,$E3
     call Graphics.resetAllClipWindows
@@ -136,6 +136,11 @@ stack_top:
 
     ORG 0x5c00
     INCBIN "assets/sysvars.bin" ; 0x5c00-0x5c3a
+
+    ORG Tilemap.START_OF_TILEMAP
+    INCBIN "assets/tilemap.map"
+    ORG Tilemap.START_OF_TILES
+    INCBIN "assets/magnetic.spr"
 
     ;Load sprite data in 8k banks 30 + 31. Banks placed in MMU slots 0 and 1 
     MMU 0 1,30, 0x0000

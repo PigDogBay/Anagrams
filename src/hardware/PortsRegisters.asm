@@ -210,7 +210,7 @@ TILEMAP_CONTROL:                       equ $6B
 ; 7-4: Palette Offset
 ; 3: X Mirror
 ; 2: Y Mirror
-; 1: Roate
+; 1: Rotate
 ; 0: * 1 = ULA over tilemap, 0 = tilemap over ULA
 ;
 ; * If bit 1 of TILEMAP_CONTROL is set, used as ninth bit of tile ID (allowing 512 tiles)

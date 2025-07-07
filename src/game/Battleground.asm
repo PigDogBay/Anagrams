@@ -32,6 +32,8 @@ enter:
     call Tile.tilesToSprites
 
     call addButtons
+
+    call Tilemap.init
     ret
 
 update:
