@@ -72,8 +72,6 @@ main:
     ;
     ; Layer2
     ;
-    ;Enable layer 2
-    nextreg DISPLAY_CONTROL_1,%10000000
     ld a,0
     call Graphics.fillLayer2_320
 
@@ -121,45 +119,6 @@ main:
 main_loop:
     jr main_loop
 
-
-;-----------------------------------------------------------------------------------
-; 
-; To create Layer 2 images, 320x256 256 colours
-; 
-; To create images: 
-; 
-; 1. Images need to be first resized to 320x256 by resizing and cropping, this can be done in Preview
-;
-; 2 . Convert the image to an uncompressed indexed bitmap with 256 colour palette, 8 bit pixels, 
-; BMP3 - widely supported bitmap format
-; 
-; convert oxford-small.jpg -colors 256 -depth 8 -compress none BMP3:oxford.bmp
-;
-; 3. Use gfx2next (See https://www.rustypixels.uk/gfx2next/): 
-; -bitmap Output Next bitmap .nxi
-; -bitmap-y Set up the memory layout (y-x order) for 320x256
-; -bank-8k Split the file into 8k chunks so that it can be easily loaded into 8k banks
-; -pal-std Convert to the Spectrum Next standard palette colours
-; (See https://www.rustypixels.uk/gfx2next/)
-; 
-; ~/work/Next/tools/Gfx2Next/build/gfx2next -bitmap -bitmap-y -pal-std -bank-8k oxford.bmp
-; 
-; 
-; 
-;-----------------------------------------------------------------------------------
-titleScreen:
-    ; Load palette for Title screen, residing at 8k bank 50 0x0000 - 0x00ff
-    nextreg MMU_0, 50
-    ld hl,0
-    ld b,255
-    call Graphics.loadLayer2_9BitPalette
-    ; Restore ROM
-    nextreg MMU_0, $FF
-
-    ; 16k Bank, first 8k bank of image is at 40
-    ; So 16k bank is 40/2 = 20
-    nextreg LAYER_2_RAM_PAGE, 20
-    ret
 
 
 ;-----------------------------------------------------------------------------------

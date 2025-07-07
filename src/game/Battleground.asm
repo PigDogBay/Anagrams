@@ -20,7 +20,10 @@ yPos:
 enter:
     call NextSprite.removeAll
     call SpriteList.removeAll
-    call Graphics.layer2Test320
+    ; ld a,55
+    ; call Graphics.fillLayer2_320
+    ; call Graphics.layer2Test320
+    call Graphics.titleScreen
     ; First sprite always the mouse pointer so that it is on top
     call Game.addMouseSpritePointer
 
