@@ -67,6 +67,8 @@ main:
     call Graphics.resetAllClipWindows
     ;Enable layer 2
     nextreg DISPLAY_CONTROL_1,%10000000
+    ;Set fallback colour to be black
+    nextreg TRANSPARENCY_COLOUR_FALLBACK,0
 
     ;set the border color
     BORDER 0

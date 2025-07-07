@@ -122,6 +122,11 @@ PALETTE_ULA_CONTROL:                   equ $43
 ;     Bit 0: low bit of blue color
 PALETTE_ULA_PALETTE_EXTENSION:         equ $44
 
+; Colour to be used when all layers contain transparent pixels
+; RRRGGGBB
+; Default 0 (black)
+TRANSPARENCY_COLOUR_FALLBACK:          equ $4A
+
 ; Bits:
 ; 7-4 Reserved
 ; 4-0 Index of transparent colour in the tilemap palette
