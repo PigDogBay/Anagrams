@@ -127,6 +127,10 @@ PALETTE_ULA_PALETTE_EXTENSION:         equ $44
 ; Default 0 (black)
 TRANSPARENCY_COLOUR_FALLBACK:          equ $4A
 
+; Index into the sprite palette, default is $E3
+; https://wiki.specnext.dev/Sprites_Transparency_Index_Register
+SPRITES_TRANSPARENCY_INDEX:            equ $4B
+
 ; Bits:
 ; 7-4 Reserved
 ; 4-0 Index of transparent colour in the tilemap palette

@@ -10,7 +10,8 @@
     ; http://www.breakintoprogram.co.uk/hardware/computers/zx-spectrum-next/assembly-language/z80-library-routines
     ; https://zx.remysharp.com/sprites/#sprite-editor
     ; https://damieng.com/typography/zx-origins/
-    
+
+SPRITE_PATTERN_COUNT:         equ 30
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -62,31 +63,30 @@ main:
 
     ;Set clock to 28MHz
     nextreg CPU_SPEED,3
-    ;Sprite priority 0 on top
-    ;Z order: Sprites - ULA - Layer2
-    ;Sprites over border and visible
-    nextreg SPRITE_LAYERS_SYSTEM,%01001011
-    ;Transparent colour for ULA
-    ;Default is $E3, (11100011)
-    ;But only E7 (11100111) makes bright magenta transparent
-    ;Set to 0 (black)
-    nextreg GLOBAL_TRANSPARENCY,0
-    call Graphics.resetAllClipWindows
-    ;Enable layer 2
-    nextreg DISPLAY_CONTROL_1,%10000000
+
     ;Set fallback colour to be black
     nextreg TRANSPARENCY_COLOUR_FALLBACK,0
+    call Graphics.resetAllClipWindows
 
     ;TODO Set up each layer's palette
     ;
     ; Layer2
     ;
+    ;Enable layer 2
+    nextreg DISPLAY_CONTROL_1,%10000000
     ld a,0
     call Graphics.fillLayer2_320
 
     ;
-    ;ULA
+    ; ULA
     ;
+
+    ;Transparent colour for ULA
+    ;Default is $E3, (11100011)
+    ;But only E7 (11100111) makes bright magenta transparent
+    ;Set to 0 (black)
+    nextreg GLOBAL_TRANSPARENCY,0
+
     ;set the border color
     BORDER 0
     ld d,0
@@ -102,9 +102,18 @@ main:
     ;
     ; Sprites
     ;
+
+    ;Sprite priority ID=0 on top
+    ;Z order: Sprites - ULA - Layer2
+    ;Sprites over border and visible
+    nextreg SPRITE_LAYERS_SYSTEM,%01001011
+
+    ; $E3 is default transparency
+    nextreg SPRITES_TRANSPARENCY_INDEX, $E3
     call NextSprite.removeAll
-    ld a,30
+    ld a,SPRITE_PATTERN_COUNT
     call NextSprite.load
+
 
     call MouseDriver.init
     jp Game.run
