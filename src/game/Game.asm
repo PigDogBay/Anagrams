@@ -11,10 +11,10 @@ run:
 .loop:
     call GameStateMachine.update
 
-    BORDER 5
+    BORDER 0
     call Graphics.waitRaster
     ; Set border to blue, size of border indicates how much time is spent updating the game
-    BORDER 1
+    BORDER 5
 
     jr .loop
 
