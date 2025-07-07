@@ -39,12 +39,12 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "game/Game.asm"
     include "game/StateMachine.asm"
     include "game/PlayMouse.asm"
-    include "game/Title.asm"
-    include "game/Start.asm"
-    include "game/Play.asm"
-    include "game/Solved.asm"
+    include "game/states/Title.asm"
+    include "game/states/Start.asm"
+    include "game/states/Play.asm"
+    include "game/states/Solved.asm"
     IFDEF BATTLEGROUND
-        include "game/Battleground.asm"
+        include "game/states/Battleground.asm"
     ENDIF
 
 ;-----------------------------------------------------------------------------------
