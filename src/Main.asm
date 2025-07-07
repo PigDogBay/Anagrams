@@ -60,7 +60,9 @@ main:
     nextreg NR_TURBO_CONTROL,3
     nextreg NR_SPRITE_CONTROL,%01001011
     ;Transparent colour for ULA
-    nextreg NR_GLOBAL_TRANSPARENCY,$E3
+    ;Should be $E3, (11100011)
+    ;But E7 (11100111) makes bright magenta transparent
+    nextreg NR_GLOBAL_TRANSPARENCY,$e7
     call Graphics.resetAllClipWindows
     ;Enable layer 2
     nextreg DISPLAY_CONTROL_1,%10000000
@@ -68,6 +70,10 @@ main:
     ;set the border color
     BORDER 0
     CLS
+    ld d,%01011011
+    call Graphics.setAttributes
+    ld d,0
+    call Graphics.setPixels
 
     ld a,30
     call NextSprite.load

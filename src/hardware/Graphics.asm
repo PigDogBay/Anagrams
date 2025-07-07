@@ -154,13 +154,33 @@ setAttributes:
     ; Set first byte to the colour
     ld (hl),d
     ; Point DE to next attibute
-    ld e,l
-    ld d,h
+    ld de,hl
     inc de
     ;Fill rest of attributes
     ldir
     ret
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: setPixels(uint8 pixelFillValue)
+;
+; Fills the entire ULA screen pixels with the specified value
+;  
+; In: Pixel value to fill each pixel with
+; 
+; Dirty BC, DE, HL
+;-----------------------------------------------------------------------------------
+setPixels:
+    ld bc,ULA_SCREEN_SIZE - 1
+    ld hl,ULA_SCREEN
+    ; Set first byte to the colour
+    ld (hl),d
+    ; Point DE to next attibute
+    ld de,hl
+    inc de
+    ;Fill rest of attributes
+    ldir
+    ret
 
 
 
