@@ -132,6 +132,21 @@ readRaster:
 ; 
 ; Fills ULA  attributes with specified color
 ; In D: Attribute paper/ink colours
+;
+; Bits:  
+;   7:   1 enable flashing
+;   6:   1 to enable bright
+; 5-3:   Paper
+; 2-0:   Ink
+;     000 - Black
+;     001 - Blue
+;     010 - Red
+;     011 - Magenta
+;     100 - Green
+;     101 - Cyan
+;     110 - Yellow
+;     111 - White
+; 
 ;-----------------------------------------------------------------------------------
 setAttributes:
     ld bc,ULA_COLOR_SCREEN_SIZE - 1
