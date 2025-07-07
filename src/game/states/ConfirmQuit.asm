@@ -1,21 +1,21 @@
 ;-----------------------------------------------------------------------------------
 ; 
-; State: Title
+; State: ConfirmQuit
 ; 
-; Shows title screen
+; Displays Yes-No Dialog to confirm quit
 ; 
 ;-----------------------------------------------------------------------------------
 
-    module GameState_Title
+    module GameState_ConfirmQuit
 
-@GS_TITLE: 
+@GS_CONFIRM_QUIT: 
     stateStruct enter,update
 
 
 enter:
     call NextSprite.removeAll
     call SpriteList.removeAll
-    ld a,5
+    ld a,6
     call Graphics.fillLayer2_320
     ; First sprite always the mouse pointer so that it is on top
     call Game.addMouseSpritePointer
@@ -37,11 +37,12 @@ update:
     ret
 
 .mousePressed:
-    ld hl, GS_LEVEL_SELECT
+    ld hl, GS_TITLE
     call GameStateMachine.change
     ret
 
 titleText:
-    db "TITLE",0
+    db "QUITYESNO",0
+
 
     endmodule

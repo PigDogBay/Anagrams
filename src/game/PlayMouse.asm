@@ -78,7 +78,7 @@ stateMouseClicked:
 
 .quitClicked:
     ; next state
-    ld hl, GS_TITLE
+    ld hl, GS_CONFIRM_QUIT
     call GameStateMachine.change
     ret
 
