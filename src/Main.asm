@@ -26,6 +26,7 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "hardware/Tilemap.asm"
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
+    include "model/Puzzles.asm"
     include "model/GameId.asm"
     include "model/Grid.asm"
     include "model/Tile.asm"
