@@ -85,6 +85,10 @@ nextRound:
 ; 
 ;-----------------------------------------------------------------------------------
 nextLevel:
+    ;set round to 1
+    ld a,FIRST_ROUND
+    ld (round),a
+
     ld a,(level)
     inc a
     ld (level),a
@@ -213,7 +217,7 @@ getClue:
 ; 
 ;-----------------------------------------------------------------------------------
 jumbleLetters:
-    push de
+    push de,bc
     call getAnagram
     ; copy string
     ld de,jumbled
@@ -227,7 +231,7 @@ jumbleLetters:
     ldi
     ld hl, jumbled
     call String.shuffle
-    pop de
+    pop bc,de
     ret
 
 ;-----------------------------------------------------------------------------------

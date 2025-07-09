@@ -48,6 +48,8 @@ UT_nextLevel1:
     nop ; ASSERTION A == 5
     call Puzzles.getLevel
     nop ; ASSERTION A == 5
+    call Puzzles.getRound
+    nop ; ASSERTION A == 1
     TC_END
 
 UT_nextLevel2:
@@ -151,5 +153,39 @@ UT_jumbleLetters1:
     TC_END
 
 
+
+UT_behaviour1:
+    ld hl,$0101
+    ld b,0
+    ;Check C, not corrupted
+    ld c,42
+    ;Check DE, not corrupted
+    ld de,$BABE
+    call Puzzles.select
+.nextPuzzle:
+    inc b
+    call Puzzles.isGameOver
+    TEST_FLAG_Z
+
+    call Puzzles.jumbleLetters
+    call Puzzles.getCategory
+    call Puzzles.getAnagram
+    call Puzzles.getClue
+
+    call Puzzles.nextRound
+    or a
+    jr nz, .nextPuzzle
+    
+    call Puzzles.nextLevel
+    or a
+    jr nz, .nextPuzzle
+    
+    call Puzzles.isGameOver
+    TEST_FLAG_NZ
+
+    nop ; ASSERTION B == 30    
+    nop ; ASSERTION DE == $BABE
+    nop ; ASSERTION C == 42
+    TC_END
 
     endmodule
