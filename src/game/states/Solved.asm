@@ -37,6 +37,19 @@ update:
     ret
 
 .mousePressed:
+    call Puzzles.nextRound
+    or a
+    jr nz, .start
+    
+    call Puzzles.nextLevel
+    or a
+    jr nz, .start
+    
+    //TODO GS_GAME_COMPLETED, for now go back to level 1
+    ld hl,$0101
+    call Puzzles.select
+
+.start:
     ld hl, GS_START
     call GameStateMachine.change
     ret

@@ -37,6 +37,8 @@ update:
     ret
 
 .mousePressed:
+    ld hl,$0101
+    call Puzzles.select
     ld hl, GS_ROUND
     call GameStateMachine.change
     ret

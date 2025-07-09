@@ -27,11 +27,10 @@ enter:
 
     call GameId.reset
 
-    ld hl,Game.anagram
+    call Puzzles.getAnagram
     call Slot.createSlots
-    ld hl,Game.anagram
-    ; Randomize letters
-    call String.shuffle
+    call Puzzles.jumbleLetters
+
     call Tile.createTiles
     call Tile.tilesToSprites
     call Slot.slotsToSprites
