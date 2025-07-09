@@ -22,14 +22,36 @@ puzzle      word
 ; 
 ; Function: select(uint8 level, uint8 round)
 ;
-; Call selectPuzzle() before using the getter functions. Sets the level and round.
+; Sets the round and level. If round or level is invalid, lvl 1, rnd 1 is set
 ;
 ; In: H = level
 ;     L = round 
 ; 
 ;-----------------------------------------------------------------------------------
 select:
+    ;Validation, 0 check
+    ld a, h
+    or a
+    jr z, .failed
+    ;Max level
+    cp a, LAST_LEVEL + 1
+    jr nc, .failed
+    
+    ld a, l
+    or a
+    jr z, .failed
+    ;Greater than last round
+    ;Max level
+    cp a, LAST_ROUND + 1
+    jr nc, .failed
+
     ; round = l,level = h
+    ld (round),hl
+    ret
+
+;Gracefully fail by selecting level 1, round 1
+.failed:
+    ld hl,$0101
     ld (round),hl
     ret
 

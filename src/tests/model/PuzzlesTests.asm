@@ -8,6 +8,39 @@ UT_select1:
     TEST_MEMORY_BYTE Puzzles.round,2
     TC_END
 
+;Invalid: 0 round
+UT_select2:
+    ld h,4
+    ld l,0
+    call Puzzles.select
+    TEST_MEMORY_BYTE Puzzles.level,1
+    TEST_MEMORY_BYTE Puzzles.round,1
+    TC_END
+;Invalid: round = 4 (max 3)
+UT_select3:
+    ld h,2
+    ld l,4
+    call Puzzles.select
+    TEST_MEMORY_BYTE Puzzles.level,1
+    TEST_MEMORY_BYTE Puzzles.round,1
+    TC_END
+;Invalid: 0 level
+UT_select4:
+    ld h,0
+    ld l,2
+    call Puzzles.select
+    TEST_MEMORY_BYTE Puzzles.level,1
+    TEST_MEMORY_BYTE Puzzles.round,1
+    TC_END
+;Invalid: last level + 1
+UT_select5:
+    ld h,11
+    ld l,2
+    call Puzzles.select
+    TEST_MEMORY_BYTE Puzzles.level,1
+    TEST_MEMORY_BYTE Puzzles.round,1
+    TC_END
+
 UT_nextLevel1:
     ld hl, $0402
     call Puzzles.select
