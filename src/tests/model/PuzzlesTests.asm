@@ -46,6 +46,8 @@ UT_nextLevel1:
     call Puzzles.select
     call Puzzles.nextLevel
     nop ; ASSERTION A == 5
+    call Puzzles.getLevel
+    nop ; ASSERTION A == 5
     TC_END
 
 UT_nextLevel2:
@@ -61,6 +63,8 @@ UT_nextRound1:
     ld hl, $0402
     call Puzzles.select
     call Puzzles.nextRound
+    nop ; ASSERTION A == 3
+    call Puzzles.getRound
     nop ; ASSERTION A == 3
     TC_END
 
@@ -85,9 +89,10 @@ UT_isGameOver2:
     TEST_FLAG_Z
     TC_END
 UT_isGameOver3:
-    ld h,Puzzles.LAST_LEVEL+1
+    ld h,Puzzles.LAST_LEVEL
     ld l,01
     call Puzzles.select
+    call Puzzles.nextLevel
     call Puzzles.isGameOver
     TEST_FLAG_NZ
     TC_END

@@ -68,6 +68,7 @@ select:
 nextRound:
     ld a,(round)
     inc a
+    ld (round),a
     cp LAST_ROUND+1
     jr nc, .noMoreRounds
     ret
@@ -86,6 +87,7 @@ nextRound:
 nextLevel:
     ld a,(level)
     inc a
+    ld (level),a
     cp LAST_LEVEL+1
     jr nc, .noMoreLevels
     ret
