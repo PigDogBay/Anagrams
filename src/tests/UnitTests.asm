@@ -33,6 +33,7 @@
     include "tests/model/SpriteListTests.asm"
     include "tests/model/BoardTests.asm"
     include "tests/model/GameIdTests.asm"
+    include "tests/model/PuzzlesTests.asm"
     include "tests/utils/MathsTests.asm"
     include "tests/utils/StringTests.asm"
     include "tests/utils/TimingTests.asm"

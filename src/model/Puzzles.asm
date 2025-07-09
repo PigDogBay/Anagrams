@@ -1,13 +1,15 @@
-    module Slot
+    module Puzzles
+
+FIRST_ROUND:    equ 1
+LAST_ROUND:     equ 3
+LAST_LEVEL:     equ 10
 
 ;-----------------------------------------------------------------------------------
 ; 
-; struct: slotStruct
+; Struct: puzzleStruct
 ; 
-; .tileId is the slotted tile ID, if 0 then this indicates no tile has been slotted
-; .letter is the expected letter, 
-; .id id of the slot
-; 
+; .category = CAT_ enum
+; .word = pointer to puzzle
 ; 
 ;-----------------------------------------------------------------------------------
     struct @puzzleStruct
@@ -16,7 +18,243 @@ puzzle      word
     ends
 
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: select(uint8 level, uint8 round)
+;
+; Call selectPuzzle() before using the getter functions. Sets the level and round.
+;
+; In: H = level
+;     L = round 
+; 
+;-----------------------------------------------------------------------------------
+select:
+    ; round = l,level = h
+    ld (round),hl
+    ret
 
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: nextRound()
+;
+; Each level has 3 rounds, this function increase the current round 
+;
+; Out: A = round (1,2,3) or 0 if no more rounds (call nextLevel())
+; 
+;-----------------------------------------------------------------------------------
+nextRound:
+    ld a,(round)
+    inc a
+    cp LAST_ROUND+1
+    jr nc, .noMoreRounds
+    ret
+.noMoreRounds:
+    xor a
+    ret
+;-----------------------------------------------------------------------------------
+; 
+; Function: nextLevel()
+;
+; Increase the level, round is set to 1 
+;
+; Out: A = Level (1,2, ...) or 0 if no more levels (Game Completed)
+; 
+;-----------------------------------------------------------------------------------
+nextLevel:
+    ld a,(level)
+    inc a
+    cp LAST_LEVEL+1
+    jr nc, .noMoreLevels
+    ret
+.noMoreLevels:
+    xor a
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: isGameOver()
+;
+; Checks if more levels are left, call this function after nextLevel()
+;
+; Out: Z nz = game over, z = current level is valid to play 
+;    
+; Dirty: A 
+; 
+;-----------------------------------------------------------------------------------
+isGameOver:
+    ld a,(level)
+    cp LAST_LEVEL+1
+    jr c, .false 
+    ; Reset zero flag to indicate TRUE
+    ld a,1
+    or a
+    ret
+.false:
+    ;Set zero flag. to indicate FALSE
+    xor a
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getPuzzle() -> uint16
+;
+; Getter for pointer to current puzzle struct
+;
+; Out: HL = pointer to current selected puzzleStruct
+;
+; Dirty: DE, A
+;
+;-----------------------------------------------------------------------------------
+getPuzzle:
+    ld hl,0
+    ; Multiply level-1 by 3 (3 rounds per level)
+    ld a,(level)
+    dec a
+    add hl,a
+    add hl,a
+    add hl,a
+
+    ; Add round-1
+    ld a,(round)
+    dec a
+    add hl,a
+
+    ;Multiply by 3 (puzzleStruct.size = 3 bytes)
+    ld de,hl
+    add hl,de
+    add hl,de
+    add hl,list
+    ret
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getAnagram() -> uint16
+;
+; Getter for pointer to the anagram string
+;
+; Out: HL = pointer to current anagram string
+;
+; Dirty: A
+; 
+;-----------------------------------------------------------------------------------
+getAnagram:
+    push de
+    call getPuzzle
+    ;HL now points to puzzle struct
+    ;Skip category (1 byte)
+    inc hl
+    ;hl now points to a pointer to the anagram string
+    ;Load pointer into HL
+    ld e,(hl)
+    inc hl
+    ld d,(hl)
+    ex hl,de
+    pop de
+    ret
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getClue() -> uint16
+;
+; Getter for the pointer to the currenly selected puzzles clue string
+;
+; Out: HL = pointer to string
+; 
+;-----------------------------------------------------------------------------------
+getClue:
+    push de
+    call getAnagram
+.nextChar:
+    ; find the null terminator \0
+    ld a,(hl)
+    inc hl
+    or a
+    jr nz, .nextChar 
+    ; HL should now point to the Clue string
+    pop de
+    ret
+
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: jumbleLetters() -> uint16
+;
+; Copies the current anagram and then jumbles up the letters
+;
+; Out: HL = pointer to jumbled letters string
+; 
+;-----------------------------------------------------------------------------------
+jumbleLetters:
+    push de
+    call getAnagram
+    ; copy string
+    ld de,jumbled
+.copy:
+    ldi
+    ld a,(hl)
+    or a
+    jr nz, .copy
+
+    ;copy the null terminator
+    ldi
+    ld hl, jumbled
+    call String.shuffle
+    pop de
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getCategory() -> uint8
+;
+; Getter for category of the currently selected puzzle
+;
+; Out: A = category
+; 
+;-----------------------------------------------------------------------------------
+getCategory:
+    push de, hl
+    call getPuzzle
+    ;HL now points to puzzle struct, first byte is the category
+    ld a,(hl)
+    pop hl, de
+    ret
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getRound() -> uint8
+;
+; Getter for current round
+;
+; Out: A = current round
+; 
+;-----------------------------------------------------------------------------------
+getRound:
+    ld a,(round)
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getLevel() -> uint8
+;
+; Getter for current level
+;
+; Out: A = current level
+; 
+;-----------------------------------------------------------------------------------
+getLevel:
+    ld a,(level)
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Enum: Category
+; 
+;-----------------------------------------------------------------------------------
 CAT_MUSIC:          equ 1
 CAT_FILM:           equ 2
 CAT_TV:             equ 3
@@ -30,7 +268,18 @@ CAT_SCIENCE:        equ 10
 CAT_FOOD:           equ 11
 
 
+round:
+    db 1
+level:
+    db 1
 
+jumbled:
+    ds 64
+;-----------------------------------------------------------------------------------
+; 
+; List: list of puzzle structs
+; 
+;-----------------------------------------------------------------------------------
 list:
     puzzleStruct CAT_WORLD, world11
     puzzleStruct CAT_WORLD, world12
@@ -79,6 +328,13 @@ list:
     puzzleStruct CAT_CULTURE, culture11
     puzzleStruct CAT_CULTURE, culture12
     puzzleStruct CAT_CULTURE, culture13
+list_end:
+
+;-----------------------------------------------------------------------------------
+; 
+; Data: Puzzle strings  [ptrLabel: db anagram,clue]
+; 
+;-----------------------------------------------------------------------------------
 
 culture11: db "THE\nMONA LISA",0,"A little smile from Da Vinci",0
 culture12: db "THE BIRTH\nOF VENUS",0,"A planet was born",0
