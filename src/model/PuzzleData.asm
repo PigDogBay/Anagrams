@@ -94,7 +94,7 @@ film31: db "TIME\nBANDITS",0,"Stinking Kevin",0
 film33: db "ZERO\nTHEOREM",0,"No idea",0
 film32: db "JABBERWOCKY",0,"Nonsense returns Ykcowrebbaj",0
 
-film21: db "THE IPCRESS\nFILE",0,"Mindbending spy thriller",0
+film21: db "THE IPCRESS\nFILE",0,"Mind-bending spy thriller",0
 film22: db "THE\nITALIAN\nJOB",0,"Blow the bloody doors off",0
 film23: db "THE MAN\nWHO WOULD\nBE KING",0,"He maybe Rex",0
 
@@ -119,12 +119,29 @@ world12: db "EIFFEL\nTOWER",0,"A View To A Kill",0
 world13: db "GREAT\nSPHINX\nOF GIZA",0,"Bomb Jack",0
 
 tv11: db "BABYLON V",0,"Epic Sci-fi",0
-tv12: db "BREAKING\nBAD",0,"Heisberg?",0
+tv12: db "BREAKING\nBAD",0,"Heisenberg?",0
 tv13: db "GAME OF\nTHRONES",0,"T*ts and Dragons",0
 
-science11: db "BUNSEN\nBURNER",0,"Flamethrower?",0
-science12: db "DRAKE\nEQUATION",0,"Where is everyone?",0
-science13: db "QUANTUM\nMECHANICS",0,"Planck's Baby",0
+science21: db "EARTH\nAND MOON",0,"Planet and its satellite",0
+science22: db "SATURN\nAND TITAN",0,"Planet and one of its satellite",0
+science23: db "JUPITER\nAND\nGANYMEDE",0,"Planet and one of its satellite",0
+
+science11: db "SPATULA",0,"Science spoon",0
+science12: db "BUNSEN\nBURNER",0,"School flamethrower?",0
+science13: db "TEST TUBE\nHOLDER",0,"Try underground bag",0
+
+
+science32: db "DRAKE\nEQUATION",0,"Where is everyone?",0
+science32: db "MAXWELLS\nEQUATIONS",0,"Electromagnetism Rules",0
+science32: db "SCHRODINGER\nEQUATION",0,"This cat is dead! No it's not!",0
+
+science41: db "LAW OF\nGRAVITY",0,"What goes up, must...",0
+science42: db "SPECIAL\nRELATIVITY",0,"E=mc^2",0
+science43: db "GENERAL\nRELATIVITY",0,"There is no gravity!",0
+
+science51: db "QUANTUM\nMECHANICS",0,"Planck's Baby",0
+science53: db "NEWTONIAN\nMECHANICS",0,"It is rocket science",0
+science53: db "STATISTICAL\nMECHANICS",0,"Big effects from tiny things, probably.",0
 
 
 
