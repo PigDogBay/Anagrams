@@ -11,65 +11,72 @@
 @GS_BATTLEGROUND: 
     stateStruct enter,update
 
-xPos:
-    dw 174
-yPos:
-    db 50
-
 
 enter:
     call NextSprite.removeAll
     call SpriteList.removeAll
-    ; ld a,55
-    ; call Graphics.fillLayer2_320
+    ld a,7
+    call Graphics.fillLayer2_320
     ; call Graphics.layer2Test320
-    call Graphics.titleScreen
+    ; call Graphics.titleScreen
     ; First sprite always the mouse pointer so that it is on top
     call Game.addMouseSpritePointer
 
     call GameId.reset
     call Tile.removeAll
-    ld hl,titleText
-    call Tile.createTiles
-    call Tile.tilesToSprites
-
-    call addButtons
+;    ld hl,titleText
+;    call Tile.createTiles
+;    call Tile.tilesToSprites
 
     call Tilemap.init
+    call Tilemap.clear
+
+    ld hl,charry
+    ld d, 0
+    ld e, 0
+    call Print.setCursorPosition
+    call Print.printString
+
+    ld d, 39
+    ld e, 0
+    call Print.setCursorPosition
+    call Print.printString
+
+    ld d, 0
+    ld e, 31
+    call Print.setCursorPosition
+    call Print.printString
+
+    ld d, 39
+    ld e, 31
+    call Print.setCursorPosition
+    call Print.printString
+
+    ld hl, stringy
+    ld d, 13
+    ld e, 15
+    call Print.setCursorPosition
+    call Print.printString
+
     ret
+charry:
+    db "X",0
+stringy:
+    db "The Ace of Spades!",0
+blah:
+    db "the quick brown fox jumped over the lazy dog",0
+
+
+
 
 update:
     call mouseUpdate
-    call updatePosition
     call Game.updateSprites
+
+    
     ret
 
 
-
-addButtons:
-    ld hl, spaceShipSprite
-    call SpriteList.addSprite
-    ld hl, bigRedButton
-    call SpriteList.addSprite
-    ld hl, upSprite
-    call SpriteList.addSprite
-    ld hl, downSprite
-    call SpriteList.addSprite
-    ld hl, leftSprite
-    call SpriteList.addSprite
-    ld hl, rightSprite
-    call SpriteList.addSprite
-    ret
-
-updatePosition:
-    ld a, SPACESHIP_ID
-    call SpriteList.find
-    ld ix,hl
-    ld a, (yPos)
-    ld (ix+spriteItem.y),a
-    ld hl,(xPos)
-    ld (ix+spriteItem.x),hl
-    ret
 
 
 mouseUpdate:
@@ -149,42 +156,6 @@ stateMouseBackgroundClicked:
     ret
 
 stateMouseClicked:
-    //TODO, C = Sprites GameID
-    //Write Button pressed event
-
-    ld a,c
-    cp BUTTON_UP_ID
-    jr z, .upClicked
-
-    cp BUTTON_DOWN_ID
-    jr z, .downClicked
-
-    cp BUTTON_LEFT_ID
-    jr z, .leftClicked
-
-    cp BUTTON_RIGHT_ID
-    jr z, .rightClicked
-    ret
-
-.upClicked:
-    ld a,(yPos)
-    dec a
-    ld (yPos),a
-    ret
-.downClicked:
-    ld a,(yPos)
-    inc a
-    ld (yPos),a
-    ret
-.leftClicked:
-    ld hl,(xPos)
-    dec hl
-    ld (xPos),hl
-    ret
-.rightClicked:
-    ld hl,(xPos)
-    inc hl
-    ld (xPos),hl
     ret
 
 
@@ -193,26 +164,5 @@ titleText:
     db "BATTLEGROUND",0
 
 
-BUTTON_UP_ID: equ 1 
-BUTTON_DOWN_ID: equ 2
-BUTTON_LEFT_ID: equ 3
-BUTTON_RIGHT_ID: equ 4
-SPACESHIP_ID: equ 5
-
-spaceShipSprite:
-    ; id, x, y, palette, pattern, gameId, flags
-    spriteItem 0, 174, 50, 0, 36, 5, 0
-
-bigRedButton:
-    spriteItem 0, 130, 50, 0, 37, 6, 0
-
-upSprite:
-    spriteItem 0, 8, 50, 0, 28, 1, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
-downSprite:
-    spriteItem 0, 8, 70, 0, 11, 2, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
-leftSprite:
-    spriteItem 0, 8, 90, 0, 19, 3, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
-rightSprite:
-    spriteItem 0, 8, 110, 0, 25, 4, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
     endmodule

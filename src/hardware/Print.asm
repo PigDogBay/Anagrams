@@ -1,39 +1,36 @@
     module Print
 
-AT:                      EQU $16
-
+ASCII_TO_TILE_INDEX      equ 32
 
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: setCursorPosition(uint16 str) 
+; Function: printString(uint16 str) 
 ; 
 ; Prints a string starting at the current position, 
 ; moves the cursor along to position after last printed char
 ;
 ; In: HL - pointer to null terminated string
 ; 
-; Dirty A 
+; Dirty None
 ;
 ;-----------------------------------------------------------------------------------
 printString:
-    jr cursorNext
-
-
-
-
-;-----------------------------------------------------------------------------------
-; 
-; Function: setCursorPosition(uint8 x, uint8 y) 
-; 
-; Prints a character at the current position, moves the cursor along
-; In: A - char to print
-; 
-; Dirty A 
-;
-;-----------------------------------------------------------------------------------
-printChar:
-    jr cursorNext
+    push af, de, hl
+    ld de, (tilemapAddress)
+.next:
+    ld a,(hl)
+    or a
+    jr z, .done
+    sub ASCII_TO_TILE_INDEX
+    ld (de),a
+    inc de
+    inc hl
+    jr .next
+.done:
+    ld (tilemapAddress),de
+    pop hl, de, af
+    ret
 
 
 ;-----------------------------------------------------------------------------------
@@ -43,33 +40,29 @@ printChar:
 ; In: D - X position
 ;     E - Y position 
 ; 
-; Dirty A 
+; Dirty None
 ;
 ;-----------------------------------------------------------------------------------
 setCursorPosition:
-    ld a,d
-    ld (cursorX),a
+    push af,hl
+    ;multiply y position by 40 (number of columns)
     ld a,e
-    ld (cursorY),a
+    ;multiply by 8
+    rla : rla : rla 
+    ld hl,0
+    ;Add to hl 5x (8*5 = 40)
+    add hl,a : add hl,a : add hl,a : add hl,a : add hl,a
+    ; Add x position
+    ld a,d
+    add hl, a
+
+    ;Add start address
+    add hl, Tilemap.START_OF_TILEMAP
+    ld (tilemapAddress),hl
+    pop hl, af
     ret
 
-
-;-----------------------------------------------------------------------------------
-; 
-; Function: cursorNext()
-; 
-; Moves the cursor to the next print position
-;
-; Dirty 
-;
-;-----------------------------------------------------------------------------------
-cursorNext:
-    ret
-
-
-cursorX:
-    db 20
-cursorY:
-    db 16
+tilemapAddress:
+    dw Tilemap.START_OF_TILEMAP
 
     endmodule
