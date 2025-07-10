@@ -24,6 +24,7 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "hardware/NextSprite.asm"
     include "hardware/MouseDriver.asm"
     include "hardware/Tilemap.asm"
+    include "hardware/Print.asm"
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
     include "model/Puzzles.asm"
@@ -33,7 +34,6 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "model/Tile.asm"
     include "model/Slot.asm"
     include "model/Board.asm"
-    include "Text.asm"
     include "utils/Maths.asm"
     include "utils/String.asm"
     include "utils/Exceptions.asm"
@@ -153,8 +153,6 @@ stack_top:
     ORG 0x5c00
     INCBIN "assets/sysvars.bin" ; 0x5c00-0x5c3a
 
-    ORG Tilemap.START_OF_TILEMAP
-    INCBIN "assets/tilemap.map"
     ORG Tilemap.START_OF_TILES
     INCBIN "assets/magnetic.spr"
 
