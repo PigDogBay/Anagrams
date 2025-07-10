@@ -22,6 +22,7 @@
     include "utils/Timing.asm"
     include "tests/utils/MockExceptions.asm"
     include "tests/Macros.asm"
+    include "tests/model/PuzzleData.asm"
 
     ;Test includes
     include "tests/UnitTests.inc"
