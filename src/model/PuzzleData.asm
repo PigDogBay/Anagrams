@@ -69,13 +69,26 @@ culture11: db "THE\nMONA LISA",0,"A little smile from Da Vinci",0
 culture12: db "THE BIRTH\nOF VENUS",0,"A planet was born",0
 culture13: db "THE\nPERSISTENCE\nOF MEMORY",0,"AKA The Melting Clocks",0
 
+history21: db "BATTLE OF\nTHE NILE",0,"Horatio's in denial",0
+history22: db "BATTLE OF\nTRAFALGAR",0,"Don't hurt the lions",0
+history23: db "BATTLE OF\nSANTA CRUZ\nDE TENERIFE",0,"Canaries fight over a holy cross",0
+
 history11: db "BATTLE OF\nHASTINGS",0,"1066 and all that",0
 history12: db "BATTLE OF\nAGINCOURT",0,"The longbowmen say up yours",0
 history13: db "BATTLE OF\nBOSWORTH\nFIELD",0,"The last big fight over flowers",0
 
+people21: db "JOHN MAJOR",0,"Edwina's favourite",0
+people22: db "DAVID\nCAMERON",0,"Chillaxing gold medalist",0
+people23: db "MARGARET\nTHATCHER",0,"Milk snatcher",0
+
 people11: db "ALBERT\nEINSTEIN",0,"1905 was his annus mirablis"
 people12: db "ISAAC\nNEWTON",0,"Definitely a Spectrum guy"
 people13: db "JOCELYN\nBELL",0,"Astronomer who found Little Green Men?"
+
+
+film41: db "CARRY ON\nABROAD",0,"Sid and co visit Els Bells",0
+film42: db "CARRY ON\nUP THE\nJUNGLE",0,"In search of the legendary Oozlum bird",0
+film43: db "CARRY ON\nAT YOUR\nCONVENIENCE",0,"Toilet humour",0
 
 film31: db "TIME\nBANDITS",0,"Stinking Kevin",0
 film33: db "ZERO\nTHEOREM",0,"No idea",0
