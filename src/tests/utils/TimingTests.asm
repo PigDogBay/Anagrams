@@ -169,5 +169,5 @@ UT_hasTimerElapsed16:
     nop ; ASSERTION A == 0
     TC_END
 .data:
-    timingStruct 1000,65036,500
+    timingStruct 100,0,0
     endmodule

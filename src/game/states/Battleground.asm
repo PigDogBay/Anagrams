@@ -31,8 +31,32 @@ enter:
     call Tilemap.init
     call Tilemap.clear
 
-    ld hl,$0505
+    ld hl,$0101
     call Puzzles.select
+
+    ld ix,timer1
+    ld hl,100
+    call Timing.startTimer
+
+    ret
+
+
+
+update:
+    call mouseUpdate
+    call Game.updateSprites
+
+    ld ix,timer1
+    call Timing.hasTimerElapsed
+    or a
+    ret z
+    call Timing.restartTimer
+    call Tilemap.clear
+    call printRound
+    ret
+
+
+printRound:
 
     call Puzzles.getCategory
     call Puzzles.categoryToString
@@ -58,17 +82,8 @@ enter:
     ld e, 12
     call Print.setCursorPosition
     call Print.printString
-
     ret
 
-
-
-update:
-    call mouseUpdate
-    call Game.updateSprites
-
-    
-    ret
 
 
 
@@ -157,6 +172,8 @@ stateMouseClicked:
 titleText:
     db "BATTLEGROUND",0
 
+timer1:
+    timingStruct 0,0,0
 
 
     endmodule

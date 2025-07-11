@@ -9,6 +9,7 @@ run:
     call GameStateMachine.change
 
 .loop:
+    call Timing.onTick
     call GameStateMachine.update
 
     BORDER 0
