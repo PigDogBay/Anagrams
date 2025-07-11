@@ -8,6 +8,8 @@
 
     module GameState_LifelineClue
 
+CLUE_ROW: equ 17
+
 @GS_LIFELINE_CLUE:
     stateStruct enter,update
 
@@ -15,8 +17,13 @@
 enter:
     ; Display Clue
     call Puzzles.getClue
-    ld d, 10
-    ld e, 18
+    ; Centre clue
+    call String.len
+    neg
+    add 40
+    sra a
+    ld d, a
+    ld e, CLUE_ROW
     call Print.setCursorPosition
     call Print.printString
     ret
