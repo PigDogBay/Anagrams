@@ -211,4 +211,85 @@ UT_findByLetter6:
 .data:
     db "ACORN\nELECTRON",0
 
+
+;-----------------------------------------------------------------------------------
+;
+; Function: findByTile(uint8 tileId) -> uint16
+;
+; Will search the list of slots to find a slot that has the matching tileId slotted
+;
+; In:  A - tile ID to unslot
+; Out: HL - ptr to slot's struct, null if not found
+; 
+; Dirty A
+;
+;-----------------------------------------------------------------------------------
+
+//No tiles slotted
+UT_findByTile1:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld a,42
+    call Slot.findByTile
+    nop ;ASSERTION HL==0
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+//tile is slotted
+;[0: \n][1: A][2: C][3: O - 42][4: R][5: N][6: \n][7: E][8: L][9: E][10: C][11: T][12: R][13: O][14: N]
+UT_findByTile2:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld ix, Slot.slotList + slotStruct*2
+    ld (ix+slotStruct.tileId),41
+    ld ix, Slot.slotList + slotStruct*3
+    ld (ix+slotStruct.tileId),42
+
+    ld a,42
+    call Slot.findByTile
+    nop ;ASSERTION HL==Slot.slotList + slotStruct*3
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+//first and last slot
+;[\n][A - 99][C][O][R][N][\n][E][L][E][C][T][R][O][N - 42]
+UT_findByTile3:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld ix, Slot.slotList + slotStruct
+    ld (ix+slotStruct.tileId),99
+
+    ld ix, Slot.slotList + slotStruct*14
+    ld (ix+slotStruct.tileId),42
+
+    ; Slot index[1]
+    ld a,99
+    call Slot.findByTile
+    nop ;ASSERTION HL==Slot.slotList + slotStruct
+
+    ;Slot index[14]
+    ld a,42
+    call Slot.findByTile
+    nop ;ASSERTION HL==Slot.slotList + slotStruct*14
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+
+
+
     endmodule

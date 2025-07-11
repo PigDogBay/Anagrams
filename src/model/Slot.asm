@@ -76,6 +76,40 @@ find:
 
 ;-----------------------------------------------------------------------------------
 ;
+; Function: findByTile(uint8 tileId) -> uint16
+;
+; Will search the list of slots to find a slot that has the matching tileId slotted
+;
+; In:  A - tile ID to unslot
+; Out: HL - ptr to slot's struct, null if not found
+; 
+; Dirty A
+;
+;-----------------------------------------------------------------------------------
+findByTile:
+    push bc,de
+    ld c,a
+    ld a, (slotCount)
+    ld b,a
+    ld hl,slotList
+.next:
+    ld de, hl
+    add hl, slotStruct.tileId
+    ld a,(hl)
+    ex de, hl
+    cp c
+    jr z, .found
+    add hl,slotStruct
+    djnz .next
+    ld hl,0
+.found:
+    pop de,bc
+    ret
+
+
+
+;-----------------------------------------------------------------------------------
+;
 ; Function: findByLetter(uint8 letter, uint8 index) -> uint16
 ;
 ; Finds the slotStruct with matching letter, starting from the specified index
