@@ -99,4 +99,116 @@ UT_unslotTile1:
     db "ACORN\nELECTRON",0
 
 
+
+;-----------------------------------------------------------------------------------
+;
+; Function: findByLetter(uint8 letter, uint8 index) -> uint16
+;
+; Finds the slotStruct with matching letter, starting from the specified index
+;
+; In:    D - Letter
+;        E - starting index
+; Out:   HL - ptr to slot's struct, null if not found
+;        A - index of matching slot
+;
+; Dirty: A, HL
+;
+;-----------------------------------------------------------------------------------
+UT_findByLetter1:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld d,'O'
+    ld e,0
+    call Slot.findByLetter
+    nop ; ASSERTION A == 3
+    nop ; ASSERTION HL == Slot.slotList + 3*3
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+
+UT_findByLetter2:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld d,'O'
+    ld e,4
+    call Slot.findByLetter
+    nop ; ASSERTION A == 13
+    nop ; ASSERTION HL == Slot.slotList + 13*3
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+UT_findByLetter3:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld d,'O'
+    ld e,3
+    call Slot.findByLetter
+    nop ; ASSERTION A == 3
+    nop ; ASSERTION HL == Slot.slotList + 3*3
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+UT_findByLetter4:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld d,'N'
+    ld e,6
+    call Slot.findByLetter
+    nop ; ASSERTION A == 14
+    nop ; ASSERTION HL == Slot.slotList + 14*3
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+UT_findByLetter5:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld d,'A'
+    ld e,0
+    call Slot.findByLetter
+    nop ; ASSERTION A == 1
+    nop ; ASSERTION HL == Slot.slotList + 1*3
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+UT_findByLetter6:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld d,'A'
+    ld e,2
+    call Slot.findByLetter
+    nop ; ASSERTION A == 0
+    nop ; ASSERTION HL == 0
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
     endmodule

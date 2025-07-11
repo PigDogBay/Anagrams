@@ -74,6 +74,75 @@ find:
     ret
 
 
+;-----------------------------------------------------------------------------------
+;
+; Function: findByLetter(uint8 letter, uint8 index) -> uint16
+;
+; Finds the slotStruct with matching letter, starting from the specified index
+;
+; In:    D - Letter
+;        E - starting index
+; Out:   HL - ptr to slot's struct, null if not found
+;        A - index of matching slot
+;
+; Dirty: A, HL
+;
+;-----------------------------------------------------------------------------------
+findByLetter:
+    push bc, ix
+
+    ld hl,slotCount
+    ld c,(hl)
+    inc hl
+
+    ld b,e
+    ;If start index is 0 skip positioning HL
+    ld a,e
+    or a
+    jr z, .scanSlots
+
+    ;move to HL start index
+.startIndex:
+    add hl,slotStruct
+    dec c
+    djnz .startIndex
+
+    ;Get start index
+    ld b,e
+
+.scanSlots:
+
+    ;HL points to the first slot to check
+    ;C is number of slots to check
+
+    ld ix,hl
+    ld a, (ix+slotStruct.id)
+    ; Skip white space
+    or a
+    jr z, .next
+
+    ld a, (ix+slotStruct.letter)
+    cp d
+    jr z, .found
+
+.next:
+    add hl,slotStruct
+    ;increase current index
+    inc b
+    dec c
+    jr nz, .scanSlots
+
+    ; Slot not found
+    ld hl,0
+    ld a,0
+
+    pop ix,bc
+    ret
+
+.found:
+    ld a, b
+    pop ix,bc
+    ret
 
 ;-----------------------------------------------------------------------------------
 ;
