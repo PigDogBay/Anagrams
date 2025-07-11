@@ -250,6 +250,28 @@ getCategory:
 
 ;-----------------------------------------------------------------------------------
 ; 
+; Function: categoryToString(uint8 cat) -> uint16
+;
+; Ges the matching string for the the category enum value
+;
+; In: A = category
+; Out: HL = pointer to category display string
+; 
+;-----------------------------------------------------------------------------------
+categoryToString:
+    push de
+    ld hl, catStringJumpTable
+    ; Add twice, as table is two bytes per entry
+    add hl,a
+    add hl,a
+    ; get jump entry
+    ld de,(hl)
+    ld hl,de
+    pop de
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
 ; Function: getRound() -> uint8
 ;
 ; Getter for current round
@@ -290,6 +312,34 @@ CAT_WORLD:          equ 8
 CAT_HISTORY:        equ 9
 CAT_SCIENCE:        equ 10
 CAT_FOOD:           equ 11
+
+
+catStringJumpTable:
+    dw catBadStr
+    dw catMusicStr
+    dw catFilmStr
+    dw catTvStr
+    dw catGamesStr
+    dw catTechStr
+    dw catPeopleStr
+    dw catCultureStr
+    dw catWorldStr
+    dw catHistoryStr
+    dw catScienceStr
+    dw catFoodStr
+
+catBadStr: db "Illegal value",0
+catMusicStr: db "Music",0
+catFilmStr: db "Film",0
+catTvStr: db "TV",0
+catGamesStr: db "Games",0
+catTechStr: db "Tech",0
+catPeopleStr: db "People",0
+catCultureStr: db "Culture",0
+catWorldStr: db "World",0
+catHistoryStr: db "History",0
+catScienceStr: db "Science",0
+catFoodStr: db "Food",0
 
 
 round:

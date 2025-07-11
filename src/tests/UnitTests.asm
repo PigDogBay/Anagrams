@@ -7,7 +7,6 @@
     include "hardware/Graphics.asm"
     include "hardware/NextSprite.asm"
     include "hardware/MouseDriver.asm"
-    include "hardware/Print.asm"
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
     include "model/Grid.asm"

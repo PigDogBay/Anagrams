@@ -31,41 +31,35 @@ enter:
     call Tilemap.init
     call Tilemap.clear
 
-    ld hl,charry
-    ld d, 0
-    ld e, 0
+    ld hl,$0505
+    call Puzzles.select
+
+    call Puzzles.getCategory
+    call Puzzles.categoryToString
+    ld d, 5
+    ld e, 9
     call Print.setCursorPosition
     call Print.printString
 
-    ld d, 39
-    ld e, 0
+    call Puzzles.getAnagram
+    ld d, 5
+    ld e, 10
     call Print.setCursorPosition
     call Print.printString
 
-    ld d, 0
-    ld e, 31
+    call Puzzles.jumbleLetters
+    ld d, 5
+    ld e, 11
     call Print.setCursorPosition
     call Print.printString
 
-    ld d, 39
-    ld e, 31
-    call Print.setCursorPosition
-    call Print.printString
-
-    ld hl, stringy
-    ld d, 13
-    ld e, 15
+    call Puzzles.getClue
+    ld d, 5
+    ld e, 12
     call Print.setCursorPosition
     call Print.printString
 
     ret
-charry:
-    db "X",0
-stringy:
-    db "The Ace of Spades!",0
-blah:
-    db "the quick brown fox jumped over the lazy dog",0
-
 
 
 

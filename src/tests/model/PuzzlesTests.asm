@@ -138,6 +138,15 @@ UT_getCategory1:
     nop ; ASSERTION A == Puzzles.CAT_TV
     TC_END
 
+UT_categoryToString1:
+    ld hl, $0301
+    call Puzzles.select
+    call Puzzles.getCategory
+    call Puzzles.categoryToString
+    TEST_STRING_PTR hl, .data
+    TC_END
+.data:
+    db "Science",0
 
 UT_jumbleLetters1:
     ld hl, $0203
