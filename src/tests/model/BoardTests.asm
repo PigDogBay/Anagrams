@@ -364,5 +364,127 @@ UT_findEmptyMatchingSlot4:
     TC_END
 
 
+;Unslotted tile
+UT_lifelineTile1:
+    call Tile.removeAll
+    call Slot.removeAll
+    
+    call GameId.reset
+    ld hl,.data
+    call Slot.createSlots
+    
+    ld hl,.data
+    call Tile.createTiles
+
+    ;L tile
+    TILE_AT ix,5
+    call Board.lifelineTile
+    nop ; ASSERTION A==Board.LIFELINE_OK
+    nop ; ASSERTION IY == Slot.slotList+slotStruct*6
+
+.data:
+    db "MISSILE\nCOMMAND",0
+    TC_END
+
+;Slotted tile
+UT_lifelineTile2:
+    call Tile.removeAll
+    call Slot.removeAll
+    
+    call GameId.reset
+    ld hl,.data
+    call Slot.createSlots
+    
+    ld hl,.data
+    call Tile.createTiles
+
+
+    ;L tile
+    TILE_AT ix,5
+
+    ;Slot tile in first S
+    ld a, (ix+tileStruct.id)
+    ld iy, Slot.slotList+slotStruct*3
+    ld (iy+slotStruct.tileId),a
+
+    call Board.lifelineTile
+    nop ; ASSERTION A==Board.LIFELINE_TILE_ALREADY_SLOTTED
+
+.data:
+    db "MISSILE\nCOMMAND",0
+    TC_END
+
+
+;The correct slot is occuppied
+UT_lifelineTile3:
+    call Tile.removeAll
+    call Slot.removeAll
+    
+    call GameId.reset
+    ld hl,.data
+    call Slot.createSlots
+    
+    ld hl,.data
+    call Tile.createTiles
+
+
+    ;E tile
+    TILE_AT ix,6
+
+    ;Slot tile in L slot
+    ld a, (ix+tileStruct.id)
+    ld iy, Slot.slotList+slotStruct*6
+    ld (iy+slotStruct.tileId),a
+
+    ;L tile
+    TILE_AT ix,5
+
+    call Board.lifelineTile
+    nop ; ASSERTION A==Board.LIFELINE_SLOT_NOT_FOUND
+
+.data:
+    db "MISSILE\nCOMMAND",0
+    TC_END
+
+;1st,2nd M slots occuppied, 3rd M is empty
+UT_lifelineTile4:
+    call Tile.removeAll
+    call Slot.removeAll
+    
+    call GameId.reset
+    ld hl,.data
+    call Slot.createSlots
+    
+    ld hl,.data
+    call Tile.createTiles
+
+
+    ;E tile
+    TILE_AT ix,6
+    ;Slot tile in 1st M slot
+    ld a, (ix+tileStruct.id)
+    ld iy, Slot.slotList+slotStruct*1
+    ld (iy+slotStruct.tileId),a
+
+    ;1st M tile
+    TILE_AT ix,0
+    ;Slot tile 'M' in 2nd M slot
+    ld a, (ix+tileStruct.id)
+    ld iy, Slot.slotList+slotStruct*11
+    ld (iy+slotStruct.tileId),a
+
+    ;2nd M tile
+    TILE_AT ix,9
+
+    call Board.lifelineTile
+    nop ; ASSERTION A==Board.LIFELINE_OK
+    nop ; ASSERTION IY == Slot.slotList+slotStruct*12
+
+.data:
+    db "MISSILE\nCOMMAND",0
+    TC_END
+
+
+
 
     endmodule

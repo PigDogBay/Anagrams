@@ -80,7 +80,7 @@ find:
 ;
 ; Will search the list of slots to find a slot that has the matching tileId slotted
 ;
-; In:  A - tile ID to unslot
+; In:  A - tile ID to find
 ; Out: HL - ptr to slot's struct, null if not found
 ; 
 ; Dirty A

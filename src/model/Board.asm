@@ -15,6 +15,12 @@ SPRITE_FLAGS_MASK:               equ %11110000
 MASK_IS_SLOT:                    equ %10000000
 BIT_IS_SLOT:                     equ 7
 
+
+LIFELINE_OK:                                equ 0
+LIFELINE_TILE_ALREADY_SLOTTED:              equ 1
+LIFELINE_SLOT_NOT_FOUND:                    equ 2
+LIFELINE_TILE_NOT_FOUND:                    equ 3
+
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: isSelectedTileOverSlot() -> bool, uint16
@@ -286,6 +292,42 @@ findEmptyMatchingSlot:
 
     ; no matching empty slot found
     xor a    
+    ret
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function: lifelineTile(uint16 ptrTile) -> uint16, uint8
+;
+; Reveals which slot belongs to the selected Tile
+;
+;  In: IX ptr to tile struct
+; Out: A  0 = LIFELINE_ENUM result
+;      IY ptr to slot if A is LIFELINE_OK
+; 
+; Dirty A,IY
+;
+;-----------------------------------------------------------------------------------
+lifelineTile:
+    push bc, de, hl
+    ;Is tile already slotted?
+    ld a,(ix+tileStruct.id)
+    call Slot.findByTile
+    ld a,h
+    or l
+    ld a, LIFELINE_TILE_ALREADY_SLOTTED
+    jr nz, .exit
+
+    ;Find first matching slot
+    call findEmptyMatchingSlot
+    or a
+    ld a,LIFELINE_SLOT_NOT_FOUND
+    jr z, .exit
+
+    ld a, LIFELINE_OK
+
+.exit:
+    pop hl,de,bc
     ret
 
 
