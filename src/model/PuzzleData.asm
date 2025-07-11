@@ -141,7 +141,7 @@ science43: db "GENERAL\nRELATIVITY",0,"There is no gravity!",0
 
 science51: db "QUANTUM\nMECHANICS",0,"Planck's Baby",0
 science52: db "NEWTONIAN\nMECHANICS",0,"It is rocket science",0
-science53: db "STATISTICAL\nMECHANICS",0,"Big effects from tiny things, probably.",0
+science53: db "STATISTICAL\nMECHANICS",0,"Big effects from tiny bits, probably",0
 
 
 

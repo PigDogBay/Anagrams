@@ -13,6 +13,7 @@
 
 
 enter:
+    call Tilemap.clear
     ;Set up callback when drag ends
     ld hl, dragEnd
     ld (PlayMouse.dragEndCallback),hl

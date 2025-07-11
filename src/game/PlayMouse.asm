@@ -89,6 +89,8 @@ stateMouseClicked:
 .lifeLine3Clicked:
     ret
 .lifeLine4Clicked:
+    ld hl, GS_LIFELINE_CLUE
+    call GameStateMachine.change
     ret
 
 
