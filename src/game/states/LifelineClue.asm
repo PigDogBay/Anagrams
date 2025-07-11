@@ -8,6 +8,7 @@
 
     module GameState_LifelineClue
 
+INSTRUCTION_ROW: equ 2
 CLUE_ROW: equ 17
 
 @GS_LIFELINE_CLUE:
@@ -15,6 +16,14 @@ CLUE_ROW: equ 17
 
 
 enter:
+    ; Display instruction
+    ld hl,instructionText1
+    ld e, INSTRUCTION_ROW
+    call Game.printInstruction
+    ld hl,instructionText2
+    ld e, INSTRUCTION_ROW + 1
+    call Game.printInstruction
+
     ; Display Clue
     call Puzzles.getClue
     ; Centre clue
@@ -40,5 +49,10 @@ update:
     ld hl, GS_PLAY
     call GameStateMachine.change
     ret
+
+instructionText1:
+    db "Click Mouse",0
+instructionText2:
+    db "To Return To Game",0
 
     endmodule
