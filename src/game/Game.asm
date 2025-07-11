@@ -21,6 +21,27 @@ run:
 
 
 ;-----------------------------------------------------------------------------------
+; 
+; Function: printInstruction(uint16 str, uint8 yPos) 
+; 
+; Print an instruction string centred, at the specified yPos
+; 
+; In: HL pointer to string
+;     E yPos 0-31
+; 
+;-----------------------------------------------------------------------------------
+printInstruction:
+    ; Centre clue
+    call String.len
+    neg
+    add 40
+    sra a
+    ld d, a
+    call Print.setCursorPosition
+    call Print.printString
+    ret
+
+;-----------------------------------------------------------------------------------
 ;
 ; Function updateSprites
 ; Update the Next sprite engine with the latest data for every sprite

@@ -83,10 +83,16 @@ stateMouseClicked:
     ret
 
 .lifeLine1Clicked:
+    ld hl, GS_LIFELINE_TILE
+    call GameStateMachine.change
     ret
 .lifeLine2Clicked:
+    ld hl, GS_LIFELINE_SLOT
+    call GameStateMachine.change
     ret
 .lifeLine3Clicked:
+    ld hl, GS_LIFELINE_SOLVE
+    call GameStateMachine.change
     ret
 .lifeLine4Clicked:
     ld hl, GS_LIFELINE_CLUE

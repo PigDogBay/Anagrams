@@ -48,7 +48,7 @@ setCursorPosition:
     ;multiply y position by 40 (number of columns)
     ld a,e
     ;multiply by 8
-    rla : rla : rla 
+    sla a : sla a: sla a 
     ld hl,0
     ;Add to hl 5x (8*5 = 40)
     add hl,a : add hl,a : add hl,a : add hl,a : add hl,a

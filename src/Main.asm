@@ -49,6 +49,9 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "game/states/Solved.asm"
     include "game/states/ConfirmQuit.asm"
     include "game/states/LifelineClue.asm"
+    include "game/states/LifelineTile.asm"
+    include "game/states/LifelineSlot.asm"
+    include "game/states/LifelineSolve.asm"
     IFDEF BATTLEGROUND
         include "game/states/Battleground.asm"
     ENDIF
