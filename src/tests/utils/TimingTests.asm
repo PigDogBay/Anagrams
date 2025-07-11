@@ -36,14 +36,14 @@ UT_hasTimerElapsed1:
     ld ix,.data
     WRITE_WORD Timing.tickCount,0
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 0
+    TEST_FLAG_Z
     call Timing.onTick
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 0
+    TEST_FLAG_Z
     call Timing.onTick
     call Timing.onTick
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 1
+    TEST_FLAG_NZ
 
     TC_END
 .data:
@@ -54,7 +54,7 @@ UT_hasTimerElapsed2:
     ld ix,.data
     WRITE_WORD Timing.tickCount,1000
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 0
+    TEST_FLAG_Z
     TC_END
 .data:
     timingStruct 10,1000,1010
@@ -64,7 +64,7 @@ UT_hasTimerElapsed3:
     ld ix,.data
     WRITE_WORD Timing.tickCount,1005
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 0
+    TEST_FLAG_Z
     TC_END
 .data:
     timingStruct 10,1000,1010
@@ -74,7 +74,7 @@ UT_hasTimerElapsed4:
     ld ix,.data
     WRITE_WORD Timing.tickCount,1010
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 1
+    TEST_FLAG_NZ
     TC_END
 .data:
     timingStruct 10,1000,1010
@@ -84,7 +84,7 @@ UT_hasTimerElapsed5:
     ld ix,.data
     WRITE_WORD Timing.tickCount,1001
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 0
+    TEST_FLAG_Z
     TC_END
 .data:
     timingStruct 10,1000,1010
@@ -94,7 +94,7 @@ UT_hasTimerElapsed6:
     ld ix,.data
     WRITE_WORD Timing.tickCount,1011
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 1
+    TEST_FLAG_NZ
     TC_END
 .data:
     timingStruct 10,1000,1010
@@ -106,7 +106,7 @@ UT_hasTimerElapsed10:
     ld ix,.data
     WRITE_WORD Timing.tickCount,65036
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 0
+    TEST_FLAG_Z
     TC_END
 .data:
     timingStruct 1000,65036,500
@@ -116,7 +116,7 @@ UT_hasTimerElapsed11:
     ld ix,.data
     WRITE_WORD Timing.tickCount,65535
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 0
+    TEST_FLAG_Z
     TC_END
 .data:
     timingStruct 1000,65036,500
@@ -126,7 +126,7 @@ UT_hasTimerElapsed12:
     ld ix,.data
     WRITE_WORD Timing.tickCount,0
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 0
+    TEST_FLAG_Z
     TC_END
 .data:
     timingStruct 1000,65036,500
@@ -136,7 +136,7 @@ UT_hasTimerElapsed13:
     ld ix,.data
     WRITE_WORD Timing.tickCount,200
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 0
+    TEST_FLAG_Z
     TC_END
 .data:
     timingStruct 1000,65036,500
@@ -146,7 +146,7 @@ UT_hasTimerElapsed14:
     ld ix,.data
     WRITE_WORD Timing.tickCount,500
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 1
+    TEST_FLAG_NZ
     TC_END
 .data:
     timingStruct 1000,65036,500
@@ -156,17 +156,17 @@ UT_hasTimerElapsed15:
     ld ix,.data
     WRITE_WORD Timing.tickCount,65035
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 1
+    TEST_FLAG_NZ
     TC_END
 .data:
     timingStruct 1000,65036,500
 
-; End < Start : Tick count =endCount -1 : elapsed
+; End == Start == 0: elapsed
 UT_hasTimerElapsed16:
     ld ix,.data
     WRITE_WORD Timing.tickCount,499
     call Timing.hasTimerElapsed
-    nop ; ASSERTION A == 0
+    TEST_FLAG_NZ
     TC_END
 .data:
     timingStruct 100,0,0

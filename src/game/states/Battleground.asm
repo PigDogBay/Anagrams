@@ -35,7 +35,7 @@ enter:
     call Puzzles.select
 
     ld ix,timer1
-    ld hl,100
+    ld hl,50
     call Timing.startTimer
 
     ret
@@ -48,7 +48,6 @@ update:
 
     ld ix,timer1
     call Timing.hasTimerElapsed
-    or a
     ret z
     call Timing.restartTimer
     call Tilemap.clear

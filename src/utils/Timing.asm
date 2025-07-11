@@ -113,12 +113,13 @@ restartTimer:
 ;
 ; 
 ;  In: IX - pointer to the timingStruct
-; Out: A 1 = true elapsed, 0 = false, not elapsed
+; Out: Z flag nz not set = true elapsed, z set = false, not elapsed
+;
+; Dirty A
 ; 
 ;-----------------------------------------------------------------------------------
 hasTimerElapsed:
-    push de
-    push hl
+    push de,hl
 
     ;BC = tickCount, DE = startCount, HL = endCount
     ld bc,(tickCount)
@@ -175,15 +176,14 @@ hasTimerElapsed:
     jr nc, .elasped
 
 .stillTicking:
-    pop hl
-    pop de
     xor a
+    pop hl,de
     ret
 
 .elasped:
-    pop hl
-    pop de
     ld a,1
+    or a
+    pop hl,de
     ret
 
 
