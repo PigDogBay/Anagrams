@@ -131,16 +131,16 @@ science12: db "BUNSEN\nBURNER",0,"School flamethrower?",0
 science13: db "TEST TUBE\nHOLDER",0,"Try underground bag",0
 
 
-science32: db "DRAKE\nEQUATION",0,"Where is everyone?",0
+science31: db "DRAKE\nEQUATION",0,"Where is everyone?",0
 science32: db "MAXWELLS\nEQUATIONS",0,"Electromagnetism Rules",0
-science32: db "SCHRODINGER\nEQUATION",0,"This cat is dead! No it's not!",0
+science33: db "SCHRODINGER\nEQUATION",0,"This cat is dead! No it's not!",0
 
 science41: db "LAW OF\nGRAVITY",0,"What goes up, must...",0
 science42: db "SPECIAL\nRELATIVITY",0,"E=mc^2",0
 science43: db "GENERAL\nRELATIVITY",0,"There is no gravity!",0
 
 science51: db "QUANTUM\nMECHANICS",0,"Planck's Baby",0
-science53: db "NEWTONIAN\nMECHANICS",0,"It is rocket science",0
+science52: db "NEWTONIAN\nMECHANICS",0,"It is rocket science",0
 science53: db "STATISTICAL\nMECHANICS",0,"Big effects from tiny things, probably.",0
 
 
