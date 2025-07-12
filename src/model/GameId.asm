@@ -13,20 +13,17 @@
 @LIFELINE_2_BUTTON:     equ 3
 @LIFELINE_3_BUTTON:     equ 4
 @LIFELINE_4_BUTTON:     equ 5
-END_OF_BUTTONS:         equ 10
 
 
 SLOT_ID:                  equ %10000000
 TILE_ID:                  equ %01000000
-BUTTON_ID:                equ %00000000 + END_OF_BUTTONS
+BUTTON_ID:                equ %00000000
 BUTTON_MASK:              equ %11000000
 
 slotId:
     db 0
 tileId:
     db 0
-buttonId:
-    db END_OF_BUTTONS
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -96,8 +93,6 @@ reset:
     ld (slotId), a
     ld a, TILE_ID
     ld (tileId), a
-    ld a, BUTTON_ID
-    ld (buttonId), a
     ret
 
 
@@ -129,18 +124,5 @@ nextTileId:
     ld (tileId),a
     ret
 
-;-----------------------------------------------------------------------------------
-; 
-; Function: nextButtonId() -> uint8
-;
-; Returns a new button ID
-; Out: A = new button ID
-; Dirty A
-;-----------------------------------------------------------------------------------
-nextButtonId:
-    ld a,(buttonId)
-    inc a
-    ld (buttonId),a
-    ret
 
     endmodule

@@ -26,7 +26,7 @@ UT_isTile1:
 
 UT_isButton1:
     call GameId.reset
-    call GameId.nextButtonId
+    ld a, QUIT_BUTTON
     call GameId.isSlot
     TEST_FLAG_Z
     call GameId.isTile
