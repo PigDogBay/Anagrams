@@ -7,11 +7,18 @@
 
     module GameId
 
+;Fixed ID's for buttons
+@QUIT_BUTTON:           equ 1
+@LIFELINE_1_BUTTON:     equ 2
+@LIFELINE_2_BUTTON:     equ 3
+@LIFELINE_3_BUTTON:     equ 4
+@LIFELINE_4_BUTTON:     equ 5
+END_OF_BUTTONS:         equ 10
 
 
 SLOT_ID:                  equ %10000000
 TILE_ID:                  equ %01000000
-BUTTON_ID:                equ %00000000
+BUTTON_ID:                equ %00000000 + END_OF_BUTTONS
 BUTTON_MASK:              equ %11000000
 
 slotId:
@@ -19,7 +26,7 @@ slotId:
 tileId:
     db 0
 buttonId:
-    db 0
+    db END_OF_BUTTONS
 
 ;-----------------------------------------------------------------------------------
 ; 

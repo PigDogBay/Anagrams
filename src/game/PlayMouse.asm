@@ -8,13 +8,7 @@
     
     
     module PlayMouse
-
-@QUIT_BUTTON:           equ 1
-@LIFELINE_1_BUTTON:     equ 2
-@LIFELINE_2_BUTTON:     equ 3
-@LIFELINE_3_BUTTON:     equ 4
-@LIFELINE_4_BUTTON:     equ 5
-        
+       
 jumpTable:
     dw stateMouseReady
     dw stateMouseHover
