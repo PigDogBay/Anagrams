@@ -243,6 +243,7 @@ collisionCheck:
 ; Function: removeAllInteraction()
 ;
 ; Clears interaction flags (hover, clickable, draggable) on all sprites
+; The function will temporarily save the flags in bits 7-4 of the flags field
 ;
 ;-----------------------------------------------------------------------------------
 removeAllInteraction:
@@ -256,7 +257,8 @@ removeAllInteraction:
     ld de,hl
     add hl, spriteItem.flags
     ld a,(hl)
-    and a,Board.SPRITE_FLAGS_MASK 
+    ;store the interaction bits 3-0 in unused bits 7-4
+    sla a: sla a: sla a: sla a
     ld (hl),a
     ex de,hl
     djnz .loop
@@ -269,22 +271,28 @@ removeAllInteraction:
 ;
 ; Function: restoreAllInteraction()
 ;
-; Restores interaction flags based on gameId
+; Restores interaction flags, must have called removeAllInteraction() previously
+; as this will store the flags in bits 7-4
 ;
 ;-----------------------------------------------------------------------------------
 restoreAllInteraction:
-;TODO is gameID or flags best way to decide what type
-; if gameID - define all button IDs in gameID
-; where are sprite flags used?
-
+    push bc,de,hl
     ld a,(count)
     ld b,a
-    ;Point to first sprite after mouse
-    ld ix, list + spriteItem
-    ld b, (ix+spriteItem.gameId)
-    ld a,b
-    call GameId.isSlot
+    ;Point to first sprite, will immediately skip mouse sprite
+    ld hl, list
+.loop:
+    add hl, spriteItem
+    ld de,hl
+    add hl, spriteItem.flags
+    ld a,(hl)
+    ;Restore the interaction bits 3-0 in from bits 7-4
+    sra a: sra a: sra a: sra a
+    ld (hl),a
+    ex de,hl
+    djnz .loop
 
+    pop hl,de,bc
     ret
 
 ;-----------------------------------------------------------------------------------
