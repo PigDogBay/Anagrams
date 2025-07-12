@@ -10,10 +10,8 @@
 TILE_SLOT_OVERLAP:              equ 12
 BOUNCE_PIXELS_OFFSET:           equ 8
 
-;Reserve flags 7-4 for use by the Sprite engine
+;Reserve flags 7-4 for use by the SpriteEngine
 SPRITE_FLAGS_MASK:               equ %11110000
-MASK_IS_SLOT:                    equ %10000000
-BIT_IS_SLOT:                     equ 7
 
 
 LIFELINE_OK:                                equ 0
@@ -50,8 +48,8 @@ isSelectedTileOverSlot:
     ld de, spriteItem
 .next:
     ;Is sprite a slot?
-    ld a,(iy+spriteItem.flags)
-    bit BIT_IS_SLOT,a
+    ld a,(iy+spriteItem.gameId)
+    bit GameId.BIT_IS_SLOT,a
     jr z,.notASlot
     
     ld a, TILE_SLOT_OVERLAP

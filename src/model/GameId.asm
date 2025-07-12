@@ -20,6 +20,8 @@ TILE_ID:                  equ %01000000
 BUTTON_ID:                equ %00000000
 BUTTON_MASK:              equ %11000000
 
+BIT_IS_SLOT:              equ 7
+
 slotId:
     db 0
 tileId:
