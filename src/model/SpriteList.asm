@@ -20,6 +20,7 @@ gameId      byte
 flags       byte
     ends
 
+
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: addSprite
@@ -233,6 +234,79 @@ collisionCheck:
     pop de
     pop bc
     ret
+
+
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function: removeAllInteraction()
+;
+; Clears interaction flags (hover, clickable, draggable) on all sprites
+;
+;-----------------------------------------------------------------------------------
+removeAllInteraction:
+    push bc,de,hl
+    ld a,(count)
+    ld b,a
+    ;Point to first sprite, will immediately skip mouse sprite
+    ld hl, list
+.loop:
+    add hl, spriteItem
+    ld de,hl
+    add hl, spriteItem.flags
+    ld a,(hl)
+    and a,Board.SPRITE_FLAGS_MASK 
+    ld (hl),a
+    ex de,hl
+    djnz .loop
+
+    pop hl,de,bc
+    ret
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function: restoreAllInteraction()
+;
+; Restores interaction flags based on gameId
+;
+;-----------------------------------------------------------------------------------
+restoreAllInteraction:
+;TODO is gameID or flags best way to decide what type
+; if gameID - define all button IDs in gameID
+; where are sprite flags used?
+
+    ld a,(count)
+    ld b,a
+    ;Point to first sprite after mouse
+    ld ix, list + spriteItem
+    ld b, (ix+spriteItem.gameId)
+    ld a,b
+    call GameId.isSlot
+
+    ret
+
+;-----------------------------------------------------------------------------------
+;
+; Function: allTilesClickable()
+;
+; Sets the clickable interaction flag for all tile sprites
+;
+;-----------------------------------------------------------------------------------
+allTilesClickable:
+    ret
+
+;-----------------------------------------------------------------------------------
+;
+; Function: allTilesClickable()
+;
+; Sets the clickable interaction flag for all slot sprites
+;
+;-----------------------------------------------------------------------------------
+allSlotsClickable:
+    ret
+
 
 
 nextEntryPtr:
