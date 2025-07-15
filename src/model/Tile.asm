@@ -227,6 +227,7 @@ tileToSprite:
     ld a,(iy + tileStruct.letter)
     sub ASCII_PATTERN_OFFSET
     ld (ix + spriteItem.pattern),a
+    ld (ix + spriteItem.palette),0
     ;Tiles can be dragged
     ld (ix + spriteItem.flags),MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_DRAGABLE
       

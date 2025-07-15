@@ -316,6 +316,7 @@ slotToSprite:
     ld (ix + spriteItem.gameId),a
 
     ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN
+    ld (ix + spriteItem.palette),0
     ld (ix + spriteItem.flags),MouseDriver.MASK_HOVERABLE
     call rowColumnToPixel
     ret
