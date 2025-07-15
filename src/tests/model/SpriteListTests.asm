@@ -218,4 +218,45 @@ UT_restoreAllInteraction1:
 .dataLen: equ $ - .data
 
 
+UT_allTilesClickable1:
+    COPY_DATA .dataLen, .data
+    call SpriteList.removeAllInteraction
+    call SpriteList.allTilesClickable
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem + spriteItem.flags,MouseDriver.MASK_HOVERABLE << 4
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem*2 + spriteItem.flags,(MouseDriver.MASK_HOVERABLE| MouseDriver.MASK_CLICKABLE) | (MouseDriver.MASK_HOVERABLE| MouseDriver.MASK_DRAGABLE) << 4
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem*3 + spriteItem.flags,(MouseDriver.MASK_HOVERABLE| MouseDriver.MASK_CLICKABLE) << 4
+
+
+    TC_END
+.data:
+    db 4
+    ; id, x, y, palette, pattern, gameId, flags
+    ; Mouse
+    spriteItem 0,160,128,0,0,0,0
+    spriteItem 1,100,150,0,16,GameId.SLOT_ID + 1,MouseDriver.MASK_HOVERABLE
+    spriteItem 2,20,10,0,8,GameId.TILE_ID + 1,MouseDriver.MASK_HOVERABLE| MouseDriver.MASK_DRAGABLE
+    spriteItem 3,60,20,0,30,QUIT_BUTTON,MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+.dataLen: equ $ - .data
+
+UT_allSlotsClickable1:
+    COPY_DATA .dataLen, .data
+    call SpriteList.removeAllInteraction
+    call SpriteList.allSlotsClickable
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem + spriteItem.flags,(MouseDriver.MASK_HOVERABLE| MouseDriver.MASK_CLICKABLE) | MouseDriver.MASK_HOVERABLE << 4
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem*2 + spriteItem.flags,(MouseDriver.MASK_HOVERABLE| MouseDriver.MASK_DRAGABLE) << 4
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem*3 + spriteItem.flags,(MouseDriver.MASK_HOVERABLE| MouseDriver.MASK_CLICKABLE) << 4
+
+
+    TC_END
+.data:
+    db 4
+    ; id, x, y, palette, pattern, gameId, flags
+    ; Mouse
+    spriteItem 0,160,128,0,0,0,0
+    spriteItem 1,100,150,0,16,GameId.SLOT_ID + 1,MouseDriver.MASK_HOVERABLE
+    spriteItem 2,20,10,0,8,GameId.TILE_ID + 1,MouseDriver.MASK_HOVERABLE| MouseDriver.MASK_DRAGABLE
+    spriteItem 3,60,20,0,30,QUIT_BUTTON,MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+.dataLen: equ $ - .data
+
+
     endmodule

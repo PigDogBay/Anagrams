@@ -299,20 +299,64 @@ restoreAllInteraction:
 ;
 ; Function: allTilesClickable()
 ;
-; Sets the clickable interaction flag for all tile sprites
+; Sets the clickable+hoverable interaction flags for all tile sprites
 ;
 ;-----------------------------------------------------------------------------------
 allTilesClickable:
+    push bc,de,ix
+    ld a,(count)
+    ld b,a
+    ;Point to first sprite, will immediately skip mouse sprite
+    ld ix, list
+    ld de, spriteItem
+.loop:
+    ld a,(ix+spriteItem.gameId)
+    and GameId.TILE_ID
+    jr z, .skip
+    ;Sprite is a tile
+    ;Keep stored flags, clear mouse interaction flags
+    ld a,(ix+spriteItem.flags)
+    and %11110000
+    ;Make clickable and hoverable
+    or MouseDriver.MASK_HOVERABLE|MouseDriver.MASK_CLICKABLE
+    ld (ix+spriteItem.flags),a
+.skip:
+    add ix,de
+    djnz .loop
+
+    pop ix,de,bc
     ret
 
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: allTilesClickable()
 ;
-; Sets the clickable interaction flag for all slot sprites
+; Sets the clickable+hoverable interaction flags for all slot sprites
 ;
 ;-----------------------------------------------------------------------------------
 allSlotsClickable:
+    push bc,de,ix
+    ld a,(count)
+    ld b,a
+    ;Point to first sprite, will immediately skip mouse sprite
+    ld ix, list
+    ld de, spriteItem
+.loop:
+    ld a,(ix+spriteItem.gameId)
+    and GameId.SLOT_ID
+    jr z, .skip
+    ;Sprite is a tile
+    ;Keep stored flags, clear mouse interaction flags
+    ld a,(ix+spriteItem.flags)
+    and %11110000
+    ;Make clickable and hoverable
+    or MouseDriver.MASK_HOVERABLE|MouseDriver.MASK_CLICKABLE
+    ld (ix+spriteItem.flags),a
+.skip:
+    add ix,de
+    djnz .loop
+
+    pop ix,de,bc
     ret
 
 
