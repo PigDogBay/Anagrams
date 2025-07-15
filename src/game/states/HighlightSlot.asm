@@ -39,6 +39,8 @@ update:
     ld (paletteOffset),a
     ld ix, (slotSpritePtr)
     ld (ix+spriteItem.palette),a
+    ld ix, (tileSpritePtr)
+    ld (ix+spriteItem.palette),a
     ret
 
 .leaveState:
@@ -48,12 +50,17 @@ update:
     xor a
     ld ix, (slotSpritePtr)
     ld (ix+spriteItem.palette),a
+    ld ix, (tileSpritePtr)
+    ld (ix+spriteItem.palette),a
     ld hl, GS_PLAY
     call GameStateMachine.change
     ret
 
 slotSpritePtr:
     dw 0
+tileSpritePtr:
+    dw 0
+
 
 paletteOffset:
     db 0
