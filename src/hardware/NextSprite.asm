@@ -104,6 +104,8 @@ update:
     ;   0       MSB of X position
     inc hl
     ld d,(hl)
+    ;ensure bit 0 is clear
+    res 0,d
     ;A bit 0 has X MSB, so or with D
     or d
     out (c),a
