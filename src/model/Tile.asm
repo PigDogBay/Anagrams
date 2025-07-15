@@ -72,6 +72,8 @@ letter      byte
         ld de, tileStruct
         add indexRegister, de
     endm
+
+
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: find(uint8 gameId) -> uint16
@@ -79,7 +81,7 @@ letter      byte
 ; Finds the tileStruct with matching gameId
 ;
 ; In:    A - id
-; Out:   HL - ptr to slot's struct, null if not found
+; Out:   HL - ptr to tile's struct, null if not found
 ;
 ; Dirty: HL
 ;
@@ -101,6 +103,42 @@ find:
     pop bc
     ret
     
+
+;-----------------------------------------------------------------------------------
+;
+; Function: findByLetter(uint8 gameId) -> uint16
+;
+; Finds the tileStruct with matching gameId
+;
+; In:    A - letter
+; Out:   HL - ptr to tile's struct, null if not found
+;
+; Dirty: HL
+;
+;-----------------------------------------------------------------------------------
+findByLetter:
+    push bc
+    ld hl,tileCount
+    ld b,(hl)
+    ; point to list
+    inc hl
+    ;point to .letter field
+    inc hl
+.next
+    cp (hl)
+    jr z, .found
+    add hl,tileStruct
+    djnz .next
+    ; no match found
+    ld hl,1
+.found:
+    ;Rewind to .id field
+    dec hl
+    pop bc
+    ret
+    
+
+
 
 
 ;-----------------------------------------------------------------------------------

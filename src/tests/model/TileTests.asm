@@ -17,6 +17,24 @@ UT_createTiles1:
     db "ACORN\nELECTRON",0
 
 
+UT_findByLetter1:
+    call Tile.removeAll
+    call GameId.reset
+    ld hl,.data
+    call Tile.createTiles
+
+    ld a,'N'
+    call Tile.findByLetter
+    nop ; ASSERTION HL == Tile.tileList + 4 * tileStruct
+
+    ld a,'X'
+    call Tile.findByLetter
+    nop ; ASSERTION HL == 0
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
 
 
 UT_tileToSprite1:
