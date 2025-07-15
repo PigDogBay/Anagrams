@@ -12,8 +12,9 @@
 
 
 enter:
-    ld a,4
-    call Graphics.fillLayer2_320
+    ; ld a,4
+    ; call Graphics.fillLayer2_320
+    call Graphics.titleScreen
 
     call NextSprite.removeAll
     call SpriteList.removeAll

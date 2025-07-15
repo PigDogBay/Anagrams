@@ -164,7 +164,7 @@ stack_top:
     ;Load sprite data in 8k banks 30 + 31. Banks placed in MMU slots 0 and 1 
     MMU 0 1,30, 0x0000
     incbin "assets/anagrams.spr"
-/*
+
     MMU 0,40, 0x0000
     incbin "assets/titleScreen/bg_00.nxi"
     MMU 0,41, 0x0000
@@ -187,7 +187,7 @@ stack_top:
     incbin "assets/titleScreen/bg_09.nxi"
     MMU 0,50, 0x0000
     incbin "assets/titleScreen/bg.nxp"
-*/
+
 
     SAVENEX OPEN "main.nex", main, stack_top, 2
     SAVENEX CORE 3, 1, 5
