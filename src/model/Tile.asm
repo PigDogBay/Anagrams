@@ -138,6 +138,33 @@ findByLetter:
     ret
     
 
+;-----------------------------------------------------------------------------------
+;
+; Function: pickRandomTile() -> uint16
+;
+; Finds the tileStruct with matching gameId
+;
+; Out:   HL - ptr to tile's struct, null if no tiles found
+;
+; Dirty: HL, A
+;
+;-----------------------------------------------------------------------------------
+pickRandomTile:
+    ld hl,0
+    ld a,(tileCount)
+    ; Are they any tiles to pick from?
+    or a
+    jr z, .exit
+    ;random number between 0 and count-1
+    call Maths.rnd
+
+    ;Size of tile struct is 2 bytes
+    ;so double A
+    sla a
+    ld hl, tileList
+    add hl,a
+.exit:
+    ret
 
 
 

@@ -36,6 +36,24 @@ UT_findByLetter1:
     db "ACORN\nELECTRON",0
 
 
+UT_pickRandomTile1:
+    call Tile.removeAll
+    call GameId.reset
+    ld hl,.data
+    call Tile.createTiles
+
+    ld b,0
+.loop:
+    call Tile.pickRandomTile
+    nop ; ASSERTION HL >= Tile.tileList
+    nop ; ASSERTION HL <= Tile.tileList + 12 * tileStruct
+    djnz .loop
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+
 
 UT_tileToSprite1:
     ld a,10
