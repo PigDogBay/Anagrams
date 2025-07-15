@@ -108,8 +108,14 @@ stateMouseClicked:
     or a
     jr z, .slotNotFound
 
+    ld a,(iy+slotStruct.id)
+    call SpriteList.find
+    ld a,h
+    or l
+    jr z, .slotNotFound
+
     ;Found matching slot
-    ld (GameState_HighlightSlot.selectedSlot),iy
+    ld (GameState_HighlightSlot.slotSpritePtr),hl
     ; Restore interaction flags
     call SpriteList.restoreAllInteraction
     ld hl, GS_HIGHLIGHT_SLOT
