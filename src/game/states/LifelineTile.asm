@@ -24,8 +24,11 @@ enter:
     ld e, INSTRUCTION_ROW + 1
     call Game.printInstruction
 
-    //TODO convert tile sprites to clickable, not draggable
-    //convert slots to non-clickable
+    ;Remove all interaction from sprites
+    call SpriteList.removeAllInteraction
+    ;Make the tile sprites to clickable, to allow user to select one of them
+    call SpriteList.allTilesClickable
+
 
     ret
 
@@ -86,13 +89,38 @@ stateMouseDragStart:
     ret
 
 stateMouseBackgroundClicked:
+    ; Restore interaction flags
+    call SpriteList.restoreAllInteraction
     ; Cancel Lifeline
     ld hl, GS_PLAY
     call GameStateMachine.change
     ret
 
 stateMouseClicked:
-    nop
+    ;get tile gameId
+    ld a,c
+    call Tile.find
+    ld a,h
+    or l
+    jr z, .slotNotFound
+    ld ix,hl
+    call Board.findEmptyMatchingSlot
+    or a
+    jr z, .slotNotFound
+
+    ;Found matching slot
+    ld (GameState_HighlightSlot.selectedSlot),iy
+    ; Restore interaction flags
+    call SpriteList.restoreAllInteraction
+    ld hl, GS_HIGHLIGHT_SLOT
+    call GameStateMachine.change
+    ret
+
+.slotNotFound:
+    ; Restore interaction flags
+    call SpriteList.restoreAllInteraction
+    ld hl, GS_HIGHLIGHT_SLOT
+    call GameStateMachine.change
     ret
 
 
