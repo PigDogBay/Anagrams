@@ -35,8 +35,10 @@ update:
 
     ld a,(paletteOffset)
     inc a
-    and %00001111
     ld (paletteOffset),a
+    and %00001111
+    ;Palette is bits 7-4
+    sla a: sla a: sla a: sla a
     ld ix, (slotSpritePtr)
     ld (ix+spriteItem.palette),a
     ld ix, (tileSpritePtr)
