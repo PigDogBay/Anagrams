@@ -98,7 +98,7 @@ stateMouseBackgroundClicked:
     ret
 
 stateMouseClicked:
-    ;get slot's gameId
+    ;get slot's ptr
     ld a,c
     call Slot.find
     ld a,h
@@ -107,15 +107,6 @@ stateMouseClicked:
 
     ;save slotStruct ptr    
     ld ix,hl
-
-    ;Find sprite and save it in HighlightSlot state
-    ld a,(ix+slotStruct.id)
-    call SpriteList.find
-    ld a,h
-    or l
-    jr z, .notFound
-    ;Found tile sprite
-    ld (GameState_HighlightSlot.slotSpritePtr),hl
 
     ;IX points to slotStruct
     ld a,(ix+slotStruct.letter)
@@ -126,18 +117,10 @@ stateMouseClicked:
 
     ;HL already points to gameId
     ld a,(hl)
-    call SpriteList.find
-    ld a,h
-    or l
-    jr z, .notFound
+    ld b,(ix+slotStruct.id)
+    ld c,200
+    call FlashTwo.start
 
-    ;Found matching slot
-    ld (GameState_HighlightSlot.tileSpritePtr),hl
-    ; Restore interaction flags
-    call SpriteList.restoreAllInteraction
-    ld hl, GS_HIGHLIGHT_SLOT
-    call GameStateMachine.change
-    ret
 
 .notFound:
     ; Restore interaction flags
