@@ -9,13 +9,17 @@
 
     module Animator
 
-BIT_FLASH: equ 0
+BIT_FLASH:      equ 0
+BIT_FLASHTWO:   equ 1
 
 update:
     ld a,(finishedFlags)
-
     bit BIT_FLASH,a
     call z, Flash.update
+
+    ld a,(finishedFlags)
+    bit BIT_FLASHTWO,a
+    call z, FlashTwo.update
 
     ret
 

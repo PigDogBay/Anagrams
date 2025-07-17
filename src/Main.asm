@@ -55,6 +55,7 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "game/states/HighlightSlot.asm"
     include "animation/Animator.asm"
     include "animation/Flash.asm"
+    include "animation/FlashTwo.asm"
     IFDEF BATTLEGROUND
         include "game/states/Battleground.asm"
     ENDIF
