@@ -64,7 +64,7 @@ solve:
 
     ld a,(ix+slotStruct.id)
     ld b,(iy+slotStruct.id)
-    ld c,200
+    ld c, Game.LIFELINE_FLASH_DURATION
     call FlashTwo.start
 
 .notFound:

@@ -116,9 +116,9 @@ stateMouseClicked:
     jr z, .notFound
 
     ;HL already points to gameId
-    ld a,(hl)
-    ld b,(ix+slotStruct.id)
-    ld c,200
+    ld a, (hl)
+    ld b, (ix+slotStruct.id)
+    ld c, Game.LIFELINE_FLASH_DURATION
     call FlashTwo.start
 
 

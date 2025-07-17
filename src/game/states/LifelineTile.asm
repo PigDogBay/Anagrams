@@ -114,7 +114,7 @@ stateMouseClicked:
     ;FlashTwo requires two game IDs in A and B
     ld a,(ix+tileStruct.id)
     ld b,(iy+slotStruct.id)
-    ld c,200
+    ld c, Game.LIFELINE_FLASH_DURATION
     call FlashTwo.start
 
 
