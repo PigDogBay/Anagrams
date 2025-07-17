@@ -186,7 +186,8 @@ stateMouseClicked:
     jr z, .flashClicked
     cp BUTTON_FLASHTWO_ID
     jr z, .flashTwoClicked
-
+    cp BUTTON_FLASH_SPRITES_ID
+    jr z, .flashSpritesClicked
     ret
 .flashClicked:
     ld a,5
@@ -196,7 +197,28 @@ stateMouseClicked:
 .flashTwoClicked:
     ld a,5
     ld b,6
+    ld c,100
     call FlashTwo.start
+    ret
+.flashSpritesClicked:
+    ld hl, FlashSprites.idList
+    ld (hl),5
+    inc hl
+    ld (hl),6
+
+    inc hl
+    ld (hl),1
+    inc hl
+    ld (hl),2
+    inc hl
+    ld (hl),3
+    inc hl
+    ld (hl),4
+    inc hl
+    ld (hl),0
+
+    ld hl,100
+    call FlashSprites.start
     ret
 
 
@@ -208,7 +230,7 @@ timer1:
 
 BUTTON_FLASH_ID: equ 1 
 BUTTON_FLASHTWO_ID: equ 2
-BUTTON_LEFT_ID: equ 3
+BUTTON_FLASH_SPRITES_ID: equ 3
 BUTTON_RIGHT_ID: equ 4
 SPACESHIP_ID: equ 5
 
@@ -224,7 +246,7 @@ upSprite:
 downSprite:
     spriteItem 0, 8, 70, 0, 11, BUTTON_FLASHTWO_ID, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 leftSprite:
-    spriteItem 0, 8, 90, 0, 19, 3, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 8, 90, 0, 19, BUTTON_FLASH_SPRITES_ID, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 rightSprite:
     spriteItem 0, 8, 110, 0, 25, 4, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 

@@ -9,8 +9,9 @@
 
     module Animator
 
-BIT_FLASH:      equ 0
-BIT_FLASHTWO:   equ 1
+BIT_FLASH:          equ 0
+BIT_FLASHTWO:       equ 1
+BIT_FLASH_SPRITES:    equ 2
 
 update:
     ld a,(finishedFlags)
@@ -21,6 +22,9 @@ update:
     bit BIT_FLASHTWO,a
     call z, FlashTwo.update
 
+    ld a,(finishedFlags)
+    bit BIT_FLASH_SPRITES,a
+    call z, FlashSprites.update
     ret
 
 ;-----------------------------------------------------------------------------------
