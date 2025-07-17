@@ -28,7 +28,7 @@ enter:
     call SpriteList.removeAllInteraction
 
     ld ix,timer1
-    ld hl,75
+    ld hl,150
     call Timing.startTimer
 
     ret
@@ -56,33 +56,16 @@ solve:
     ;save tileStruct ptr    
     ld ix,hl
 
-    ;Find sprite and save it in HighlightSlot state
-    ld a,(ix+tileStruct.id)
-    call SpriteList.find
-    ld a,h
-    or l
-    jr z, .notFound
-    ;Found tile sprite
-    ld (GameState_HighlightSlot.tileSpritePtr),hl
 
     ;IX points to tileStruct
     call Board.findEmptyMatchingSlot
     or a
     jr z, .notFound
 
-    ld a,(iy+slotStruct.id)
-    call SpriteList.find
-    ld a,h
-    or l
-    jr z, .notFound
-
-    ;Found matching slot
-    ; Restore interaction flags
-    call SpriteList.restoreAllInteraction
-    ld (GameState_HighlightSlot.slotSpritePtr),hl
-    ld hl, GS_HIGHLIGHT_SLOT
-    call GameStateMachine.change
-    ret
+    ld a,(ix+slotStruct.id)
+    ld b,(iy+slotStruct.id)
+    ld c,200
+    call FlashTwo.start
 
 .notFound:
     ; Restore interaction flags
