@@ -34,24 +34,41 @@ enter:
     ld hl,$0101
     call Puzzles.select
 
+    call addButtons
+
     ld ix,timer1
     ld hl,50
     call Timing.startTimer
 
     ret
 
+addButtons:
+    ld hl, spaceShipSprite
+    call SpriteList.addSprite
+    ld hl, bigRedButton
+    call SpriteList.addSprite
+    ld hl, upSprite
+    call SpriteList.addSprite
+    ld hl, downSprite
+    call SpriteList.addSprite
+    ld hl, leftSprite
+    call SpriteList.addSprite
+    ld hl, rightSprite
+    call SpriteList.addSprite
+    ret
 
 
 update:
     call mouseUpdate
     call Game.updateSprites
+    call Animator.update
 
-    ld ix,timer1
-    call Timing.hasTimerElapsed
-    ret z
-    call Timing.restartTimer
-    call Tilemap.clear
-    call printRound
+    ; ld ix,timer1
+    ; call Timing.hasTimerElapsed
+    ; ret z
+    ; call Timing.restartTimer
+    ; call Tilemap.clear
+    ; call printRound
     ret
 
 
@@ -164,8 +181,15 @@ stateMouseBackgroundClicked:
     ret
 
 stateMouseClicked:
-    ret
+    ld a,c
+    cp BUTTON_FLASH_ID
+    jr z, .flashClicked
 
+    ret
+.flashClicked:
+    ld a,5
+    call Flash.start
+    ret
 
 
 titleText:
@@ -174,5 +198,26 @@ titleText:
 timer1:
     timingStruct 0,0,0
 
+BUTTON_FLASH_ID: equ 1 
+BUTTON_DOWN_ID: equ 2
+BUTTON_LEFT_ID: equ 3
+BUTTON_RIGHT_ID: equ 4
+SPACESHIP_ID: equ 5
+
+spaceShipSprite:
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0, 174, 50, 0, 36, 5, 0
+
+bigRedButton:
+    spriteItem 0, 130, 50, 0, 37, 6, 0
+
+upSprite:
+    spriteItem 0, 8, 50, 0, 13, BUTTON_FLASH_ID, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+downSprite:
+    spriteItem 0, 8, 70, 0, 11, 2, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+leftSprite:
+    spriteItem 0, 8, 90, 0, 19, 3, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+rightSprite:
+    spriteItem 0, 8, 110, 0, 25, 4, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
     endmodule
