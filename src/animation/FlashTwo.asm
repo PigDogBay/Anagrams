@@ -22,20 +22,9 @@
 ;-----------------------------------------------------------------------------------
 start:
     ; A = gameId
-    call SpriteList.find
-    ld a,h
-    or l
-    ret z
-    ;Found sprite1
-    ld (spritePtr1),hl
-
+    ld (gameId1),a
     ld a,b
-    call SpriteList.find
-    ld a,h
-    or l
-    ret z
-    ;Found sprite 2
-    ld (spritePtr2),hl
+    ld (gameId2),a
 
     ld ix,timer1
     ld h,0
@@ -52,6 +41,20 @@ start:
 ; Dirty: A, IX
 ;-----------------------------------------------------------------------------------
 update:
+    ld a,(gameId1)
+    call SpriteList.find
+    ld a,h
+    or l
+    ld iy,hl
+    jr z, .finished
+
+    ld a,(gameId2)
+    call SpriteList.find
+    ld a,h
+    or l
+    jr z, .finished
+
+
     ld ix,timer1
     call Timing.hasTimerElapsed
     jr nz, .finished
@@ -62,29 +65,28 @@ update:
     and %00001111
     ;Palette is bits 7-4
     sla a: sla a: sla a: sla a
-    ld ix, (spritePtr1)
+
+    ld ix,hl
     ld (ix+spriteItem.palette),a
-    ld ix, (spritePtr2)
-    ld (ix+spriteItem.palette),a
+    ld (iy+spriteItem.palette),a
     ret
 
 .finished:
     ;Restore palette
     xor a
-    ld ix, (spritePtr1)
+    ld ix,hl
     ld (ix+spriteItem.palette),a
-    ld ix, (spritePtr2)
-    ld (ix+spriteItem.palette),a
+    ld (iy+spriteItem.palette),a
     ;set this animation's isFinished flag
     ld hl, Animator.finishedFlags
     set Animator.BIT_FLASHTWO,(hl)
     ret
 
 
-spritePtr1:
-    dw 0
-spritePtr2:
-    dw 0
+gameId1:
+    db 0
+gameId2:
+    db 0
 paletteOffset:
     db 0
 timer1:
