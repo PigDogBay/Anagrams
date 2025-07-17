@@ -104,36 +104,19 @@ stateMouseClicked:
     or l
     jr z, .slotNotFound
 
-    ;save tileStruct ptr    
     ld ix,hl
-
-    ;Find sprite and save it in HighlightSlot state
-    ld a,(ix+tileStruct.id)
-    call SpriteList.find
-    ld a,h
-    or l
-    jr z, .slotNotFound
-    ;Found tile sprite
-    ld (GameState_HighlightSlot.tileSpritePtr),hl
-
     ;IX points to tileStruct
     call Board.findEmptyMatchingSlot
     or a
     jr z, .slotNotFound
 
-    ld a,(iy+slotStruct.id)
-    call SpriteList.find
-    ld a,h
-    or l
-    jr z, .slotNotFound
+    ;Set up animation
+    ;FlashTwo requires two game IDs in A and B
+    ld a,(ix+tileStruct.id)
+    ld b,(iy+slotStruct.id)
+    ld c,200
+    call FlashTwo.start
 
-    ;Found matching slot
-    ld (GameState_HighlightSlot.slotSpritePtr),hl
-    ; Restore interaction flags
-    call SpriteList.restoreAllInteraction
-    ld hl, GS_HIGHLIGHT_SLOT
-    call GameStateMachine.change
-    ret
 
 .slotNotFound:
     ; Restore interaction flags

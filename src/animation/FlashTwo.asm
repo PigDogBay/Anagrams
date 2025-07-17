@@ -10,13 +10,13 @@
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: start(uint8 gameId1, uint8 gameId2)
+; Function: start(uint8 gameId1, uint8 gameId2, uint8 duration)
 ;
 ; Rapidly changes the palette of two sprites to make them flash
 ;
 ; In A: game ID of sprite 1
 ;    B: game ID of sprite 2
-;
+;    C: duration in ticks (50/60Hz)
 ; Dirty IX, HL
 ;
 ;-----------------------------------------------------------------------------------
@@ -38,7 +38,8 @@ start:
     ld (spritePtr2),hl
 
     ld ix,timer1
-    ld hl,100
+    ld h,0
+    ld l,c
     call Timing.startTimer
     ;clear this animation's isFinished flag
     ld hl, Animator.finishedFlags

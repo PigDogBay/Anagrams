@@ -11,7 +11,8 @@ run:
 .loop:
     call Timing.onTick
     call GameStateMachine.update
-
+    call Animator.update
+    
     BORDER 0
     call Graphics.waitRaster
     ; Set border to blue, size of border indicates how much time is spent updating the game
