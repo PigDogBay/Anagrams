@@ -8,6 +8,19 @@
 
     module FlashSprites
 
+copyAllTileIds:
+    ld a,(Tile.tileCount)
+    ld b,a
+    ld hl,Tile.tileList
+    ld de, idList
+.loop:
+    ld a,(hl)
+    ld (de),a
+    add hl,tileStruct
+    inc de
+    djnz .loop
+
+    ret
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: start(uint16 duration)
@@ -110,7 +123,7 @@ update:
     ;restore pointer to idList
     ex de,hl
     jr .next
-    
+
 .done:
     ;set this animation's isFinished flag
     ld hl, Animator.finishedFlags

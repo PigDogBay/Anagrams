@@ -29,7 +29,6 @@ enter:
     ;Make the tile sprites to clickable, to allow user to select one of them
     call SpriteList.allTilesClickable
 
-
     ret
 
 
