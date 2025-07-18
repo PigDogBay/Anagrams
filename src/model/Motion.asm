@@ -56,6 +56,17 @@ initMoveToXY:
     call Maths.divMod
     ld (ix+motionStruct.countY),c
 
+    ;Negate step if destination < start
+    ;d = start, e = dest, c = step
+    ld a, d
+    cp e
+    jr c, .noNeg
+    ld a,(ix+motionStruct.stepY)
+    neg
+    ld (ix+motionStruct.stepY),a
+
+.noNeg:
+
     ;Count X calculation (16 bit)
     ld l,(iy+spriteItem.x)
     ld h,(iy+spriteItem.x+1)
@@ -64,6 +75,9 @@ initMoveToXY:
     ld d,(ix+motionStruct.countX+1)
     ;Returns diff in HL
     call Maths.difference16
+
+    ;Negate step if destination < start
+    ;d = start, e = dest, c = step
 
     ;Step X values 1 currently
     ld a,(ix+motionStruct.stepX)
