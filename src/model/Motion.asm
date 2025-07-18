@@ -70,20 +70,28 @@ initMoveToXY:
     ;Count X calculation (16 bit)
     ld l,(iy+spriteItem.x)
     ld h,(iy+spriteItem.x+1)
-    
+    ; store HL in BC
+    ld bc,hl
+
     ld e,(ix+motionStruct.countX)
     ld d,(ix+motionStruct.countX+1)
     ;Returns diff in HL
     call Maths.difference16
 
-    ;Negate step if destination < start
-    ;d = start, e = dest, c = step
-
     ;Step X values 1 currently
-    ld a,(ix+motionStruct.stepX)
     ld (ix+motionStruct.countX),l
     ld (ix+motionStruct.countX+1),h
 
+    ;Negate step if destination < start
+    ;DE = dest, BC=start
+    ld a,(ix+motionStruct.stepX)
+    ld hl,bc
+    or a
+    sbc hl,de
+    jr c, .destGreater:
+    neg
+    ld (ix+motionStruct.stepX),a
+.destGreater:
 
     ret
 
