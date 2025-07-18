@@ -10,26 +10,67 @@
     
     struct @motionStruct
 gameId      byte
-stepX       word
+stepX       byte
 countX      word
 stepY       byte
 countY      byte
 delay       byte
+unused      byte
     ends
 
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: init(uint16 motion)
+; Function: initMoveToXY(uint16 motion)
 ;
-; Initializes the motionStruct's fields
+; Initializes the motionStruct's fields, ensure the following fields are first set:
+;       motionStruct.stepX (only works for 1)
+;       motionStruct.stepY
+;       motionStruct.delay
+;    and
+;       motionStruct.countX = destination X
+;       motionStruct.countY = destination Y
+;
+; The countX and countY fields will be calculated as:
+;       count = (dest-start)/step
 ;
 ; In IX: pointer to motionStruct
-;        motionStruct.stepX = destination X
-;        motionStruct.stepY = destination Y
+;        motionStruct.countX = destination X
+;        motionStruct.countY = destination Y
+;    IY: pointer to spriteItem
 ;
 ;-----------------------------------------------------------------------------------
-init:
+initMoveToXY:
+    ;Copy gameId
+    ld a,(iy+spriteItem.gameId)
+    ld (ix+motionStruct.gameId),a
+
+    ;Count Y calculation
+    ld d,(iy+spriteItem.y)
+    ld e,(ix+motionStruct.countY)
+    ;Returns difference in A
+    call Maths.difference
+    ; Divide difference by step to get count
+    ld b,(ix+motionStruct.stepY)
+    ;Returns quotient in C
+    call Maths.divMod
+    ld (ix+motionStruct.countY),c
+
+    ;Count X calculation (16 bit)
+    ld l,(iy+spriteItem.x)
+    ld h,(iy+spriteItem.x+1)
+    
+    ld e,(ix+motionStruct.countX)
+    ld d,(ix+motionStruct.countX+1)
+    ;Returns diff in HL
+    call Maths.difference16
+
+    ;Step X values 1 currently
+    ld a,(ix+motionStruct.stepX)
+    ld (ix+motionStruct.countX),l
+    ld (ix+motionStruct.countX+1),h
+
+
     ret
 
 
