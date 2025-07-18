@@ -40,6 +40,9 @@ enter:
     ld hl,50
     call Timing.startTimer
 
+    ld a,5
+    call Motion.start
+
     ret
 
 addButtons:
@@ -236,7 +239,7 @@ SPACESHIP_ID: equ 5
 
 spaceShipSprite:
     ; id, x, y, palette, pattern, gameId, flags
-    spriteItem 0, 174, 50, 0, 36, 5, 0
+    spriteItem 0, 300, 220, 0, 36, 5, 0
 
 bigRedButton:
     spriteItem 0, 130, 50, 0, 37, 6, 0

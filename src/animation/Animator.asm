@@ -12,6 +12,7 @@
 BIT_FLASH:          equ 0
 BIT_FLASHTWO:       equ 1
 BIT_FLASH_SPRITES:    equ 2
+BIT_MOVE:           equ 3
 
 update:
     ld a,(finishedFlags)
@@ -25,6 +26,12 @@ update:
     ld a,(finishedFlags)
     bit BIT_FLASH_SPRITES,a
     call z, FlashSprites.update
+
+    ld a,(finishedFlags)
+    bit BIT_MOVE,a
+    call z, Motion.update
+
+
     ret
 
 ;-----------------------------------------------------------------------------------
