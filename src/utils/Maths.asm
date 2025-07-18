@@ -35,6 +35,54 @@ divMod:
     ret
 
 
+;-----------------------------------------------------------------------------------
+;
+; Function: divMod(uint16 A, uint8 B) -> uint16
+;
+; Divides A by B and returns the result
+; It does this by repeated subtraction
+; 
+; In:  HL dividend
+;      E divisor
+;
+; Out: BC result
+;
+; Dirty: A, BC, D
+;-----------------------------------------------------------------------------------
+div16_8:
+    ld bc,-1
+    ld a,e
+    or a
+    ret z
+    cp 1
+    jr z, .divideBy1
+    cp 2
+    jr z, .divideBy2
+    cp 4
+    jr z, .divideBy4
+    cp 8
+    jr z, .divideBy8
+    ld d,0
+.loop:
+    sbc hl,de
+    inc bc
+    jr nc, .loop
+    ret
+.divideBy8:
+    ;0 -> 7-0 -> CF
+    srl h
+    ;CF -> 7-0 -> CF
+    rr l
+.divideBy4:
+    srl h
+    rr l
+.divideBy2:
+    srl h
+    rr l
+.divideBy1:
+    ld bc,hl
+    ret
+
 ;--------------------------------------------------------------------------
 ;
 ; Function: getRandom() -> uint16
@@ -173,5 +221,8 @@ negate:
     sub   h         ; A = -H
     ld    h, a      ; H = -H
     ret
+
+
+
 
     endmodule

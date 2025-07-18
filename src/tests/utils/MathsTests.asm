@@ -20,9 +20,30 @@ UT_divMod1:
     DIV_MOD_TEST 255,1,0,255
     DIV_MOD_TEST 253,6,1,42
     DIV_MOD_TEST 251,6,5,41
+    TC_END
 
+    macro DIV16_TEST dividend, divisor, expected
+        ld hl, dividend
+        ld e, divisor
+        call Maths.div16_8
+        ld de, expected
+        nop ; ASSERTION BC == DE
+    endm
+
+UT_div16_1:
+    DIV16_TEST 500,1,500
+    DIV16_TEST 500,2,250
+    DIV16_TEST 500,3,166
+    DIV16_TEST 500,4,125
+    DIV16_TEST 40000,4,10000
+    DIV16_TEST 40000,8,5000
+    DIV16_TEST 1,1,1
+    DIV16_TEST 500,0,$ffff
+    DIV16_TEST 0,1,0
+    DIV16_TEST 65535,255,257
 
     TC_END
+
 
 ; This test will create 2 x 256 buckets (since HL is 2 x 8 bits)
 ; The test will record the random values returned in H and L by incrementing the bucket
