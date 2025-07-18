@@ -40,8 +40,9 @@ enter:
     ld hl,50
     call Timing.startTimer
 
-    ld a,5
-    call Motion.start
+    ld a,1
+    ld ix,motion1
+    call MoveSprites.start
 
     ret
 
@@ -239,7 +240,7 @@ SPACESHIP_ID: equ 5
 
 spaceShipSprite:
     ; id, x, y, palette, pattern, gameId, flags
-    spriteItem 0, 300, 220, 0, 36, 5, 0
+    spriteItem 0, 50, 20, 0, 36, 5, 0
 
 bigRedButton:
     spriteItem 0, 130, 50, 0, 37, 6, 0
@@ -253,4 +254,7 @@ leftSprite:
 rightSprite:
     spriteItem 0, 8, 110, 0, 25, 4, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
+motion1:
+    ; gameId, stepX, countX, stepY, countY, delay 
+    motionStruct 5, 1, 100, 2, 50, 0
     endmodule

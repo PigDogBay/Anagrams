@@ -29,7 +29,7 @@ update:
 
     ld a,(finishedFlags)
     bit BIT_MOVE,a
-    call z, Motion.update
+    call z, MoveSprites.update
 
 
     ret

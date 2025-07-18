@@ -34,6 +34,7 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "model/Tile.asm"
     include "model/Slot.asm"
     include "model/Board.asm"
+    include "model/Motion.asm"
     include "utils/Maths.asm"
     include "utils/String.asm"
     include "utils/Exceptions.asm"
@@ -56,7 +57,7 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "animation/Flash.asm"
     include "animation/FlashTwo.asm"
     include "animation/FlashSprites.asm"
-    include "animation/Motion.asm"
+    include "animation/MoveSprites.asm"
     IFDEF BATTLEGROUND
         include "game/states/Battleground.asm"
     ENDIF
