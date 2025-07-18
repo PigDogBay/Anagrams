@@ -61,6 +61,7 @@ initMoveToXY:
     ld a, d
     cp e
     jr c, .noNeg
+    jr z, .noNeg
     ld a,(ix+motionStruct.stepY)
     neg
     ld (ix+motionStruct.stepY),a
@@ -88,7 +89,8 @@ initMoveToXY:
     ld hl,bc
     or a
     sbc hl,de
-    jr c, .destGreater:
+    jr c, .destGreater
+    jr z, .destGreater
     neg
     ld (ix+motionStruct.stepX),a
 .destGreater:
