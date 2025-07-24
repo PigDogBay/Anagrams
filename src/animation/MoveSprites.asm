@@ -28,17 +28,33 @@ start:
 
     ret
 
+
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: update()
 ;
-; Dirty: A, IX
+; Dirty: All
 ;-----------------------------------------------------------------------------------
 update:
+    ld a,(count)
+    ld b,a
     ld ix,(pointer)
-    call Motion.isStillMoving
-    jr z, .finished
+.next:
+    call updateItem
+    ld de, motionStruct
+    add ix,de
+    djnz .next
+    jr checkIfFinished
 
+;-----------------------------------------------------------------------------------
+;
+; Function: updateItem(uint16 motionPtr)
+;
+; In: IX pointer to motion struct
+;
+; Dirty: A, DE, HL, IY
+;-----------------------------------------------------------------------------------
+updateItem:
     ld a, (ix + motionStruct.delay)
     or a
     jr nz, .delay
@@ -67,6 +83,32 @@ update:
     ld (ix + motionStruct.delay),a
     ret
 
+;-----------------------------------------------------------------------------------
+;
+; Function: update()
+;
+; Dirty: All
+;-----------------------------------------------------------------------------------
+checkIfFinished:
+    ld a,(count)
+    ld b,a
+    ld ix,(pointer)
+    ld de, motionStruct
+.next:
+    ;Check if all counts are 0
+    ld l,(ix + motionStruct.countX)
+    ld h,(ix + motionStruct.countX+1)
+    ld a,(ix + motionStruct.countY)
+    or l
+    or h
+    ret nz
+    add ix,de
+    djnz .next
+
+    ;set this animation's isFinished flag
+    ld hl, Animator.finishedFlags
+    set Animator.BIT_MOVE,(hl)
+    ret
 
 
 count:

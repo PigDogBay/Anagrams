@@ -188,4 +188,9 @@ updateY:
     ld (iy+spriteItem.y),a
     ret
 
+isFinished:
+    ret
+
+
+
     endmodule

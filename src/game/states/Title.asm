@@ -22,7 +22,7 @@ enter:
     ldir
 
     ld ix, motionData
-    ld a, 1
+    ld a, 2
     call MoveSprites.start
 
     ret
@@ -79,5 +79,6 @@ spriteLen: equ $ - spriteData
 motionData:
     ; gameId, stepX, countX, stepY, countY, delay 
     motionStruct 3, 1, 100, 1, 100, 100 
+    motionStruct 4, 1, 100, 1, 100, 50 
 
     endmodule
