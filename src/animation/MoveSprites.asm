@@ -39,6 +39,10 @@ update:
     call Motion.isStillMoving
     jr z, .finished
 
+    ld a, (ix + motionStruct.delay)
+    or a
+    jr nz, .delay
+
     ld a,(ix + motionStruct.gameId)
     call SpriteList.find
     ld a,h
@@ -50,7 +54,6 @@ update:
     ;iy = spriteItem
     call Motion.updateX
     call Motion.updateY
-
     ret
 
 .finished:
@@ -58,6 +61,12 @@ update:
     ld hl, Animator.finishedFlags
     set Animator.BIT_MOVE,(hl)
     ret
+
+.delay:
+    dec a
+    ld (ix + motionStruct.delay),a
+    ret
+
 
 
 count:

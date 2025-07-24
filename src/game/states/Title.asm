@@ -78,6 +78,6 @@ spriteLen: equ $ - spriteData
 
 motionData:
     ; gameId, stepX, countX, stepY, countY, delay 
-    motionStruct 3, 1, 100, 1, 100, 0 
+    motionStruct 3, 1, 100, 1, 100, 100 
 
     endmodule
