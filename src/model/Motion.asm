@@ -74,18 +74,29 @@ initMoveToXY:
     ; store HL in BC
     ld bc,hl
 
+    ;
+    ; Find X delta
+    ;
     ld e,(ix+motionStruct.countX)
     ld d,(ix+motionStruct.countX+1)
     ;Returns diff in HL
     call Maths.difference16
 
-    ;Step X values 1 currently
-    ld (ix+motionStruct.countX),l
-    ld (ix+motionStruct.countX+1),h
+    ;
+    ; Count = delta / step
+    ; 
 
+    ld a,(ix+motionStruct.stepX)
+    push af,bc,de
+    ld e,a
+    ; divMod: bc = hl/e
+    call Maths.div16_8
+    ld (ix+motionStruct.countX),c
+    ld (ix+motionStruct.countX+1),b
+    
+    pop de,bc,af
     ;Negate step if destination < start
     ;DE = dest, BC=start
-    ld a,(ix+motionStruct.stepX)
     ld hl,bc
     or a
     sbc hl,de
