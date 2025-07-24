@@ -21,6 +21,10 @@ enter:
     ld hl, spriteData
     ldir
 
+    ld ix, motionData
+    ld a, 1
+    call MoveSprites.start
+
     ret
 
 update:
@@ -71,5 +75,9 @@ spriteData:
 
 
 spriteLen: equ $ - spriteData
+
+motionData:
+    ; gameId, stepX, countX, stepY, countY, delay 
+    motionStruct 3, 1, 100, 1, 100, 0 
 
     endmodule

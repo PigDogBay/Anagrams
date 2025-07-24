@@ -157,7 +157,7 @@ updateX:
     ld e,(iy+spriteItem.x)
     ld d,(iy+spriteItem.x+1)
     ld l,(ix + motionStruct.stepX)
-    ld h,(ix + motionStruct.stepX+1)
+    ld h,0
     add hl,de
     ld (iy+spriteItem.x),l
     ld (iy+spriteItem.x+1),h
