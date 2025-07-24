@@ -10,12 +10,11 @@
     
     struct @motionStruct
 gameId      byte
-stepX       byte
+stepX       word
 countX      word
 stepY       byte
 countY      byte
 delay       byte
-unused      byte
     ends
 
 
@@ -104,6 +103,7 @@ initMoveToXY:
     jr z, .destGreater
     neg
     ld (ix+motionStruct.stepX),a
+    ld (ix+motionStruct.stepX+1),$ff
 .destGreater:
 
     ret
@@ -157,7 +157,7 @@ updateX:
     ld e,(iy+spriteItem.x)
     ld d,(iy+spriteItem.x+1)
     ld l,(ix + motionStruct.stepX)
-    ld h,0
+    ld h,(ix + motionStruct.stepX+1)
     add hl,de
     ld (iy+spriteItem.x),l
     ld (iy+spriteItem.x+1),h

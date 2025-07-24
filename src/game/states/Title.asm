@@ -22,8 +22,9 @@ enter:
     ldir
 
     ld ix, motionData
-    ld a, 2
+    ld a, 10
     call MoveSprites.start
+    call MoveSprites.initAllXY
 
     ret
 
@@ -50,16 +51,16 @@ spriteData:
     spriteItem 0,160,128,0,0,0,0
 
     ;Tile sprites
-    spriteItem 1,141,49,0,'T'-Tile.ASCII_PATTERN_OFFSET,1,0
-    spriteItem 2,161,49,0,'H'-Tile.ASCII_PATTERN_OFFSET,2,0
-    spriteItem 3,181,49,0,'E'-Tile.ASCII_PATTERN_OFFSET,3,0
-    spriteItem 4,101,73,0,'S'-Tile.ASCII_PATTERN_OFFSET,4,0
-    spriteItem 5,121,73,0,'C'-Tile.ASCII_PATTERN_OFFSET,5,0
-    spriteItem 6,141,73,0,'H'-Tile.ASCII_PATTERN_OFFSET,6,0
-    spriteItem 7,161,73,0,'O'-Tile.ASCII_PATTERN_OFFSET,7,0
-    spriteItem 8,181,73,0,'L'-Tile.ASCII_PATTERN_OFFSET,8,0
-    spriteItem 9,201,73,0,'A'-Tile.ASCII_PATTERN_OFFSET,9,0
-    spriteItem 10,221,73,0,'R'-Tile.ASCII_PATTERN_OFFSET,10,0
+    spriteItem 1,180,170,0,'T'-Tile.ASCII_PATTERN_OFFSET,1,0
+    spriteItem 2,120,195,0,'H'-Tile.ASCII_PATTERN_OFFSET,2,0
+    spriteItem 3,180,195,0,'E'-Tile.ASCII_PATTERN_OFFSET,3,0
+    spriteItem 4,201,168,0,'S'-Tile.ASCII_PATTERN_OFFSET,4,0
+    spriteItem 5,100,177,0,'C'-Tile.ASCII_PATTERN_OFFSET,5,0
+    spriteItem 6,219,183,0,'H'-Tile.ASCII_PATTERN_OFFSET,6,0
+    spriteItem 7,140,195,0,'O'-Tile.ASCII_PATTERN_OFFSET,7,0
+    spriteItem 8,160,195,0,'L'-Tile.ASCII_PATTERN_OFFSET,8,0
+    spriteItem 9,140,170,0,'A'-Tile.ASCII_PATTERN_OFFSET,9,0
+    spriteItem 10,160,170,0,'R'-Tile.ASCII_PATTERN_OFFSET,10,0
 
     ;Slots
     spriteItem 11,140,48,0,Slot.SLOT_SPRITE_PATTERN,11,0
@@ -78,7 +79,15 @@ spriteLen: equ $ - spriteData
 
 motionData:
     ; gameId, stepX, countX, stepY, countY, delay 
-    motionStruct 3, 1, 100, 1, 100, 100 
-    motionStruct 4, 1, 100, 1, 100, 50 
+    motionStruct 1, 1, 141, 1, 49, 90 
+    motionStruct 2, 1, 161, 1, 49, 60 
+    motionStruct 3, 1, 181, 1, 49, 70 
+    motionStruct 4, 1, 101, 1, 73, 80 
+    motionStruct 5, 1, 121, 1, 73, 10 
+    motionStruct 6, 1, 141, 1, 73, 100 
+    motionStruct 7, 1, 161, 1, 73, 40 
+    motionStruct 8, 1, 181, 1, 73, 20 
+    motionStruct 9, 1, 201, 1, 73, 50 
+    motionStruct 10, 1, 221, 1, 73, 30 
 
     endmodule

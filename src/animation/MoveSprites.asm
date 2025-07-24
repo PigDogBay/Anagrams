@@ -7,7 +7,34 @@
 ;-----------------------------------------------------------------------------------
 
     module MoveSprites
-    
+
+
+;-----------------------------------------------------------------------------------
+;
+; Function: initAllXY()
+; Calls Motion.initXY() on each motionStruct item
+;
+; Dirty: A,BC,DE,HL,IX,IY
+;-----------------------------------------------------------------------------------
+initAllXY:
+    ld a,(count)
+    ld b,a
+    ld ix,(pointer)
+.next:
+    ld a,(ix + motionStruct.gameId)
+    call SpriteList.find
+    ld a,h
+    or l
+    jr z, .finished
+    ld iy,hl    
+    push bc
+    call Motion.initMoveToXY
+    ld de, motionStruct
+    add ix,de
+    pop bc
+    djnz .next
+.finished:
+    ret
 
 ;-----------------------------------------------------------------------------------
 ;
