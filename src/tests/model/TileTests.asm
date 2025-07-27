@@ -63,7 +63,7 @@ UT_tileToSprite1:
     ld iy, .tileData
     ld ix, .spriteData
     call Tile.tileToSprite
-    TEST_MEMORY_BYTE UT_tileToSprite1.spriteData + spriteItem.pattern,'J' - Tile.ASCII_PATTERN_OFFSET
+    TEST_MEMORY_BYTE UT_tileToSprite1.spriteData + spriteItem.pattern,('J' - Tile.ASCII_PATTERN_OFFSET) | SPRITE_VISIBILITY_MASK
     TEST_MEMORY_BYTE UT_tileToSprite1.spriteData + spriteItem.gameId, 42
     TC_END
 .tileData:
@@ -84,7 +84,7 @@ UT_tilesToSprites1:
     TEST_MEMORY_BYTE SpriteList.count,17
 
     ;Test the P in CHIP (11th letter)
-    TEST_MEMORY_BYTE SpriteList.list + spriteItem * 10 + spriteItem.pattern,'P' - Tile.ASCII_PATTERN_OFFSET
+    TEST_MEMORY_BYTE SpriteList.list + spriteItem * 10 + spriteItem.pattern,('P' - Tile.ASCII_PATTERN_OFFSET) | SPRITE_VISIBILITY_MASK
 
     TC_END
 .data:
