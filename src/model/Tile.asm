@@ -253,6 +253,7 @@ tileToSprite:
     ; convert the letter to its sprite pattern
     ld a,(iy + tileStruct.letter)
     sub ASCII_PATTERN_OFFSET
+    or SPRITE_VISIBILITY_MASK
     ld (ix + spriteItem.pattern),a
     ld (ix + spriteItem.palette),0
     ;Tiles can be dragged

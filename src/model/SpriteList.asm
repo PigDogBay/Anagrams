@@ -1,5 +1,8 @@
     MODULE SpriteList
 
+@SPRITE_VISIBILITY_MASK:         equ %10000000
+@BIT_SPRITE_VISIBLE:             equ 7
+
 ;-----------------------------------------------------------------------------------
 ;
 ; Struct: spriteItem 

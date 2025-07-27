@@ -116,8 +116,6 @@ update:
     ; Bit 5-0 - Pattern index
     inc hl
     ld a,(hl)
-    ; enable visibility bit 7
-    or $80
     out (c),a
     ; Byte 5, not used here
     ;Skip gameId and flags, point to the next sprite in the list

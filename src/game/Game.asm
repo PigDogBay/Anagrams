@@ -156,6 +156,7 @@ addMouseSpritePointer:
     call SpriteList.addSprite
     ret
 pointerSpriteItem:
-    spriteItem 0,0,0,0,0,0
+    ; id, x, y, palette, pattern, gameId, flags
+    spriteItem 0,0,0,0,SPRITE_VISIBILITY_MASK,0,0
 
     endmodule

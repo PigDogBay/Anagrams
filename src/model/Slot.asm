@@ -315,7 +315,7 @@ slotToSprite:
     ld a,(iy + slotStruct.id)
     ld (ix + spriteItem.gameId),a
 
-    ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN
+    ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN | SPRITE_VISIBILITY_MASK
     ld (ix + spriteItem.palette),0
     ld (ix + spriteItem.flags),MouseDriver.MASK_HOVERABLE
     call rowColumnToPixel
