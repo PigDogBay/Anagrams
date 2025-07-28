@@ -19,7 +19,7 @@ UT_add1:
     TEST_MEMORY_BYTE Appear.list + 3,32
     TC_END
 
-UT_start1:
+UT_setVisibility1:
     ;set up sprites
     call SpriteList.removeAll
     ld hl, .sprite1 : call SpriteList.addSprite
@@ -31,7 +31,8 @@ UT_start1:
     ld b, 42 : ld c, 55 : call Appear.add
     ld b, 88 : ld c, 32 : call Appear.add
 
-    call Appear.start
+    ld a,0
+    call Appear.setVisibility
     ;Check visibility is clear
     TEST_MEMORY_BYTE SpriteList.list + spriteItem.pattern, 5
     TEST_MEMORY_BYTE SpriteList.list + spriteItem + spriteItem.pattern, 6
@@ -56,6 +57,8 @@ UT_update1:
     ld b, 42 : ld c, 1 : call Appear.add
     ld b, 88 : ld c, 2 : call Appear.add
 
+    ld a,0
+    call Appear.setVisibility
     call Appear.start
     ;First sprite should appear
     call Appear.update

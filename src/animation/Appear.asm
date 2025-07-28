@@ -58,12 +58,15 @@ add:
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: start()
+; Function: setAllVisibility(bool isVisible)
+; Finds the sets/clears the visibility flag on all matching spriteItems
 ;
+; In: A - 1 is visible, 0 invisible
 ;
 ; Dirty: A,B, DE, HL
 ;-----------------------------------------------------------------------------------
-start:
+setVisibility:
+    ld c,a
     ; set all sprites in the list to invisible
     ld a,(count)
     ld b,a
@@ -76,11 +79,27 @@ start:
     call SpriteList.find
     add hl,spriteItem.pattern
     res BIT_SPRITE_VISIBLE,(hl)
+    ld a,c
+    or a
+    jr z, .continue
+    set BIT_SPRITE_VISIBLE,(hl)
+
+.continue
     ;point to next appearStruct
     inc de
     inc de
     djnz .next
+    ret
 
+
+;-----------------------------------------------------------------------------------
+;
+; Function: start()
+;
+;
+; Dirty: HL
+;-----------------------------------------------------------------------------------
+start:
     ;clear this animation's isFinished flag
     ld hl, Animator.finishedFlags
     res Animator.BIT_APPEAR,(hl)

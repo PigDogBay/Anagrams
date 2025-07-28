@@ -40,6 +40,8 @@ initSlotsAppear:
     ld b, 18 : ld c, 40 : call Appear.add
     ld b, 19 : ld c, 45 : call Appear.add
     ld b, 20 : ld c, 50 : call Appear.add
+    xor a
+    call Appear.setVisibility
     call Appear.start
     ret
 
