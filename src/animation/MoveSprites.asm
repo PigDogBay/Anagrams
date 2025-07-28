@@ -36,6 +36,7 @@ removeAll:
 ;
 ;-----------------------------------------------------------------------------------
 add:
+    push ix
     ld a,(ix + motionStruct.gameId)
     call SpriteList.find
     ld a,h
@@ -44,15 +45,16 @@ add:
     jr z, .finished
     ld iy,hl    
 
-
-    ;In IX - motionStruct, IY - spriteItem
-    call Motion.initMoveToXY
-
     ;copy struct to list
     ld bc,motionStruct
     ld hl,ix
     ld de,(nextEntryPtr)
     ldir
+
+    ld ix,(nextEntryPtr)
+    ;In IX - motionStruct, IY - spriteItem
+    call Motion.initMoveToXY
+
 
     ; Increase count by 1
     ld a,(count)
@@ -64,6 +66,7 @@ add:
     ld (nextEntryPtr),hl
 
 .finished:
+    pop ix
     ret
 
 ;-----------------------------------------------------------------------------------
