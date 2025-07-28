@@ -105,7 +105,7 @@ stateMouseDragStart:
     call Slot.unslotTile
 
     ;Update mouse pointer pattern
-    ld a,1 | SPRITE_VISIBILITY_MASK
+    ld a, 1 | SPRITE_VISIBILITY_MASK
     ld (SpriteList.list + spriteItem.pattern),a
 
     ret
@@ -123,13 +123,13 @@ stateMouseDrag:
 
 stateMouseDragOutOfBounds:
     ;Update mouse pointer pattern
-    ld a,0
+    ld a, 0 | SPRITE_VISIBILITY_MASK
     ld (SpriteList.list + spriteItem.pattern),a
     ret
 
 stateMouseDragEnd:
     ;Update mouse pointer pattern
-    ld a,0 | SPRITE_VISIBILITY_MASK
+    ld a, 0 | SPRITE_VISIBILITY_MASK
     ld (SpriteList.list + spriteItem.pattern),a
     ld hl, (dragEndCallback)
     jp (hl)
