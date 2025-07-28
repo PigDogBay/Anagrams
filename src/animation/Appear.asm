@@ -1,9 +1,9 @@
 ;-----------------------------------------------------------------------------------
 ; 
-; Animation: Appear
+; Animation: Visibility
 ; 
-; Sets a list of sprites to invisible, after a delay, the sprites become visible and
-; the animation end
+; Toggles the visibility flag of a sprite after a delay, clients can specify a list
+; of gameId of each sprite and specific delay for the sprite
 ; 
 ;-----------------------------------------------------------------------------------
 
@@ -96,8 +96,8 @@ setVisibility:
 ;
 ; Function: start()
 ;
-;
 ; Dirty: HL
+;
 ;-----------------------------------------------------------------------------------
 start:
     ;clear this animation's isFinished flag
@@ -114,7 +114,7 @@ start:
 ;     item.delay--
 ;     if item.delay == 0 {
 ;         find sprite
-;         make sprite visible
+;         toggle sprites visibility flag
 ;     }
 ; }
 ; checkIfFinished()
@@ -145,7 +145,10 @@ update:
     call SpriteList.find
     add hl,spriteItem.pattern
     ;No going to check if HL is 0, as set will have no effect on ROM
-    set BIT_SPRITE_VISIBLE,(hl)
+    ;Toggle visibility
+    ld a,SPRITE_VISIBILITY_MASK
+    xor (hl)
+    ld (hl),a
 
 .continue:
     ;point to next item
