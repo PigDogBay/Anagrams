@@ -90,20 +90,47 @@ start:
 ;
 ; Function: update()
 ;
-; Dirty: 
+; list.forEach { item ->
+;     continue if item.delay == 0
+;     item.delay--
+;     if item.delay == 0 {
+;         find sprite
+;         make sprite visible
+;     }
+; }
+; checkIfFinished()
+;
+; Dirty: A,BC,DE,HL
+;
 ;-----------------------------------------------------------------------------------
 update:
     ld a,(count)
     ld b,a
     ld de, list
 .next:
+    ;c = gameId
+    ld a,(de) : ld c,a
+    ; a = delay
+    inc de : ld a,(de)
+    or a
+    jr z, .continue
+    dec a
+    ld (de),a
+    or a
+    jr nz, .continue
+    ;Item's delay has expired, make sprite visible
     ;SpriteList.find
     ; In:    A - game ID
     ; Out:   HL - ptr to sprite's struct
-    ld a, (de)
+    ld a,c
     call SpriteList.find
+    add hl,spriteItem.pattern
+    ;No going to check if HL is 0, as set will have no effect on ROM
+    set BIT_SPRITE_VISIBLE,(hl)
 
-
+.continue:
+    ;point to next item
+    inc de
     djnz .next
     jr checkIfFinished
 
@@ -112,13 +139,23 @@ update:
 ;
 ; Function: private checkIfFinished()
 ;
-; Dirty: 
+; Checks to see if all delay values are zero, if so then the finished flag is set 
+; for this animation
+;
+; Dirty: A, B, HL
 ;-----------------------------------------------------------------------------------
 checkIfFinished:
     ld a,(count)
     ld b,a
+    ld hl, list
+    inc hl
 .next:
     ;Check if all delays are 0
+    ld a,(hl)
+    or a
+    ret nz
+    ;point to next delay value
+    inc hl : inc hl
     djnz .next
 
     ;set this animation's isFinished flag
