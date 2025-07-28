@@ -21,11 +21,11 @@
     include "utils/String.asm"
     include "utils/Timing.asm"
     include "animation/Animator.asm"
-    include "animation/Appear.asm"
     include "animation/Flash.asm"
     include "animation/FlashTwo.asm"
     include "animation/FlashSprites.asm"
     include "animation/MoveSprites.asm"
+    include "animation/Visibility.asm"
     include "tests/utils/MockExceptions.asm"
     include "tests/Macros.asm"
     include "tests/model/PuzzleData.asm"
@@ -48,7 +48,7 @@
     include "tests/utils/ExceptionsTests.asm"
     include "tests/behaviour/Solving.asm"
     include "tests/gameStates/StateMachineTests.asm"
-    include "tests/animation/AppearTests.asm"
+    include "tests/animation/VisibilityTests.asm"
 
     ; Initialization routine called before all unit tests are started
     UNITTEST_INITIALIZE

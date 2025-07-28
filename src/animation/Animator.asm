@@ -34,7 +34,7 @@ update:
 
     ld a,(finishedFlags)
     bit BIT_APPEAR,a
-    call z, Appear.update
+    call z, Visibility.update
 
     ret
 

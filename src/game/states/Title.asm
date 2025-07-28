@@ -28,21 +28,21 @@ enter:
 
     ;Fade in slots
 initSlotsAppear:
-    call Appear.removeAll
+    call Visibility.removeAll
     ;B - gameId, C - delay
-    ld b, 11 : ld c, 5 : call Appear.add
-    ld b, 12 : ld c, 10: call Appear.add
-    ld b, 13 : ld c, 15 : call Appear.add
-    ld b, 14 : ld c, 20 : call Appear.add
-    ld b, 15 : ld c, 25 : call Appear.add
-    ld b, 16 : ld c, 30 : call Appear.add
-    ld b, 17 : ld c, 35 : call Appear.add
-    ld b, 18 : ld c, 40 : call Appear.add
-    ld b, 19 : ld c, 45 : call Appear.add
-    ld b, 20 : ld c, 50 : call Appear.add
+    ld b, 11 : ld c, 5 : call Visibility.add
+    ld b, 12 : ld c, 10: call Visibility.add
+    ld b, 13 : ld c, 15 : call Visibility.add
+    ld b, 14 : ld c, 20 : call Visibility.add
+    ld b, 15 : ld c, 25 : call Visibility.add
+    ld b, 16 : ld c, 30 : call Visibility.add
+    ld b, 17 : ld c, 35 : call Visibility.add
+    ld b, 18 : ld c, 40 : call Visibility.add
+    ld b, 19 : ld c, 45 : call Visibility.add
+    ld b, 20 : ld c, 50 : call Visibility.add
     xor a
-    call Appear.setVisibility
-    call Appear.start
+    call Visibility.setVisibility
+    call Visibility.start
     ret
 
 initMoveTiles:

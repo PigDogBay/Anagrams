@@ -7,9 +7,9 @@
 ; 
 ;-----------------------------------------------------------------------------------
 
-    module Appear
+    module Visibility
 
-    struct @appearStruct
+    struct @visibilityStruct
 gameId      byte
 delay       byte
     ends
@@ -193,7 +193,7 @@ count:
     db 0
 list:
     ;64 should be enough
-    block appearStruct * 64
+    block visibilityStruct * 64
 
 
     endmodule
