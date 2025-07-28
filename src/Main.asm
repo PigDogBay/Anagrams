@@ -54,6 +54,7 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "game/states/LifelineSlot.asm"
     include "game/states/LifelineSolve.asm"
     include "animation/Animator.asm"
+    include "animation/Appear.asm"
     include "animation/Flash.asm"
     include "animation/FlashTwo.asm"
     include "animation/FlashSprites.asm"
