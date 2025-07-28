@@ -21,12 +21,13 @@ enter:
     ld hl, spriteData
     ldir
 
-    ld ix, motionData
-    ld a, 10
-    call MoveSprites.start
-    call MoveSprites.initAllXY
+
+    call initSlotsAppear
+    call initMoveTiles
+    ret
 
     ;Fade in slots
+initSlotsAppear:
     call Appear.removeAll
     ;B - gameId, C - delay
     ld b, 11 : ld c, 5 : call Appear.add
@@ -40,9 +41,20 @@ enter:
     ld b, 19 : ld c, 45 : call Appear.add
     ld b, 20 : ld c, 50 : call Appear.add
     call Appear.start
+    ret
 
-
-
+initMoveTiles:
+    ld ix, motionData
+    ld b, 10
+    call MoveSprites.removeAll
+.loop:
+    push bc
+    call MoveSprites.add
+    ld de, motionStruct
+    add ix,de
+    pop bc
+    djnz .loop
+    call MoveSprites.start
     ret
 
 update:

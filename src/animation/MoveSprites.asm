@@ -11,43 +11,73 @@
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: initAllXY()
-; Calls Motion.initXY() on each motionStruct item
+; Function: removeAll
 ;
-; Dirty: A,BC,DE,HL,IX,IY
+; Resets counter
+;
+; Dirty A, HL
 ;-----------------------------------------------------------------------------------
-initAllXY:
-    ld a,(count)
-    ld b,a
-    ld ix,(pointer)
-.next:
+removeAll:
+    xor a
+    ld (count),a
+    ; Point to the start of the list
+    ld hl,list
+    ld (nextEntryPtr),hl
+    ret
+
+;-----------------------------------------------------------------------------------
+;
+; Function: add(uint16 ptrMotion)
+;
+; Adds a new appearStruct to the list
+; In: IX - Pointer to motion struct
+;
+; Dirty: A,BC,DE,HL,IY
+;
+;-----------------------------------------------------------------------------------
+add:
     ld a,(ix + motionStruct.gameId)
     call SpriteList.find
     ld a,h
     or l
+    ;Exit if sprite not found
     jr z, .finished
     ld iy,hl    
-    push bc
+
+
+    ;In IX - motionStruct, IY - spriteItem
     call Motion.initMoveToXY
-    ld de, motionStruct
-    add ix,de
-    pop bc
-    djnz .next
+
+    ;copy struct to list
+    ld bc,motionStruct
+    ld hl,ix
+    ld de,(nextEntryPtr)
+    ldir
+
+    ; Increase count by 1
+    ld a,(count)
+    inc a
+    ld (count),a
+    ;Move pointer to top of list
+    ld hl,(nextEntryPtr)
+    add hl, motionStruct
+    ld (nextEntryPtr),hl
+
 .finished:
     ret
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: start(uint16 motionStruct)
+; Function: start()
 ;
-;
-; In    A:  number of items
-;       IX: pointer to first motion struct
+; Clears the animation finished flag or the animation
 ;
 ;-----------------------------------------------------------------------------------
 start:
-    ld (count),a
-    ld (pointer),ix
+    ; check if list contains any motion items
+    ld a,(count)
+    or a
+    ret z
 
     ;clear this animation's isFinished flag
     ld hl, Animator.finishedFlags
@@ -65,7 +95,7 @@ start:
 update:
     ld a,(count)
     ld b,a
-    ld ix,(pointer)
+    ld ix,list
 .next:
     call updateItem
     ld de, motionStruct
@@ -75,7 +105,7 @@ update:
 
 ;-----------------------------------------------------------------------------------
 ;
-; Function: updateItem(uint16 motionPtr)
+; Function: private updateItem(uint16 motionPtr)
 ;
 ; In: IX pointer to motion struct
 ;
@@ -119,7 +149,7 @@ updateItem:
 checkIfFinished:
     ld a,(count)
     ld b,a
-    ld ix,(pointer)
+    ld ix,list
     ld de, motionStruct
 .next:
     ;Check if all counts are 0
@@ -138,9 +168,12 @@ checkIfFinished:
     ret
 
 
+nextEntryPtr:
+    dw list
 count:
     db 0
-pointer:
-    dw 0
+list:
+    ;32 should be enough
+    block motionStruct * 32
 
     endmodule
