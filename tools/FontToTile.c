@@ -5,10 +5,14 @@ to Next 4-bit sprite sheet
 
 Each 1 bit pixel of the font is convert to 4bit nibble
 
+Compile:
+gcc FontToTile.c
+
+Run
 */
 
 #include <stdio.h>
-#include "Magnetic.h"
+#include "TruffleShuffle.h"
 
 unsigned char buffer[4];
 
@@ -47,18 +51,18 @@ void printBuffer() {
 
 int main() { 
     printf("Font To Tile\n");
-    printf("Converting Magnetic Font\n");
+    printf("Converting Font\n");
 
     FILE* filePointer = NULL;
-    filePointer = fopen("assets/magnetic.spr","wb");
+    filePointer = fopen("assets/font.spr","wb");
     if (filePointer==NULL){
         perror("Unable to open file");
         return 1;
     }
 
-    for (int i = 0; i < FONT_MAGNETIC_SIZE; i++)
+    for (int i = 0; i < FONT_SIZE; i++)
     {
-        convert1BitTo4BitPixels(FONT_MAGNETIC_BITMAP[i]);
+        convert1BitTo4BitPixels(FONT_TRUFFLE_SHUFFLE_BITMAP[i]);
         size_t bytesWritten = fwrite(buffer, sizeof(unsigned char), 4, filePointer);
 
         if (bytesWritten != 4) {

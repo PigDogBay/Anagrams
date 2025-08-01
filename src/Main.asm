@@ -165,7 +165,7 @@ stack_top:
     INCBIN "assets/sysvars.bin" ; 0x5c00-0x5c3a
 
     ORG Tilemap.START_OF_TILES
-    INCBIN "assets/magnetic.spr"
+    INCBIN "assets/font.spr"
 
     ;Load sprite data in 8k banks 30 + 31. Banks placed in MMU slots 0 and 1 
     MMU 0 1,30, 0x0000
