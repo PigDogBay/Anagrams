@@ -36,8 +36,7 @@ PALETTE_TRANSPARENT_INDEX: equ $0f
 init:
 
     ;Index in the palette that defines the transparent colour
-//    nextreg TILEMAP_TRANSPARENCY_INDEX,PALETTE_TRANSPARENT_INDEX
-    nextreg TILEMAP_TRANSPARENCY_INDEX,0
+    nextreg TILEMAP_TRANSPARENCY_INDEX,PALETTE_TRANSPARENT_INDEX
 
     ; Bits
     ; 7:  1 to enable Tilemap
