@@ -4,12 +4,15 @@
     ORG 0x8000
 
     ; Resources
+    ; https://z00m128.github.io/sjasmplus/documentation.html
     ; Next/Docs/zx-next-dev-guide-r3.pdf
     ; https://luckyredfish.com/patricias-z80-snippets/
     ; https://specnext.dev/ 
     ; http://www.breakintoprogram.co.uk/hardware/computers/zx-spectrum-next/assembly-language/z80-library-routines
     ; https://zx.remysharp.com/sprites/#sprite-editor
     ; https://damieng.com/typography/zx-origins/
+    ;  - Tile font Calstone
+    ;  - Text font based on Truffle Shuffle
 
 SPRITE_PATTERN_COUNT:         equ 30
 
@@ -39,6 +42,12 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "utils/String.asm"
     include "utils/Exceptions.asm"
     include "utils/Timing.asm"
+    include "animation/Animator.asm"
+    include "animation/Flash.asm"
+    include "animation/FlashTwo.asm"
+    include "animation/FlashSprites.asm"
+    include "animation/MoveSprites.asm"
+    include "animation/Visibility.asm"
     include "game/Game.asm"
     include "game/StateMachine.asm"
     include "game/PlayMouse.asm"
@@ -53,12 +62,6 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "game/states/LifelineTile.asm"
     include "game/states/LifelineSlot.asm"
     include "game/states/LifelineSolve.asm"
-    include "animation/Animator.asm"
-    include "animation/Flash.asm"
-    include "animation/FlashTwo.asm"
-    include "animation/FlashSprites.asm"
-    include "animation/MoveSprites.asm"
-    include "animation/Visibility.asm"
     IFDEF BATTLEGROUND
         include "game/states/Battleground.asm"
     ENDIF

@@ -15,6 +15,28 @@ BIT_FLASH_SPRITES:      equ 2
 BIT_MOVE:               equ 3
 BIT_APPEAR:             equ 4
 
+;-----------------------------------------------------------------------------------
+; 
+;   Macro to stop all animation, by setting the finished flags
+;
+;   Dirty: A
+;
+;-----------------------------------------------------------------------------------
+    macro STOP_ALL_ANIMATION
+        ld a, $ff
+        ld (Animator.finishedFlags),a
+    endm
+
+
+;-----------------------------------------------------------------------------------
+; 
+;   Function: update()
+;
+;   Updates all active animations
+;
+;   Dirty: A
+;
+;-----------------------------------------------------------------------------------
 update:
     ld a,(finishedFlags)
     bit BIT_FLASH,a

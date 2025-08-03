@@ -125,6 +125,7 @@ update:
     jr titleStateUpdate
 
 .mousePressed:
+    STOP_ALL_ANIMATION
     ld hl, GS_LEVEL_SELECT
     call GameStateMachine.change
     ret
