@@ -170,7 +170,7 @@ titleFadeIn:
     ld (titleState),a
     call initMoveTiles
 
-    ld d, 11
+    ld d, 10
     ld e, 29
     ld hl,instruction
     call Print.setCursorPosition
@@ -188,7 +188,7 @@ titleMoveTiles:
     ld (titleState),a
 
     ; Print "By Pig Dog Bay"
-    ld d, 14
+    ld d, 13
     ld e, 16
     ld hl,author
     call Print.setCursorPosition
@@ -231,42 +231,42 @@ spriteData:
     spriteItem 0,160,128,0,0 | SPRITE_VISIBILITY_MASK,0,0
 
     ;Tile sprites
-    spriteItem 5,121,171,0,'C'-Tile.ASCII_PATTERN_OFFSET,5,0
-    spriteItem 10,141,171,0,'R'-Tile.ASCII_PATTERN_OFFSET,10,0
-    spriteItem 9,161,171,0,'A'-Tile.ASCII_PATTERN_OFFSET,9,0
-    spriteItem 4,181,171,0,'S'-Tile.ASCII_PATTERN_OFFSET,4,0
-    spriteItem 2,201,171,0,'H'-Tile.ASCII_PATTERN_OFFSET,2,0
-    spriteItem 6,121,195,0,'H'-Tile.ASCII_PATTERN_OFFSET,6,0
-    spriteItem 7,141,195,0,'O'-Tile.ASCII_PATTERN_OFFSET,7,0
-    spriteItem 1,161,195,0,'T'-Tile.ASCII_PATTERN_OFFSET,1,0
-    spriteItem 3,181,195,0,'E'-Tile.ASCII_PATTERN_OFFSET,3,0
-    spriteItem 8,201,195,0,'L'-Tile.ASCII_PATTERN_OFFSET,8,0
+    spriteItem 5,111,171,0,'C'-Tile.ASCII_PATTERN_OFFSET,5,0
+    spriteItem 10,131,171,0,'R'-Tile.ASCII_PATTERN_OFFSET,10,0
+    spriteItem 9,151,171,0,'A'-Tile.ASCII_PATTERN_OFFSET,9,0
+    spriteItem 4,171,171,0,'S'-Tile.ASCII_PATTERN_OFFSET,4,0
+    spriteItem 2,191,171,0,'H'-Tile.ASCII_PATTERN_OFFSET,2,0
+    spriteItem 6,111,195,0,'H'-Tile.ASCII_PATTERN_OFFSET,6,0
+    spriteItem 7,131,195,0,'O'-Tile.ASCII_PATTERN_OFFSET,7,0
+    spriteItem 1,151,195,0,'T'-Tile.ASCII_PATTERN_OFFSET,1,0
+    spriteItem 3,171,195,0,'E'-Tile.ASCII_PATTERN_OFFSET,3,0
+    spriteItem 8,191,195,0,'L'-Tile.ASCII_PATTERN_OFFSET,8,0
 
     ;Slots
-    spriteItem 11,140,48,0,Slot.SLOT_SPRITE_PATTERN,11,0
-    spriteItem 12,160,48,0,Slot.SLOT_SPRITE_PATTERN,12,0
-    spriteItem 13,180,48,0,Slot.SLOT_SPRITE_PATTERN,13,0
-    spriteItem 14,100,72,0,Slot.SLOT_SPRITE_PATTERN,14,0
-    spriteItem 15,120,72,0,Slot.SLOT_SPRITE_PATTERN,15,0
-    spriteItem 16,140,72,0,Slot.SLOT_SPRITE_PATTERN,16,0
-    spriteItem 17,160,72,0,Slot.SLOT_SPRITE_PATTERN,17,0
-    spriteItem 18,180,72,0,Slot.SLOT_SPRITE_PATTERN,18,0
-    spriteItem 19,200,72,0,Slot.SLOT_SPRITE_PATTERN,19,0
-    spriteItem 20,220,72,0,Slot.SLOT_SPRITE_PATTERN,20,0
+    spriteItem 11,130,48,0,Slot.SLOT_SPRITE_PATTERN,11,0
+    spriteItem 12,150,48,0,Slot.SLOT_SPRITE_PATTERN,12,0
+    spriteItem 13,170,48,0,Slot.SLOT_SPRITE_PATTERN,13,0
+    spriteItem 14,90,72,0,Slot.SLOT_SPRITE_PATTERN,14,0
+    spriteItem 15,110,72,0,Slot.SLOT_SPRITE_PATTERN,15,0
+    spriteItem 16,130,72,0,Slot.SLOT_SPRITE_PATTERN,16,0
+    spriteItem 17,150,72,0,Slot.SLOT_SPRITE_PATTERN,17,0
+    spriteItem 18,170,72,0,Slot.SLOT_SPRITE_PATTERN,18,0
+    spriteItem 19,190,72,0,Slot.SLOT_SPRITE_PATTERN,19,0
+    spriteItem 20,210,72,0,Slot.SLOT_SPRITE_PATTERN,20,0
 
 spriteLen: equ $ - spriteData
 
 motionData:
     ; gameId, stepX, countX, stepY, countY, delay 
-    motionStruct 1, 2, 141, 2, 49, 225 
-    motionStruct 2, 2, 161, 2, 49, 150
-    motionStruct 3, 2, 181, 2, 49, 175 
-    motionStruct 4, 2, 101, 2, 73, 200
-    motionStruct 5, 2, 121, 2, 73, 25 
-    motionStruct 6, 2, 141, 2, 73, 250 
-    motionStruct 7, 2, 161, 2, 73, 100 
-    motionStruct 8, 2, 181, 2, 73, 50 
-    motionStruct 9, 2, 201, 2, 73, 125 
-    motionStruct 10, 2, 221, 2, 73, 75 
+    motionStruct 1, 2, 131, 2, 49, 225 
+    motionStruct 2, 2, 151, 2, 49, 150
+    motionStruct 3, 2, 171, 2, 49, 175 
+    motionStruct 4, 2, 91, 2, 73, 200
+    motionStruct 5, 2, 111, 2, 73, 25 
+    motionStruct 6, 2, 131, 2, 73, 250 
+    motionStruct 7, 2, 151, 2, 73, 100 
+    motionStruct 8, 2, 171, 2, 73, 50 
+    motionStruct 9, 2, 191, 2, 73, 125 
+    motionStruct 10, 2, 211, 2, 73, 75 
 
     endmodule
