@@ -234,15 +234,15 @@ spriteLen: equ $ - spriteData
 
 motionData:
     ; gameId, stepX, countX, stepY, countY, delay 
-    motionStruct 1, 2, 141, 2, 49, 90 
-    motionStruct 2, 2, 161, 2, 49, 60 
-    motionStruct 3, 2, 181, 2, 49, 70 
-    motionStruct 4, 2, 101, 2, 73, 80 
-    motionStruct 5, 2, 121, 2, 73, 10 
-    motionStruct 6, 2, 141, 2, 73, 100 
-    motionStruct 7, 2, 161, 2, 73, 40 
-    motionStruct 8, 2, 181, 2, 73, 20 
-    motionStruct 9, 2, 201, 2, 73, 50 
-    motionStruct 10, 2, 221, 2, 73, 30 
+    motionStruct 1, 2, 141, 2, 49, 225 
+    motionStruct 2, 2, 161, 2, 49, 150
+    motionStruct 3, 2, 181, 2, 49, 175 
+    motionStruct 4, 2, 101, 2, 73, 200
+    motionStruct 5, 2, 121, 2, 73, 25 
+    motionStruct 6, 2, 141, 2, 73, 250 
+    motionStruct 7, 2, 161, 2, 73, 100 
+    motionStruct 8, 2, 181, 2, 73, 50 
+    motionStruct 9, 2, 201, 2, 73, 125 
+    motionStruct 10, 2, 221, 2, 73, 75 
 
     endmodule
