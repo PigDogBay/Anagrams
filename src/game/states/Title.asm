@@ -29,6 +29,10 @@ enter:
     call Graphics.titleScreen
     ld a,TITLE_STATE_START
     ld (titleState),a
+    call Tilemap.clear
+    call NextSprite.removeAll
+    call SpriteList.removeAll
+
     ret
 
     ;Fade in slots
@@ -111,7 +115,7 @@ initFlash:
     djnz .loop
     ld (hl),0
 
-    ld hl,150
+    ld hl,300
     call FlashSprites.start
 
     ret
@@ -145,12 +149,12 @@ titleStateUpdate:
 
 titleStart:
     call NextSprite.removeAll
+    call Tilemap.clear
 
     ld bc, spriteLen
     ld de, SpriteList.count
     ld hl, spriteData
     ldir
-
 
     call initAppear
     ld a,TITLE_STATE_FADE_IN
@@ -165,6 +169,14 @@ titleFadeIn:
     ld a,TITLE_STATE_MOVE_TILES
     ld (titleState),a
     call initMoveTiles
+
+    ld d, 11
+    ld e, 29
+    ld hl,instruction
+    call Print.setCursorPosition
+    call Print.printString
+
+
     ret
 
 titleMoveTiles:
@@ -174,6 +186,14 @@ titleMoveTiles:
     call initFlash
     ld a,TITLE_STATE_FLASH
     ld (titleState),a
+
+    ; Print "By Pig Dog Bay"
+    ld d, 14
+    ld e, 16
+    ld hl,author
+    call Print.setCursorPosition
+    call Print.printString
+
     ret
 
 titleFlash:
@@ -197,8 +217,12 @@ titleFadeOut:
 titleState:
     db TITLE_STATE_START
 
-titleText:
-    db "THE\nSCHOLAR",0
+author:
+    db "BY PIG DOG BAY",0
+    db "By Pig Dog Bay",0
+
+instruction:
+    db "Click Mouse To Begin",0
 
 spriteData:
     db 21
