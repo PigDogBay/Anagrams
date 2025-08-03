@@ -207,16 +207,16 @@ spriteData:
     spriteItem 0,160,128,0,0 | SPRITE_VISIBILITY_MASK,0,0
 
     ;Tile sprites
-    spriteItem 1,181,171,0,'T'-Tile.ASCII_PATTERN_OFFSET,1,0
-    spriteItem 2,121,195,0,'H'-Tile.ASCII_PATTERN_OFFSET,2,0
-    spriteItem 3,181,195,0,'E'-Tile.ASCII_PATTERN_OFFSET,3,0
-    spriteItem 4,201,169,0,'S'-Tile.ASCII_PATTERN_OFFSET,4,0
-    spriteItem 5,101,177,0,'C'-Tile.ASCII_PATTERN_OFFSET,5,0
-    spriteItem 6,219,183,0,'H'-Tile.ASCII_PATTERN_OFFSET,6,0
+    spriteItem 5,121,171,0,'C'-Tile.ASCII_PATTERN_OFFSET,5,0
+    spriteItem 10,141,171,0,'R'-Tile.ASCII_PATTERN_OFFSET,10,0
+    spriteItem 9,161,171,0,'A'-Tile.ASCII_PATTERN_OFFSET,9,0
+    spriteItem 4,181,171,0,'S'-Tile.ASCII_PATTERN_OFFSET,4,0
+    spriteItem 2,201,171,0,'H'-Tile.ASCII_PATTERN_OFFSET,2,0
+    spriteItem 6,121,195,0,'H'-Tile.ASCII_PATTERN_OFFSET,6,0
     spriteItem 7,141,195,0,'O'-Tile.ASCII_PATTERN_OFFSET,7,0
-    spriteItem 8,161,195,0,'L'-Tile.ASCII_PATTERN_OFFSET,8,0
-    spriteItem 9,141,171,0,'A'-Tile.ASCII_PATTERN_OFFSET,9,0
-    spriteItem 10,161,171,0,'R'-Tile.ASCII_PATTERN_OFFSET,10,0
+    spriteItem 1,161,195,0,'T'-Tile.ASCII_PATTERN_OFFSET,1,0
+    spriteItem 3,181,195,0,'E'-Tile.ASCII_PATTERN_OFFSET,3,0
+    spriteItem 8,201,195,0,'L'-Tile.ASCII_PATTERN_OFFSET,8,0
 
     ;Slots
     spriteItem 11,140,48,0,Slot.SLOT_SPRITE_PATTERN,11,0
