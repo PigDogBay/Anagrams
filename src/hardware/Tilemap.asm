@@ -20,7 +20,7 @@
 
 START_OF_BANK_5		equ $4000
 START_OF_TILEMAP	equ $6000	; after sys vars
-START_OF_TILES		equ $6600	; Just after 40x32 tilemap
+START_OF_TILES		equ $6A00	; Just after 40x32x2 ($0A00) tilemap
 
 OFFSET_OF_MAP		equ (START_OF_TILEMAP - START_OF_BANK_5) >> 8
 OFFSET_OF_TILES		equ (START_OF_TILES - START_OF_BANK_5) >> 8
@@ -41,7 +41,7 @@ init:
     ; Bits
     ; 7:  1 to enable Tilemap
     ; 6:  1 for 80x32, 0 for 40x32
-    ; 5:  1 to eliminate the attribute entry in the tilemap
+    ; 5:  0 to enable the attribute entry in the tilemap
     ; 4:  0 use first tilemap palette, 1 second
     ; 3:  1 to enable text mode (tile pixels are 1-bit, like UDG)
     ; 2:  Reserved 0
@@ -49,7 +49,7 @@ init:
     ; 0:  1 to enfore tilemap over ULA priority
     ;
     ;Enable tilemap, 40x32, no attribute, 1st palette, 256 tiles, tilemap over ULA
-	nextreg TILEMAP_CONTROL, %10100001
+	nextreg TILEMAP_CONTROL, %10000001
 
 
     ; Bits
@@ -74,7 +74,7 @@ init:
 	nextreg PALETTE_INDEX, 0			
 
     ;Copy RRRGGGBB values
-    ld b,16
+    ld b,32
     ld hl,palette
 .nextColor:    
     ld a,(hl)
@@ -96,7 +96,7 @@ disable:
 ; Dirty BC,DE,HL
 ;-----------------------------------------------------------------------------------
 clear:
-    ld bc, 40*32 - 1
+    ld bc, 40*32*2 - 1
     ld hl, START_OF_TILEMAP
     ld de,hl
     inc de
@@ -112,21 +112,37 @@ clear:
 ; 
 ;-----------------------------------------------------------------------------------
 palette:
+    ;Palette Offset 0
     db %00000000  ; Black
     db %10100000  ; Red
     db %10100000
     db %11000000
-
     db %11100000
     db %11100000
     db %11000000
     db %10100000
-
     db %10100000
     db %00000000  ; Black
     db %00000000  ; Black
     db %00000000  ; Black
+    db %00000000  ; Black
+    db %00000000  ; Black
+    db %00000000  ; Black
+    db $e3        ; Transparent
 
+    ;Palette Offset 1
+    db %00000000  ; Black
+    db %00010100  ; Green
+    db %00010100
+    db %00011000
+    db %00011100
+    db %00011100
+    db %00011000
+    db %00010100
+    db %00010100
+    db %00000000  ; Black
+    db %00000000  ; Black
+    db %00000000  ; Black
     db %00000000  ; Black
     db %00000000  ; Black
     db %00000000  ; Black

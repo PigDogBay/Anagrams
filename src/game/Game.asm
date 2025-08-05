@@ -56,6 +56,7 @@ printInstruction:
     sra a
     ld d, a
     call Print.setCursorPosition
+    ld b,0
     call Print.printString
     ret
 

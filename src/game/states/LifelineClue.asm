@@ -34,6 +34,7 @@ enter:
     ld d, a
     ld e, CLUE_ROW
     call Print.setCursorPosition
+    ld b,0
     call Print.printString
     ret
 

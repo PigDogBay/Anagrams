@@ -174,6 +174,7 @@ titleFadeIn:
     ld e, 29
     ld hl,instruction
     call Print.setCursorPosition
+    ld b,0
     call Print.printString
 
 
@@ -192,6 +193,7 @@ titleMoveTiles:
     ld e, 16
     ld hl,author
     call Print.setCursorPosition
+    ld b,0
     call Print.printString
 
     ret

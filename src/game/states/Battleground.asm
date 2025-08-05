@@ -44,6 +44,15 @@ enter:
     ld ix,motion1
     call MoveSprites.start
 
+    call printRound
+    ld hl,$6000
+    ld (hl),20
+    inc hl
+    ld (hl),0
+    inc hl
+    ld (hl),30
+    inc hl
+    ld (hl),%00010010
     ret
 
 addButtons:
@@ -83,24 +92,28 @@ printRound:
     ld d, 5
     ld e, 9
     call Print.setCursorPosition
+    ld b,1
     call Print.printString
 
     call Puzzles.getAnagram
     ld d, 5
     ld e, 10
     call Print.setCursorPosition
+    ld b,1
     call Print.printString
 
     call Puzzles.jumbleLetters
     ld d, 5
     ld e, 11
     call Print.setCursorPosition
+    ld b,1
     call Print.printString
 
     call Puzzles.getClue
     ld d, 5
     ld e, 12
     call Print.setCursorPosition
+    ld b,1
     call Print.printString
     ret
 
