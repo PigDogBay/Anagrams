@@ -483,6 +483,15 @@ titleScreen:
     ret
 
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: loadULAPalette()
+; 
+; Restores the classic ULA colors
+; 
+; Dirty: A,B, HL 
+; 
+;-----------------------------------------------------------------------------------
 loadULAPalette:
     ; Auto increment, select ULA 1st palette
 	nextreg PALETTE_ULA_CONTROL, %00000000
@@ -490,7 +499,7 @@ loadULAPalette:
 	nextreg PALETTE_INDEX, 0			
 
     ;Copy RRRGGGBB values
-    ld b,16
+    ld b,32
     ld hl,ulaPalette
 .nextColor:    
     ld a,(hl)
@@ -500,8 +509,9 @@ loadULAPalette:
     ret
 
 
-
+; Default Classic ULA colors
 ulaPalette:
+    ; Ink
     db 0    ; Black
     db 2    ; Blue 
     db 160  ; Red
@@ -519,5 +529,22 @@ ulaPalette:
     db 252  ; Bright yellow
     db 255  ; Bright white
 
+    ; Paper and Border
+    db 0    ; Black
+    db 2    ; Blue 
+    db 160  ; Red
+    db 162  ; Magenta
+    db 20   ; Green
+    db 22   ; Cyan
+    db 180  ; Yellow
+    db 182  ; White
+    db 0    ; Black
+    db 3    ; Bright blue
+    db 224  ; Bright red
+    db 231  ; Bright magenta
+    db 28   ; Bright green
+    db 31   ; Bright cyan
+    db 252  ; Bright yellow
+    db 255  ; Bright white
 
     endmodule
