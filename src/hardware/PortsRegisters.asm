@@ -187,6 +187,10 @@ SPRITE_ATTRIBUTE_UPLOAD:               equ $57
 ;see https://wiki.specnext.dev/Sprite_Pattern_Upload
 SPRITE_PATTERN_UPLOAD_256:             equ $005B
 
+COPPER_DATA:                           equ $60
+COPPER_CONTROL_LOW_BYTE                equ $61
+COPPER_CONTROL_HIGH_BYTE               equ $62
+COPPER_16BIT_WRITE:                    equ $63
 
 ; Bits
 ;   7: 1 to disable ULA (default 0)

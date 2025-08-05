@@ -83,6 +83,10 @@ main:
     ;Set clock to 28MHz
     nextreg CPU_SPEED,3
 
+    ;Stop Copper, set CPC to 0
+    nextreg $61,0
+    nextreg $62,0
+
     ;Set fallback colour to be black (RRRGGGBB)
     ;This acts as the border color
     nextreg TRANSPARENCY_COLOUR_FALLBACK,%00000000
