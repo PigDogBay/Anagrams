@@ -82,6 +82,18 @@ resetAllClipWindows:
     nextreg CLIP_WINDOW_TILEMAP,0
     nextreg CLIP_WINDOW_TILEMAP,255
     
+    ;Reset offsets
+    nextreg LAYER_2_X_OFFSET,0
+    nextreg LAYER_2_X_OFFSET_MSB,0
+    nextreg LAYER_2_Y_OFFSET,0
+
+    nextreg ULA_X_OFFSET,0
+    nextreg ULA_Y_OFFSET,0
+
+    nextreg TILEMAP_OFFSET_X_MSB,0
+    nextreg TILEMAP_OFFSET_X_LSB,0
+    nextreg TILEMAP_OFFSET_Y,0
+
     ret
 
 ;-----------------------------------------------------------------------------------
@@ -469,5 +481,43 @@ titleScreen:
     ; So 16k bank is 40/2 = 20
     nextreg LAYER_2_RAM_PAGE, 20
     ret
- 
+
+
+loadULAPalette:
+    ; Auto increment, select ULA 1st palette
+	nextreg PALETTE_ULA_CONTROL, %00000000
+    ; Start with first entry
+	nextreg PALETTE_INDEX, 0			
+
+    ;Copy RRRGGGBB values
+    ld b,16
+    ld hl,ulaPalette
+.nextColor:    
+    ld a,(hl)
+    inc hl
+    nextreg PALETTE_VALUE, a
+    djnz .nextColor
+    ret
+
+
+
+ulaPalette:
+    db 0    ; Black
+    db 2    ; Blue 
+    db 160  ; Red
+    db 162  ; Magenta
+    db 20   ; Green
+    db 22   ; Cyan
+    db 180  ; Yellow
+    db 182  ; White
+    db 0    ; Black
+    db 3    ; Bright blue
+    db 224  ; Bright red
+    db 231  ; Bright magenta
+    db 28   ; Bright green
+    db 31   ; Bright cyan
+    db 252  ; Bright yellow
+    db 255  ; Bright white
+
+
     endmodule

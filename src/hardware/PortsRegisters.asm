@@ -81,6 +81,9 @@ NR_CLIP_WINDOW_CONTROL:                equ $1C
 ACTIVE_VIDEO_LINE_MSB:                 equ $1E
 ACTIVE_VIDEO_LINE_LSB:                 equ $1F
 
+ULA_X_OFFSET:                          equ $26
+ULA_Y_OFFSET:                          equ $27
+
 ; Tilemap offset in pixel
 ;
 ; X: 0-319 for 40x32, 0-639 for 80x32

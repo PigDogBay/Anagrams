@@ -83,9 +83,11 @@ main:
     ;Set clock to 28MHz
     nextreg CPU_SPEED,3
 
-    ;Set fallback colour to be black
-    nextreg TRANSPARENCY_COLOUR_FALLBACK,0
+    ;Set fallback colour to be black (RRRGGGBB)
+    ;This acts as the border color
+    nextreg TRANSPARENCY_COLOUR_FALLBACK,%00000000
     call Graphics.resetAllClipWindows
+
 
     ;TODO Set up each layer's palette
     ;
@@ -97,6 +99,10 @@ main:
     ;
     ; ULA
     ;
+    ;Default value
+    call Graphics.loadULAPalette
+    nextreg PALETTE_ULA_INK_COLOR_MASK,7
+    nextreg ULA_CONTROL,0
 
     ;Transparent colour for ULA
     ;Default is $E3, (11100011)
