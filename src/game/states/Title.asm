@@ -193,7 +193,7 @@ titleMoveTiles:
     ld e, 16
     ld hl,author
     call Print.setCursorPosition
-    ld b,0
+    ld b,%00010000
     call Print.printString
 
     ret

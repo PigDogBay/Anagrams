@@ -74,12 +74,15 @@ init:
 	nextreg PALETTE_INDEX, 0			
 
     ;Copy RRRGGGBB values
-    ld b,32
+    ld b,48
     ld hl,palette
 .nextColor:    
     ld a,(hl)
     inc hl
-    nextreg PALETTE_VALUE, a
+    nextreg PALETTE_ULA_PALETTE_EXTENSION, a
+    ld a,(hl)
+    inc hl
+    nextreg PALETTE_ULA_PALETTE_EXTENSION, a
     djnz .nextColor
     ret
 
@@ -109,43 +112,63 @@ clear:
 ; 
 ; Data: Palette
 ; 16 colour (4-bit) Palette used by the tilemap
+; 9 bit palette:
+; RRRGGGBB,B
 ; 
 ;-----------------------------------------------------------------------------------
 palette:
-    ;Palette Offset 0
-    db %00000000  ; Black
-    db %10100000  ; Red
-    db %10100000
-    db %11000000
-    db %11100000
-    db %11100000
-    db %11000000
-    db %10100000
-    db %10100000
-    db %00000000  ; Black
-    db %00000000  ; Black
-    db %00000000  ; Black
-    db %00000000  ; Black
-    db %00000000  ; Black
-    db %00000000  ; Black
-    db $e3        ; Transparent
+    ;Palette Offset 0 Red
+    db %00000000,0  ; Black
+    db %10100000,0  ; Red
+    db %10100000,0
+    db %11000000,0
+    db %11100000,0
+    db %11100000,0
+    db %11000000,0
+    db %10100000,0
+    db %10100000,0
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
 
-    ;Palette Offset 1
-    db %00000000  ; Black
-    db %00010100  ; Green
-    db %00010100
-    db %00011000
-    db %00011100
-    db %00011100
-    db %00011000
-    db %00010100
-    db %00010100
-    db %00000000  ; Black
-    db %00000000  ; Black
-    db %00000000  ; Black
-    db %00000000  ; Black
-    db %00000000  ; Black
-    db %00000000  ; Black
-    db $e3        ; Transparent
+    ;Palette Offset 1 Greens
+    db %00000000,0  ; Black
+    db %00010100,0  ; Green
+    db %00010100,0
+    db %00011000,0
+    db %00011100,0
+    db %00011100,0
+    db %00011000,0
+    db %00010100,0
+    db %00010100,0
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
+
+    ;Palette Offset 1 Blues
+    db %00000000,0  ; Black
+    db %00000010,1  ; Green
+    db %00000010,1
+    db %00000011,0
+    db %00000011,1
+    db %00000011,1
+    db %00000011,0
+    db %00000010,1
+    db %00000010,1
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
 
     endmodule
