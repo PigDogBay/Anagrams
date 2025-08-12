@@ -136,11 +136,11 @@ main:
     nextreg SPRITE_LAYERS_SYSTEM,%01001011
 
     ; $E3 is default transparency
-    nextreg SPRITES_TRANSPARENCY_INDEX, $E3
+    nextreg SPRITES_TRANSPARENCY_INDEX, $1f
     call NextSprite.removeAll
     ld a,SPRITE_PATTERN_COUNT
     call NextSprite.load
-
+    call NextSprite.loadPalette
 
     call MouseDriver.init
     jp Game.run

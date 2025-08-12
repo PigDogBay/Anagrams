@@ -73,7 +73,7 @@ init:
     ; Start with first entry
 	nextreg PALETTE_INDEX, 0			
 
-    ;Copy RRRGGGBB values
+    ;Copy RRRGGGBBB values
     ld b,48
     ld hl,palette
 .nextColor:    

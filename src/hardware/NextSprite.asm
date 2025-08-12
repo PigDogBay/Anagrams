@@ -61,6 +61,54 @@ load:
 
 
 ;-----------------------------------------------------------------------------------
+;
+; Function: loadPalette()
+;
+; Loads the sprites 1st palette, 
+; Palette has 32 colors, 9-bit
+;
+; Dirty: A, B, HL
+;
+;-----------------------------------------------------------------------------------
+loadPalette:
+    ;
+    ;Send palette to next hardware
+    ;
+
+	; Auto increment, select Sprites 1st palette
+    ; 7: 0 to enable auto-increment
+    ; 6-4 Select palette:
+    ;   000 ULA first palette
+    ;   100 ULA second palette
+    ;   001 Layer 2 first palette
+    ;   101 Layer 2 second palette
+    ;   010 Sprites first palette
+    ;   110 Sprites second palette
+    ;   011 Tilemap first palette
+    ;   111 Tilemap second palette
+    ; 3: Selects active Sprites palette (0 = first, 1 = second)
+    ; 2: Selects active Layer 2 palette (0 = first, 1 = second)
+    ; 1: Selects active ULA palette (0 = first, 1 = second)
+    ; 0: Enables ULANext mode if 1 
+	nextreg PALETTE_ULA_CONTROL, %00100000
+    ; Start with first entry
+	nextreg PALETTE_INDEX, 0			
+
+    ;Copy RRRGGGBBB values
+    ld b,32
+    ld hl,palette
+.nextColor:    
+    ld a,(hl)
+    inc hl
+    nextreg PALETTE_ULA_PALETTE_EXTENSION, a
+    ld a,(hl)
+    inc hl
+    nextreg PALETTE_ULA_PALETTE_EXTENSION, a
+    djnz .nextColor
+    ret
+
+
+;-----------------------------------------------------------------------------------
 ; 
 ; Update sprite
 ;
@@ -184,3 +232,9 @@ removeAll:
     ret
 
     endmodule
+
+
+palette:
+    ;Black, Drop Shadow, Red, Blue, TileBG,White ... Transparent
+    dw $0, $2, $1C0, $7,   $1Fe, $1FF, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0
+    dw $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $1C7

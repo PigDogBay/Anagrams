@@ -19,3 +19,4 @@ __pycache__/
 *.pyc
 *.pyo
 tools/a.out
+misc/.~lock.Sums.ods#
