@@ -1,5 +1,8 @@
+-- Modified version of 
 -- ZX Spectrum Sprite Sheet Generator
 -- By Paul "Spectre" Harthen
+
+--Set up 32 color option for Anagrams palette
 
 local dlg = Dialog("Anagrams Sprite Sheet")
 
