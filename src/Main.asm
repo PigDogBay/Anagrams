@@ -28,6 +28,7 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "hardware/MouseDriver.asm"
     include "hardware/Tilemap.asm"
     include "hardware/Print.asm"
+    include "hardware/Keyboard.asm"
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
     include "model/Puzzles.asm"

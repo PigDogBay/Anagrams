@@ -287,6 +287,10 @@ DMA_PORT:                              equ $6B
 ; 4 EAR output (speaker) or Input from tape/PI
 ; 3 MIC output (saving via audio jack)
 ; 2-0 Border colour
+;
+; Reading
+; Bit 6  EAR input from tape jack or Pi
+; 4-0    Keyboard (See Keyboard.asm), 1 = not pressed, 0 pressed
 ULA_CONTROL_PORT:                      equ $FE
 
 ;See https://wiki.specnext.dev/Layer_2_Access_Port
