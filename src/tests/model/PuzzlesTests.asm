@@ -4,76 +4,76 @@ UT_select1:
     ld h,4
     ld l,2
     call Puzzles.select
-    TEST_MEMORY_BYTE Puzzles.level,4
-    TEST_MEMORY_BYTE Puzzles.round,2
+    TEST_MEMORY_BYTE Puzzles.year,4
+    TEST_MEMORY_BYTE Puzzles.term,2
     TC_END
 
-;Invalid: 0 round
+;Invalid: 0 term
 UT_select2:
     ld h,4
     ld l,0
     call Puzzles.select
-    TEST_MEMORY_BYTE Puzzles.level,1
-    TEST_MEMORY_BYTE Puzzles.round,1
+    TEST_MEMORY_BYTE Puzzles.year,1
+    TEST_MEMORY_BYTE Puzzles.term,1
     TC_END
-;Invalid: round = 4 (max 3)
+;Invalid: term = 4 (max 3)
 UT_select3:
     ld h,2
     ld l,4
     call Puzzles.select
-    TEST_MEMORY_BYTE Puzzles.level,1
-    TEST_MEMORY_BYTE Puzzles.round,1
+    TEST_MEMORY_BYTE Puzzles.year,1
+    TEST_MEMORY_BYTE Puzzles.term,1
     TC_END
-;Invalid: 0 level
+;Invalid: 0 year
 UT_select4:
     ld h,0
     ld l,2
     call Puzzles.select
-    TEST_MEMORY_BYTE Puzzles.level,1
-    TEST_MEMORY_BYTE Puzzles.round,1
+    TEST_MEMORY_BYTE Puzzles.year,1
+    TEST_MEMORY_BYTE Puzzles.term,1
     TC_END
-;Invalid: last level + 1
+;Invalid: last year + 1
 UT_select5:
     ld h,11
     ld l,2
     call Puzzles.select
-    TEST_MEMORY_BYTE Puzzles.level,1
-    TEST_MEMORY_BYTE Puzzles.round,1
+    TEST_MEMORY_BYTE Puzzles.year,1
+    TEST_MEMORY_BYTE Puzzles.term,1
     TC_END
 
-UT_nextLevel1:
+UT_nextYear1:
     ld hl, $0402
     call Puzzles.select
-    call Puzzles.nextLevel
+    call Puzzles.nextYear
     nop ; ASSERTION A == 5
-    call Puzzles.getLevel
+    call Puzzles.getYear
     nop ; ASSERTION A == 5
-    call Puzzles.getRound
+    call Puzzles.getTerm
     nop ; ASSERTION A == 1
     TC_END
 
-UT_nextLevel2:
-    ld h,Puzzles.LAST_LEVEL
+UT_nextYear2:
+    ld h,Puzzles.LAST_YEAR
     ld l,02
     call Puzzles.select
-    call Puzzles.nextLevel
+    call Puzzles.nextYear
     nop ; ASSERTION A == 0
     TC_END
 
 
-UT_nextRound1:
+UT_nextterm1:
     ld hl, $0402
     call Puzzles.select
-    call Puzzles.nextRound
+    call Puzzles.nextTerm
     nop ; ASSERTION A == 3
-    call Puzzles.getRound
+    call Puzzles.getTerm
     nop ; ASSERTION A == 3
     TC_END
 
-UT_nextRound2:
+UT_nextterm2:
     ld hl, $0403
     call Puzzles.select
-    call Puzzles.nextRound
+    call Puzzles.nextTerm
     nop ; ASSERTION A == 0
     TC_END
 
@@ -84,17 +84,17 @@ UT_isGameOver1:
     TEST_FLAG_Z
     TC_END
 UT_isGameOver2:
-    ld h,Puzzles.LAST_LEVEL
+    ld h,Puzzles.LAST_YEAR
     ld l,03
     call Puzzles.select
     call Puzzles.isGameOver
     TEST_FLAG_Z
     TC_END
 UT_isGameOver3:
-    ld h,Puzzles.LAST_LEVEL
+    ld h,Puzzles.LAST_YEAR
     ld l,01
     call Puzzles.select
-    call Puzzles.nextLevel
+    call Puzzles.nextYear
     call Puzzles.isGameOver
     TEST_FLAG_NZ
     TC_END
@@ -181,11 +181,11 @@ UT_behaviour1:
     call Puzzles.getAnagram
     call Puzzles.getClue
 
-    call Puzzles.nextRound
+    call Puzzles.nextTerm
     or a
     jr nz, .nextPuzzle
     
-    call Puzzles.nextLevel
+    call Puzzles.nextYear
     or a
     jr nz, .nextPuzzle
     

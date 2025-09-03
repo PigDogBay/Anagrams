@@ -1,8 +1,8 @@
     module Puzzles
 
-FIRST_ROUND:    equ 1
-LAST_ROUND:     equ 3
-LAST_LEVEL:     equ 10
+FIRST_TERM:    equ 1
+LAST_TERM:     equ 3
+LAST_YEAR:     equ 10
 
 ;-----------------------------------------------------------------------------------
 ; 

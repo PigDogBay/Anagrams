@@ -16,12 +16,12 @@ puzzle      word
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: select(uint8 level, uint8 round)
+; Function: select(uint8 year, uint8 term)
 ;
-; Sets the round and level. If round or level is invalid, lvl 1, rnd 1 is set
+; Sets the year and term. If term or year is invalid, yr 1, term 1 is set
 ;
-; In: H = level
-;     L = round 
+; In: H = Year
+;     L = Term 
 ; 
 ;-----------------------------------------------------------------------------------
 select:
@@ -29,69 +29,68 @@ select:
     ld a, h
     or a
     jr z, .failed
-    ;Max level
-    cp a, LAST_LEVEL + 1
+    ;Max year
+    cp a, LAST_YEAR + 1
     jr nc, .failed
     
     ld a, l
     or a
     jr z, .failed
-    ;Greater than last round
-    ;Max level
-    cp a, LAST_ROUND + 1
+    ;Greater than last term
+    cp a, LAST_TERM + 1
     jr nc, .failed
 
-    ; round = l,level = h
-    ld (round),hl
+    ; term = l,year = h
+    ld (term),hl
     ret
 
-;Gracefully fail by selecting level 1, round 1
+;Gracefully fail by selecting year 1, term 1
 .failed:
     ld hl,$0101
-    ld (round),hl
+    ld (term),hl
     ret
 
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: nextRound()
+; Function: nextTerm()
 ;
-; Each level has 3 rounds, this function increase the current round 
+; Each year has 3 terms, this function increase the current term
 ;
-; Out: A = round (1,2,3) or 0 if no more rounds (call nextLevel())
+; Out: A = term (1,2,3) or 0 if no more terms (call nextYear())
 ; 
 ;-----------------------------------------------------------------------------------
-nextRound:
-    ld a,(round)
+nextTerm:
+    ld a,(term)
     inc a
-    ld (round),a
-    cp LAST_ROUND+1
-    jr nc, .noMoreRounds
+    ld (term),a
+    cp LAST_TERM+1
+    jr nc, .noMoreTerms
     ret
-.noMoreRounds:
+.noMoreTerms:
     xor a
     ret
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: nextLevel()
+; Function: nextYear()
 ;
-; Increase the level, round is set to 1 
+; Increase the year, term is set to 1 
 ;
-; Out: A = Level (1,2, ...) or 0 if no more levels (Game Completed)
+; Out: A = Year (1,2, ...) or 0 if no more years (Game Completed)
 ; 
 ;-----------------------------------------------------------------------------------
-nextLevel:
+nextYear:
     ;set round to 1
-    ld a,FIRST_ROUND
-    ld (round),a
+    ld a,FIRST_TERM
+    ld (term),a
 
-    ld a,(level)
+    ld a,(year)
     inc a
-    ld (level),a
-    cp LAST_LEVEL+1
-    jr nc, .noMoreLevels
+    ld (year),a
+    cp LAST_YEAR+1
+    jr nc, .noMoreYears
     ret
-.noMoreLevels:
+.noMoreYears:
     xor a
     ret
 
@@ -99,16 +98,16 @@ nextLevel:
 ; 
 ; Function: isGameOver()
 ;
-; Checks if more levels are left, call this function after nextLevel()
+; Checks if more years are left, call this function after nextYear()
 ;
-; Out: Z nz = game over, z = current level is valid to play 
+; Out: Z nz = game over, z = current year is valid to play 
 ;    
 ; Dirty: A 
 ; 
 ;-----------------------------------------------------------------------------------
 isGameOver:
-    ld a,(level)
-    cp LAST_LEVEL+1
+    ld a,(year)
+    cp LAST_YEAR+1
     jr c, .false 
     ; Reset zero flag to indicate TRUE
     ld a,1
@@ -132,15 +131,15 @@ isGameOver:
 ;-----------------------------------------------------------------------------------
 getPuzzle:
     ld hl,0
-    ; Multiply level-1 by 3 (3 rounds per level)
-    ld a,(level)
+    ; Multiply year-1 by 3 (3 terms per year)
+    ld a,(year)
     dec a
     add hl,a
     add hl,a
     add hl,a
 
-    ; Add round-1
-    ld a,(round)
+    ; Add term-1
+    ld a,(term)
     dec a
     add hl,a
 
@@ -272,28 +271,28 @@ categoryToString:
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: getRound() -> uint8
+; Function: getTerm() -> uint8
 ;
-; Getter for current round
+; Getter for current term
 ;
-; Out: A = current round
+; Out: A = current term
 ; 
 ;-----------------------------------------------------------------------------------
-getRound:
-    ld a,(round)
+getTerm:
+    ld a,(term)
     ret
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: getLevel() -> uint8
+; Function: getYear() -> uint8
 ;
-; Getter for current level
+; Getter for current year
 ;
-; Out: A = current level
+; Out: A = current year
 ; 
 ;-----------------------------------------------------------------------------------
-getLevel:
-    ld a,(level)
+getYear:
+    ld a,(year)
     ret
 
 ;-----------------------------------------------------------------------------------
@@ -342,9 +341,9 @@ catScienceStr: db "Science",0
 catFoodStr: db "Food",0
 
 
-round:
+term:
     db 1
-level:
+year:
     db 1
 
 jumbled:

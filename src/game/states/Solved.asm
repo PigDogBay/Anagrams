@@ -55,11 +55,11 @@ update:
     ret
 
 .mousePressed:
-    call Puzzles.nextRound
+    call Puzzles.nextTerm
     or a
     jr nz, .start
     
-    call Puzzles.nextLevel
+    call Puzzles.nextYear
     or a
     jr nz, .start
     
