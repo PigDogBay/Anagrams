@@ -284,6 +284,27 @@ getTerm:
 
 ;-----------------------------------------------------------------------------------
 ; 
+; Function: getTermName() -> uint16
+;
+; Getter for current term name
+;
+; Out: HL = pointer to term's name string 
+; 
+;-----------------------------------------------------------------------------------
+getTermName:
+    ld a,(term)
+    ld hl, termName2
+    cp 2
+    jr z, .exit
+    ld hl, termName3
+    cp 3
+    jr z, .exit
+    ld hl, termName1
+.exit:
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
 ; Function: getYear() -> uint8
 ;
 ; Getter for current year
@@ -339,6 +360,10 @@ catWorldStr: db "World",0
 catHistoryStr: db "History",0
 catScienceStr: db "Science",0
 catFoodStr: db "Food",0
+
+termName1: db "Michaelmas",0
+termName2: db "Hilary",0
+termName3: db "Trinity",0
 
 
 term:

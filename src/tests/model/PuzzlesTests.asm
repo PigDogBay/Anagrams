@@ -1,5 +1,14 @@
     module TestSuite_Puzzles
 
+UT_getTermName1:
+    ld h,4
+    ld l,2
+    call Puzzles.select
+    call Puzzles.getTermName
+    nop ; ASSERTION HL == Puzzles.termName2
+    TC_END
+
+
 UT_select1:
     ld h,4
     ld l,2
