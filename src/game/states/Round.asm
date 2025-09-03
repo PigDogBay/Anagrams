@@ -13,6 +13,7 @@
 
 
 enter:
+    call Tilemap.clear
     call NextSprite.removeAll
     call SpriteList.removeAll
     ld a,6

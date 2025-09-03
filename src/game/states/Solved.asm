@@ -40,7 +40,7 @@ enter:
     call Print.printString
 
     call FlashSprites.copyAllTileIds
-    ld hl,300
+    ld hl,600
     call FlashSprites.start
 
 
@@ -49,7 +49,7 @@ enter:
 update:
     ;wait for use to click mouse button
     call Game.updateMouseNoSprite
-    cp MouseDriver.STATE_BACKGROUND_PRESSED
+    cp MouseDriver.STATE_BACKGROUND_CLICKED
     jr z, .mousePressed
     call Game.updateSprites
     ret
@@ -68,6 +68,7 @@ update:
     call Puzzles.select
 
 .start:
+    STOP_ALL_ANIMATION
     ld hl, GS_ROUND
     call GameStateMachine.change
     ret
