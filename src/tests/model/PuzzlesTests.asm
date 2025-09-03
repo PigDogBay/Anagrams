@@ -5,7 +5,7 @@ UT_getTermName1:
     ld l,2
     call Puzzles.select
     call Puzzles.getTermName
-    nop ; ASSERTION HL == Puzzles.termName2
+    nop ; ASSERTION HL == Puzzles.termNameStr2
     TC_END
 
 
@@ -156,6 +156,61 @@ UT_categoryToString1:
     TC_END
 .data:
     db "Science",0
+
+UT_getYearName1:
+    ld hl, $0501
+    call Puzzles.select
+    call Puzzles.getYearName
+    TEST_STRING_PTR hl, .data
+    TC_END
+.data:
+    db "DPhil Yr 1",0
+
+UT_getCollegeName1:
+    call Puzzles.resetCollege
+    ld (Puzzles.college),a
+    call Puzzles.getCollegeName
+    TEST_STRING_PTR hl, .data
+    TC_END
+.data:
+    db "Teddy Hall",0
+
+
+UT_collegeNextPrev1:
+    call Puzzles.resetCollege
+    call Puzzles.nextCollege
+    nop ; ASSERTION A == 1
+    call Puzzles.previousCollege
+    nop ; ASSERTION A == 0
+    TC_END
+
+UT_collegeNextPrevWrap1:
+    call Puzzles.resetCollege
+    call Puzzles.previousCollege
+    call Puzzles.getCollege
+    nop ; ASSERTION A == Puzzles.COLLEGE_COUNT - 1
+    call Puzzles.nextCollege
+    nop ; ASSERTION A == 0
+    TC_END
+
+UT_yearSelect1:
+    ld hl,$0401
+    call Puzzles.select
+    call Puzzles.previousYearSelect
+    nop ; ASSERTION A == 3
+    call Puzzles.nextYearSelect
+    nop ; ASSERTION A == 4
+    TC_END
+
+UT_yearSelectWrap1:
+    ld hl,$0101
+    call Puzzles.select
+    call Puzzles.previousYearSelect
+    nop ; ASSERTION A == Puzzles.LAST_YEAR
+    call Puzzles.nextYearSelect
+    nop ; ASSERTION A == 1
+    TC_END
+    TC_END
 
 UT_jumbleLetters1:
     ld hl, $0203

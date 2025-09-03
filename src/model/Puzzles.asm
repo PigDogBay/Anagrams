@@ -1,5 +1,7 @@
     module Puzzles
 
+COLLEGE_COUNT: equ 10
+
 ;-----------------------------------------------------------------------------------
 ; 
 ; Struct: puzzleStruct
@@ -293,13 +295,13 @@ getTerm:
 ;-----------------------------------------------------------------------------------
 getTermName:
     ld a,(term)
-    ld hl, termName2
+    ld hl, termNameStr2
     cp 2
     jr z, .exit
-    ld hl, termName3
+    ld hl, termNameStr3
     cp 3
     jr z, .exit
-    ld hl, termName1
+    ld hl, termNameStr1
 .exit:
     ret
 
@@ -314,6 +316,160 @@ getTermName:
 ;-----------------------------------------------------------------------------------
 getYear:
     ld a,(year)
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: previousYearSelect() -> uint8
+;
+; Sets and returns previous year value, will wrap round to LAST_YEAR
+;
+; Out: A = previous year value 
+; 
+;-----------------------------------------------------------------------------------
+previousYearSelect:
+    ld a,(year)
+    dec a
+    jr nz, .noWrapAround
+    ld a, LAST_YEAR
+.noWrapAround:
+    ld (year),a
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: nextYearSelect() -> uint8
+;
+; Sets and returns next year value, will wrap round to year 1
+;
+; Out: A = next year value 
+; 
+;-----------------------------------------------------------------------------------
+nextYearSelect:
+    ld a,(year)
+    inc a
+    cp LAST_YEAR + 1
+    jr nz, .noWrapAround
+    ;Wrap round to yr 1
+    ld a,1
+.noWrapAround:
+    ld (year),a
+    ret
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getYearName() -> uint16
+;
+; Getter for current year name
+;
+; Out: HL = current year name
+;
+; Dirty A
+; 
+;-----------------------------------------------------------------------------------
+getYearName:
+    push de
+    ld a,(year)
+    ; Subtract 1 as year starts at 1
+    dec a
+    ld hl, yearNameJumpTable
+    ; Add twice, as table is two bytes per entry
+    add hl,a
+    add hl,a
+    ; get jump entry
+    ld de,(hl)
+    ld hl,de
+    pop de
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getCollege() -> uint8
+;
+; Getter for college value
+;
+; Out: A = 0 ..< COLLEGE_COUNT
+; 
+;-----------------------------------------------------------------------------------
+getCollege:
+    ld a,(college)
+    ret
+    
+;-----------------------------------------------------------------------------------
+; 
+; Function: resetCollege() -> uint8
+;
+; Sets college value to 0
+;
+; Out: A = 0 
+; 
+;-----------------------------------------------------------------------------------
+resetCollege:
+    xor a
+    ld (college),a
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: previousCollege() -> uint8
+;
+; Sets and returns previous college value, will wrap round to COLLLEGE_LEN-1
+;
+; Out: A = previous college value 
+; 
+;-----------------------------------------------------------------------------------
+previousCollege:
+    ld a,(college)
+    or a
+    jr nz, .noWrapAround
+    ld a, COLLEGE_COUNT
+.noWrapAround:
+    dec a
+    ld (college),a
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: nextCollege() -> uint8
+;
+; Sets and returns next college value, will wrap round to 0
+;
+; Out: A = next college value 
+; 
+;-----------------------------------------------------------------------------------
+nextCollege:
+    ld a,(college)
+    inc a
+    cp COLLEGE_COUNT
+    jr nz, .noWrapAround
+    xor a
+.noWrapAround:
+    ld (college),a
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getCollegeName() -> uint16
+;
+; Getter for college name
+;
+; Out: HL = college name
+;
+; Dirty A
+; 
+;-----------------------------------------------------------------------------------
+getCollegeName:
+    push de
+    ld a,(college)
+    ld hl, collegeNameJumpTable
+    ; Add twice, as table is two bytes per entry
+    add hl,a
+    add hl,a
+    ; get jump entry
+    ld de,(hl)
+    ld hl,de
+    pop de
     ret
 
 ;-----------------------------------------------------------------------------------
@@ -361,15 +517,60 @@ catHistoryStr: db "History",0
 catScienceStr: db "Science",0
 catFoodStr: db "Food",0
 
-termName1: db "Michaelmas",0
-termName2: db "Hilary",0
-termName3: db "Trinity",0
+termNameStr1: db "Michaelmas",0
+termNameStr2: db "Hilary",0
+termNameStr3: db "Trinity",0
 
+yearNameJumpTable:
+    dw yearNameStr1
+    dw yearNameStr2
+    dw yearNameStr3
+    dw yearNameStr4
+    dw yearNameStr5
+    dw yearNameStr6
+    dw yearNameStr7
+    dw yearNameStr8
+
+yearNameStr1: db "Undergrad Fresher",0
+yearNameStr2: db "Undergrad Yr 2",0
+yearNameStr3: db "Undergrad Finals",0
+yearNameStr4: db "Masters",0
+yearNameStr5: db "DPhil Yr 1",0
+yearNameStr6: db "DPhil Yr 2",0
+yearNameStr7: db "DPhil Finals",0
+yearNameStr8: db "Professorship",0
+
+collegeNameJumpTable:
+    dw collegeNameStr1
+    dw collegeNameStr2
+    dw collegeNameStr3
+    dw collegeNameStr4
+    dw collegeNameStr5
+    dw collegeNameStr6
+    dw collegeNameStr7
+    dw collegeNameStr8
+    dw collegeNameStr9
+    dw collegeNameStr10
+
+collegeNameStr1: db "Teddy Hall",0
+collegeNameStr2: db "Mor-de-Len College",0
+collegeNameStr3: db "Old College",0
+collegeNameStr4: db "St Henrys",0
+collegeNameStr5: db "Bailey Hall",0
+collegeNameStr6: db "Lady Holly Hall",0
+collegeNameStr7: db "Hertbridge College",0
+collegeNameStr8: db "Radnor College",0
+collegeNameStr9: db "Winterville",0
+collegeNameStr10: db "St Kayleigh's College",0
 
 term:
     db 1
+
 year:
     db 1
+
+college:
+    db 0
 
 jumbled:
     ds 64
