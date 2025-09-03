@@ -6,9 +6,9 @@
 ; 
 ;-----------------------------------------------------------------------------------
 
-    module GameState_LevelSelect
+    module GameState_Prospectus
 
-@GS_LEVEL_SELECT: 
+@GS_PROSPECTUS: 
     stateStruct enter,update
 
 
@@ -44,7 +44,7 @@ update:
     ret
 
 titleText:
-    db "LEVELSELECT",0
+    db "PROSPECTUS",0
 
 
     endmodule

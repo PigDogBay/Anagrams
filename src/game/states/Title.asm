@@ -130,7 +130,7 @@ update:
 
 .mousePressed:
     STOP_ALL_ANIMATION
-    ld hl, GS_LEVEL_SELECT
+    ld hl, GS_PROSPECTUS
     call GameStateMachine.change
     ret
 

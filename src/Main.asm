@@ -53,7 +53,7 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "game/StateMachine.asm"
     include "game/PlayMouse.asm"
     include "game/states/Title.asm"
-    include "game/states/LevelSelect.asm"
+    include "game/states/Prospectus.asm"
     include "game/states/Round.asm"
     include "game/states/Start.asm"
     include "game/states/Play.asm"
