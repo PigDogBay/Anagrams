@@ -26,6 +26,49 @@ enter:
     call Tile.createTiles
     call Tile.tilesToSprites
 
+    ld d, 3
+    ld e, 8
+    ld hl,strSelectUniversity
+    call Print.setCursorPosition
+    ld b,%00000000
+    call Print.printString
+
+    ld d, 14
+    ld e, 10
+    ld hl,strUniversity
+    call Print.setCursorPosition
+    ld b,%00000000
+    call Print.printString
+
+    ld d, 12
+    ld e, 12
+    ld hl,strMotto
+    call Print.setCursorPosition
+    ld b,%00000000
+    call Print.printString
+
+    ld d, 3
+    ld e, 16
+    ld hl,strSelectYear
+    call Print.setCursorPosition
+    ld b,%00000000
+    call Print.printString
+
+    ld d, 10
+    ld e, 18
+    ld hl,strYear
+    call Print.setCursorPosition
+    ld b,%00000000
+    call Print.printString
+
+    ld d, 7
+    ld e, 29
+    ld hl,strClickToStart
+    call Print.setCursorPosition
+    ld b,%00010000
+    call Print.printString
+
+
     ret
 
 update:
@@ -45,6 +88,17 @@ update:
 
 titleText:
     db "PROSPECTUS",0
+strSelectUniversity:
+    db "Select University",0
+strUniversity:
+    db "St Edmund Hall",0
+strMotto:
+    db "Aula Sancti Edmundi",0
+strClickToStart:
+    db "Click to begin your studies",0
 
-
+strSelectYear:
+    db "Entry Year",0
+strYear:
+    db "1st Year Undergrad",0
     endmodule
