@@ -225,6 +225,80 @@ UT_jumbleLetters1:
     TEST_FLAG_NZ
     TC_END
 
+; Function: getDifficulty() -> uint8
+; Function: getDifficultyName() -> uint16
+; Function: previousDifficulty() -> uint8
+; Function: nextDifficulty() -> uint8
+UT_difficulty1:
+    ld a, Puzzles.ENUM_DIFFICULTY_NORMAL
+    ld (Puzzles.difficulty), a
+    call Puzzles.getDifficultyName
+    TEST_STRING_PTR hl, Puzzles.normalStr
+
+    call Puzzles.previousDifficulty
+    call Puzzles.getDifficultyName
+    TEST_STRING_PTR hl, Puzzles.easyStr
+
+    TC_END
+
+UT_difficultyWrap1:
+    ld a, Puzzles.ENUM_DIFFICULTY_EASY
+    ld (Puzzles.difficulty), a
+    call Puzzles.previousDifficulty
+    call Puzzles.getDifficulty
+    nop ; ASSERTION A == Puzzles.ENUM_DIFFICULTY_HARD
+    TC_END
+
+UT_difficultyWrap2:
+    ld a, Puzzles.ENUM_DIFFICULTY_HARD
+    ld (Puzzles.difficulty), a
+    call Puzzles.nextDifficulty
+    call Puzzles.getDifficulty
+    nop ; ASSERTION A == Puzzles.ENUM_DIFFICULTY_EASY
+    TC_END
+
+; Function: getStudyAids() -> uint8
+; Function: resetStudyAids()
+; Function: decreaseStudyAids() -> uint8
+
+UT_resetStudyAids1
+    ld a, Puzzles.ENUM_DIFFICULTY_EASY
+    ld (Puzzles.difficulty), a
+    call Puzzles.resetStudyAids
+    call Puzzles.getStudyAids
+    nop ; ASSERTION A == Puzzles.STUDY_AIDS_START_COUNT_EASY
+    TC_END
+UT_resetStudyAids2
+    ld a, Puzzles.ENUM_DIFFICULTY_NORMAL
+    ld (Puzzles.difficulty), a
+    call Puzzles.resetStudyAids
+    call Puzzles.getStudyAids
+    nop ; ASSERTION A == Puzzles.STUDY_AIDS_START_COUNT_NORMAL
+    TC_END
+UT_resetStudyAids3
+    ld a, Puzzles.ENUM_DIFFICULTY_HARD
+    ld (Puzzles.difficulty), a
+    call Puzzles.resetStudyAids
+    call Puzzles.getStudyAids
+    nop ; ASSERTION A == Puzzles.STUDY_AIDS_START_COUNT_HARD
+    TC_END
+
+UT_decreaseStudyAids1
+    ld a, Puzzles.ENUM_DIFFICULTY_NORMAL
+    ld (Puzzles.difficulty), a
+    call Puzzles.resetStudyAids
+    call Puzzles.decreaseStudyAids
+    call Puzzles.getStudyAids
+    nop ; ASSERTION A == Puzzles.STUDY_AIDS_START_COUNT_NORMAL - 1
+    TC_END
+
+UT_decreaseStudyAids2
+    ld a, 0
+    ld (Puzzles.studyAids), a
+    call Puzzles.decreaseStudyAids
+    call Puzzles.getStudyAids
+    nop ; ASSERTION A == 0
+    TC_END
 
 
 UT_behaviour1:

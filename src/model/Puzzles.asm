@@ -1,6 +1,62 @@
+;-----------------------------------------------------------------------------------
+; Module Puzzles
+;
+; Handles the games settings and puzzles data
+;
+; Struct: puzzleStruct
+; 
+; Function: select(uint8 year, uint8 term)
+; Function: nextTerm()
+; Function: nextYear()
+; Function: isGameOver() -> Boolean
+;
+; Function: getPuzzle() -> uint16
+; Function: getAnagram() -> uint16
+; Function: getClue() -> uint16
+; Function: jumbleLetters() -> uint16
+;
+; Function: getCategory() -> uint8
+; Function: categoryToString(uint8 cat) -> uint16
+;
+; ----Prospectus model functions----
+;
+; Function: getTerm() -> uint8
+; Function: getTermName() -> uint16
+;
+; Function: getYear() -> uint8
+; Function: previousYearSelect() -> uint8
+; Function: nextYearSelect() -> uint8
+; Function: getYearName() -> uint16
+;
+; Function: getCollege() -> uint8
+; Function: resetCollege() -> uint8
+; Function: previousCollege() -> uint8
+; Function: nextCollege() -> uint8
+; Function: getCollegeName() -> uint16
+;
+; Function: getDifficulty() -> uint8
+; Function: getDifficultyName() -> uint16
+; Function: previousDifficulty() -> uint8
+; Function: nextDifficulty() -> uint8
+;
+; Function: getStudyAids() -> uint8
+; Function: resetStudyAids()
+; Function: decreaseStudyAids() -> uint8
+; 
+;-----------------------------------------------------------------------------------
     module Puzzles
 
 COLLEGE_COUNT: equ 10
+
+ENUM_DIFFICULTY_EASY:   equ 0
+ENUM_DIFFICULTY_NORMAL: equ 1
+ENUM_DIFFICULTY_HARD:   equ 2
+DIFFICULTY_COUNT:       equ 3
+
+STUDY_AIDS_START_COUNT_EASY:   equ 12
+STUDY_AIDS_START_COUNT_NORMAL: equ 9
+STUDY_AIDS_START_COUNT_HARD:   equ 6
+
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -98,7 +154,7 @@ nextYear:
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: isGameOver()
+; Function: isGameOver() -> Boolean
 ;
 ; Checks if more years are left, call this function after nextYear()
 ;
@@ -356,7 +412,6 @@ nextYearSelect:
     ld (year),a
     ret
 
-
 ;-----------------------------------------------------------------------------------
 ; 
 ; Function: getYearName() -> uint16
@@ -448,6 +503,7 @@ nextCollege:
     ld (college),a
     ret
 
+
 ;-----------------------------------------------------------------------------------
 ; 
 ; Function: getCollegeName() -> uint16
@@ -470,6 +526,134 @@ getCollegeName:
     ld de,(hl)
     ld hl,de
     pop de
+    ret
+
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getDifficulty() -> uint8
+;
+; Getter for difficulty enum value
+;
+; Out: A = ENUM_DIFFICULTY_EASY, _NORMAL or _HARD
+; 
+;-----------------------------------------------------------------------------------
+getDifficulty:
+    ld a,(difficulty)
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getDifficultyName() -> uint16
+;
+; Getter for difficulty description string
+;
+; Out: HL = pointer to difficulty desciption string 
+; 
+;-----------------------------------------------------------------------------------
+getDifficultyName:
+    ld a,(difficulty)
+    ld hl, normalStr
+    cp ENUM_DIFFICULTY_NORMAL
+    jr z, .exit
+    ld hl, hardStr
+    cp ENUM_DIFFICULTY_HARD
+    jr z, .exit
+    ld hl, easyStr
+.exit:
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: previousDifficulty() -> uint8
+;
+; Sets and returns previous difficulty settinge, will wrap round to ENUM_DIFFICULTY_HARD
+;
+; Out: A = previous difficulty setting (ENUM_DIFFICULTY_ )
+; 
+;-----------------------------------------------------------------------------------
+previousDifficulty:
+    ld a,(difficulty)
+    or a
+    jr nz, .noWrapAround
+    ld a, DIFFICULTY_COUNT
+.noWrapAround:
+    dec a
+    ld (difficulty),a
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: nextDifficulty() -> uint8
+;
+; Sets and returns next difficulty settings, will wrap round to ENUM_DIFFICULTY_EASY
+;
+; Out: A = next difficulty setting (ENUM_DIFFICULTY_ )
+; 
+;-----------------------------------------------------------------------------------
+nextDifficulty:
+    ld a,(difficulty)
+    inc a
+    cp DIFFICULTY_COUNT
+    jr nz, .noWrapAround
+    xor a
+.noWrapAround:
+    ld (difficulty),a
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getStudyAids() -> uint8
+;
+; Getter for number of study aids remaining
+;
+; Out: A = number of remaining study aids
+; 
+;-----------------------------------------------------------------------------------
+getStudyAids:
+    ld a,(studyAids)
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: resetStudyAids()
+;
+; Sets the number of study aids based on difficulty setting
+;
+; Dirty: A, B
+; 
+;-----------------------------------------------------------------------------------
+resetStudyAids:
+    ld a,(difficulty)
+    ld b,STUDY_AIDS_START_COUNT_NORMAL
+    cp ENUM_DIFFICULTY_NORMAL
+    jr z, .exit
+    ld b,STUDY_AIDS_START_COUNT_HARD
+    cp ENUM_DIFFICULTY_HARD
+    jr z, .exit
+    ld b,STUDY_AIDS_START_COUNT_EASY
+.exit:
+    ld a,b
+    ld (studyAids),a
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: decreaseStudyAids() -> uint8
+;
+; Decreases the remaining study aids by 1, to a minimum of 0
+;
+; Out: A = number of remaining study aids
+; 
+;-----------------------------------------------------------------------------------
+decreaseStudyAids:
+    ld a,(studyAids)
+    or a
+    jr z, .exit
+    dec a
+    ld (studyAids),a
+.exit:
     ret
 
 ;-----------------------------------------------------------------------------------
@@ -563,6 +747,10 @@ collegeNameStr8: db "Radnor College",0
 collegeNameStr9: db "Winterville",0
 collegeNameStr10: db "St Kayleigh's College",0
 
+easyStr:    db "Lower Second (Easy)",0
+normalStr:  db "Upper Second (Normal)",0
+hardStr:    db "First Class (Hard)",0
+
 term:
     db 1
 
@@ -572,7 +760,16 @@ year:
 college:
     db 0
 
+difficulty:
+    db ENUM_DIFFICULTY_NORMAL
+
+studyAids:
+    db STUDY_AIDS_START_COUNT_NORMAL
+
 jumbled:
     ds 64
+
+
+
 
     endmodule
