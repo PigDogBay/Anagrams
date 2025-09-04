@@ -715,14 +715,14 @@ yearNameJumpTable:
     dw yearNameStr7
     dw yearNameStr8
 
-yearNameStr1: db "Undergrad Fresher",0
-yearNameStr2: db "Undergrad Yr 2",0
-yearNameStr3: db "Undergrad Finals",0
-yearNameStr4: db "Masters",0
-yearNameStr5: db "DPhil Yr 1",0
-yearNameStr6: db "DPhil Yr 2",0
-yearNameStr7: db "DPhil Finals",0
-yearNameStr8: db "Professorship",0
+yearNameStr1: db "Fresher (Yr 1)",0
+yearNameStr2: db "Sophomore (Yr 2)",0
+yearNameStr3: db "Finals (Yr 3)",0
+yearNameStr4: db "Masters (Yr 4)",0
+yearNameStr5: db "DPhil (Yr 5)",0
+yearNameStr6: db "DPhil (Yr 6)",0
+yearNameStr7: db "DPhil (Yr 7)",0
+yearNameStr8: db "Professorship (Yr 8)",0
 
 collegeNameJumpTable:
     dw collegeNameStr1
