@@ -15,58 +15,9 @@
 enter:
     call NextSprite.removeAll
     call SpriteList.removeAll
-    call Tilemap.clear
     ; First sprite always the mouse pointer so that it is on top
     call Game.addMouseSpritePointer
 
-    ; call Tile.removeAll
-    ; ld hl,titleText
-    ; ld c, 10
-    ; call Tile.createTiles
-    ; call Tile.tilesToSprites
-
-    ld d, 9
-    ld e, 7
-    ld hl,universityText
-    call Print.setCursorPosition
-    ld b,%00000000
-    call Print.printString
-
-    ld d, 6
-    ld e, 12
-    ld hl,selectText1
-    call Print.setCursorPosition
-    ld b,%00010000
-    call Print.printString
-
-    ld d, 6
-    ld e, 14
-    ld hl,selectText2
-    call Print.setCursorPosition
-    ld b,%00010000
-    call Print.printString
-
-    ld d, 6
-    ld e, 16
-    ld hl,selectText3
-    call Print.setCursorPosition
-    ld b,%00010000
-    call Print.printString
-
-    ld d, 4
-    ld e, 20
-    ld hl,settingsInstruction
-    call Print.setCursorPosition
-    ld b,%00000000
-    call Print.printString
-
-
-    ld d, 8
-    ld e, 29
-    ld hl,startInstruction
-    call Print.setCursorPosition
-    ld b,%00010000
-    call Print.printString
 
     ;Animated Sprite Tile
     ;Add slots and amke SYLLABUS tiles appear
@@ -88,10 +39,8 @@ enter:
     ld b, 9 : ld c, 46 : call Visibility.add
     ld b, 10 : ld c, 50 : call Visibility.add
     call Visibility.start
+    jp printText
 
-
-
-    ret
 
 update:
     ;wait for use to click mouse button
@@ -109,15 +58,87 @@ update:
     ret
 
 
+printText:
+    call Tilemap.clear
+    ld d, 9
+    ld e, 7
+    ld hl,universityText
+    call Print.setCursorPosition
+    ld b,%00000000
+    call Print.printString
+
+    ; College Selector
+    ld d, 6
+    ld e, 12
+    ld hl,selectText1
+    call Print.setCursorPosition
+    ld b,%00010000
+    call Print.printString
+
+    ld d, 9
+    ld e, 12
+    call Print.setCursorPosition
+    call Puzzles.getCollegeName
+    ld b,%00000000
+    call Print.printString
+
+    ;Year Selector
+    ld d, 6
+    ld e, 14
+    ld hl,selectText2
+    call Print.setCursorPosition
+    ld b,%00010000
+    call Print.printString
+
+    ld d, 9
+    ld e, 14
+    call Print.setCursorPosition
+    call Puzzles.getYearName
+    ld b,%0000000
+    call Print.printString
+
+    ;Difficulty Selector
+    ld d, 6
+    ld e, 16
+    ld hl,selectText3
+    call Print.setCursorPosition
+    ld b,%00010000
+    call Print.printString
+
+    ld d, 9
+    ld e, 16
+    call Print.setCursorPosition
+    call Puzzles.getDifficultyName
+    ld b,%0000000
+    call Print.printString
+
+    ;1,2 or 3 instruction
+    ld d, 4
+    ld e, 21
+    ld hl,settingsInstruction
+    call Print.setCursorPosition
+    ld b,%00000000
+    call Print.printString
+
+
+    ; Click to continue
+    ld d, 8
+    ld e, 29
+    ld hl,startInstruction
+    call Print.setCursorPosition
+    ld b,%00010000
+    call Print.printString
+    ret
+
 universityText:
     db "UNIVERSITY OF OXBRIDGE",0
 
 selectText1:
-    db "1>",0    
+    db "1. ",0    
 selectText2:
-    db "2>",0    
+    db "2. ",0    
 selectText3:
-    db "3>",0    
+    db "3. ",0    
 
 settingsInstruction:
     db "PRESS 1,2 OR 3 TO CYCLE SETTINGS",0
