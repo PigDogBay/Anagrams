@@ -161,10 +161,8 @@ UT_getYearName1:
     ld hl, $0501
     call Puzzles.select
     call Puzzles.getYearName
-    TEST_STRING_PTR hl, .data
+    TEST_STRING_PTR hl, Puzzles.yearNameStr5
     TC_END
-.data:
-    db "DPhil Yr 1",0
 
 UT_getCollegeName1:
     call Puzzles.resetCollege

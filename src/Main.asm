@@ -22,6 +22,7 @@ SPRITE_PATTERN_COUNT:         equ 30
 ; 
 ;-----------------------------------------------------------------------------------
     include "hardware/PortsRegisters.asm"
+    include "utils/Timing.asm"
     include "hardware/DMA.asm"
     include "hardware/Graphics.asm"
     include "hardware/NextSprite.asm"
@@ -42,7 +43,6 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "utils/Maths.asm"
     include "utils/String.asm"
     include "utils/Exceptions.asm"
-    include "utils/Timing.asm"
     include "animation/Animator.asm"
     include "animation/Flash.asm"
     include "animation/FlashTwo.asm"

@@ -107,6 +107,26 @@ restartTimer:
 
 ;-----------------------------------------------------------------------------------
 ; 
+; Function: restartTimer(uint16 ptr)
+; 
+; Stops the timer: 
+;     startCount = 0
+;     endCount = 0
+;
+; In: IX - pointer to the timingStruct
+; 
+;-----------------------------------------------------------------------------------
+stopTimer:
+    ld (ix + timingStruct.startCount),0
+    ld (ix + timingStruct.startCount+1),0
+
+    ld (ix + timingStruct.endCount),0
+    ld (ix + timingStruct.endCount+1),0
+    ret
+
+
+;-----------------------------------------------------------------------------------
+; 
 ; Function: hasTimerElapsed(uint16 ptr) -> Boolean
 ; 
 ; Poll this function to determine if the timer has elapsed.
@@ -119,7 +139,7 @@ restartTimer:
 ; 
 ;-----------------------------------------------------------------------------------
 hasTimerElapsed:
-    push de,hl
+    push bc,de,hl
 
     ;BC = tickCount, DE = startCount, HL = endCount
     ld bc,(tickCount)
@@ -177,13 +197,13 @@ hasTimerElapsed:
 
 .stillTicking:
     xor a
-    pop hl,de
+    pop hl,de,bc
     ret
 
 .elasped:
     ld a,1
     or a
-    pop hl,de
+    pop hl,de,bc
     ret
 
 

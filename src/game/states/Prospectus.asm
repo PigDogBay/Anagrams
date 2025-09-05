@@ -48,6 +48,9 @@ update:
     cp MouseDriver.STATE_BACKGROUND_CLICKED
     jr z, .mousePressed
     call Game.updateSprites
+    call Keyboard.getMenuChar
+    or a
+    jp nz, keyPressed
     ret
 
 .mousePressed:
@@ -56,6 +59,29 @@ update:
     ld hl, GS_ROUND
     call GameStateMachine.change
     ret
+
+;
+; A = 1,2 or 3
+;
+keyPressed:
+    cp 1
+    jr z, .pressed1
+    cp 2
+    jr z, .pressed2
+    cp 3
+    jr z, .pressed3
+    ret
+.pressed1:
+    call Puzzles.nextCollege
+    jp printText
+.pressed2:
+    call Puzzles.nextYearSelect
+    jp printText
+.pressed3:
+    call Puzzles.nextDifficulty
+    jp printText
+
+
 
 
 printText:
@@ -122,7 +148,7 @@ printText:
 
 
     ; Click to continue
-    ld d, 8
+    ld d, 7
     ld e, 29
     ld hl,startInstruction
     call Print.setCursorPosition
