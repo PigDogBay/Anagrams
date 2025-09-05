@@ -11,6 +11,7 @@
 @GS_PROSPECTUS: 
     stateStruct enter,update
 
+TITLE_Y equ 30
 
 enter:
     call NextSprite.removeAll
@@ -180,16 +181,16 @@ spriteData:
     spriteItem 0,160,128,0,0 | SPRITE_VISIBILITY_MASK,0,0
 
     ;Tile sprites
-    spriteItem 1,61,33,0,'P'-Tile.ASCII_PATTERN_OFFSET,1,0
-    spriteItem 2,81,33,0, 'R'-Tile.ASCII_PATTERN_OFFSET,2,0
-    spriteItem 3,101,33,0,'O'-Tile.ASCII_PATTERN_OFFSET,3,0
-    spriteItem 4,121,33,0,'S'-Tile.ASCII_PATTERN_OFFSET,4,0
-    spriteItem 5,141,33,0,'P'-Tile.ASCII_PATTERN_OFFSET,5,0
-    spriteItem 6,161,33,0,'E'-Tile.ASCII_PATTERN_OFFSET,6,0
-    spriteItem 7,181,33,0,'C'-Tile.ASCII_PATTERN_OFFSET,7,0
-    spriteItem 8,201,33,0,'T'-Tile.ASCII_PATTERN_OFFSET,8,0
-    spriteItem 9,221,33,0,'U'-Tile.ASCII_PATTERN_OFFSET,9,0
-    spriteItem 10,241,33,0,'S'-Tile.ASCII_PATTERN_OFFSET,10,0
+    spriteItem 1,61,TITLE_Y,0,'P'-Tile.ASCII_PATTERN_OFFSET,1,0
+    spriteItem 2,81,TITLE_Y,0, 'R'-Tile.ASCII_PATTERN_OFFSET,2,0
+    spriteItem 3,101,TITLE_Y,0,'O'-Tile.ASCII_PATTERN_OFFSET,3,0
+    spriteItem 4,121,TITLE_Y,0,'S'-Tile.ASCII_PATTERN_OFFSET,4,0
+    spriteItem 5,141,TITLE_Y,0,'P'-Tile.ASCII_PATTERN_OFFSET,5,0
+    spriteItem 6,161,TITLE_Y,0,'E'-Tile.ASCII_PATTERN_OFFSET,6,0
+    spriteItem 7,181,TITLE_Y,0,'C'-Tile.ASCII_PATTERN_OFFSET,7,0
+    spriteItem 8,201,TITLE_Y,0,'T'-Tile.ASCII_PATTERN_OFFSET,8,0
+    spriteItem 9,221,TITLE_Y,0,'U'-Tile.ASCII_PATTERN_OFFSET,9,0
+    spriteItem 10,241,TITLE_Y,0,'S'-Tile.ASCII_PATTERN_OFFSET,10,0
 
 spriteLen: equ $ - spriteData
 
