@@ -98,14 +98,17 @@ resetAllClipWindows:
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Waits until raster hits line 192
+; Waits until raster hits line 224 which is just below the 320x256 display
+; Note line line 0 of the raster is at y=32 for the 320x256 display, so 
+; 256 - 32 = 224 
+;
 ; Dirty: BC, HL, A
 ;
 ;-----------------------------------------------------------------------------------
 waitRaster:
     ; Raster returned in HL
     call readRaster
-    ld a,192
+    ld a,224
     cp l
     jr nz, waitRaster
 
