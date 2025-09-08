@@ -20,6 +20,10 @@ copyAllTileIds:
     inc de
     djnz .loop
 
+    ;null terminate the list
+    xor a
+    ld (de),a
+
     ret
 ;-----------------------------------------------------------------------------------
 ;
@@ -112,9 +116,10 @@ update:
     ex de,hl
 
     call SpriteList.find
+    ;Exit if we didn't find the sprite
     ld a,h
     or l
-    jr z, .next
+    jr z, .done
 
     ;HL points to spriteItem
     add hl,spriteItem.palette
@@ -129,7 +134,6 @@ update:
     ld hl, Animator.finishedFlags
     set Animator.BIT_FLASH_SPRITES,(hl)
     ret
-
 
 paletteOffset:
     db 0
