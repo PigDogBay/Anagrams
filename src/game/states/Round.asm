@@ -57,6 +57,7 @@ update:
 
 .mousePressed:
     ld hl, GS_START
+    STOP_ALL_ANIMATION
     call GameStateMachine.change
     ret
 
