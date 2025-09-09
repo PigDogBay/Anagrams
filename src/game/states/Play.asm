@@ -17,6 +17,7 @@ enter:
     ;Set up callback when drag ends
     ld hl, dragEnd
     ld (PlayMouse.dragEndCallback),hl
+    call printMoney
     ret
 
 update:
@@ -59,6 +60,34 @@ dragEnd:
 
 .slotOccuppied:
     call Board.bounceTile
+    ret
+
+
+printMoney:
+    ld hl, Print.buffer
+    ld (hl), 96  ; £ symbol
+    inc hl
+    ex de,hl
+
+    ld hl,(Puzzles.money)
+    ld a,1
+    call ScoresConvert.ConvertToDecimal
+
+    ;Append extra 0 and null terminator
+    ex de,hl
+    add hl,a
+    ld (hl),'0'
+    inc hl
+    ld (hl),0
+
+    ;Print the buffer to the screen
+    ld hl,Print.buffer
+    ld d, 0
+    ld e, 0
+    call Print.setCursorPosition
+    ld b,%00000000
+    call Print.printString
+
     ret
 
 

@@ -764,6 +764,10 @@ college:
 difficulty:
     db ENUM_DIFFICULTY_NORMAL
 
+; TODO replace study aids with money
+money:
+    dw 900
+
 studyAids:
     db STUDY_AIDS_START_COUNT_NORMAL
 
