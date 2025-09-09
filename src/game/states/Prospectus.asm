@@ -149,7 +149,7 @@ printText:
 
 
     ; Click to continue
-    ld d, 7
+    ld d, 13
     ld e, 29
     ld hl,startInstruction
     call Print.setCursorPosition
@@ -168,10 +168,10 @@ selectText3:
     db "3. ",0    
 
 settingsInstruction:
-    db "PRESS 1,2 OR 3 TO CYCLE SETTINGS",0
+    db "PRESS 1,2 OR 3 TO CYCLE OPTIONS",0
 
 startInstruction:
-    db "CLICK TO BEGIN YOUR STUDIES",0
+    db "CLICK TO ENROL",0
 
 
 spriteData:

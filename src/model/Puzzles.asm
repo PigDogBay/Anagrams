@@ -747,9 +747,10 @@ collegeNameStr8: db "Radnor College",0
 collegeNameStr9: db "Winterville",0
 collegeNameStr10: db "St Kayleigh's College",0
 
-easyStr:    db "Lower Second (Easy)",0
-normalStr:  db "Upper Second (Normal)",0
-hardStr:    db "First Class (Hard)",0
+; ` is ASCII value for £
+easyStr:    db "Student Loan `12,000 (Easy)",0
+normalStr:  db "Bursary `9,000 (Normal)",0
+hardStr:    db "Scholarship `6,000 (Hard)",0
 
 term:
     db 1
