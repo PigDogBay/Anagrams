@@ -7,6 +7,8 @@
     include "hardware/Graphics.asm"
     include "hardware/NextSprite.asm"
     include "hardware/MouseDriver.asm"
+    include "hardware/Tilemap.asm"
+    include "hardware/Print.asm"
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
     include "model/Grid.asm"
@@ -34,6 +36,7 @@
     ;Test includes
     include "tests/UnitTests.inc"
     include "tests/hardware/MouseDriverTests.asm"
+    include "tests/hardware/PrintTests.asm"
     include "tests/model/MouseTests.asm"
     include "tests/model/GridTests.asm"
     include "tests/model/TileTests.asm"

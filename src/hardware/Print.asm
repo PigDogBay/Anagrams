@@ -103,8 +103,41 @@ printCentred:
     jp printString
 
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: bufferPrint(uint16 buffer, uint16 str) -> uint16
+; 
+; Copies the string into the buffer, null terminator is also copied
+;
+; In: DE - Pointer to the buffer
+;     HL - pointer to null terminated string
+;
+; Out: DE - Pointer to next char (null terminator) in the buffer
+; 
+; Dirty: A,BC,DE,HL
+;
+;-----------------------------------------------------------------------------------
+bufferPrint:
+    call String.len
+    ld b,0
+    ld c,a
+    ldir
+    ; Null terminate working string
+    ld (hl),0
+    ret
+
+
+;-----------------------------------------------------------------------------------
+;
+; Variables 
+;
+;-----------------------------------------------------------------------------------
 
 tilemapAddress:
     dw Tilemap.START_OF_TILEMAP
+
+buffer: 
+    block CHARACTERS_PER_LINE+1
+
 
     endmodule
