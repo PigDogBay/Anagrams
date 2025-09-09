@@ -1,7 +1,7 @@
     module Print
 
 ASCII_TO_TILE_INDEX      equ 32
-
+CHARACTERS_PER_LINE      equ 40
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -74,6 +74,35 @@ setCursorPosition:
     ld (tilemapAddress),hl
     pop hl, af
     ret
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: printCentred(uint16 str, uint8 y, uint8 attr) 
+; Sets the x position so that the
+; 
+; In: HL - pointer to null terminated string
+;     B - attribute value, bits:
+;         7-4: Palette Offset
+;           3: X Mirror
+;           2: Y Mirror
+;           1: Rotate (90 clockwise)
+;           0: * 1 = ULA over tilemap, 0 = tilemap over ULA
+;     E - Y position 
+; 
+; Out: D - X position of the string
+;
+;-----------------------------------------------------------------------------------
+printCentred:
+    call String.len
+    neg
+    add CHARACTERS_PER_LINE
+    sra a
+    ld d,a
+    call setCursorPosition
+    jp printString
+
+
 
 tilemapAddress:
     dw Tilemap.START_OF_TILEMAP

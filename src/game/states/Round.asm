@@ -65,45 +65,35 @@ printText:
     call Tilemap.clear
 
     ; College
-    ld d, 9
     ld e, 12
-    call Print.setCursorPosition
     call Puzzles.getCollegeName
     ld b,%00000000
-    call Print.printString
+    call Print.printCentred
 
     ; Year 
-    ld d, 9
     ld e, 14
-    call Print.setCursorPosition
     call Puzzles.getYearName
     ld b,%0000000
-    call Print.printString
+    call Print.printCentred
 
     ; Difficulty
-    ld d, 9
     ld e, 16
-    call Print.setCursorPosition
     call Puzzles.getDifficultyName
     ld b,%0000000
-    call Print.printString
+    call Print.printCentred
 
-    ld d, 9
     ld e, 23
-    call Print.setCursorPosition
     call Puzzles.getCategory
     call Puzzles.categoryToString
     ld b,%0000000
-    call Print.printString
+    call Print.printCentred
 
 
     ; Click to continue
-    ld d, 7
     ld e, 29
     ld hl,startInstruction
-    call Print.setCursorPosition
     ld b,%00010000
-    call Print.printString
+    call Print.printCentred
     ret
 
 
