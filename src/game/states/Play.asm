@@ -19,6 +19,7 @@ enter:
     ld (PlayMouse.dragEndCallback),hl
     call printMoney
     call printShortYearTerm
+    call printCategory
     ret
 
 update:
@@ -104,6 +105,14 @@ printShortYearTerm:
     ret
 .delimiter:
     db ". ",0
+
+printCategory:
+    call Puzzles.getCategory
+    call Puzzles.categoryToString
+    ld e, 3
+    ld b,%00000000
+    call Print.printCentred
+    ret
 
 
     endmodule
