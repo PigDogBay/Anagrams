@@ -22,11 +22,13 @@
 ;
 ; Function: getTerm() -> uint8
 ; Function: getTermName() -> uint16
+; Function: getShortTermName() -> uint16
 ;
 ; Function: getYear() -> uint8
 ; Function: previousYearSelect() -> uint8
 ; Function: nextYearSelect() -> uint8
 ; Function: getYearName() -> uint16
+; Function: getShortYearName() -> uint16
 ;
 ; Function: getCollege() -> uint8
 ; Function: resetCollege() -> uint8
@@ -365,6 +367,27 @@ getTermName:
 
 ;-----------------------------------------------------------------------------------
 ; 
+; Function: getShortTermName() -> uint16
+;
+; Getter for current term's short name
+;
+; Out: HL = pointer to term's short name string 
+; 
+;-----------------------------------------------------------------------------------
+getShortTermName:
+    ld a,(term)
+    ld hl, romanII
+    cp 2
+    jr z, .exit
+    ld hl, romanIII
+    cp 3
+    jr z, .exit
+    ld hl, romanI
+.exit:
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
 ; Function: getYear() -> uint8
 ;
 ; Getter for current year
@@ -431,6 +454,32 @@ getYearName:
     ; Subtract 1 as year starts at 1
     dec a
     ld hl, yearNameJumpTable
+    ; Add twice, as table is two bytes per entry
+    add hl,a
+    add hl,a
+    ; get jump entry
+    ld de,(hl)
+    ld hl,de
+    pop de
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: getShortYearName() -> uint16
+;
+; Getter for current year's short name
+;
+; Out: HL = current year's short name
+;
+; Dirty A
+; 
+;-----------------------------------------------------------------------------------
+getShortYearName:
+    push de
+    ld a,(year)
+    ; Subtract 1 as year starts at 1
+    dec a
+    ld hl, romanJumpTable
     ; Add twice, as table is two bytes per entry
     add hl,a
     add hl,a
@@ -748,6 +797,29 @@ catFoodStr: db "Food",0
 termNameStr1: db "Michaelmas",0
 termNameStr2: db "Hilary",0
 termNameStr3: db "Trinity",0
+
+romanJumpTable:
+    dw romanI
+    dw romanII
+    dw romanIII
+    dw romanIV
+    dw romanV
+    dw romanVI
+    dw romanVII
+    dw romanVIII
+    dw romanIX
+    dw romanX
+    
+romanI : db "I",0
+romanII : db "II",0
+romanIII : db "III",0
+romanIV : db "IV",0
+romanV : db "V",0
+romanVI : db "VI",0
+romanVII : db "VII",0
+romanVIII : db "VIII",0
+romanIX : db "IX",0
+romanX : db "X",0
 
 yearNameJumpTable:
     dw yearNameStr1
