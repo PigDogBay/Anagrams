@@ -255,49 +255,72 @@ UT_difficultyWrap2:
     nop ; ASSERTION A == Puzzles.ENUM_DIFFICULTY_EASY
     TC_END
 
-; Function: getStudyAids() -> uint8
-; Function: resetStudyAids()
-; Function: decreaseStudyAids() -> uint8
+; Function: getMoney() -> uint16
+; Function: resetMoney()
+; Function: debitMoney(uint16 debit) -> uint16
+; Function: creditMoney(uint16 credit) -> uint16
+; Function: topUpMoney() -> uint16
 
-UT_resetStudyAids1
+UT_resetMoney1
     ld a, Puzzles.ENUM_DIFFICULTY_EASY
     ld (Puzzles.difficulty), a
-    call Puzzles.resetStudyAids
-    call Puzzles.getStudyAids
-    nop ; ASSERTION A == Puzzles.STUDY_AIDS_START_COUNT_EASY
+    call Puzzles.resetMoney
+    call Puzzles.getMoney
+    nop ; ASSERTION HL == Puzzles.MONEY_EASY
     TC_END
-UT_resetStudyAids2
+UT_resetMoney2
     ld a, Puzzles.ENUM_DIFFICULTY_NORMAL
     ld (Puzzles.difficulty), a
-    call Puzzles.resetStudyAids
-    call Puzzles.getStudyAids
-    nop ; ASSERTION A == Puzzles.STUDY_AIDS_START_COUNT_NORMAL
+    call Puzzles.resetMoney
+    call Puzzles.getMoney
+    nop ; ASSERTION HL == Puzzles.MONEY_NORMAL
     TC_END
-UT_resetStudyAids3
-    ld a, Puzzles.ENUM_DIFFICULTY_HARD
-    ld (Puzzles.difficulty), a
-    call Puzzles.resetStudyAids
-    call Puzzles.getStudyAids
-    nop ; ASSERTION A == Puzzles.STUDY_AIDS_START_COUNT_HARD
-    TC_END
-
-UT_decreaseStudyAids1
+UT_resetMoney3
     ld a, Puzzles.ENUM_DIFFICULTY_NORMAL
     ld (Puzzles.difficulty), a
-    call Puzzles.resetStudyAids
-    call Puzzles.decreaseStudyAids
-    call Puzzles.getStudyAids
-    nop ; ASSERTION A == Puzzles.STUDY_AIDS_START_COUNT_NORMAL - 1
+    call Puzzles.resetMoney
+    call Puzzles.getMoney
+    nop ; ASSERTION HL == Puzzles.MONEY_NORMAL
     TC_END
 
-UT_decreaseStudyAids2
-    ld a, 0
-    ld (Puzzles.studyAids), a
-    call Puzzles.decreaseStudyAids
-    call Puzzles.getStudyAids
-    nop ; ASSERTION A == 0
+UT_debitMoney1
+    ld a, Puzzles.ENUM_DIFFICULTY_NORMAL
+    ld (Puzzles.difficulty), a
+    call Puzzles.resetMoney
+    ld de,500
+    call Puzzles.debitMoney
+    call Puzzles.getMoney
+    nop ; ASSERTION HL == Puzzles.MONEY_NORMAL - 500
     TC_END
 
+UT_debitMoney2
+    ld a, Puzzles.ENUM_DIFFICULTY_NORMAL
+    ld (Puzzles.difficulty), a
+    call Puzzles.resetMoney
+    ld de,3000
+    call Puzzles.debitMoney
+    call Puzzles.getMoney
+    nop ; ASSERTION HL == Puzzles.MONEY_NORMAL
+    TC_END
+
+UT_creditMoney1
+    ld a, Puzzles.ENUM_DIFFICULTY_NORMAL
+    ld (Puzzles.difficulty), a
+    call Puzzles.resetMoney
+    ld de,500
+    call Puzzles.creditMoney
+    call Puzzles.getMoney
+    nop ; ASSERTION HL == Puzzles.MONEY_NORMAL + 500
+    TC_END
+
+UT_topUpMoney1
+    ld a, Puzzles.ENUM_DIFFICULTY_NORMAL
+    ld (Puzzles.difficulty), a
+    call Puzzles.resetMoney
+    call Puzzles.topUpMoney
+    call Puzzles.getMoney
+    nop ; ASSERTION HL == Puzzles.MONEY_NORMAL * 2
+    TC_END
 
 UT_behaviour1:
     ld hl,$0101

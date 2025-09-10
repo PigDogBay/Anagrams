@@ -39,9 +39,11 @@
 ; Function: previousDifficulty() -> uint8
 ; Function: nextDifficulty() -> uint8
 ;
-; Function: getStudyAids() -> uint8
-; Function: resetStudyAids()
-; Function: decreaseStudyAids() -> uint8
+; Function: getMoney() -> uint16
+; Function: resetMoney()
+; Function: debitMoney(uint16 debit) -> uint16
+; Function: creditMoney(uint16 credit) -> uint16
+; Function: topUpMoney() -> uint16
 ; 
 ;-----------------------------------------------------------------------------------
     module Puzzles
@@ -53,9 +55,9 @@ ENUM_DIFFICULTY_NORMAL: equ 1
 ENUM_DIFFICULTY_HARD:   equ 2
 DIFFICULTY_COUNT:       equ 3
 
-STUDY_AIDS_START_COUNT_EASY:   equ 12
-STUDY_AIDS_START_COUNT_NORMAL: equ 9
-STUDY_AIDS_START_COUNT_HARD:   equ 6
+MONEY_EASY:   equ 1200
+MONEY_NORMAL: equ 900
+MONEY_HARD:   equ 600
 
 
 ;-----------------------------------------------------------------------------------
@@ -604,56 +606,98 @@ nextDifficulty:
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: getStudyAids() -> uint8
+; Function: getMoney() -> uint16
 ;
-; Getter for number of study aids remaining
+; Getter for money the player has
 ;
-; Out: A = number of remaining study aids
+; Out: HL = money
 ; 
 ;-----------------------------------------------------------------------------------
-getStudyAids:
-    ld a,(studyAids)
+getMoney:
+    ld hl,(money)
     ret
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: resetStudyAids()
+; Function: resetMoney()
 ;
-; Sets the number of study aids based on difficulty setting
+; Sets the money based on difficulty setting, call this at the start of a new game
 ;
-; Dirty: A, B
+; Dirty: A, HL
 ; 
 ;-----------------------------------------------------------------------------------
-resetStudyAids:
+resetMoney:
     ld a,(difficulty)
-    ld b,STUDY_AIDS_START_COUNT_NORMAL
+    ld hl,MONEY_NORMAL
     cp ENUM_DIFFICULTY_NORMAL
     jr z, .exit
-    ld b,STUDY_AIDS_START_COUNT_HARD
+    ld hl,MONEY_HARD
     cp ENUM_DIFFICULTY_HARD
     jr z, .exit
-    ld b,STUDY_AIDS_START_COUNT_EASY
+    ld hl,MONEY_EASY
 .exit:
-    ld a,b
-    ld (studyAids),a
+    ld (money),hl
     ret
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: decreaseStudyAids() -> uint8
+; Function: debitMoney(uint16 debit) -> uint16
 ;
-; Decreases the remaining study aids by 1, to a minimum of 0
+; Decreases money the student has by the debit
 ;
-; Out: A = number of remaining study aids
+; In:  DE = Amount to debit
+; Out: nc HL = current balance of money 
+;      carry set: card refused, unable to purchase item
+;-----------------------------------------------------------------------------------
+debitMoney:
+    ld hl,(money)
+    or a
+    sbc hl,de
+    jr c, .exit
+    ld (money),hl
+.exit:
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: creditMoney(uint16 credit) -> uint16
+;
+; Increases money the student has by the credit
+;
+; In:  DE = Amount to credit
+; Out: HL = current balance of money 
 ; 
 ;-----------------------------------------------------------------------------------
-decreaseStudyAids:
-    ld a,(studyAids)
-    or a
+creditMoney:
+    ld hl,(money)
+    add hl,de
+    ld (money),hl
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: topUpMoney() -> uint16
+;
+; Adds another year's worth of student grant to the balance
+;
+; Out: HL = current balance of money 
+;
+; Dirty: A, DE
+; 
+;-----------------------------------------------------------------------------------
+topUpMoney:
+    ld a,(difficulty)
+    ld de,MONEY_NORMAL
+    cp ENUM_DIFFICULTY_NORMAL
     jr z, .exit
-    dec a
-    ld (studyAids),a
+    ld de,MONEY_HARD
+    cp ENUM_DIFFICULTY_HARD
+    jr z, .exit
+    ld de,MONEY_EASY
 .exit:
+    ld hl,(money)
+    add hl,de
+    ld (money),hl
     ret
 
 ;-----------------------------------------------------------------------------------
@@ -764,12 +808,8 @@ college:
 difficulty:
     db ENUM_DIFFICULTY_NORMAL
 
-; TODO replace study aids with money
 money:
     dw 900
-
-studyAids:
-    db STUDY_AIDS_START_COUNT_NORMAL
 
 jumbled:
     ds 64
