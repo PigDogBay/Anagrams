@@ -58,7 +58,7 @@ update:
     ld hl,$0101
     call Puzzles.select
     call Puzzles.resetMoney
-    ld hl, GS_ROUND
+    ld hl, GS_START
     call GameStateMachine.change
     ret
 

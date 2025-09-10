@@ -57,17 +57,23 @@ update:
 .mousePressed:
     call Puzzles.nextTerm
     or a
-    jr nz, .start
+    jr nz, .newTerm
     
     call Puzzles.nextYear
     or a
-    jr nz, .start
+    jr nz, .newRound
     
     //TODO GS_GAME_COMPLETED, for now go back to level 1
     ld hl,$0101
     call Puzzles.select
+    jr .newRound
 
-.start:
+.newTerm:
+    STOP_ALL_ANIMATION
+    ld hl, GS_START
+    call GameStateMachine.change
+    ret
+.newRound:
     STOP_ALL_ANIMATION
     ld hl, GS_ROUND
     call GameStateMachine.change
