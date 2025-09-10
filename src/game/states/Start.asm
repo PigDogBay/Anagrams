@@ -35,6 +35,7 @@ enter:
     call Tile.createTiles
     call Tile.tilesToSprites
     call Slot.slotsToSprites
+
     ret
 
 update:
@@ -57,8 +58,6 @@ addButtons:
     ld hl, quitSprite
     call SpriteList.addSprite
     ret
-
-
 
 lifeLine1Sprite:
     spriteItem 0, 4, 48, 0, 8 | SPRITE_VISIBILITY_MASK, LIFELINE_1_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE

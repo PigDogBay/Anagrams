@@ -22,4 +22,19 @@ UT_bufferPrint1:
 .expectedString:
     db "Alien Earth",0
 
+;Check for null termination
+UT_bufferPrint2:
+    ld de, buffer
+    ld hl, .bigString : call Print.bufferPrint
+    ld de, buffer
+    ld hl, .littleString : call Print.bufferPrint
+
+    TEST_STRING_PTR buffer, .littleString
+    TC_END
+.bigString
+    db "Hanging Chad",0
+.littleString
+    db "Balatro",0
+
+
     endmodule

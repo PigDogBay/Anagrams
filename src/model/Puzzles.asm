@@ -794,9 +794,9 @@ catHistoryStr: db "History",0
 catScienceStr: db "Science",0
 catFoodStr: db "Food",0
 
-termNameStr1: db "Michaelmas",0
-termNameStr2: db "Hilary",0
-termNameStr3: db "Trinity",0
+termNameStr1: db "MICHAELMAS",0
+termNameStr2: db "HILARY",0
+termNameStr3: db "TRINITY",0
 
 romanJumpTable:
     dw romanI
@@ -881,7 +881,8 @@ difficulty:
     db ENUM_DIFFICULTY_NORMAL
 
 money:
-    dw 900
+    dw 0
+    
 
 jumbled:
     ds 64

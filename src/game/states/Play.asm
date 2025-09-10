@@ -18,6 +18,7 @@ enter:
     ld hl, dragEnd
     ld (PlayMouse.dragEndCallback),hl
     call printMoney
+    call printShortYearTerm
     ret
 
 update:
@@ -73,22 +74,36 @@ printMoney:
     ld a,1
     call ScoresConvert.ConvertToDecimal
 
-    ;Append extra 0 and null terminator
-    ex de,hl
-    add hl,a
-    ld (hl),'0'
-    inc hl
-    ld (hl),0
-
     ;Print the buffer to the screen
     ld hl,Print.buffer
-    ld d, 0
-    ld e, 0
+    ld d, 1
+    ld e, 1
     call Print.setCursorPosition
     ld b,%00000000
     call Print.printString
 
     ret
+
+printShortYearTerm:
+    ld de, Print.buffer
+
+    call Puzzles.getShortYearName
+    call Print.bufferPrint
+
+    ld hl, .delimiter
+    call Print.bufferPrint
+
+    call Puzzles.getTermName
+    call Print.bufferPrint
+
+    ;Print the buffer to the screen
+    ld hl,Print.buffer
+    ld e, 1
+    ld b,%00000000
+    call Print.printCentred
+    ret
+.delimiter:
+    db ". ",0
 
 
     endmodule

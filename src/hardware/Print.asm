@@ -123,7 +123,9 @@ bufferPrint:
     ld c,a
     ldir
     ; Null terminate working string
+    ex de,hl
     ld (hl),0
+    ex de,hl
     ret
 
 
