@@ -57,6 +57,7 @@ update:
 .mousePressed:
     ld hl,$0101
     call Puzzles.select
+    call Puzzles.resetMoney
     ld hl, GS_ROUND
     call GameStateMachine.change
     ret
