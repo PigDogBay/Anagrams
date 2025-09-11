@@ -55,17 +55,17 @@ update:
     ret
 
 .mousePressed:
-    call Puzzles.nextTerm
+    call YearTerm.nextTerm
     or a
     jr nz, .newTerm
     
-    call Puzzles.nextYear
+    call YearTerm.nextYear
     or a
     jr nz, .newRound
     
     //TODO GS_GAME_COMPLETED, for now go back to level 1
     ld hl,$0101
-    call Puzzles.select
+    call YearTerm.select
     jr .newRound
 
 .newTerm:

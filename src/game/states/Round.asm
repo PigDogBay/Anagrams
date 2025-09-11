@@ -73,7 +73,7 @@ printText:
 
     ; Year 
     ld e, 14
-    call Puzzles.getYearName
+    call YearTerm.getYearName
     ld b,%0000000
     call Print.printCentred
 

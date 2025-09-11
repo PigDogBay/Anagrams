@@ -56,7 +56,7 @@ update:
 
 .mousePressed:
     ld hl,$0101
-    call Puzzles.select
+    call YearTerm.select
     call Money.resetMoney
     ld hl, GS_START
     call GameStateMachine.change
@@ -77,7 +77,7 @@ keyPressed:
     call Puzzles.nextCollege
     jp printText
 .pressed2:
-    call Puzzles.nextYearSelect
+    call YearTerm.nextYearSelect
     jp printText
 .pressed3:
     call Money.nextDifficulty
@@ -121,7 +121,7 @@ printText:
     ld d, 9
     ld e, 14
     call Print.setCursorPosition
-    call Puzzles.getYearName
+    call YearTerm.getYearName
     ld b,%0000000
     call Print.printString
 

@@ -71,7 +71,7 @@ printMoney:
     inc hl
     ex de,hl
 
-    ld hl,(Puzzles.money)
+    ld hl,(Money.money)
     ld a,1
     call ScoresConvert.ConvertToDecimal
 
@@ -88,13 +88,13 @@ printMoney:
 printShortYearTerm:
     ld de, Print.buffer
 
-    call Puzzles.getShortYearName
+    call YearTerm.getShortYearName
     call Print.bufferPrint
 
     ld hl, .delimiter
     call Print.bufferPrint
 
-    call Puzzles.getTermName
+    call YearTerm.getTermName
     call Print.bufferPrint
 
     ;Print the buffer to the screen
