@@ -186,4 +186,34 @@ UT_equals6:
 .string2:
     db 0
 
+
+UT_copy1:
+    ld hl,.source
+    ld de, .dest
+    call String.copy
+    TEST_STRING_PTR .source, .dest
+    TC_END
+.source:
+    db "Balatro",0
+    db "Moo",0
+.dest:
+    ds 40
+
+UT_copy2:
+    ld hl,.big
+    ld de, .dest
+    call String.copy
+    ld hl,.little
+    ld de, .dest
+    call String.copy
+    TEST_STRING_PTR .little, .dest
+
+    TC_END
+.big:
+    db "Very big string",0
+.little:
+    db "little",0
+.dest:
+    ds 40
+
     endmodule

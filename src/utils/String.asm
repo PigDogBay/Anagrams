@@ -187,6 +187,29 @@ equals:
 
 
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: copy(uint16 src, uint16 dest) -> uint16
+;
+; Copies string to the destination, returns address after source string null terminator
+;
+; In DE = destination
+;    HL = Source String
+;
+; Out: HL = Points to address after null terminator
+; 
+; Dirty: A, BC, DE, HL
+;
+;-----------------------------------------------------------------------------------
+copy:
+    ldi
+    ld a,(hl)
+    or a
+    jr nz, copy
+    ;copy the null terminator
+    ldi
+    ret
+
 
 
     endmodule

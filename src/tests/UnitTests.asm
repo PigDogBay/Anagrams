@@ -1,6 +1,11 @@
        SLDOPT COMMENT WPMEM, LOGPOINT, ASSERTION
     DEVICE ZXSPECTRUMNEXT
 
+BANK_CAT_MUSIC:                 equ 30
+BANK_SPRITE:                    equ 40
+BANK_IMAGE_1:                   equ 50
+BANK_IMAGE_1_PALETTE:           equ 60
+
     ORG 0x8000
     include "hardware/PortsRegisters.asm"
     include "hardware/DMA.asm"
