@@ -57,7 +57,7 @@ update:
 .mousePressed:
     ld hl,$0101
     call Puzzles.select
-    call Puzzles.resetMoney
+    call Money.resetMoney
     ld hl, GS_START
     call GameStateMachine.change
     ret
@@ -80,7 +80,7 @@ keyPressed:
     call Puzzles.nextYearSelect
     jp printText
 .pressed3:
-    call Puzzles.nextDifficulty
+    call Money.nextDifficulty
     jp printText
 
 
@@ -136,7 +136,7 @@ printText:
     ld d, 9
     ld e, 16
     call Print.setCursorPosition
-    call Puzzles.getDifficultyName
+    call Money.getDifficultyName
     ld b,%0000000
     call Print.printString
 

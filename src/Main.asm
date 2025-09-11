@@ -33,6 +33,7 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
     include "model/Puzzles.asm"
+    include "model/Money.asm"
     include "model/PuzzleData.asm"
     include "model/GameId.asm"
     include "model/Grid.asm"

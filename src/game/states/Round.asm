@@ -79,7 +79,7 @@ printText:
 
     ; Difficulty
     ld e, 16
-    call Puzzles.getDifficultyName
+    call Money.getDifficultyName
     ld b,%0000000
     call Print.printCentred
 
