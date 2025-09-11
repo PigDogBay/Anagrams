@@ -1,7 +1,7 @@
 ;-----------------------------------------------------------------------------------
 ; Module Puzzles
 ;
-; Handles the games settings and puzzles data
+; Handles the puzzles data
 ;
 ; Struct: puzzleStruct
 ;
@@ -13,18 +13,8 @@
 ; Function: getCategory() -> uint8
 ; Function: categoryToString(uint8 cat) -> uint16
 ;
-;
-; Function: getCollege() -> uint8
-; Function: resetCollege() -> uint8
-; Function: previousCollege() -> uint8
-; Function: nextCollege() -> uint8
-; Function: getCollegeName() -> uint16
-;
 ;-----------------------------------------------------------------------------------
     module Puzzles
-
-COLLEGE_COUNT: equ 10
-
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -194,97 +184,6 @@ categoryToString:
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: getCollege() -> uint8
-;
-; Getter for college value
-;
-; Out: A = 0 ..< COLLEGE_COUNT
-; 
-;-----------------------------------------------------------------------------------
-getCollege:
-    ld a,(college)
-    ret
-    
-;-----------------------------------------------------------------------------------
-; 
-; Function: resetCollege() -> uint8
-;
-; Sets college value to 0
-;
-; Out: A = 0 
-; 
-;-----------------------------------------------------------------------------------
-resetCollege:
-    xor a
-    ld (college),a
-    ret
-
-;-----------------------------------------------------------------------------------
-; 
-; Function: previousCollege() -> uint8
-;
-; Sets and returns previous college value, will wrap round to COLLLEGE_LEN-1
-;
-; Out: A = previous college value 
-; 
-;-----------------------------------------------------------------------------------
-previousCollege:
-    ld a,(college)
-    or a
-    jr nz, .noWrapAround
-    ld a, COLLEGE_COUNT
-.noWrapAround:
-    dec a
-    ld (college),a
-    ret
-
-;-----------------------------------------------------------------------------------
-; 
-; Function: nextCollege() -> uint8
-;
-; Sets and returns next college value, will wrap round to 0
-;
-; Out: A = next college value 
-; 
-;-----------------------------------------------------------------------------------
-nextCollege:
-    ld a,(college)
-    inc a
-    cp COLLEGE_COUNT
-    jr nz, .noWrapAround
-    xor a
-.noWrapAround:
-    ld (college),a
-    ret
-
-
-;-----------------------------------------------------------------------------------
-; 
-; Function: getCollegeName() -> uint16
-;
-; Getter for college name
-;
-; Out: HL = college name
-;
-; Dirty A
-; 
-;-----------------------------------------------------------------------------------
-getCollegeName:
-    push de
-    ld a,(college)
-    ld hl, collegeNameJumpTable
-    ; Add twice, as table is two bytes per entry
-    add hl,a
-    add hl,a
-    ; get jump entry
-    ld de,(hl)
-    ld hl,de
-    pop de
-    ret
-
-
-;-----------------------------------------------------------------------------------
-; 
 ; Enum: Category
 ; 
 ;-----------------------------------------------------------------------------------
@@ -328,42 +227,8 @@ catHistoryStr: db "History",0
 catScienceStr: db "Science",0
 catFoodStr: db "Food",0
 
-
-collegeNameJumpTable:
-    dw collegeNameStr1
-    dw collegeNameStr2
-    dw collegeNameStr3
-    dw collegeNameStr4
-    dw collegeNameStr5
-    dw collegeNameStr6
-    dw collegeNameStr7
-    dw collegeNameStr8
-    dw collegeNameStr9
-    dw collegeNameStr10
-
-collegeNameStr1: db "Teddy Hall",0
-collegeNameStr2: db "Mor-de-Len College",0
-collegeNameStr3: db "Old College",0
-collegeNameStr4: db "St Henrys",0
-collegeNameStr5: db "Bailey Hall",0
-collegeNameStr6: db "Lady Holly Hall",0
-collegeNameStr7: db "Hertbridge College",0
-collegeNameStr8: db "Radnor College",0
-collegeNameStr9: db "Winterville",0
-collegeNameStr10: db "St Kayleigh's College",0
-
-; ` is ASCII value for £
-easyStr:    db "Student Loan `12,000 (Easy)",0
-normalStr:  db "Bursary `9,000 (Normal)",0
-hardStr:    db "Scholarship `6,000 (Hard)",0
-
-college:
-    db 0
-
 jumbled:
     ds 64
-
-
 
 
     endmodule

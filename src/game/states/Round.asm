@@ -67,7 +67,7 @@ printText:
 
     ; College
     ld e, 12
-    call Puzzles.getCollegeName
+    call College.getCollegeName
     ld b,%00000000
     call Print.printCentred
 

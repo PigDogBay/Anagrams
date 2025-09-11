@@ -1,7 +1,6 @@
     module TestSuite_Puzzles
 
 
-
 UT_getPuzzle1:
     ld hl, $0101
     call YearTerm.select
@@ -50,32 +49,6 @@ UT_categoryToString1:
 .data:
     db "Science",0
 
-UT_getCollegeName1:
-    call Puzzles.resetCollege
-    ld (Puzzles.college),a
-    call Puzzles.getCollegeName
-    TEST_STRING_PTR hl, .data
-    TC_END
-.data:
-    db "Teddy Hall",0
-
-
-UT_collegeNextPrev1:
-    call Puzzles.resetCollege
-    call Puzzles.nextCollege
-    nop ; ASSERTION A == 1
-    call Puzzles.previousCollege
-    nop ; ASSERTION A == 0
-    TC_END
-
-UT_collegeNextPrevWrap1:
-    call Puzzles.resetCollege
-    call Puzzles.previousCollege
-    call Puzzles.getCollege
-    nop ; ASSERTION A == Puzzles.COLLEGE_COUNT - 1
-    call Puzzles.nextCollege
-    nop ; ASSERTION A == 0
-    TC_END
 
 UT_jumbleLetters1:
     ld hl, $0203

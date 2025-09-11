@@ -74,7 +74,7 @@ keyPressed:
     jr z, .pressed3
     ret
 .pressed1:
-    call Puzzles.nextCollege
+    call College.nextCollege
     jp printText
 .pressed2:
     call YearTerm.nextYearSelect
@@ -106,7 +106,7 @@ printText:
     ld d, 9
     ld e, 12
     call Print.setCursorPosition
-    call Puzzles.getCollegeName
+    call College.getCollegeName
     ld b,%00000000
     call Print.printString
 

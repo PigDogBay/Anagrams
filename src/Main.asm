@@ -35,6 +35,7 @@ SPRITE_PATTERN_COUNT:         equ 30
     include "model/Puzzles.asm"
     include "model/YearTerm.asm"
     include "model/Money.asm"
+    include "model/College.asm"
     include "model/PuzzleData.asm"
     include "model/GameId.asm"
     include "model/Grid.asm"
