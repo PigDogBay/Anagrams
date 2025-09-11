@@ -465,7 +465,7 @@ layer2Test320:
 ;-----------------------------------------------------------------------------------
 titleScreen:
     ; Load palette for Title screen, residing at 8k bank 50 0x0000 - 0x00ff
-    nextreg MMU_0, 50
+    nextreg MMU_0, BANK_IMAGE_1_PALETTE
     ld hl,0
     ld b,255
     call Graphics.loadLayer2_9BitPalette
@@ -480,9 +480,9 @@ titleScreen:
     ; 3-0 Palette offset
     nextreg LAYER_2_CONTROL, %00010000
 
-    ; 16k Bank, first 8k bank of image is at 40
-    ; So 16k bank is 40/2 = 20
-    nextreg LAYER_2_RAM_PAGE, 20
+    ; 16k Bank, first 8k bank of image is at 50
+    ; So 16k bank is 50/2 = 25
+    nextreg LAYER_2_RAM_PAGE, BANK_IMAGE_1/2
     ret
 
 

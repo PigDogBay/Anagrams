@@ -14,8 +14,10 @@
     ;  - Tile font Calstone
     ;  - Text font based on Truffle Shuffle
 
-SPRITE_PATTERN_COUNT:         equ 30
-
+BANK_CAT_MUSIC:                 equ 30
+BANK_SPRITE:                    equ 40
+BANK_IMAGE_1:                   equ 50
+BANK_IMAGE_1_PALETTE:           equ 60
 ;-----------------------------------------------------------------------------------
 ; 
 ; Include modules
@@ -142,7 +144,7 @@ main:
     ; $E3 is default transparency
     nextreg SPRITES_TRANSPARENCY_INDEX, $1f
     call NextSprite.removeAll
-    ld a,SPRITE_PATTERN_COUNT
+    ld a,BANK_SPRITE
     call NextSprite.load
     call NextSprite.loadPalette
 
@@ -151,7 +153,6 @@ main:
 
 main_loop:
     jr main_loop
-
 
 
 ;-----------------------------------------------------------------------------------
@@ -184,31 +185,36 @@ stack_top:
     ORG Tilemap.START_OF_TILES
     INCBIN "assets/font.spr"
 
+
+    MMU 0,BANK_CAT_MUSIC, 0x0000
+    include "puzzles/Music.asm"
+
     ;Load sprite data in 8k banks 30 + 31. Banks placed in MMU slots 0 and 1 
-    MMU 0 1,30, 0x0000
+    MMU 0 1,BANK_SPRITE, 0x0000
     incbin "assets/anagrams.spr"
 
-    MMU 0,40, 0x0000
+    MMU 0,BANK_IMAGE_1, 0x0000
     incbin "assets/titleScreen/bg_00.nxi"
-    MMU 0,41, 0x0000
+    MMU 0,BANK_IMAGE_1 + 1, 0x0000
     incbin "assets/titleScreen/bg_01.nxi"
-    MMU 0,42, 0x0000
+    MMU 0,BANK_IMAGE_1 + 2, 0x0000
     incbin "assets/titleScreen/bg_02.nxi"
-    MMU 0,43, 0x0000
+    MMU 0,BANK_IMAGE_1 + 3, 0x0000
     incbin "assets/titleScreen/bg_03.nxi"
-    MMU 0,44, 0x0000
+    MMU 0,BANK_IMAGE_1 + 4, 0x0000
     incbin "assets/titleScreen/bg_04.nxi"
-    MMU 0,45, 0x0000
+    MMU 0,BANK_IMAGE_1 + 5, 0x0000
     incbin "assets/titleScreen/bg_05.nxi"
-    MMU 0,46, 0x0000
+    MMU 0,BANK_IMAGE_1 + 6, 0x0000
     incbin "assets/titleScreen/bg_06.nxi"
-    MMU 0,47, 0x0000
+    MMU 0,BANK_IMAGE_1 + 7, 0x0000
     incbin "assets/titleScreen/bg_07.nxi"
-    MMU 0,48, 0x0000
+    MMU 0,BANK_IMAGE_1 + 8, 0x0000
     incbin "assets/titleScreen/bg_08.nxi"
-    MMU 0,49, 0x0000
+    MMU 0,BANK_IMAGE_1 + 9, 0x0000
     incbin "assets/titleScreen/bg_09.nxi"
-    MMU 0,50, 0x0000
+
+    MMU 0,BANK_IMAGE_1_PALETTE, 0x0000
     incbin "assets/titleScreen/bg.nxp"
 
 
