@@ -15,6 +15,7 @@
     ;  - Text font based on Truffle Shuffle
 
 BANK_CAT_MUSIC:                 equ 30
+BANK_CAT_SCIENCE:               equ 31
 BANK_SPRITE:                    equ 40
 BANK_IMAGE_1:                   equ 50
 BANK_IMAGE_1_PALETTE:           equ 60
@@ -188,6 +189,8 @@ stack_top:
 
     MMU 0,BANK_CAT_MUSIC, 0x0000
     include "puzzles/Music.asm"
+    MMU 0,BANK_CAT_SCIENCE, 0x0000
+    include "puzzles/Science.asm"
 
     ;Load sprite data in 8k banks 30 + 31. Banks placed in MMU slots 0 and 1 
     MMU 0 1,BANK_SPRITE, 0x0000
