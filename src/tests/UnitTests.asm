@@ -73,6 +73,8 @@ BANK_IMAGE_1_PALETTE:           equ 60
     ; ...
     ret
 
+    MMU 0,BANK_CAT_MUSIC, 0x0000
+    include "puzzles/Music.asm"
 
     ; The stack pointer does not need to be setup explicitly for the unit tests.
     SAVENEX OPEN "tests.nex"

@@ -181,6 +181,46 @@ categoryToString:
     pop de
     ret
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: copyPuzzleStrings(uint8 bank, uint8 index) @INTERRUPT
+;
+; Copies the puzzle data into this modules variables
+; ----DISABLE INTERRUPTS BEFORE CALLING THIS FUNCTION----
+;
+; In: A = Puzzle Index 0-49
+;     B = Bank of the puzzle data, in Slot 0
+;     
+; 
+;-----------------------------------------------------------------------------------
+;@INTERRUPT
+copyPuzzleStrings:
+    push af,bc,de,hl
+
+    ;look up puzzle address from the table
+    ld hl,0
+    ;Add puzzle index twice, as pointer is 16bits
+    add hl,a
+    add hl,a
+    ld a,b
+    ; swap out ROM with bank
+    nextreg MMU_0,a 
+    ld de,(hl)
+    ex de, hl
+
+    ld de, clue : call String.copy
+    ld de, puzzle1 : call String.copy
+    ld de, puzzle2 : call String.copy
+    ld de, puzzle3 : call String.copy
+
+    ; Restore ROM
+    nextreg MMU_0, $FF
+
+    pop hl,de,bc,af
+    ret
+
+
+
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -227,8 +267,16 @@ catHistoryStr: db "History",0
 catScienceStr: db "Science",0
 catFoodStr: db "Food",0
 
-jumbled:
-    ds 64
 
+;-----------------------------------------------------------------------------------
+; 
+; Variables to hold puzzle data 
+; 
+;-----------------------------------------------------------------------------------
+jumbled:    ds 40
+clue:       ds 40
+puzzle1:    ds 40   
+puzzle2:    ds 40   
+puzzle3:    ds 40   
 
     endmodule
