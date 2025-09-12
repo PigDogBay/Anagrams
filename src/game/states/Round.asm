@@ -21,6 +21,8 @@ enter:
     ; First sprite always the mouse pointer so that it is on top
     call Game.addMouseSpritePointer
 
+    ;Set up a random puzzle
+    call Puzzles.copyRandomPuzzle
 
     ;Animated Sprite Tile
     ;Add slots and amke SYLLABUS tiles appear
@@ -84,7 +86,7 @@ printText:
     call Print.printCentred
 
     ld e, 23
-    call Puzzles.getCategory
+    ld a, (Puzzles.category)
     call Puzzles.categoryToString
     ld b,%0000000
     call Print.printCentred

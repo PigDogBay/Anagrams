@@ -107,7 +107,7 @@ printShortYearTerm:
     db ". ",0
 
 printCategory:
-    call Puzzles.getCategory
+    ld a, (Puzzles.category)
     call Puzzles.categoryToString
     ld e, 3
     ld b,%00000000

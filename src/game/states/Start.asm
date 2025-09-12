@@ -28,7 +28,7 @@ enter:
 
     call GameId.reset
 
-    call Puzzles.getAnagram
+    call Puzzles.getPuzzle
     call Slot.createSlots
     call Puzzles.jumbleLetters
 

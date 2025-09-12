@@ -16,6 +16,31 @@
 ;-----------------------------------------------------------------------------------
     module Puzzles
 
+PUZZLE_COUNT        equ 50
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: copyRandomPuzzle() -> uint16.  @INTERRUPT
+;
+; Copies a random puzzle into this modules puzzle variables
+;
+;
+; Dirty: A, B
+;
+;-----------------------------------------------------------------------------------
+;@INTERRUPT
+copyRandomPuzzle:
+    ;TODO randomly select category
+    ld a, CAT_MUSIC
+    ld (category),a
+    ld b,BANK_CAT_MUSIC
+    ;copy a random puzzle
+    ld a,PUZZLE_COUNT
+    call Maths.rnd
+    call Puzzles.copyPuzzleStrings
+    ret
+
 ;-----------------------------------------------------------------------------------
 ; 
 ; Struct: puzzleStruct
@@ -34,84 +59,24 @@ puzzle      word
 ; 
 ; Function: getPuzzle() -> uint16
 ;
-; Getter for pointer to current puzzle struct
+; Getter for pointer to the current terms puzzle string
 ;
-; Out: HL = pointer to current selected puzzleStruct
+; Out: HL = pointer to current terms puzzle string
 ;
-; Dirty: DE, A
+; Dirty: HL, A
 ;
 ;-----------------------------------------------------------------------------------
 getPuzzle:
-    ld hl,0
-    ; Multiply year-1 by 3 (3 terms per year)
-    ld a,(YearTerm.year)
-    dec a
-    add hl,a
-    add hl,a
-    add hl,a
-
-    ; Add term-1
     ld a,(YearTerm.term)
-    dec a
-    add hl,a
-
-    ;Multiply by 3 (puzzleStruct.size = 3 bytes)
-    ld de,hl
-    add hl,de
-    add hl,de
-    add hl,list
+    ld hl, puzzle2
+    cp 2
+    jr z, .exit
+    ld hl, puzzle3
+    cp 3
+    jr z, .exit
+    ld hl, puzzle1
+.exit:
     ret
-
-
-;-----------------------------------------------------------------------------------
-; 
-; Function: getAnagram() -> uint16
-;
-; Getter for pointer to the anagram string
-;
-; Out: HL = pointer to current anagram string
-;
-; Dirty: A
-; 
-;-----------------------------------------------------------------------------------
-getAnagram:
-    push de
-    call getPuzzle
-    ;HL now points to puzzle struct
-    ;Skip category (1 byte)
-    inc hl
-    ;hl now points to a pointer to the anagram string
-    ;Load pointer into HL
-    ld e,(hl)
-    inc hl
-    ld d,(hl)
-    ex hl,de
-    pop de
-    ret
-
-
-;-----------------------------------------------------------------------------------
-; 
-; Function: getClue() -> uint16
-;
-; Getter for the pointer to the currenly selected puzzles clue string
-;
-; Out: HL = pointer to string
-; 
-;-----------------------------------------------------------------------------------
-getClue:
-    push de
-    call getAnagram
-.nextChar:
-    ; find the null terminator \0
-    ld a,(hl)
-    inc hl
-    or a
-    jr nz, .nextChar 
-    ; HL should now point to the Clue string
-    pop de
-    ret
-
 
 
 ;-----------------------------------------------------------------------------------
@@ -125,7 +90,7 @@ getClue:
 ;-----------------------------------------------------------------------------------
 jumbleLetters:
     push de,bc
-    call getAnagram
+    call getPuzzle
     ; copy string
     ld de,jumbled
 .copy:
@@ -139,23 +104,6 @@ jumbleLetters:
     ld hl, jumbled
     call String.shuffle
     pop bc,de
-    ret
-
-;-----------------------------------------------------------------------------------
-; 
-; Function: getCategory() -> uint8
-;
-; Getter for category of the currently selected puzzle
-;
-; Out: A = category
-; 
-;-----------------------------------------------------------------------------------
-getCategory:
-    push de, hl
-    call getPuzzle
-    ;HL now points to puzzle struct, first byte is the category
-    ld a,(hl)
-    pop hl, de
     ret
 
 
@@ -273,6 +221,8 @@ catFoodStr: db "Food",0
 ; Variables to hold puzzle data 
 ; 
 ;-----------------------------------------------------------------------------------
+;-mv Puzzles.category 256
+category:   db 0
 jumbled:    ds 40
 clue:       ds 40
 puzzle1:    ds 40   

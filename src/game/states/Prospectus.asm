@@ -58,7 +58,7 @@ update:
     ld hl,$0101
     call YearTerm.select
     call Money.resetMoney
-    ld hl, GS_START
+    ld hl, GS_ROUND
     call GameStateMachine.change
     ret
 

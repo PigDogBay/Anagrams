@@ -25,7 +25,7 @@ enter:
     call Game.printInstruction
 
     ; Display Clue
-    call Puzzles.getClue
+    ld hl, Puzzles.clue
     ; Centre clue
     call String.len
     neg
