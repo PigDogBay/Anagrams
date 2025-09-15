@@ -13,7 +13,7 @@ p1: db "80's POP BANDS",0
     db "A FLOCK OF\nSEAGULLS",0
 
 p2: db "NIRVANA SONGS",0
-    db "LITHIUM\n",0
+    db "LITHIUM",0
     db "COME AS\nYOU ARE",0
     db "SMELLS\nLIKE TEEN\nSPIRIT",0
 
@@ -50,7 +50,7 @@ p8: db "50's SINGERS",0
 p9: db "60's POP BANDS",0
     db "THE BEACH\nBOYS",0
     db "GRATEFUL\nDEAD",0
-    db "JEFFERSON\nAIRPLANE\n",0
+    db "JEFFERSON\nAIRPLANE",0
 
 p10: db "60's POP BANDS",0
     db "THE\nBEATLES",0
@@ -242,7 +242,7 @@ p46: db "90'S SONGS",0
 
 p47: db "90'S BANDS",0
     db "RADIOHEAD",0
-    db "ST ETIENNE\n",0
+    db "ST ETIENNE",0
     db "THE\nLIGHTNING\nSEEDS",0
 
 p48: db "90'S BANDS",0
@@ -256,7 +256,7 @@ p49: db "OASIS SONGS",0
     db "WONDERWALL",0
 
 p50: db "BLUR SONGS",0
-    db "PARKLIFE\n",0
+    db "PARKLIFE",0
     db "COUNTRY\nHOUSE",0
     db "BEETLEBUM",0
 

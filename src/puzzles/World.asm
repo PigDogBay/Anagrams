@@ -1,0 +1,260 @@
+    module Cat
+
+table:
+    dw p1,p2,p3,p4,p5,p6,p7,p8,p9,p10
+    dw p11,p12,p13,p14,p15,p16,p17,p18,p19,p20
+    dw p21,p22,p23,p24,p25,p26,p27,p28,p29,p30
+    dw p31,p32,p33,p34,p35,p36,p37,p38,p39,p40
+    dw p41,p42,p43,p44,p45,p46,p47,p48,p49,p50
+
+p1: db "FRENCH TOWNS?",0
+    db "THEYDON BOIS",0
+    db "CHAPEL EN\nLE FRITH",0
+    db "ASHBY DE\nLA ZOUCH",0
+
+p2: db "BOMB JACK BACKDROPS",0
+    db "LOS ANGELES",0
+    db "ACROPOLIS\nOF ATHENS",0
+    db "GREAT\nSPHINX\nOF GIZA",0
+
+p3: db "PEAK DISTRICT PLACES",0
+    db "BELPER",0
+    db "ASHBOURNE",0
+    db "EARL\nSTERNDALE",0
+
+p4: db "TOWNS IN THE POTTERIES",0
+    db "BURSLEM",0
+    db "LONGTON",0
+    db "TUNSTALL",0
+
+p5: db "TOWNS IN OXFORD",0
+    db "DIDCOT",0
+    db "BANBURY",0
+    db "KIDLINGTON",0
+
+p6: db "MIDLANDS CITIES",0
+    db "LEICESTER",0
+    db "BIRMINGHAM",0
+    db "STOKE ON\nTRENT",0
+
+p7: db "LAKE DISTRICT",0
+    db "GRASMERE",0
+    db "WINDERMERE",0
+    db "BUTTERMERE",0
+
+p8: db "MOUTHY TOWNS",0
+    db "COCKERMOUTH",0
+    db "GREAT\nYARMOUTH",0
+    db "TEIGNMOUTH",0
+
+p9: db "NORTHEN IRELEAND COUNTIES",0
+    db "ARMAGH",0
+    db "LONDONDERRY",0
+    db "FERMANAGH",0
+
+p10: db "US CITIES",0
+    db "NEWARK",0
+    db "NEW ORLEANS",0
+    db "NEWPORT NEWS",0
+
+p11: db "MEXICAN CITIES",0
+    db "TIJUANA",0
+    db "ACAPULCO",0
+    db "OAXACA",0
+
+p12: db "MEXICAN CITIES",0
+    db "DURANGO",0
+    db "CHIHUAHUA",0
+    db "CIUDAD\nJUAREZ",0
+
+p13: db "FAMOUS LANDMARKS",0
+    db "TAJ MAHAL",0
+    db "EIFFEL TOWER",0
+    db "GREAT WALL\nOF CHINA",0
+
+p14: db "FAMOUS LANDMARKS",0
+    db "STONEHENGE",0
+    db "TOWER\nOF PISA",0
+    db "GOLDEN GATE\nBRIDGE",0
+
+p15: db "FAMOUS LANDMARKS",0
+    db "COLOSSEUM",0
+    db "GRAND CANYON",0
+    db "FORBIDDEN\nCITY",0
+
+p16: db "FAMOUS LANDMARKS",0
+    db "TOWER\nBRIDGE",0
+    db "LOUVRE\nMUSEUM",0
+    db "BRANDENBURG\nGATE",0
+
+p17: db "FAMOUS LANDMARKS",0
+    db "EIFFEL TOWER",0
+    db "BLACKPOOL\nTOWER",0
+    db "TOWER OF\nLONDON",0
+
+p18: db "FAMOUS PLACES OF WORSHIP",0
+    db "YORK\nMINSTER",0
+    db "SAINT PETERS\nBASILICA",0
+    db "NOTRE DAME\nCATHEDRAL",0
+
+p19: db "SKYSCRAPERS",0
+    db "THE SHARD",0
+    db "EMPIRE STATE\nBUILDING",0
+    db "BURJ KHALIFA",0
+
+p20: db "VOLCANOES",0
+    db "MOUNT ETNA",0
+    db "KRAKATOA",0
+    db "YELLOWSTONE\nCALDERA",0
+
+p21: db "VOLCANOES",0
+    db "MAUNA\nLOA",0
+    db "COTOPAXI",0
+    db "POPOCATEPETL",0
+
+p22: db "WELSH MOUNTAINS",0
+    db "TRYFAN",0
+    db "GLYDER FAWR",0
+    db "CARNEDD\nLLEWELYN",0
+
+p23: db "WELSH MOUNTAINS",0
+    db "PEN Y FAN",0
+    db "CRIB GOCH",0
+    db "MOEL SIABOD",0
+
+p24: db "PEAK DISTRICT",0
+    db "DERWENT EDGE",0
+    db "STANAGE EDGE",0
+    db "FROGGATT\nEDGE",0
+
+p25: db "STAFFORDSHIRE PEAK DISTRICT",0
+    db "HEN CLOUD",0
+    db "THE ROACHES",0
+    db "RAMSHAW\nROCKS",0
+
+p26: db "PEAK DISTRICT",0
+    db "MAM TOR",0
+    db "RAVEN TOR",0
+    db "BEESTON\nTOR",0
+
+p27: db "PEAK DISTRICT",0
+    db "EDALE",0
+    db "DOVEDALE",0
+    db "LATHKILL\nDALE",0
+
+p28: db "BODIES OF WATER",0
+    db "RED SEA",0
+    db "CASPIAN SEA",0
+    db "GREENLAND\nSEA",0
+
+p29: db "BODIES OF WATER",0
+    db "NORTH SEA",0
+    db "TASMAN SEA",0
+    db "SOUTH\nCHINA SEA",0
+
+p30: db "BODIES OF WATER",0
+    db "IRISH SEA",0
+    db "SEA OF AZOV",0
+    db "NORWEGIAN\nSEA",0
+
+p31: db "BODIES OF WATER",0
+    db "JAVA SEA",0
+    db "WEDDELL\nSEA",0
+    db "LEVANTINE\nSEA",0
+
+p32: db "BODIES OF WATER",0
+    db "INDIAN\nOCEAN",0
+    db "PACIFIC\nOCEAN",0
+    db "ATLANTIC\nOCEAN",0
+
+p33: db "BODIES OF WATER",0
+    db "LAKE ERIE",0
+    db "LAKE\nSUPERIOR",0
+    db "LAKE\nMICHIGAN",0
+
+p34: db "BODIES OF WATER",0
+    db "LAKE BAIKAL",0
+    db "LAKE VOSTOK",0
+    db "LAKE LADOGA",0
+
+p35: db "BODIES OF WATER",0
+    db "LAKE HURON",0
+    db "LAKE ONTARIO",0
+    db "GREAT\nSLAVE LAKE",0
+
+p36: db "BODIES OF WATER",0
+    db "LAKE NASSER",0
+    db "LAKE\nVICTORIA",0
+    db "LAKE\nTANGANYIKA",0
+
+p37: db "BODIES OF WATER",0
+    db "LAKE CHAD",0
+    db "LAKE ALBERT",0
+    db "LAKE GEORGE",0
+
+p38: db "BODIES OF WATER",0
+    db "MURRAY RIVER",0
+    db "DARLING\nRIVER",0
+    db "SWAMPY\nPLAIN RIVER",0
+
+p39: db "BODIES OF WATER",0
+    db "COOPER CREEK",0
+    db "BURKES CREEK",0
+    db "JERRA JERRA\nCREEK",0
+
+p40: db "SPANISH COMMUNES",0
+    db "CATALONIA",0
+    db "ANDALUSIA",0
+    db "CASTILE\nAND LEON",0
+
+p41: db "ARCHIPELAGOS",0
+    db "CANARY\nISLANDS",0
+    db "ISLES OF\nSCILLY",0
+    db "GALAPAGOS\nISLANDS",0
+
+p42: db "ARCHIPELAGOS",0
+    db "FLORIDA KEYS",0
+    db "SOLOMON\nISLANDS",0
+    db "HAWAIIAN\nISLANDS",0
+
+p43: db "ARCHIPELAGOS",0
+    db "ANTILLES",0
+    db "LESSER\nANTILLES",0
+    db "GREATER\nANTILLES",0
+
+p44: db "ARCHIPELAGOS",0
+    db "BRITISH\nISLES",0
+    db "ORKNEY\nISLANDS",0
+    db "SOUTH\nSHETLAND\nISLANDS",0
+
+p45: db "MOUNTAINS",0
+    db "MOUNT KENYA",0
+    db "MOUNT SPEKE",0
+    db "MOUNT\nKILIMANJARO",0
+
+p46: db "MOUNTAINS",0
+    db "ULURU",0
+    db "MAUNA LOA",0
+    db "YR WYDDFA",0
+
+p47: db "IN THE DEEP",0
+    db "TONGA\nTRENCH",0
+    db "MARIANNA\nTRENCH",0
+    db "SOUTH\nSANDWICH\nTRENCH",0
+
+p48: db "RIVERS IN ASIA",0
+    db "MEKONG RIVER",0
+    db "YANGTZE\nRIVER",0
+    db "IRRAWADDY\nRIVER",0
+
+p49: db "ASIA CAPITALS",0
+    db "NEW DELHI",0
+    db "PHNOM PENH",0
+    db "KUALA LUMPUR",0
+
+p50: db "SA CAPITALS",0
+    db "CARACAS",0
+    db "MONTEVIDEO",0
+    db "BUENOS AIRES",0
+
+    endmodule

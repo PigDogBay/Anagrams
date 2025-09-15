@@ -36,9 +36,9 @@ p4: db "GEM STONES",0
     db "SAPPHIRE",0
 
 p5: db "CALENDAR MONTHS",0
-    db "JANUARY\n",0
-    db "FEBRUARY\n",0
-    db "DECEMBER\n",0
+    db "JANUARY",0
+    db "FEBRUARY",0
+    db "DECEMBER",0
 
 p6: db "PALINDROMES",0
     db "KAYAK",0

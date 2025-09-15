@@ -163,9 +163,9 @@ p31: db "OSSICLES",0
     db "MALLEUS",0
 
 p32: db "SALTS",0
-    db "CHLORIDES\n",0
-    db "NITRATES\n",0
-    db "SULPHATES\n",0
+    db "CHLORIDES",0
+    db "NITRATES",0
+    db "SULPHATES",0
 
 p33: db "pH",0
     db "ACIDIC",0
@@ -240,7 +240,7 @@ p46: db "ELECTRONICS",0
 p47: db "SCIENTIFIC LAWS",0
     db "OHMS\nLAW",0
     db "HOOKES\nLAW",0
-    db "CONSERVATION\nOF ENERGY\n",0
+    db "CONSERVATION\nOF ENERGY",0
 
 p48: db "GAS LAWS",0
     db "BOYLES\nLAW",0
