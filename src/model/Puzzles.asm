@@ -177,24 +177,20 @@ copyPuzzleStrings:
 ;-----------------------------------------------------------------------------------
 CAT_MUSIC:          equ 1
 CAT_FILM:           equ 2
-CAT_TV:             equ 3
-CAT_GAMES:          equ 4
-CAT_TECH:           equ 5
-CAT_PEOPLE:         equ 6
-CAT_CULTURE:        equ 7
-CAT_WORLD:          equ 8
-CAT_HISTORY:        equ 9
-CAT_SCIENCE:        equ 10
-CAT_FOOD:           equ 11
+CAT_GAMES:          equ 3
+CAT_PEOPLE:         equ 4
+CAT_CULTURE:        equ 5
+CAT_WORLD:          equ 6
+CAT_HISTORY:        equ 7
+CAT_SCIENCE:        equ 8
+CAT_FOOD:           equ 9
 
 
 catStringJumpTable:
     dw catBadStr
     dw catMusicStr
-    dw catFilmStr
-    dw catTvStr
+    dw catFilmTvStr
     dw catGamesStr
-    dw catTechStr
     dw catPeopleStr
     dw catCultureStr
     dw catWorldStr
@@ -204,10 +200,8 @@ catStringJumpTable:
 
 catBadStr: db "Illegal value",0
 catMusicStr: db "Music",0
-catFilmStr: db "Film",0
-catTvStr: db "TV",0
-catGamesStr: db "Games",0
-catTechStr: db "Tech",0
+catFilmStr: db "Film and TV",0
+catGamesStr: db "Games and Tech",0
 catPeopleStr: db "People",0
 catCultureStr: db "Culture",0
 catWorldStr: db "World",0
