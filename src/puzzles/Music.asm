@@ -18,9 +18,9 @@ p2: db "NIRVANA SONGS",0
     db "SMELLS\nLIKE TEEN\nSPIRIT",0
 
 p3: db "80's POP BANDS",0
-    db "WHAM",0
     db "ADAM AND\nTHE ANTS",0
     db "THOMPSON\nTWINS",0
+    db "ORCHESTRAL\nMANOEUVRES\nIN THE DARK",0
 
 p4: db "UK METAL BANDS",0
     db "MOTORHEAD",0
@@ -58,8 +58,8 @@ p10: db "60's POP BANDS",0
     db "HERMANS\nHERMITS",0
 
 p11: db "BEATLES SONGS",0
-    db "LET IT BE",0
     db "NORWEGIAN\nWOOD",0
+    db "DO YOU WANT\nTO KNOW A\nSECRET",0
     db "STRAWBERRY\nFIELDS\nFOREVER",0
 
 
