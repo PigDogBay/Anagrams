@@ -22,6 +22,7 @@ enter:
     call Game.addMouseSpritePointer
 
     ;Set up a random puzzle
+    call Puzzles.newCategory
     call Puzzles.copyRandomPuzzle
 
     ;Animated Sprite Tile

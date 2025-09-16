@@ -35,4 +35,85 @@ UT_copyPuzzleStrings2:
 .e3  db "FELLATIO\nNELSON",0
 .e4  db "GODS GIFT\nTO WOMEN",0
 
+;First year is always freshers
+UT_newCategory1:
+    ld a, CAT_SCIENCE
+    ld (Puzzles.category),a
+    ld h,1
+    ld l,1
+    call YearTerm.select
+    ld b,0
+.loop:
+    call Puzzles.newCategory
+    cp CAT_FRESHERS
+    TEST_FLAG_Z
+    djnz .loop
+    TC_END
+
+;2nd year+ is never freshers
+UT_newCategory2:
+    ld h,2
+    ld l,1
+    call YearTerm.select
+    ld b,0
+.loop:
+    call Puzzles.newCategory
+    cp CAT_FRESHERS
+    TEST_FLAG_NZ
+    djnz .loop
+    TC_END
+
+;Check category is different from previous category
+UT_newCategory3:
+    ld h,2
+    ld l,1
+    call YearTerm.select
+    ld b,0
+.loop:
+    ld a, CAT_SCIENCE
+    ld (Puzzles.category),a
+    call Puzzles.newCategory
+    cp CAT_SCIENCE
+    TEST_FLAG_NZ
+    djnz .loop
+    TC_END
+
+;Check category can be 1
+UT_newCategory4:
+    ld h,2
+    ld l,1
+    call YearTerm.select
+    ld b,255
+.loop:
+    call Puzzles.newCategory
+    cp 1
+    jr z, .break
+    djnz .loop
+
+    ;B should not have counted down to 0
+.break:
+    ld a, b
+    or a
+    TEST_FLAG_NZ
+    TC_END
+
+;Check category can be CAT_COUNT-1
+UT_newCategory5:
+    ld h,2
+    ld l,1
+    call YearTerm.select
+    ld b,255
+.loop:
+    call Puzzles.newCategory
+    cp Puzzles.CAT_COUNT - 1
+    jr z, .break
+    djnz .loop
+
+    ;B should not have counted down to 0
+.break:
+    ld a, b
+    or a
+    TEST_FLAG_NZ
+    TC_END
+
      endmodule

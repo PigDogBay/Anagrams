@@ -12,7 +12,7 @@
 ;
 ; Function: getCategory() -> uint8
 ; Function: categoryToString(uint8 cat) -> uint16
-;
+; 
 ;-----------------------------------------------------------------------------------
     module Puzzles
 
@@ -21,21 +21,60 @@ CAT_COUNT           equ 5
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: copyRandomPuzzle() -> uint16.  @INTERRUPT
+; Function: newCategory() -> uint8
+;
+; For the first year, category is always Freshers
+; For year 2+, category is:
+;  - Random
+;  - Never freshers
+;  - Different from the previous category
+;
+; Out: A = Category
+;
+;
+;-----------------------------------------------------------------------------------
+;@INTERRUPT
+newCategory:
+    push bc
+    ;First year is always freshers
+    ld a,(YearTerm.year)
+    cp 1
+    ld a, CAT_FRESHERS
+    jr z, .exit
+
+    ld a, (category)
+    ld b,a
+
+.differentCatRequired:
+    ;randomly select category
+    ;CAT_FRESHERS is 0, so need random from 1 to count-1 
+    ld a, CAT_COUNT - 1
+    call Maths.rnd
+    inc a
+    ;Check cataegory is different from the previous category
+    cp b
+    jr z, .differentCatRequired
+.exit:
+    ld (category),a
+    pop bc
+    ret
+
+
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: copyRandomPuzzle(uint8 cat) -> uint16.  @INTERRUPT
 ;
 ; Copies a random puzzle into this modules puzzle variables
 ;
+; In A Catgeory
 ;
 ; Dirty: A, B
 ;
 ;-----------------------------------------------------------------------------------
 ;@INTERRUPT
 copyRandomPuzzle:
-    ;randomly select category
-    ld a, CAT_COUNT
-    call Maths.rnd
-    ld (category),a
-
     ;Map category to puzzle bank
     ld b,BANK_PUZZLES_START
     add b
