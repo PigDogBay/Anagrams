@@ -112,7 +112,7 @@ p21: db "BASE UNITS",0
     db "AMPERE",0
     db "KILOGRAM",0
 
-p22: db "TEMPERATUE UNITS",0
+p22: db "TEMPERATURE UNITS",0
     db "KELVIN",0
     db "DEGREE\nCELSIUS",0
     db "DEGREE\nFAHRENHEIT",0
