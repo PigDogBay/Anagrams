@@ -1,7 +1,7 @@
        SLDOPT COMMENT WPMEM, LOGPOINT, ASSERTION
     DEVICE ZXSPECTRUMNEXT
 
-BANK_CAT_MUSIC:                 equ 30
+BANK_PUZZLES_START              equ 30
 BANK_SPRITE:                    equ 40
 BANK_IMAGE_1:                   equ 50
 BANK_IMAGE_1_PALETTE:           equ 60
@@ -72,8 +72,16 @@ BANK_IMAGE_1_PALETTE:           equ 60
     ; ...
     ret
 
-    MMU 0,BANK_CAT_MUSIC, 0x0000
+    MMU 0,BANK_PUZZLES_START + CAT_FRESHERS, 0x0000
+    include "puzzles/Freshers.asm"
+    MMU 0,BANK_PUZZLES_START + CAT_MUSIC, 0x0000
     include "puzzles/Music.asm"
+    MMU 0,BANK_PUZZLES_START + CAT_SCIENCE, 0x0000
+    include "puzzles/Science.asm"
+    MMU 0,BANK_PUZZLES_START + CAT_FILM, 0x0000
+    include "puzzles/FilmTv.asm"
+    MMU 0,BANK_PUZZLES_START + CAT_WORLD, 0x0000
+    include "puzzles/World.asm"
 
     ; The stack pointer does not need to be setup explicitly for the unit tests.
     SAVENEX OPEN "tests.nex"

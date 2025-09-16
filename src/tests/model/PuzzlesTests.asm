@@ -4,7 +4,7 @@
 ; -mv Puzzles.clue 320
 UT_copyPuzzleStrings1:
     ld a,0
-    ld b,BANK_CAT_MUSIC
+    ld b,BANK_PUZZLES_START + CAT_MUSIC
     call Puzzles.copyPuzzleStrings
     TEST_STRING_PTR Puzzles.clue, .e1
     TEST_STRING_PTR Puzzles.puzzle1, .e2
@@ -21,7 +21,7 @@ UT_copyPuzzleStrings1:
 ; -mv Puzzles.clue 320
 UT_copyPuzzleStrings2:
     ld a,42
-    ld b,BANK_CAT_MUSIC
+    ld b,BANK_PUZZLES_START + CAT_MUSIC
     call Puzzles.copyPuzzleStrings
     TEST_STRING_PTR Puzzles.clue, .e1
     TEST_STRING_PTR Puzzles.puzzle1, .e2

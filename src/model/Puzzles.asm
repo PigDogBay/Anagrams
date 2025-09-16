@@ -17,7 +17,7 @@
     module Puzzles
 
 PUZZLE_COUNT        equ 50
-
+CAT_COUNT           equ 5
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -31,10 +31,16 @@ PUZZLE_COUNT        equ 50
 ;-----------------------------------------------------------------------------------
 ;@INTERRUPT
 copyRandomPuzzle:
-    ;TODO randomly select category
-    ld a, CAT_MUSIC
+    ;randomly select category
+    ld a, CAT_COUNT
+    call Maths.rnd
     ld (category),a
-    ld b,BANK_CAT_MUSIC
+
+    ;Map category to puzzle bank
+    ld b,BANK_PUZZLES_START
+    add b
+    ld b,a
+
     ;copy a random puzzle
     ld a,PUZZLE_COUNT
     call Maths.rnd
@@ -162,39 +168,40 @@ copyPuzzleStrings:
 ; Enum: Category
 ; 
 ;-----------------------------------------------------------------------------------
-CAT_MUSIC:          equ 1
-CAT_FILM:           equ 2
-CAT_GAMES:          equ 3
-CAT_PEOPLE:         equ 4
-CAT_CULTURE:        equ 5
-CAT_WORLD:          equ 6
-CAT_HISTORY:        equ 7
-CAT_SCIENCE:        equ 8
-CAT_FOOD:           equ 9
+@CAT_FRESHERS:       equ 0
+@CAT_MUSIC:          equ 1
+@CAT_FILM:           equ 2
+@CAT_WORLD:          equ 3
+@CAT_SCIENCE:        equ 4
+@CAT_GAMES:          equ 5
+@CAT_PEOPLE:         equ 6
+@CAT_CULTURE:        equ 7
+@CAT_HISTORY:        equ 8
+@CAT_FOOD:           equ 9
 
 
 catStringJumpTable:
-    dw catBadStr
+    dw catFreshers
     dw catMusicStr
     dw catFilmTvStr
+    dw catWorldStr
+    dw catScienceStr
     dw catGamesStr
     dw catPeopleStr
     dw catCultureStr
-    dw catWorldStr
     dw catHistoryStr
-    dw catScienceStr
     dw catFoodStr
 
-catBadStr: db "Illegal value",0
-catMusicStr: db "Music",0
-catFilmTvStr: db "Film and TV",0
-catGamesStr: db "Games and Tech",0
-catPeopleStr: db "People",0
-catCultureStr: db "Culture",0
-catWorldStr: db "World",0
-catHistoryStr: db "History",0
-catScienceStr: db "Science",0
-catFoodStr: db "Food",0
+catFreshers: db "FRESHERS",0
+catMusicStr: db "MUSIC",0
+catFilmTvStr: db "FILM AND TV",0
+catGamesStr: db "GAMES AND TECh",0
+catPeopleStr: db "PEOPLE",0
+catCultureStr: db "CULTURE",0
+catWorldStr: db "WORLD",0
+catHistoryStr: db "HISTORY",0
+catScienceStr: db "SCIENCE",0
+catFoodStr: db "FOOD",0
 
 
 ;-----------------------------------------------------------------------------------
