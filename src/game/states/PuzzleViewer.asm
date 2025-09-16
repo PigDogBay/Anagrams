@@ -10,6 +10,10 @@
 ;-----------------------------------------------------------------------------------
     module GameState_PuzzleViewer
 
+
+CATEGORY_TO_VIEW:   equ CAT_FILM
+
+
 @GS_PUZZLE_VIEWER: 
     stateStruct enter,update
 
@@ -38,7 +42,7 @@ setUpPuzzle:
 
     ;Set up a random puzzle
     ld a,(puzzleIndex)
-    ld b,BANK_PUZZLES_START + CAT_MUSIC
+    ld b,BANK_PUZZLES_START + CATEGORY_TO_VIEW
     call Puzzles.copyPuzzleStrings
 
     call Puzzles.getPuzzle
