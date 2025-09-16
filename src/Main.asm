@@ -39,7 +39,6 @@ BANK_IMAGE_1_PALETTE:           equ 60
     include "model/YearTerm.asm"
     include "model/Money.asm"
     include "model/College.asm"
-    include "model/PuzzleData.asm"
     include "model/GameId.asm"
     include "model/Grid.asm"
     include "model/Tile.asm"

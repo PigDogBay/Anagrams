@@ -39,7 +39,6 @@ BANK_IMAGE_1_PALETTE:           equ 60
     include "animation/Visibility.asm"
     include "tests/utils/MockExceptions.asm"
     include "tests/Macros.asm"
-    include "tests/model/PuzzleData.asm"
 
     ;Test includes
     include "tests/UnitTests.inc"

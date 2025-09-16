@@ -41,19 +41,6 @@ copyRandomPuzzle:
     call Puzzles.copyPuzzleStrings
     ret
 
-;-----------------------------------------------------------------------------------
-; 
-; Struct: puzzleStruct
-; 
-; .category = CAT_ enum
-; .word = pointer to puzzle
-; 
-;-----------------------------------------------------------------------------------
-    struct @puzzleStruct
-category    byte
-puzzle      word
-    ends
-
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -200,7 +187,7 @@ catStringJumpTable:
 
 catBadStr: db "Illegal value",0
 catMusicStr: db "Music",0
-catFilmStr: db "Film and TV",0
+catFilmTvStr: db "Film and TV",0
 catGamesStr: db "Games and Tech",0
 catPeopleStr: db "People",0
 catCultureStr: db "Culture",0
