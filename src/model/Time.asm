@@ -61,6 +61,8 @@ onTick
 ;
 ; Prints the time to the Print.buffer, appends 's' for seconds
 ;
+; Out: HL - points to null terminator
+;   
 ; Dirty: A,DE,HL
 ; 
 ;-----------------------------------------------------------------------------------

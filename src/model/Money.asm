@@ -196,6 +196,47 @@ topUpMoney:
     ret
 
 
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: printToBuffer()
+;
+; Prints the money to the Print.buffer, prefixes '£' and appends spaces to clear screen debris
+;
+; Out: HL - points to null terminator
+;   
+; Dirty: A,DE,HL
+; 
+;-----------------------------------------------------------------------------------
+printToBuffer:
+    ld hl, Print.buffer
+    ld (hl), 96  ; £ symbol
+    inc hl
+    ex de,hl
+
+    ld hl,(Money.money)
+    ld a,1
+    call ScoresConvert.ConvertToDecimal
+
+    ;point to the end of the string
+    ex de,hl
+    add hl,a
+
+    ;pad with spaces (to clear printing area on the screen)
+    ld (hl), ' '
+    inc hl
+    ld (hl), ' '
+    inc hl
+    ld (hl), ' '
+    inc hl
+    ld (hl), ' '
+    inc hl
+    ;null terminate
+    ld (hl), 0
+
+    ret
+
+
 ; ` is ASCII value for £
 easyStr:    db "Student Loan `12,000 (Easy)",0
 normalStr:  db "Bursary `9,000 (Normal)",0

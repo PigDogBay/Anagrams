@@ -73,7 +73,7 @@ printTime:
     call Time.printToBuffer
     ld hl,Print.buffer
     ld d, 1
-    ld e, 2
+    ld e, 3
     call Print.setCursorPosition
     ld b,%00000000
     call Print.printString
@@ -83,16 +83,7 @@ printTime:
 
 
 printMoney:
-    ld hl, Print.buffer
-    ld (hl), 96  ; £ symbol
-    inc hl
-    ex de,hl
-
-    ld hl,(Money.money)
-    ld a,1
-    call ScoresConvert.ConvertToDecimal
-
-    ;Print the buffer to the screen
+    call Money.printToBuffer
     ld hl,Print.buffer
     ld d, 1
     ld e, 1
