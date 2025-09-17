@@ -23,6 +23,22 @@ reset:
     ld (time),hl
     ret
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: decreaseStartTime()
+;
+; The start time at the beginning of the round is decreased, this will
+; make later levels harder
+;
+; 
+;-----------------------------------------------------------------------------------
+decreaseStartTime:
+    ld hl,(yearStartTime)
+    ld de, (roundDecrease)
+    sbc hl,de
+    ld (yearStartTime),hl
+    ret
+
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -91,6 +107,7 @@ printToBuffer:
 
     ret
 
+roundDecrease:          dw 10
 yearStartTime:          dw 300          ;Starting time each year
 time:                   dw 42            ;Time in seconds
 tickCounter:            db 0

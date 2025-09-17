@@ -21,7 +21,6 @@ start:
     ld hl,$0101
     call YearTerm.select
     call Money.resetMoney
-    call Time.reset
     ret
 
 ;-----------------------------------------------------------------------------------
@@ -34,6 +33,9 @@ start:
 ; 
 ;-----------------------------------------------------------------------------------
 roundStart:
+    call Time.reset
+    ;Lower start time to make each level harder
+    call Time.decreaseStartTime
     ;Set up a random puzzle
     call Puzzles.newCategory
     call Puzzles.copyRandomPuzzle
