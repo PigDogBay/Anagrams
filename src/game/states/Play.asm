@@ -23,13 +23,20 @@ enter:
     ret
 
 update:
-    call Time.onTick
+    call GamePhases.playUpdate
+    jr z, .gameOver
     call Game.updateMouse
     call PlayMouse.update
     call Game.updateSprites
     call printTime
     ret
 
+.gameOver:
+    STOP_ALL_ANIMATION
+    ; next state
+    ld hl, GS_GAME_OVER
+    call GameStateMachine.change
+    ret
 
 ;-----------------------------------------------------------------------------------
 ; Function: dragEnd(uint16 ptrSprite)

@@ -63,6 +63,21 @@ playStart:
     call Slot.slotsToSprites
     ret
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: playUpdate() -> bool
+;
+; Ticks down the time, if time is 0 GAME OVER!
+;
+; Out: Z - if set, game over
+; 
+;-----------------------------------------------------------------------------------
+playUpdate:
+    call Time.onTick
+    ld a,(Time.time)
+    or a
+
+    ret
 
 ;-----------------------------------------------------------------------------------
 ; 
