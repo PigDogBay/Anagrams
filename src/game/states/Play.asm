@@ -23,9 +23,11 @@ enter:
     ret
 
 update:
+    call Time.onTick
     call Game.updateMouse
     call PlayMouse.update
     call Game.updateSprites
+    call printTime
     ret
 
 
@@ -63,6 +65,21 @@ dragEnd:
 .slotOccuppied:
     call Board.bounceTile
     ret
+
+
+
+
+printTime:
+    call Time.printToBuffer
+    ld hl,Print.buffer
+    ld d, 1
+    ld e, 2
+    call Print.setCursorPosition
+    ld b,%00000000
+    call Print.printString
+    ret
+
+
 
 
 printMoney:

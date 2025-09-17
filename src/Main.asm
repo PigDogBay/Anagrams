@@ -45,6 +45,7 @@ BANK_IMAGE_1_PALETTE:           equ 60
     include "model/Slot.asm"
     include "model/Board.asm"
     include "model/Motion.asm"
+    include "model/Time.asm"
     include "utils/Maths.asm"
     include "utils/String.asm"
     include "utils/Exceptions.asm"
