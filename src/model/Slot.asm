@@ -192,6 +192,9 @@ findByLetter:
 ;
 ;-----------------------------------------------------------------------------------
 createSlots:
+    call String.countLines
+    ld (lineCount),a
+    
     ld de,slotStruct
     ld ix, slotList
     ; Prepend a newline slot, this will contain the column position
@@ -336,7 +339,11 @@ slotsToSprites:
     push de
 
     ;init vars for layout
-    ld a, LAYOUT_SLOT_START_ROW
+    ;Calculate starting line
+    ld a,(lineCount)
+    ld b,a
+    ld a, LAYOUT_SLOT_START_ROW + 3
+    sub b
     ld (row),a
 
     ld a, (slotCount)
@@ -503,7 +510,8 @@ unslotTile:
     ld (ix+slotStruct.tileId),0
     ret
 
-
+lineCount:
+    db 0
 row:
     db 0
 column:
