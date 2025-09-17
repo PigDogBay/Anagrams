@@ -35,6 +35,7 @@ reset:
 decreaseStartTime:
     ld hl,(yearStartTime)
     ld de, (roundDecrease)
+    or a
     sbc hl,de
     ld (yearStartTime),hl
     ret
@@ -107,8 +108,8 @@ printToBuffer:
 
     ret
 
-roundDecrease:          dw 10
-yearStartTime:          dw 300          ;Starting time each year
+roundDecrease:          dw 15
+yearStartTime:          dw 200          ;Starting time each year
 time:                   dw 42            ;Time in seconds
 tickCounter:            db 0
 
