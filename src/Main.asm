@@ -71,6 +71,7 @@ BANK_IMAGE_1_PALETTE:           equ 60
     include "game/states/LifelineSlot.asm"
     include "game/states/LifelineSolve.asm"
     include "game/states/GameOver.asm"
+    include "game/states/Win.asm"
     IFDEF BATTLEGROUND
         include "game/states/PuzzleViewer.asm"
         include "game/states/Battleground.asm"

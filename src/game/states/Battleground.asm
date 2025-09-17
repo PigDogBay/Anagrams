@@ -20,7 +20,7 @@ enter:
 update:
     ; next state
 ;    ld hl, GS_PUZZLE_VIEWER
-    ld hl, GS_GAME_OVER
+    ld hl, GS_WIN
     call GameStateMachine.change
     ret
 
