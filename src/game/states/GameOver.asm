@@ -62,9 +62,17 @@ update:
 
 printText:
     call Tilemap.clear
+
     ld e, 16
     ld hl,tauntText
     call Print.setCursorPosition
+    ld b,%00000000
+    call Print.printCentred
+
+    call YearTerm.printToBuffer
+    ;Print the buffer to the screen
+    ld hl,Print.buffer
+    ld e, 18
     ld b,%00000000
     call Print.printCentred
 

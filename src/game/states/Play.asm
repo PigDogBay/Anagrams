@@ -95,24 +95,13 @@ printMoney:
 
 printShortYearTerm:
     ld de, Print.buffer
-
-    call YearTerm.getShortYearName
-    call Print.bufferPrint
-
-    ld hl, .delimiter
-    call Print.bufferPrint
-
-    call YearTerm.getTermName
-    call Print.bufferPrint
-
+    call YearTerm.printToBuffer
     ;Print the buffer to the screen
     ld hl,Print.buffer
     ld e, 1
     ld b,%00000000
     call Print.printCentred
     ret
-.delimiter:
-    db ". ",0
 
 printCategory:
     ld a, (Puzzles.category)
