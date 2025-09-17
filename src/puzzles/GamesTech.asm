@@ -1,0 +1,266 @@
+;-----------------------------------------------------------------------------------
+; 
+; Data: Games and Tech
+; 
+;-----------------------------------------------------------------------------------
+
+    module CatGames
+
+table:
+    dw p1,p2,p3,p4,p5,p6,p7,p8,p9,p10
+    dw p11,p12,p13,p14,p15,p16,p17,p18,p19,p20
+    dw p21,p22,p23,p24,p25,p26,p27,p28,p29,p30
+    dw p31,p32,p33,p34,p35,p36,p37,p38,p39,p40
+    dw p41,p42,p43,p44,p45,p46,p47,p48,p49,p50
+
+p1: db "ZELDA GAMES",0
+    db "A LINK TO\nTHE PAST",0
+    db "OCARINA\nOF TIME",0
+    db "TWILIGHT\nPRINCESS",0
+
+p2: db "ZELDA GAMES",0
+    db "THE WIND\nWAKER",0
+    db "PHANTOM\nHOURGLASS",0
+    db "FOUR SWORDS\nADVENTURE",0
+
+p3: db "CALL OF DUTY",0
+    db "BLACK OPS",0
+    db "WORLD AT WAR",0
+    db "MODERN\nWARFARE II",0
+
+p4: db "NEXT GAMES",0
+    db "BAGGERS\nIN SPACE",0
+    db "CAPTAIN\nSQUARE JAW",0
+    db "CROWLEY\nWORLD TOUR",0
+
+p5: db "NEXT GAMES",0
+    db "HEAD OVER\nHEELS",0
+    db "ALIENS\nNEOPLASMA",0
+    db "WEBSTER\nAND THE\nSPIDER BOTS",0
+
+p6: db "NEXT GAMES",0
+    db "NIGHT KNIGHT",0
+    db "TYVARIAN",0
+    db "THE HOLLOW\nEARTH\nHYPOTHESIS",0
+
+p7: db "NEXT GAMES",0
+    db "SHOVEL\nADVENTURE",0
+    db "VRADARKS\nREVENGE",0
+    db "INVASION\nOF THE CLOUD\nPEOPLE",0
+
+p8: db "NEXT GAMES",0
+    db "BIKERS\nDELUXE",0
+    db "MAGNUM\nCLEAN SHOT",0
+    db "THE GHOSTS OF\nBLACKWOOD\nMANOR",0
+
+p9: db "NEXT GAMES",0
+    db "QUANTUM\nSTORM",0
+    db "SABOTEUR\nDEEP COVER",0
+    db "XENO BRIGADE\nEXTINCTION",0
+
+p10: db "ZX SPECTRUM GAMES",0
+    db "HUNGRY\nHORACE",0
+    db "HORACE\nGOES SKIING",0
+    db "HORACE AND\nTHE SPIDERS",0
+
+p11: db "RAFFAELE CECCO GAMES",0
+    db "EQUINOX",0
+    db "CYBERNOID II\nTHE REVENGE",0
+    db "DELIVERANCE\nSTORMLORD II",0
+
+p12: db "GAMES PUBLISHERS",0
+    db "MICRO POWER",0
+    db "ACORNSOFT",0
+    db "SUPERIOR\nSOFTWARE",0
+
+p13: db "GAMES PUBLISHERS",0
+    db "MIKRO GEN",0
+    db "HEWSON\nCONSULTANTS",0
+    db "ULTIMATE\nPLAY THE\nGAME",0
+
+p14: db "GAMES PUBLISHERS",0
+    db "RAINBIRD",0
+    db "DURRELL\nSOFTWARE",0
+    db "MELBOURNE\nHOUSE",0
+
+p15: db "GAMES PUBLISHERS",0
+    db "ALLIGATA",0
+    db "SOFTWARE\nPROJECTS",0
+    db "ARGUS PRESS\nSOFTWARE",0
+
+p16: db "GAMES PUBLISHERS",0
+    db "TYNESOFT",0
+    db "CREATIVE\nSPARKS",0
+    db "MASTERTRONIC",0
+
+p17: db "BBC / ELECTRON GAMES",0
+    db "ARCADIANS",0
+    db "SPHINX\nADVENTURE",0
+    db "STARSHIP\nCOMMAND",0
+
+p18: db "BBC / ELECTRON GAMES",0
+    db "DUNJUNZ",0
+    db "BIRD STRIKE",0
+    db "FELIX IN\nTHE FACTORY",0
+
+p19: db "BBC / ELECTRON GAMES",0
+    db "IMOGEN",0
+    db "PALACE\nOF MAGIC",0
+    db "AUF\nWIEDERSEHEN\nPET",0
+
+p20: db "COMMODORE 64 GAMES",0
+    db "THE LAST\nNINJA",0
+    db "RAID OVER\nMOSCOW",0
+    db "THE GREAT\nGIANA\nSISTERS",0
+
+p21: db "COMMODORE 64 GAMES",0
+    db "AZTEC\nCHALLENGE",0
+    db "MANIAC\nMANSION",0
+    db "IMPOSSIBLE\nMISSION II",0
+
+p22: db "COMMODORE 64 GAMES",0
+    db "SPEEDBALL",0
+    db "CALIFORNIA\nGAMES",0
+    db "WORLD CLASS\nLEADERBOARD",0
+
+p23: db "COMMODORE 64 GAMES",0
+    db "PARADROID",0
+    db "THE SENTINEL",0
+    db "DEFENDER\nOF THE CROWN",0
+
+p24: db "ARCADE GAMES",0
+    db "ZOO KEEPER",0
+    db "SATANS\nHOLLOW",0
+    db "DONKEY KONG\nJUNIOR",0
+
+p25: db "ARCADE GAMES",0
+    db "PAPERBOY",0
+    db "CRYSTAL\nCASTLES",0
+    db "ELEVATOR\nACTION",0
+
+p26: db "ARCADE GAMES",0
+    db "ASTEROIDS",0
+    db "BATTLEZONE",0
+    db "ROADBLASTERS",0
+
+p27: db "ARCADE GAMES",0
+    db "STAR CASTLE",0
+    db "MISSILE\nCOMMAND",0
+    db "SPACE\nINVADERS\nDELUXE",0
+
+p28: db "ARCADE GAMES",0
+    db "BERZERK",0
+    db "PLEIADES",0
+    db "BURGERTIME",0
+
+p29: db "ARCADE GAMES",0
+    db "SPY HUNTER",0
+    db "MAJOR HAVOC",0
+    db "DRAGONS\nLAIR",0
+
+p30: db "ARCADE MANUFACTURERS",0
+    db "BALLY MIDWAY",0
+    db "GOTTLIEB",0
+    db "WILLIAMS\nELECTRONICS",0
+
+p31: db "CONSOLES",0
+    db "COLECO\nTELSTAR",0
+    db "MAGNAVOX\nODYSSEY",0
+    db "SEGA MASTER\nSYSTEM",0
+
+p32: db "CONSOLES",0
+    db "SEGA\nDREAMCAST",0
+    db "SONY\nPLAYSTATION",0
+    db "NINTENDO\nSWITCH LITE",0
+
+p33: db "HOME COMPUTERS",0
+    db "JUPITER ACE",0
+    db "ACORN\nELECTRON",0
+    db "GRUNDY\nNEWBRAIN",0
+
+p34: db "HOME COMPUTERS",0
+    db "COMMODORE\nPET",0
+    db "COLECO\nADAM",0
+    db "EXIDY\nSORCERER",0
+
+p35: db "HOME COMPUTERS",0
+    db "COMMODORE\nAMIGA",0
+    db "SINCLAIR QL",0
+    db "APPLE\nMACINTOSH",0
+
+p36: db "OBSOLETE MEDIA",0
+    db "BETAMAX",0
+    db "LASERDISC",0
+    db "AUDIO\nCASSETTES",0
+
+p37: db "OBSOLETE MEDIA",0
+    db "PUNCH CARDS",0
+    db "FLOPPY DISK",0
+    db "BLU RAY\nDISCS",0
+
+p38: db "JOYSTICKS",0
+    db "KEMPSTON",0
+    db "QUICKSHOT II",0
+    db "COMPETITION\nPRO",0
+
+p39: db "NINTENDO GAMES",0
+    db "METROID\nPRIME",0
+    db "SUPER MARIO\nGALAXY",0
+    db "ANIMAL\nCROSSING\nNEW HORIZONS",0
+
+p40: db "NES GAMES",0
+    db "NINJA GAIDEN",0
+    db "EXCITEBIKE",0
+    db "CASTLEVANIA",0
+
+p41: db "NES GAMES",0
+    db "METROID",0
+    db "BIONIC\nCOMMANDO",0
+    db "MIKE TYSONS\nPUNCH OUT",0
+
+p42: db "DREAMCAST GAMES",0
+    db "JET SET\nRADIO",0
+    db "SOULCALIBUR",0
+    db "PHANTASY\nSTAR ONLINE",0
+
+p43: db "DREAMCAST GAMES",0
+    db "SONIC\nADVENTURE",0
+    db "THE HOUSE\nOF THE DEAD",0
+    db "RESIDENT\nEVIL CODE\nVERONICA",0
+
+p44: db "PLAYSTATION GAMES",0
+    db "RESIDENT\nEVIL",0
+    db "FINAL\nFANTASY VII",0
+    db "THE LAST OF\nUS PART II",0
+
+p45: db "FPS GAMES",0
+    db "SERIOUS SAM",0
+    db "QUAKE III\nARENA",0
+    db "DOOM II\nHELL ON\nEARTH",0
+
+p46: db "BOARD GAMES",0
+    db "DRAUGHTS",0
+    db "BACKGAMMON",0
+    db "NINE MENS\nMORRIS",0
+
+p47: db "ANCIENT BOARD GAMES",0
+    db "SHOGI",0
+    db "PACHISI",0
+    db "XIANGQI",0
+
+p48: db "BOARD GAMES",0
+    db "THE GAME\nOF LIFE",0
+    db "SNAKES AND\nLADDERS",0
+    db "SETTLERS\nOF CATAN",0
+
+p49: db "CARD GAMES",0
+    db "CRIBBAGE",0
+    db "THREE\nCARD BRAG",0
+    db "CONTRACT\nBRIDGE",0
+
+p50: db "CARD GAMES",0
+    db "BEZIQUE",0
+    db "BACCARAT",0
+    db "PINOCHLE",0
+
+    endmodule

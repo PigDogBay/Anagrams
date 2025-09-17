@@ -11,7 +11,7 @@
     module GameState_PuzzleViewer
 
 
-CATEGORY_TO_VIEW:   equ CAT_FILM
+CATEGORY_TO_VIEW:   equ CAT_GAMES
 
 
 @GS_PUZZLE_VIEWER: 

@@ -17,7 +17,7 @@
     module Puzzles
 
 PUZZLE_COUNT        equ 50
-CAT_COUNT           equ 5
+CAT_COUNT           equ 6
 
 ;-----------------------------------------------------------------------------------
 ; 
