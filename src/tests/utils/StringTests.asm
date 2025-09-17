@@ -216,4 +216,44 @@ UT_copy2:
 .dest:
     ds 40
 
+
+UT_countLines1:
+    ld hl,.string
+    call String.countLines
+    nop ; ASSERTION A == 1
+
+    TC_END
+.string:
+    db "one line",0
+
+UT_countLines2:
+    ld hl,.string
+    call String.countLines
+    nop ; ASSERTION A == 2
+
+    TC_END
+.string:
+    db "two\nlines",0
+
+UT_countLines3:
+    ld hl,.string
+    call String.countLines
+    nop ; ASSERTION A == 3
+
+    TC_END
+.string:
+    db "three\nliney\nlines",0
+
+;Empty string case
+UT_countLines4:
+    ld hl,.string
+    call String.countLines
+    nop ; ASSERTION A == 1
+
+    TC_END
+.string:
+    db 0
+
+
+
     endmodule

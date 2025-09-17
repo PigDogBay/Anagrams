@@ -211,5 +211,35 @@ copy:
     ret
 
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: countLines(uint16 src) -> uint8
+;
+; Counts the number of lines in the string
+;
+; In HL = Source String
+;
+; Out: A = Number of lines found
+; 
+; Dirty: A
+;
+;-----------------------------------------------------------------------------------
+countLines:
+    push bc,hl
+    ld b,1
+.loop:
+    ld a,(hl)
+    inc hl
+    or a
+    jr z, .nullTerminatorFound
+    cp 10   ;ASCII CODE FOR \n
+    jr nz, .loop
+    inc b 
+    jr nz, .loop
+
+.nullTerminatorFound:
+    ld a,b
+    pop hl,bc
+    ret
 
     endmodule
