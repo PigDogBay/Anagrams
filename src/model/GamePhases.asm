@@ -102,11 +102,7 @@ solvedExit:
     or a
     ret nz
     
-    //TODO GS_GAME_COMPLETED, for now go back to level 1
-    ld hl,$0101
-    call YearTerm.select
-    ld hl, GS_ROUND
-
+    ld hl, GS_WIN
     ret
 
     endmodule
