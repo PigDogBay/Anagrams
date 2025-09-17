@@ -11,14 +11,14 @@ TICK_COUNTER_MAX    equ 50          ;50 ticks equal 1s on 50Hz machines
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: resetTIme() -> uint16 time
+; Function: reset() -> uint16 time
 ;
 ; Resets the time to the yearStartTime
 ;
 ; Out: HL time
 ; 
 ;-----------------------------------------------------------------------------------
-resetTime:
+reset:
     ld hl,(yearStartTime)
     ld (time),hl
     ret
@@ -92,7 +92,7 @@ printToBuffer:
     ret
 
 yearStartTime:          dw 300          ;Starting time each year
-time:                   dw 100            ;Time in seconds
+time:                   dw 42            ;Time in seconds
 tickCounter:            db 0
 
     endmodule

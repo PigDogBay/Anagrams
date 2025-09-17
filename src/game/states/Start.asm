@@ -23,18 +23,7 @@ enter:
 
     call addButtons
 
-    call Slot.removeAll
-    call Tile.removeAll
-
-    call GameId.reset
-
-    call Puzzles.getPuzzle
-    call Slot.createSlots
-    call Puzzles.jumbleLetters
-
-    call Tile.createTiles
-    call Tile.tilesToSprites
-    call Slot.slotsToSprites
+    call GamePhases.playStart
 
     ret
 

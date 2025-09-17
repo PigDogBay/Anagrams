@@ -55,27 +55,8 @@ update:
     ret
 
 .mousePressed:
-    call YearTerm.nextTerm
-    or a
-    jr nz, .newTerm
-    
-    call YearTerm.nextYear
-    or a
-    jr nz, .newRound
-    
-    //TODO GS_GAME_COMPLETED, for now go back to level 1
-    ld hl,$0101
-    call YearTerm.select
-    jr .newRound
-
-.newTerm:
     STOP_ALL_ANIMATION
-    ld hl, GS_START
-    call GameStateMachine.change
-    ret
-.newRound:
-    STOP_ALL_ANIMATION
-    ld hl, GS_ROUND
+    call GamePhases.solvedExit
     call GameStateMachine.change
     ret
 

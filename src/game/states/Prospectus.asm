@@ -55,9 +55,7 @@ update:
     ret
 
 .mousePressed:
-    ld hl,$0101
-    call YearTerm.select
-    call Money.resetMoney
+    call GamePhases.start
     ld hl, GS_ROUND
     call GameStateMachine.change
     ret

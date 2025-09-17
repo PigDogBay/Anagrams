@@ -21,9 +21,7 @@ enter:
     ; First sprite always the mouse pointer so that it is on top
     call Game.addMouseSpritePointer
 
-    ;Set up a random puzzle
-    call Puzzles.newCategory
-    call Puzzles.copyRandomPuzzle
+    call GamePhases.roundStart
 
     ;Animated Sprite Tile
     ;Add slots and amke SYLLABUS tiles appear
