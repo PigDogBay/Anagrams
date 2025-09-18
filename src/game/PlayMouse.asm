@@ -8,6 +8,9 @@
     
     
     module PlayMouse
+
+TOOL_TIP_LINE1      equ 28
+TOOL_TIP_LINE2      equ 30
        
 jumpTable:
     dw stateMouseReady
@@ -45,13 +48,34 @@ stateMouseReady:
     ; Do nothing
     ret
 stateMouseHover:
-    ; Do nothing
+    ld a,c
+    cp QUIT_BUTTON
+    jp z, printQuitTip
+
+    cp LIFELINE_1_BUTTON
+    jp z, printTipLifeLine1
+
+    cp LIFELINE_2_BUTTON
+    jp z, printTipLifeLine2
+
+    cp LIFELINE_3_BUTTON
+    jp z, printTipLifeLine3
+
+    cp LIFELINE_4_BUTTON
+    jp z, printTipLifeLine4
     ret
+
 stateMouseHoverEnd:
-    ; Do nothing
+    ld e, TOOL_TIP_LINE1
+    call Print.clearLine
+    ld e, TOOL_TIP_LINE2
+    call Print.clearLine
     ret
 stateMousePressed:
-    ; Do nothing
+    ld e, TOOL_TIP_LINE1
+    call Print.clearLine
+    ld e, TOOL_TIP_LINE2
+    call Print.clearLine
     ret
 stateMouseClicked:
     ld a,c
@@ -146,6 +170,66 @@ stateMouseBackgroundClicked:
     ; Do nothing
     ret
 
+
+printQuitTip:
+    ld hl, .tip
+    ld e, TOOL_TIP_LINE1
+    ld b,%00000000
+    call Print.printCentred
+    ret
+.tip:   db "Drop out of college",0
+
+printTipLifeLine1:
+    ld hl, .tip1
+    ld e, TOOL_TIP_LINE1
+    ld b,%00000000
+    call Print.printCentred
+    ld hl, .tip2
+    ld e, TOOL_TIP_LINE2
+    ld b,%00010000
+    call Print.printCentred
+    ret
+.tip1:   db "Match a TILE to a SLOT",0
+.tip2:   db "Cost -10s",0
+
+printTipLifeLine2:
+    ld hl, .tip1
+    ld e, TOOL_TIP_LINE1
+    ld b,%00000000
+    call Print.printCentred
+    ld hl, .tip2
+    ld e, TOOL_TIP_LINE2
+    ld b,%00010000
+    call Print.printCentred
+    ret
+.tip1:   db "Match a SLOT to a TILE",0
+.tip2:   db "Cost -20s",0
+
+printTipLifeLine3:
+    ld hl, .tip1
+    ld e, TOOL_TIP_LINE1
+    ld b,%00000000
+    call Print.printCentred
+    ld hl, .tip2
+    ld e, TOOL_TIP_LINE2
+    ld b,%00010000
+    call Print.printCentred
+    ret
+.tip1:   db "Reveal a RANDOM match",0
+.tip2:   db "Cost -5s",0
+
+printTipLifeLine4:
+    ld hl, .tip1
+    ld e, TOOL_TIP_LINE1
+    ld b,%00000000
+    call Print.printCentred
+    ld hl, .tip2
+    ld e, TOOL_TIP_LINE2
+    ld b,%00010000
+    call Print.printCentred
+    ret
+.tip1:   db "Reveal a CLUE",0
+.tip2:   db "Cost -10s",0
 
 
 nullDragEndCallback:

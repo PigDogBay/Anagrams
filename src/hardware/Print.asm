@@ -128,6 +128,28 @@ bufferPrint:
     ex de,hl
     ret
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: clearLine(uint8 y) 
+; 
+; Fills the line with spaces
+; 
+; In: E - Y position 
+; 
+; Dirty None
+;
+;-----------------------------------------------------------------------------------
+clearLine:
+    ld d,0
+    call setCursorPosition
+    ;Add start address
+    ld hl, (tilemapAddress)
+    ld (hl),0
+    ld de,hl
+    inc de
+    ld bc,80 - 1
+    ldir
+    ret    
 
 ;-----------------------------------------------------------------------------------
 ;
