@@ -81,7 +81,7 @@ UT_getRandom1:
     djnz .innerLoop
     dec c
     jr nz, .outerloop
-
+    ; LOGPOINT helloword
     ld a,(.resultsLow+42)
     nop ; ASSERTION A > 0
     ld a,(.resultsHigh+99)
@@ -106,6 +106,42 @@ UT_rnd1:
     djnz .loop
 
     TC_END
+
+;Checks rnd 0-49, prints results to the debug console
+UT_rnd2:
+    ld hl, 0xbeef
+    ld (Maths.randomSeed),hl
+    ld c,10
+.outerloop:
+    ld b,255
+.innerLoop:    
+    ld a,50
+    call Maths.rnd
+
+    ;Store the results in the bucket
+    ld hl, .bucket
+    add hl,a
+    ld a,(hl)
+    inc a
+    ld (hl),a
+
+    djnz .innerLoop
+    dec c
+    jr nz, .outerloop
+
+    ; Print Bucket
+    ld b,50
+    ld hl, .bucket
+.printLoop:
+    ld a,(hl)
+    ; LOGPOINT [RND] ${A} ${50-B}
+    inc hl
+    djnz .printLoop    
+
+    TC_END
+.bucket:
+    block 256,0
+
 
 ;
 ; difference tests
