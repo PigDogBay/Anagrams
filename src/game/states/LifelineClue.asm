@@ -8,8 +8,8 @@
 
     module GameState_LifelineClue
 
-INSTRUCTION_ROW: equ 2
-CLUE_ROW: equ 17
+INSTRUCTION_ROW: equ 28
+CLUE_ROW: equ 31
 
 @GS_LIFELINE_CLUE:
     stateStruct enter,update

@@ -9,7 +9,7 @@
 
     module GameState_LifelineSolve
 
-INSTRUCTION_ROW: equ 2
+INSTRUCTION_ROW: equ 28
 
 @GS_LIFELINE_SOLVE:
     stateStruct enter,update

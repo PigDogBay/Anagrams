@@ -9,7 +9,7 @@
 
     module GameState_LifelineTile
 
-INSTRUCTION_ROW: equ 2
+INSTRUCTION_ROW: equ 28
 
 @GS_LIFELINE_TILE:
     stateStruct enter,update
