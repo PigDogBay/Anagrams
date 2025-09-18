@@ -17,7 +17,6 @@ enter:
     ;Set up callback when drag ends
     ld hl, dragEnd
     ld (PlayMouse.dragEndCallback),hl
-    call printMoney
     call printShortYearTerm
     call printCategory
     ret
