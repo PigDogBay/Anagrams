@@ -20,15 +20,12 @@ enter:
     ld hl,instructionText1
     ld e, INSTRUCTION_ROW
     call Game.printInstruction
-    ld hl,instructionText2
-    ld e, INSTRUCTION_ROW + 2
-    call Game.printInstruction
 
     ;Remove all interaction from sprites
     call SpriteList.removeAllInteraction
 
     ld ix,timer1
-    ld hl,150
+    ld hl,75
     call Timing.startTimer
 
     ret
@@ -81,8 +78,6 @@ timer1:
     timingStruct 0,0,0
 
 instructionText1:
-    db "Picking a random tile",0
-instructionText2:
-    db "and finding its slot...",0
+    db "Thinking...",0
 
     endmodule
