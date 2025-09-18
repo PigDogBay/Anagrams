@@ -44,6 +44,8 @@ enter:
 
 
 update:
+    ;Shake RNG
+    call Maths.getRandom
     ;wait for use to click mouse button
     call Game.updateMouseNoSprite
     cp MouseDriver.STATE_BACKGROUND_CLICKED
