@@ -8,42 +8,38 @@
 
     module GameState_LifelineClue
 
-INSTRUCTION_ROW: equ 28
-CLUE_ROW: equ 31
+CLUE_ROW: equ 29
+; 5 seconds
+CLUE_TIMEOUT equ 50 * 5
 
 @GS_LIFELINE_CLUE:
     stateStruct enter,update
 
 
 enter:
-    ; Display instruction
-    ld hl,instructionText1
-    ld e, INSTRUCTION_ROW
-    call Game.printInstruction
-    ld hl,instructionText2
-    ld e, INSTRUCTION_ROW + 1
-    call Game.printInstruction
+    ld ix,timer1
+    ld hl,CLUE_TIMEOUT
+    call Timing.startTimer
 
     ; Display Clue
     ld hl, Puzzles.clue
-    ; Centre clue
-    call String.len
-    neg
-    add 40
-    sra a
-    ld d, a
     ld e, CLUE_ROW
-    call Print.setCursorPosition
-    ld b,0
-    call Print.printString
+    ld b,%00000000
+    call Print.printCentred
     ret
 
 update:
+    call GamePhases.playUpdate
+    jp z, GameState_Play.gameOver
     ;wait for use to click mouse button
     call Game.updateMouseNoSprite
     cp MouseDriver.STATE_BACKGROUND_CLICKED
     jr z, .mousePressed
     call Game.updateSprites
+    call GameState_Play.printTime
+    ld ix,timer1
+    call Timing.hasTimerElapsed
+    jr nz, .mousePressed
     ret
 
 .mousePressed:
@@ -51,9 +47,7 @@ update:
     call GameStateMachine.change
     ret
 
-instructionText1:
-    db "Click Mouse",0
-instructionText2:
-    db "To Return To Game",0
+timer1:
+    timingStruct 0,0,0
 
     endmodule
