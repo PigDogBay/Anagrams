@@ -11,7 +11,7 @@
     module GameState_PuzzleViewer
 
 
-CATEGORY_TO_VIEW:   equ CAT_GAMES
+CATEGORY_TO_VIEW:   equ CAT_HISTORY
 
 
 @GS_PUZZLE_VIEWER: 
@@ -88,7 +88,7 @@ update:
 printClue:
     ; Display Clue
     ld hl, Puzzles.clue
-    ld e, 17
+    ld e, 28
     ld b,%00000000
     call Print.printCentred
     ret

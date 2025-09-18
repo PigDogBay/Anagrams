@@ -17,7 +17,7 @@
     module Puzzles
 
 PUZZLE_COUNT        equ 50
-CAT_COUNT           equ 6
+CAT_COUNT           equ 7
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -213,9 +213,9 @@ copyPuzzleStrings:
 @CAT_WORLD:          equ 3
 @CAT_SCIENCE:        equ 4
 @CAT_GAMES:          equ 5
-@CAT_PEOPLE:         equ 6
-@CAT_CULTURE:        equ 7
-@CAT_HISTORY:        equ 8
+@CAT_HISTORY:        equ 6
+@CAT_PEOPLE:         equ 7
+@CAT_CULTURE:        equ 8
 @CAT_FOOD:           equ 9
 
 

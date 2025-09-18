@@ -203,6 +203,8 @@ stack_top:
     include "puzzles/World.asm"
     MMU 0,BANK_PUZZLES_START + CAT_GAMES, 0x0000
     include "puzzles/GamesTech.asm"
+    MMU 0,BANK_PUZZLES_START + CAT_HISTORY, 0x0000
+    include "puzzles/History.asm"
 
     ;Load sprite data in 8k banks 30 + 31. Banks placed in MMU slots 0 and 1 
     MMU 0 1,BANK_SPRITE, 0x0000
