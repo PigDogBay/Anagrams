@@ -80,24 +80,10 @@ printTime:
     call Time.printToBuffer
     ld hl,Print.buffer
     ld d, 1
-    ld e, 3
-    call Print.setCursorPosition
-    ld b,%00000000
-    call Print.printString
-    ret
-
-
-
-
-printMoney:
-    call Money.printToBuffer
-    ld hl,Print.buffer
-    ld d, 1
     ld e, 1
     call Print.setCursorPosition
     ld b,%00000000
     call Print.printString
-
     ret
 
 printShortYearTerm:
