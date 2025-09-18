@@ -21,7 +21,7 @@ enter:
     ld e, INSTRUCTION_ROW
     call Game.printInstruction
     ld hl,instructionText2
-    ld e, INSTRUCTION_ROW + 1
+    ld e, INSTRUCTION_ROW + 2
     call Game.printInstruction
 
     ;Remove all interaction from sprites
@@ -36,9 +36,12 @@ enter:
 
 
 update:
+    call GamePhases.playUpdate
+    jp z, GameState_Play.gameOver
     ;wait for use to click mouse button
     call Game.updateMouse
     call Game.updateSprites
+    call GameState_Play.printTime
     ld ix,timer1
     call Timing.hasTimerElapsed
     jr nz, solve

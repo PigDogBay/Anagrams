@@ -23,14 +23,14 @@ enter:
 
 update:
     call GamePhases.playUpdate
-    jr z, .gameOver
+    jr z, gameOver
     call Game.updateMouse
     call PlayMouse.update
     call Game.updateSprites
     call printTime
     ret
 
-.gameOver:
+gameOver:
     STOP_ALL_ANIMATION
     ; next state
     ld hl, GS_GAME_OVER
