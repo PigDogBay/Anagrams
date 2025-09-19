@@ -43,6 +43,33 @@ decreaseStartTime:
 
 ;-----------------------------------------------------------------------------------
 ; 
+; Function: deduct(uint8 seconds)
+;
+; Subtracts the seconds from the current time
+;
+; In: A - Amount of time in seconds to deduct
+; Out: HL - current time
+;
+; Dirty: DE
+; 
+;-----------------------------------------------------------------------------------
+deduct:
+    ld d,0
+    ld e,a
+    ld hl,(time)
+    or a
+    sbc hl,de
+    jr nc, .exit
+    ld hl,0
+.exit:
+    ld (time),hl
+    ret
+
+
+
+
+;-----------------------------------------------------------------------------------
+; 
 ; Function: onTick()
 ;
 ; Decreases the time by 1s every 50th call

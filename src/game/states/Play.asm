@@ -37,6 +37,23 @@ gameOver:
     call GameStateMachine.change
     ret
 
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: deduct(uint8 seconds)
+;
+; Subtracts the seconds from the current time
+;
+; In: A - Amount of time in seconds to deduct
+;
+; Dirty: DE
+; 
+;-----------------------------------------------------------------------------------
+deductTime:
+    ;TODO print the amount to be deducted    
+    call Time.deduct
+    ret
+
 ;-----------------------------------------------------------------------------------
 ; Function: dragEnd(uint16 ptrSprite)
 ;

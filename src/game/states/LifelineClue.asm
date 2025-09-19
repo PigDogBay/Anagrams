@@ -26,6 +26,10 @@ enter:
     ld e, CLUE_ROW
     ld b,%00000000
     call Print.printCentred
+
+    ;TODO hardwire cost for now
+    ld a,10
+    call GameState_Play.deductTime
     ret
 
 update:
