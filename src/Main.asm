@@ -52,6 +52,7 @@ BANK_IMAGE_1_PALETTE:           equ 60
     include "utils/String.asm"
     include "utils/Exceptions.asm"
     include "utils/ScoresConvert.asm"
+    include "utils/List.asm"
     include "animation/Animator.asm"
     include "animation/Flash.asm"
     include "animation/FlashTwo.asm"
