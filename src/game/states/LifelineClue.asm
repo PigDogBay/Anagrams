@@ -27,8 +27,7 @@ enter:
     ld b,%00000000
     call Print.printCentred
 
-    ;TODO hardwire cost for now
-    ld a,10
+    ld a,(Lifelines.costClue)
     call GameState_Play.deductTime
     ret
 

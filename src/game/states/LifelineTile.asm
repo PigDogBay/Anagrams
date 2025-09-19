@@ -119,6 +119,9 @@ stateMouseClicked:
     ld c, Game.LIFELINE_FLASH_DURATION
     call FlashTwo.start
 
+    ld a,(Lifelines.costTile)
+    call GameState_Play.deductTime
+
 
 .slotNotFound:
     ; Restore interaction flags
