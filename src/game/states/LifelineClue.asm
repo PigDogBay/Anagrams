@@ -39,6 +39,7 @@ update:
     cp MouseDriver.STATE_BACKGROUND_CLICKED
     jr z, .mousePressed
     call Game.updateSprites
+    call GameState_Play.timeUpdate
     call GameState_Play.printTime
     ld ix,timer1
     call Timing.hasTimerElapsed
