@@ -121,7 +121,7 @@ collegeNameJumpTable:
 
 collegeNameStr1: db "Teddy Hall",0
 collegeNameStr2: db "Mor-de-Len College",0
-collegeNameStr3: db "Old College",0
+collegeNameStr3: db "Footlights",0
 collegeNameStr4: db "St Henrys",0
 collegeNameStr5: db "Bailey Hall",0
 collegeNameStr6: db "Lady Holly Hall",0
