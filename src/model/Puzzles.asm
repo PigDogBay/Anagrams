@@ -226,9 +226,9 @@ catStringJumpTable:
     dw catWorldStr
     dw catScienceStr
     dw catGamesStr
+    dw catHistoryStr
     dw catPeopleStr
     dw catCultureStr
-    dw catHistoryStr
     dw catFoodStr
 
 catFreshers: db "Freshers",0
