@@ -50,6 +50,7 @@ reset:
 ;
 ;  In: A - Cost
 ;      DE - Buffer
+;      HL - Prefix
 ; Out: DE - points to null terminator
 ;   
 ; Dirty: A,DE,HL
@@ -58,7 +59,6 @@ reset:
 printCost:
     push af
     ;Prefix
-    ld hl, .prefix
     call Print.bufferPrint
 
     ;Amount
@@ -79,8 +79,6 @@ printCost:
     ld (hl), 0
     ex de,hl
     ret
-
-.prefix:   db "Cost -",0
 
 costTile:               db 10
 costSlot:               db 20

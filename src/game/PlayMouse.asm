@@ -187,6 +187,7 @@ printTipLifeLine1:
 
     ld a,(Lifelines.costTile)
     ld de, Print.buffer
+    ld hl, costPrefix
     call Lifelines.printCost
     ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
@@ -203,6 +204,7 @@ printTipLifeLine2:
 
     ld a,(Lifelines.costSlot)
     ld de, Print.buffer
+    ld hl, costPrefix
     call Lifelines.printCost
     ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
@@ -219,6 +221,7 @@ printTipLifeLine3:
 
     ld a,(Lifelines.costRand)
     ld de, Print.buffer
+    ld hl, costPrefix
     call Lifelines.printCost
     ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
@@ -235,6 +238,7 @@ printTipLifeLine4:
 
     ld a,(Lifelines.costClue)
     ld de, Print.buffer
+    ld hl, costPrefix
     call Lifelines.printCost
     ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
@@ -249,5 +253,8 @@ nullDragEndCallback:
 
 dragEndCallback:
     dw nullDragEndCallback
+
+
+costPrefix:   db "Cost -",0
 
     endmodule

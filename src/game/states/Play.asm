@@ -148,6 +148,7 @@ timeUpdate:
 stateDeductInit:
     ld a, (deductionAmount)
     ld de,Print.buffer
+    ld hl, costPrefix
     call Lifelines.printCost
     ld hl, Print.buffer
     ld d, 1
@@ -193,5 +194,6 @@ stateDeduct:
 deductionCounter:   db 0
 deductionState:     db STATE_TIME_NORMAL
 deductionAmount:    db 0
+costPrefix:   db "-",0
 
     endmodule
