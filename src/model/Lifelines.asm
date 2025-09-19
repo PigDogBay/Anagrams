@@ -41,6 +41,33 @@ reset:
     ret
 
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: matchRandomTileAndSlot() -> Bool, uint16 tile, uint16 slot
+;
+; Sets the cost for each lifeline to its default value
+;
+; Out: Z - set no match found, for nz:
+;      IX - Tile, IY - Slot
+; 
+;-----------------------------------------------------------------------------------
+matchRandomTileAndSlot:
+    ;
+    ;pick a random tile and find a matching slot
+    ;
+    call Tile.pickRandomTile
+    ld a,h
+    or l
+    jr z, .notFound
+
+    ;save tileStruct ptr    
+    ld ix,hl
+    ;IX points to tileStruct
+    call Board.findEmptyMatchingSlot
+    or a
+.notFound:
+    ret
+
 
 ;-----------------------------------------------------------------------------------
 ; 

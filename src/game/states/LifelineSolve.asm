@@ -44,25 +44,13 @@ update:
     jr nz, solve
     ret
 
+
+
 solve:
-    ;
-    ;pick a random tile and find a matching slot
-    ;
-    call Tile.pickRandomTile
-    ld a,h
-    or l
+    call Lifelines.matchRandomTileAndSlot
     jr z, .notFound
 
-    ;save tileStruct ptr    
-    ld ix,hl
-
-
-    ;IX points to tileStruct
-    call Board.findEmptyMatchingSlot
-    or a
-    jr z, .notFound
-
-    ld a,(ix+slotStruct.id)
+    ld a,(ix+tileStruct.id)
     ld b,(iy+slotStruct.id)
     ld c, Game.LIFELINE_FLASH_DURATION
     call FlashTwo.start
@@ -70,13 +58,14 @@ solve:
     ld a,(Lifelines.costRand)
     call GameState_Play.deductTime
 
-
 .notFound:
     ; Restore interaction flags
     call SpriteList.restoreAllInteraction
     ld hl, GS_PLAY
     call GameStateMachine.change
     ret
+
+
 
 timer1:
     timingStruct 0,0,0
