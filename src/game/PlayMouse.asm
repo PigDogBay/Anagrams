@@ -184,52 +184,64 @@ printTipLifeLine1:
     ld e, TOOL_TIP_LINE1
     ld b,%00000000
     call Print.printCentred
-    ld hl, .tip2
+
+    ld a,(Lifelines.costTile)
+    ld de, Print.buffer
+    call Lifelines.printCost
+    ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
     ld b,%00010000
     call Print.printCentred
     ret
 .tip1:   db "Match a TILE to a SLOT",0
-.tip2:   db "Cost -10s",0
 
 printTipLifeLine2:
     ld hl, .tip1
     ld e, TOOL_TIP_LINE1
     ld b,%00000000
     call Print.printCentred
-    ld hl, .tip2
+
+    ld a,(Lifelines.costSlot)
+    ld de, Print.buffer
+    call Lifelines.printCost
+    ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
     ld b,%00010000
     call Print.printCentred
     ret
 .tip1:   db "Match a SLOT to a TILE",0
-.tip2:   db "Cost -20s",0
 
 printTipLifeLine3:
     ld hl, .tip1
     ld e, TOOL_TIP_LINE1
     ld b,%00000000
     call Print.printCentred
-    ld hl, .tip2
+
+    ld a,(Lifelines.costRand)
+    ld de, Print.buffer
+    call Lifelines.printCost
+    ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
     ld b,%00010000
     call Print.printCentred
     ret
 .tip1:   db "Reveal a RANDOM match",0
-.tip2:   db "Cost -5s",0
 
 printTipLifeLine4:
     ld hl, .tip1
     ld e, TOOL_TIP_LINE1
     ld b,%00000000
     call Print.printCentred
-    ld hl, .tip2
+
+    ld a,(Lifelines.costClue)
+    ld de, Print.buffer
+    call Lifelines.printCost
+    ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
     ld b,%00010000
     call Print.printCentred
     ret
 .tip1:   db "Reveal a CLUE",0
-.tip2:   db "Cost -10s",0
 
 
 nullDragEndCallback:
