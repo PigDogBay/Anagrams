@@ -231,16 +231,16 @@ catStringJumpTable:
     dw catHistoryStr
     dw catFoodStr
 
-catFreshers: db "FRESHERS",0
-catMusicStr: db "MUSIC",0
-catFilmTvStr: db "FILM AND TV",0
-catGamesStr: db "GAMES AND TECh",0
-catPeopleStr: db "PEOPLE",0
-catCultureStr: db "CULTURE",0
-catWorldStr: db "WORLD",0
-catHistoryStr: db "HISTORY",0
-catScienceStr: db "SCIENCE",0
-catFoodStr: db "FOOD",0
+catFreshers: db "Freshers",0
+catMusicStr: db "Music",0
+catFilmTvStr: db "Film & TV",0
+catGamesStr: db "Games & Tech",0
+catPeopleStr: db "People",0
+catCultureStr: db "Culture",0
+catWorldStr: db "World",0
+catHistoryStr: db "History",0
+catScienceStr: db "Sceince",0
+catFoodStr: db "Food & Drink",0
 
 
 ;-----------------------------------------------------------------------------------

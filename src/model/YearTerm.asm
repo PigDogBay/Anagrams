@@ -314,9 +314,9 @@ printToBuffer:
     db ". ",0
 
 
-termNameStr1: db "MICHAELMAS",0
-termNameStr2: db "HILARY",0
-termNameStr3: db "TRINITY",0
+termNameStr1: db "Michaelmas",0
+termNameStr2: db "Hilary",0
+termNameStr3: db "Trinity",0
 
 romanJumpTable:
     dw romanI
