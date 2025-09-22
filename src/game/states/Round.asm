@@ -80,9 +80,10 @@ printText:
     ld b,%0000000
     call Print.printCentred
 
-    ; Difficulty
+    ; Starting Time
+    call printStartingTime
+    ld hl, Print.buffer
     ld e, 16
-    call Money.getDifficultyName
     ld b,%0000000
     call Print.printCentred
 
@@ -100,7 +101,25 @@ printText:
     call Print.printCentred
     ret
 
-
+printStartingTime:
+    ld de, Print.buffer
+    ;Prefix
+    ld hl,.timeLabel
+    call Print.bufferPrint
+    ld hl,(Time.time)
+    ld a,1
+    call ScoresConvert.ConvertToDecimal
+    ;point to the end of the string
+    ex de,hl
+    add hl,a
+    ;Print second units
+    ld (hl), 's'
+    inc hl
+    ;null terminate
+    ld (hl), 0
+    ret
+.timeLabel:
+    db "Time: ",0
 
 startInstruction:
     db "CLICK TO BEGIN YOUR STUDIES",0
