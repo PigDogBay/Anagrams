@@ -58,7 +58,11 @@ update:
 
 .mousePressed:
     call GamePhases.start
-    ld hl, GS_ROUND
+    ;Skip first round screen, so need to call roundStart here
+    call GamePhases.roundStart
+    
+    STOP_ALL_ANIMATION
+    ld hl, GS_START
     call GameStateMachine.change
     ret
 
