@@ -68,6 +68,34 @@ matchRandomTileAndSlot:
 .notFound:
     ret
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: filterByUnslottedTiles()
+;
+; Creates a list of unslotted tiles
+;
+;    In: -
+;   Out: -
+; Dirty: A, B, HL, modifies List
+; 
+;-----------------------------------------------------------------------------------
+filterByUnslottedTiles:
+    call List.clear
+    ld hl,Tile.tileCount
+    ld b,(hl)
+    ; point to list
+    inc hl
+.loop
+    ;get Tile ID
+    ld a,(hl)
+    ; A = tileID, out: Z - slotted, NZ - unslotted
+    call Slot.isTileSlotted
+    jr z, .slotted
+    call List.append
+.slotted:
+    add hl,tileStruct
+    djnz .loop
+    ret
 
 ;-----------------------------------------------------------------------------------
 ; 

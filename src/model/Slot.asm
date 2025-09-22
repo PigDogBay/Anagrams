@@ -576,6 +576,7 @@ row:
 column:
     db 0
 
+;-mv Slot.slotList 256
 slotCount:
     db 0
 slotList:
