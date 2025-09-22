@@ -103,6 +103,33 @@ placeTile:
     xor a
     ret
 
+
+;-----------------------------------------------------------------------------------
+;
+; Function: slotTile(uint8 tileId, uint8 slotId)
+;
+; Places the tile into the slot, replacing any existing tile
+;
+; In:   B - tile ID
+;       C - slot ID
+; Out: -
+; Dirty A,HL
+;
+;-----------------------------------------------------------------------------------
+slotTile:
+    push bc
+    ld a,c
+    call Slot.find
+    pop bc
+    ;check if HL is not 0
+    ld a,h
+    or l
+    call z, Exceptions.nullPointer
+    add hl, slotStruct.tileId
+    ld (hl),b
+    ret
+
+
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: bounceTile(uint16 ptr)

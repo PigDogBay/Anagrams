@@ -485,6 +485,26 @@ UT_lifelineTile4:
     TC_END
 
 
+UT_slotTile:
+    call Slot.removeAll
+    call GameId.reset
+    ld hl,.data
+    call Slot.createSlots
+    
+    ;B = tileID, C = slotID
+    ld b,42 ; Tile ID
+    ld c,GameId.SLOT_ID + 2 ; Slot ID of first I
+    call Board.slotTile
+
+    SLOT_AT ix, 2
+    ld a, (ix + slotStruct.tileId)
+
+    nop ; ASSERTION A == 42
+
+.data:
+    db "MISSILE\nCOMMAND",0
+    TC_END
+
 
 
     endmodule
