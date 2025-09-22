@@ -1,3 +1,29 @@
+;-----------------------------------------------------------------------------------
+;
+; Module Tile
+;
+; struct: tileStruct
+;
+; macro FIRST_TILE indexRegister
+; macro TILE_AT indexRegister, index
+; macro TILE_ID_AT index
+; macro NEXT_TILE indexRegister
+;
+; Function: find(uint8 gameId) -> uint16
+; Function: findByLetter(uint8 gameId) -> uint16
+; Function: pickRandomTile() -> uint16
+; Function: createTiles(uint8 id, uint16 ptr) -> uint8 nextId
+; Function: removeAll()
+;
+; Function: tileToSprite(uint16 ptrSprite, uint16 ptrTile)
+; Function: tilesToSprites()
+; Function: tilesLayout()
+; Function: boundsCheck
+; Function: rowColumnToPixel(uint16 ptrSprite)
+;
+; Data uint8 tileCount, array<tileStruct> tileList
+; 
+;-----------------------------------------------------------------------------------
     module Tile
 
 SPRITE_PATTERN_OFFSET_A:    equ 8

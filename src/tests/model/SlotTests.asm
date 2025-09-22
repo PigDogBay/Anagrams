@@ -291,5 +291,52 @@ UT_findByTile3:
 
 
 
+;-----------------------------------------------------------------------------------
+;
+; Function: isTileSlotted(uint8 tileId) -> bool
+;
+; Will search the list of slots to check if the tile is slotted
+;
+; In:  A - tile ID to find
+; Out: Z - Slotted, NZ - Unslotted
+;
+;-----------------------------------------------------------------------------------
+
+//No tiles slotted
+UT_isTileSlotted1:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld a,42
+    call Slot.isTileSlotted
+    TEST_FLAG_NZ
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+//tile is slotted
+;[0: \n][1: A][2: C][3: O - 42][4: R][5: N][6: \n][7: E][8: L][9: E][10: C][11: T][12: R][13: O][14: N]
+UT_isTileSlotted2:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld ix, Slot.slotList + slotStruct*2
+    ld (ix+slotStruct.tileId),41
+    ld ix, Slot.slotList + slotStruct*3
+    ld (ix+slotStruct.tileId),42
+
+    ld a,42
+    call Slot.isTileSlotted
+    TEST_FLAG_Z
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+
 
     endmodule

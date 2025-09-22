@@ -1,3 +1,30 @@
+;-----------------------------------------------------------------------------------
+;
+; Module Slot
+;
+; struct: slotStruct
+;
+; macro SLOT_AT indexRegister, index
+; macro SLOT_ID_AT index
+;
+; Function: find(uint8 gameId) -> uint16
+; Function: findByTile(uint8 tileId) -> uint16
+; Function: findByLetter(uint8 letter, uint8 index) -> uint16
+; Function: createSlots(uint8 id, uint16 ptr) -> uint8 nextId
+; Function: addNewLineSlot(uint16 strPtr, uint16 slotPtr)
+; Function: removeAll()
+;
+; Function: slotToSprite(uint16 ptrSprite, uint16 ptrSlot)
+; Function: slotsToSprites()
+; function justifySlots(uint16 ptr) -> uint8
+; Function: rowColumnToPixel(uint16 ptrSprite)
+; Function: slotTile(uint8 slotId, uint8 tileId)
+; Function: unslotTile(uint8 tileId)
+;
+; Data: uint8 slotCount, array<slotStruct> slotList
+;
+;-----------------------------------------------------------------------------------
+
     module Slot
 
 
@@ -104,6 +131,38 @@ findByTile:
     ld hl,0
 .found:
     pop de,bc
+    ret
+
+;-----------------------------------------------------------------------------------
+;
+; Function: isTileSlotted(uint8 tileId) -> bool
+;
+; Will search the list of slots to check if the tile is slotted
+;
+; In:  A - tile ID to find
+; Out: Z - Slotted, NZ - Unslotted
+; 
+; Dirty: -
+;
+;-----------------------------------------------------------------------------------
+isTileSlotted:
+    push bc,hl
+    ld c,a
+    ld a, (slotCount)
+    ld b,a
+    ld hl,slotList
+    add hl, slotStruct.tileId
+.next:
+    ld a,(hl)
+    cp c
+    jr z, .found
+    add hl,slotStruct
+    djnz .next
+    ;Set NZ flag - unslotted
+    cp c
+.found:
+    ld a,c
+    pop hl,bc
     ret
 
 
