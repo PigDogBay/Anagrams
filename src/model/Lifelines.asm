@@ -55,11 +55,23 @@ matchRandomTileAndSlot:
     ;
     ;pick a random tile and find a matching slot
     ;
+    call filterByUnslottedTiles
+    or a
+    jr z, .pickAnyTile
+    call List.getRandom
+    call Tile.find
+    ld a,h
+    or l
+    jr nz, .matchSlot
+    
+
+.pickAnyTile:
     call Tile.pickRandomTile
     ld a,h
     or l
     jr z, .notFound
 
+.matchSlot:
     ;save tileStruct ptr    
     ld ix,hl
     ;IX points to tileStruct
@@ -75,7 +87,7 @@ matchRandomTileAndSlot:
 ; Creates a list of unslotted tiles
 ;
 ;    In: -
-;   Out: -
+;   Out: A - list count
 ; Dirty: A, B, HL, modifies List
 ; 
 ;-----------------------------------------------------------------------------------
@@ -95,6 +107,7 @@ filterByUnslottedTiles:
 .slotted:
     add hl,tileStruct
     djnz .loop
+    ld a, (List.count)
     ret
 
 ;-----------------------------------------------------------------------------------
