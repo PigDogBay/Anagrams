@@ -16,8 +16,16 @@
 
 BANK_PUZZLES_START              equ 30
 BANK_SPRITE:                    equ 40
+BANK_IMAGE_1_PALETTE:           equ 49
 BANK_IMAGE_1:                   equ 50
-BANK_IMAGE_1_PALETTE:           equ 60
+BANK_IMAGE_DROPOUT              equ 60
+BANK_IMAGE_HILARY               equ 70
+BANK_IMAGE_MICHAELMAS           equ 80
+BANK_IMAGE_PROSPECTUS           equ 130
+BANK_IMAGE_ROUND                equ 100
+BANK_IMAGE_TRINITY              equ 110
+BANK_IMAGE_WIN                  equ 120
+
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -213,33 +221,179 @@ stack_top:
     incbin "assets/anagrams.spr"
 
     MMU 0,BANK_IMAGE_1, 0x0000
-    incbin "assets/titleScreen/bg_00.nxi"
+    incbin "assets/title/title_0.nxi"
     MMU 0,BANK_IMAGE_1 + 1, 0x0000
-    incbin "assets/titleScreen/bg_01.nxi"
+    incbin "assets/title/title_1.nxi"
     MMU 0,BANK_IMAGE_1 + 2, 0x0000
-    incbin "assets/titleScreen/bg_02.nxi"
+    incbin "assets/title/title_2.nxi"
     MMU 0,BANK_IMAGE_1 + 3, 0x0000
-    incbin "assets/titleScreen/bg_03.nxi"
+    incbin "assets/title/title_3.nxi"
     MMU 0,BANK_IMAGE_1 + 4, 0x0000
-    incbin "assets/titleScreen/bg_04.nxi"
+    incbin "assets/title/title_4.nxi"
     MMU 0,BANK_IMAGE_1 + 5, 0x0000
-    incbin "assets/titleScreen/bg_05.nxi"
+    incbin "assets/title/title_5.nxi"
     MMU 0,BANK_IMAGE_1 + 6, 0x0000
-    incbin "assets/titleScreen/bg_06.nxi"
+    incbin "assets/title/title_6.nxi"
     MMU 0,BANK_IMAGE_1 + 7, 0x0000
-    incbin "assets/titleScreen/bg_07.nxi"
+    incbin "assets/title/title_7.nxi"
     MMU 0,BANK_IMAGE_1 + 8, 0x0000
-    incbin "assets/titleScreen/bg_08.nxi"
+    incbin "assets/title/title_8.nxi"
     MMU 0,BANK_IMAGE_1 + 9, 0x0000
-    incbin "assets/titleScreen/bg_09.nxi"
+    incbin "assets/title/title_9.nxi"
 
     MMU 0,BANK_IMAGE_1_PALETTE, 0x0000
-    incbin "assets/titleScreen/bg.nxp"
+    incbin "assets/layer2.nxp"
 
+    MMU 0,BANK_IMAGE_DROPOUT, 0x0000
+    incbin "assets/dropout/dropout_0.nxi"
+    MMU 0,BANK_IMAGE_DROPOUT + 1, 0x0000
+    incbin "assets/dropout/dropout_1.nxi"
+    MMU 0,BANK_IMAGE_DROPOUT + 2, 0x0000
+    incbin "assets/dropout/dropout_2.nxi"
+    MMU 0,BANK_IMAGE_DROPOUT + 3, 0x0000
+    incbin "assets/dropout/dropout_3.nxi"
+    MMU 0,BANK_IMAGE_DROPOUT + 4, 0x0000
+    incbin "assets/dropout/dropout_4.nxi"
+    MMU 0,BANK_IMAGE_DROPOUT + 5, 0x0000
+    incbin "assets/dropout/dropout_5.nxi"
+    MMU 0,BANK_IMAGE_DROPOUT + 6, 0x0000
+    incbin "assets/dropout/dropout_6.nxi"
+    MMU 0,BANK_IMAGE_DROPOUT + 7, 0x0000
+    incbin "assets/dropout/dropout_7.nxi"
+    MMU 0,BANK_IMAGE_DROPOUT + 8, 0x0000
+    incbin "assets/dropout/dropout_8.nxi"
+    MMU 0,BANK_IMAGE_DROPOUT + 9, 0x0000
+    incbin "assets/dropout/dropout_9.nxi"
+
+    MMU 0,BANK_IMAGE_HILARY, 0x0000
+    incbin "assets/hilary/hilary_0.nxi"
+    MMU 0,BANK_IMAGE_HILARY + 1, 0x0000
+    incbin "assets/hilary/hilary_1.nxi"
+    MMU 0,BANK_IMAGE_HILARY + 2, 0x0000
+    incbin "assets/hilary/hilary_2.nxi"
+    MMU 0,BANK_IMAGE_HILARY + 3, 0x0000
+    incbin "assets/hilary/hilary_3.nxi"
+    MMU 0,BANK_IMAGE_HILARY + 4, 0x0000
+    incbin "assets/hilary/hilary_4.nxi"
+    MMU 0,BANK_IMAGE_HILARY + 5, 0x0000
+    incbin "assets/hilary/hilary_5.nxi"
+    MMU 0,BANK_IMAGE_HILARY + 6, 0x0000
+    incbin "assets/hilary/hilary_6.nxi"
+    MMU 0,BANK_IMAGE_HILARY + 7, 0x0000
+    incbin "assets/hilary/hilary_7.nxi"
+    MMU 0,BANK_IMAGE_HILARY + 8, 0x0000
+    incbin "assets/hilary/hilary_8.nxi"
+    MMU 0,BANK_IMAGE_HILARY + 9, 0x0000
+    incbin "assets/hilary/hilary_9.nxi"
+
+    MMU 0,BANK_IMAGE_MICHAELMAS, 0x0000
+    incbin "assets/michaelmas/michaelmas_0.nxi"
+    MMU 0,BANK_IMAGE_MICHAELMAS + 1, 0x0000
+    incbin "assets/michaelmas/michaelmas_1.nxi"
+    MMU 0,BANK_IMAGE_MICHAELMAS + 2, 0x0000
+    incbin "assets/michaelmas/michaelmas_2.nxi"
+    MMU 0,BANK_IMAGE_MICHAELMAS + 3, 0x0000
+    incbin "assets/michaelmas/michaelmas_3.nxi"
+    MMU 0,BANK_IMAGE_MICHAELMAS + 4, 0x0000
+    incbin "assets/michaelmas/michaelmas_4.nxi"
+    MMU 0,BANK_IMAGE_MICHAELMAS + 5, 0x0000
+    incbin "assets/michaelmas/michaelmas_5.nxi"
+    MMU 0,BANK_IMAGE_MICHAELMAS + 6, 0x0000
+    incbin "assets/michaelmas/michaelmas_6.nxi"
+    MMU 0,BANK_IMAGE_MICHAELMAS + 7, 0x0000
+    incbin "assets/michaelmas/michaelmas_7.nxi"
+    MMU 0,BANK_IMAGE_MICHAELMAS + 8, 0x0000
+    incbin "assets/michaelmas/michaelmas_8.nxi"
+    MMU 0,BANK_IMAGE_MICHAELMAS + 9, 0x0000
+    incbin "assets/michaelmas/michaelmas_9.nxi" 
+
+    MMU 0,BANK_IMAGE_PROSPECTUS, 0x0000
+    incbin "assets/prospectus/prospectus_0.nxi"
+    MMU 0,BANK_IMAGE_PROSPECTUS + 1, 0x0000
+    incbin "assets/prospectus/prospectus_1.nxi"
+    MMU 0,BANK_IMAGE_PROSPECTUS + 2, 0x0000
+    incbin "assets/prospectus/prospectus_2.nxi"
+    MMU 0,BANK_IMAGE_PROSPECTUS + 3, 0x0000
+    incbin "assets/prospectus/prospectus_3.nxi"
+    MMU 0,BANK_IMAGE_PROSPECTUS + 4, 0x0000
+    incbin "assets/prospectus/prospectus_4.nxi"
+    MMU 0,BANK_IMAGE_PROSPECTUS + 5, 0x0000
+    incbin "assets/prospectus/prospectus_5.nxi"
+    MMU 0,BANK_IMAGE_PROSPECTUS + 6, 0x0000
+    incbin "assets/prospectus/prospectus_6.nxi"
+    MMU 0,BANK_IMAGE_PROSPECTUS + 7, 0x0000
+    incbin "assets/prospectus/prospectus_7.nxi"
+    MMU 0,BANK_IMAGE_PROSPECTUS + 8, 0x0000
+    incbin "assets/prospectus/prospectus_8.nxi"
+    MMU 0,BANK_IMAGE_PROSPECTUS + 9, 0x0000
+    incbin "assets/prospectus/prospectus_9.nxi"
+
+    MMU 0,BANK_IMAGE_ROUND, 0x0000
+    incbin "assets/round/round_0.nxi"
+    MMU 0,BANK_IMAGE_ROUND + 1, 0x0000
+    incbin "assets/round/round_1.nxi"
+    MMU 0,BANK_IMAGE_ROUND + 2, 0x0000
+    incbin "assets/round/round_2.nxi"
+    MMU 0,BANK_IMAGE_ROUND + 3, 0x0000
+    incbin "assets/round/round_3.nxi"
+    MMU 0,BANK_IMAGE_ROUND + 4, 0x0000
+    incbin "assets/round/round_4.nxi"
+    MMU 0,BANK_IMAGE_ROUND + 5, 0x0000
+    incbin "assets/round/round_5.nxi"
+    MMU 0,BANK_IMAGE_ROUND + 6, 0x0000
+    incbin "assets/round/round_6.nxi"
+    MMU 0,BANK_IMAGE_ROUND + 7, 0x0000
+    incbin "assets/round/round_7.nxi"
+    MMU 0,BANK_IMAGE_ROUND + 8, 0x0000
+    incbin "assets/round/round_8.nxi"
+    MMU 0,BANK_IMAGE_ROUND + 9, 0x0000
+    incbin "assets/round/round_9.nxi"
+
+    MMU 0,BANK_IMAGE_TRINITY, 0x0000
+    incbin "assets/trinity/trinity_0.nxi"
+    MMU 0,BANK_IMAGE_TRINITY + 1, 0x0000
+    incbin "assets/trinity/trinity_1.nxi"
+    MMU 0,BANK_IMAGE_TRINITY + 2, 0x0000
+    incbin "assets/trinity/trinity_2.nxi"
+    MMU 0,BANK_IMAGE_TRINITY + 3, 0x0000
+    incbin "assets/trinity/trinity_3.nxi"
+    MMU 0,BANK_IMAGE_TRINITY + 4, 0x0000
+    incbin "assets/trinity/trinity_4.nxi"
+    MMU 0,BANK_IMAGE_TRINITY + 5, 0x0000
+    incbin "assets/trinity/trinity_5.nxi"
+    MMU 0,BANK_IMAGE_TRINITY + 6, 0x0000
+    incbin "assets/trinity/trinity_6.nxi"
+    MMU 0,BANK_IMAGE_TRINITY + 7, 0x0000
+    incbin "assets/trinity/trinity_7.nxi"
+    MMU 0,BANK_IMAGE_TRINITY + 8, 0x0000
+    incbin "assets/trinity/trinity_8.nxi"
+    MMU 0,BANK_IMAGE_TRINITY + 9, 0x0000
+    incbin "assets/trinity/trinity_9.nxi"
+
+    MMU 0,BANK_IMAGE_WIN, 0x0000
+    incbin "assets/win/win_0.nxi"
+    MMU 0,BANK_IMAGE_WIN + 1, 0x0000
+    incbin "assets/win/win_1.nxi"
+    MMU 0,BANK_IMAGE_WIN + 2, 0x0000
+    incbin "assets/win/win_2.nxi"
+    MMU 0,BANK_IMAGE_WIN + 3, 0x0000
+    incbin "assets/win/win_3.nxi"
+    MMU 0,BANK_IMAGE_WIN + 4, 0x0000
+    incbin "assets/win/win_4.nxi"
+    MMU 0,BANK_IMAGE_WIN + 5, 0x0000
+    incbin "assets/win/win_5.nxi"
+    MMU 0,BANK_IMAGE_WIN + 6, 0x0000
+    incbin "assets/win/win_6.nxi"
+    MMU 0,BANK_IMAGE_WIN + 7, 0x0000
+    incbin "assets/win/win_7.nxi"
+    MMU 0,BANK_IMAGE_WIN + 8, 0x0000
+    incbin "assets/win/win_8.nxi"
+    MMU 0,BANK_IMAGE_WIN + 9, 0x0000
+    incbin "assets/win/win_9.nxi"
 
     SAVENEX OPEN "main.nex", main, stack_top, 2
     SAVENEX CORE 3, 1, 5
-    SAVENEX CFG 7   ; Border color
+    SAVENEX CFG 7, 0, 0, 1   ; Border color, 0,0, 1 = 2Mb Ram required
     SAVENEX AUTO
     SAVENEX CLOSE
 

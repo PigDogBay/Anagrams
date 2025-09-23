@@ -446,12 +446,14 @@ layer2Test320:
 ; 
 ; 1. Images need to be first resized to 320x256 by resizing and cropping, this can be done in Preview
 ;
-; 2 . Convert the image to an uncompressed indexed bitmap with 256 colour palette, 8 bit pixels, 
+; 2. Convert images to JPG, step 3 doesn't work for PNGs
+;
+; 3 . Convert the image to an uncompressed indexed bitmap with 256 colour palette, 8 bit pixels, 
 ; BMP3 - widely supported bitmap format
 ; 
 ; convert oxford-small.jpg -colors 256 -depth 8 -compress none BMP3:oxford.bmp
 ;
-; 3. Use gfx2next (See https://www.rustypixels.uk/gfx2next/): 
+; 4. Use gfx2next (See https://www.rustypixels.uk/gfx2next/): 
 ; -bitmap Output Next bitmap .nxi
 ; -bitmap-y Set up the memory layout (y-x order) for 320x256
 ; -bank-8k Split the file into 8k chunks so that it can be easily loaded into 8k banks
@@ -482,7 +484,7 @@ titleScreen:
 
     ; 16k Bank, first 8k bank of image is at 50
     ; So 16k bank is 50/2 = 25
-    nextreg LAYER_2_RAM_PAGE, BANK_IMAGE_1/2
+    nextreg LAYER_2_RAM_PAGE, BANK_IMAGE_WIN/2
     ret
 
 
