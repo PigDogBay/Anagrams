@@ -26,14 +26,14 @@ BANK_IMAGE_ROUND                equ 100
 BANK_IMAGE_TRINITY              equ 110
 BANK_IMAGE_WIN                  equ 120
 
-IMAGE_TITLE                equ 50
-IMAGE_DROPOUT              equ 60
-IMAGE_HILARY               equ 70
-IMAGE_MICHAELMAS           equ 80
-IMAGE_PROSPECTUS           equ 130
-IMAGE_ROUND                equ 100
-IMAGE_TRINITY              equ 110
-IMAGE_WIN                  equ 120
+IMAGE_TITLE                equ BANK_IMAGE_TITLE
+IMAGE_PROSPECTUS           equ BANK_IMAGE_TRINITY
+IMAGE_HILARY               equ BANK_IMAGE_PROSPECTUS
+IMAGE_MICHAELMAS           equ BANK_IMAGE_MICHAELMAS
+IMAGE_TRINITY              equ BANK_IMAGE_ROUND
+IMAGE_ROUND                equ BANK_IMAGE_HILARY
+IMAGE_DROPOUT              equ BANK_IMAGE_DROPOUT
+IMAGE_WIN                  equ BANK_IMAGE_WIN
 
 
 
