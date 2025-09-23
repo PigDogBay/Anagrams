@@ -17,7 +17,7 @@
 BANK_PUZZLES_START              equ 30
 BANK_SPRITE:                    equ 40
 BANK_IMAGE_PALETTE:             equ 49
-BANK_IMAGE_1:                   equ 50
+BANK_IMAGE_TITLE                equ 50
 BANK_IMAGE_DROPOUT              equ 60
 BANK_IMAGE_HILARY               equ 70
 BANK_IMAGE_MICHAELMAS           equ 80
@@ -229,25 +229,25 @@ stack_top:
     MMU 0 1,BANK_SPRITE, 0x0000
     incbin "assets/anagrams.spr"
 
-    MMU 0,BANK_IMAGE_1, 0x0000
+    MMU 0,BANK_IMAGE_TITLE, 0x0000
     incbin "assets/title/title_0.nxi"
-    MMU 0,BANK_IMAGE_1 + 1, 0x0000
+    MMU 0,BANK_IMAGE_TITLE + 1, 0x0000
     incbin "assets/title/title_1.nxi"
-    MMU 0,BANK_IMAGE_1 + 2, 0x0000
+    MMU 0,BANK_IMAGE_TITLE + 2, 0x0000
     incbin "assets/title/title_2.nxi"
-    MMU 0,BANK_IMAGE_1 + 3, 0x0000
+    MMU 0,BANK_IMAGE_TITLE + 3, 0x0000
     incbin "assets/title/title_3.nxi"
-    MMU 0,BANK_IMAGE_1 + 4, 0x0000
+    MMU 0,BANK_IMAGE_TITLE + 4, 0x0000
     incbin "assets/title/title_4.nxi"
-    MMU 0,BANK_IMAGE_1 + 5, 0x0000
+    MMU 0,BANK_IMAGE_TITLE + 5, 0x0000
     incbin "assets/title/title_5.nxi"
-    MMU 0,BANK_IMAGE_1 + 6, 0x0000
+    MMU 0,BANK_IMAGE_TITLE + 6, 0x0000
     incbin "assets/title/title_6.nxi"
-    MMU 0,BANK_IMAGE_1 + 7, 0x0000
+    MMU 0,BANK_IMAGE_TITLE + 7, 0x0000
     incbin "assets/title/title_7.nxi"
-    MMU 0,BANK_IMAGE_1 + 8, 0x0000
+    MMU 0,BANK_IMAGE_TITLE + 8, 0x0000
     incbin "assets/title/title_8.nxi"
-    MMU 0,BANK_IMAGE_1 + 9, 0x0000
+    MMU 0,BANK_IMAGE_TITLE + 9, 0x0000
     incbin "assets/title/title_9.nxi"
 
     MMU 0,BANK_IMAGE_PALETTE, 0x0000
