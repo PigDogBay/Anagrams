@@ -16,6 +16,7 @@ TITLE_Y2 equ 50
 
 
 enter:
+    L2_SET_IMAGE IMAGE_ROUND
     call NextSprite.removeAll
     call SpriteList.removeAll
     ; First sprite always the mouse pointer so that it is on top

@@ -12,9 +12,19 @@
 
 
 enter:
-    ; ld a,4
-    ; call Graphics.fillLayer2_320
-    call Graphics.titleScreen
+    ld a,(YearTerm.term)
+    cp 1
+    jr nz, .year2
+    L2_SET_IMAGE IMAGE_MICHAELMAS
+    jr .doneImage
+.year2:
+    cp 2
+    jr nz, .year3
+    L2_SET_IMAGE IMAGE_HILARY
+    jr .doneImage
+.year3:
+    L2_SET_IMAGE IMAGE_TRINITY
+.doneImage:
 
     call NextSprite.removeAll
     call SpriteList.removeAll

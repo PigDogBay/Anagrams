@@ -15,8 +15,7 @@ TITLE_Y equ 30
 TITLE_Y2 equ 50
 
 enter:
-    ld a,15
-    call Graphics.fillLayer2_320
+    L2_SET_IMAGE IMAGE_DROPOUT
     call NextSprite.removeAll
     call SpriteList.removeAll
     ; First sprite always the mouse pointer so that it is on top

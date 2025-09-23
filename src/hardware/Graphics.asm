@@ -465,7 +465,7 @@ layer2Test320:
 ; 
 ; 
 ;-----------------------------------------------------------------------------------
-titleScreen:
+    macro L2_SET_IMAGE first8kBank
     ; 7-6 Reserved
     ; 5-4 Layer 2 Resolution
     ;    00 - 256x192 256 colours 
@@ -474,10 +474,9 @@ titleScreen:
     ; 3-0 Palette offset
     nextreg LAYER_2_CONTROL, %00010000
 
-    ; 16k Bank, first 8k bank of image is at 50
-    ; So 16k bank is 50/2 = 25
-    nextreg LAYER_2_RAM_PAGE, BANK_IMAGE_WIN/2
-    ret
+    ; So 16k bank is 8k bank /2 
+    nextreg LAYER_2_RAM_PAGE, first8kBank/2
+    endm
 
 
 ;-----------------------------------------------------------------------------------

@@ -26,7 +26,7 @@ stateJumpTable:
 
 
 enter:
-    call Graphics.titleScreen
+    L2_SET_IMAGE IMAGE_TITLE
     ld a,TITLE_STATE_START
     ld (titleState),a
     call Tilemap.clear
