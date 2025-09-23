@@ -16,7 +16,7 @@
 
 BANK_PUZZLES_START              equ 30
 BANK_SPRITE:                    equ 40
-BANK_IMAGE_1_PALETTE:           equ 49
+BANK_IMAGE_PALETTE:             equ 49
 BANK_IMAGE_1:                   equ 50
 BANK_IMAGE_DROPOUT              equ 60
 BANK_IMAGE_HILARY               equ 70
@@ -114,12 +114,21 @@ main:
     call Graphics.resetAllClipWindows
 
 
-    ;TODO Set up each layer's palette
     ;
     ; Layer2
     ;
+    ;Enable and fill with 0
     ld a,0
     call Graphics.fillLayer2_320
+
+    ; Load palette for screen backdrops
+    nextreg MMU_0, BANK_IMAGE_PALETTE
+    ld hl,0
+    ld b,255
+    call Graphics.loadLayer2_9BitPalette
+    ; Restore ROM
+    nextreg MMU_0, $FF
+
 
     ;
     ; ULA
@@ -241,7 +250,7 @@ stack_top:
     MMU 0,BANK_IMAGE_1 + 9, 0x0000
     incbin "assets/title/title_9.nxi"
 
-    MMU 0,BANK_IMAGE_1_PALETTE, 0x0000
+    MMU 0,BANK_IMAGE_PALETTE, 0x0000
     incbin "assets/layer2.nxp"
 
     MMU 0,BANK_IMAGE_DROPOUT, 0x0000

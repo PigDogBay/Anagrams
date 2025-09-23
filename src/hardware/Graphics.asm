@@ -466,14 +466,6 @@ layer2Test320:
 ; 
 ;-----------------------------------------------------------------------------------
 titleScreen:
-    ; Load palette for Title screen, residing at 8k bank 50 0x0000 - 0x00ff
-    nextreg MMU_0, BANK_IMAGE_1_PALETTE
-    ld hl,0
-    ld b,255
-    call Graphics.loadLayer2_9BitPalette
-    ; Restore ROM
-    nextreg MMU_0, $FF
-
     ; 7-6 Reserved
     ; 5-4 Layer 2 Resolution
     ;    00 - 256x192 256 colours 
