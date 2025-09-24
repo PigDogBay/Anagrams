@@ -27,6 +27,7 @@ run:
 
 .loop:
     call Timing.onTick
+    call Sound.update
     call Keyboard.update
     call GameStateMachine.update
     call Animator.update

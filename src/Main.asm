@@ -17,15 +17,18 @@
 
 BANK_PUZZLES_START              equ 30
 BANK_SPRITE:                    equ 40
-BANK_IMAGE_PALETTE:             equ 49
-BANK_IMAGE_TITLE                equ 50
-BANK_IMAGE_DROPOUT              equ 60
-BANK_IMAGE_HILARY               equ 70
-BANK_IMAGE_MICHAELMAS           equ 80
-BANK_IMAGE_PROSPECTUS           equ 130
-BANK_IMAGE_ROUND                equ 100
-BANK_IMAGE_TRINITY              equ 110
-BANK_IMAGE_WIN                  equ 120
+BANK_SOUND_EFFECTS              equ 50
+BANK_SOUND_TRACK1               equ 52
+
+BANK_IMAGE_PALETTE:             equ 69
+BANK_IMAGE_TITLE                equ 70
+BANK_IMAGE_DROPOUT              equ 80
+BANK_IMAGE_HILARY               equ 100
+BANK_IMAGE_MICHAELMAS           equ 110
+BANK_IMAGE_PROSPECTUS           equ 150
+BANK_IMAGE_ROUND                equ 120
+BANK_IMAGE_TRINITY              equ 130
+BANK_IMAGE_WIN                  equ 140
 
 ;Image remapping
     IFDEF BUILD_2MB
@@ -66,6 +69,7 @@ IMAGE_WIN                  equ BANK_IMAGE_TITLE
     include "hardware/Tilemap.asm"
     include "hardware/Print.asm"
     include "hardware/Keyboard.asm"
+    include "hardware/Sound.asm"
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
     include "model/Puzzles.asm"
@@ -198,6 +202,8 @@ main:
     call NextSprite.loadPalette
 
     call MouseDriver.init
+    call Sound.init
+
     jp Game.run
 
 main_loop:
@@ -231,8 +237,23 @@ stack_top:
     ORG 0x5c00
     INCBIN "assets/sysvars.bin" ; 0x5c00-0x5c3a
 
+    ;Place NextDAW in top 8K
+    org $E000
+    INCBIN "assets/sound/NextDAW_RuntimePlayer_E000.bin"
+
     ORG Tilemap.START_OF_TILES
     INCBIN "assets/font.spr"
+
+    ;Load sprite data in 8k banks 30 + 31. Banks placed in MMU slots 0 and 1 
+    MMU 0 1,BANK_SPRITE, 0x0000
+    incbin "assets/anagrams.spr"
+
+    MMU 0, BANK_SOUND_EFFECTS, 0x0000
+    incbin "assets/sound/SoundEffects.NFX"
+    ; MMU 0 2, BANK_SOUND_TRACK1, 0x0000
+    ; incbin "assets/sound/Silver-Surfer.NDR"
+    MMU 0 1, BANK_SOUND_TRACK1, 0x0000
+    incbin "assets/sound/GrangeHill.NDR"
 
 
     MMU 0,BANK_PUZZLES_START + CAT_FRESHERS, 0x0000
@@ -249,10 +270,6 @@ stack_top:
     include "puzzles/GamesTech.asm"
     MMU 0,BANK_PUZZLES_START + CAT_HISTORY, 0x0000
     include "puzzles/History.asm"
-
-    ;Load sprite data in 8k banks 30 + 31. Banks placed in MMU slots 0 and 1 
-    MMU 0 1,BANK_SPRITE, 0x0000
-    incbin "assets/anagrams.spr"
 
     MMU 0,BANK_IMAGE_TITLE, 0x0000
     incbin "assets/title/title_0.nxi"
@@ -427,7 +444,7 @@ stack_top:
         incbin "assets/win/win_9.nxi"
     ENDIF
 
-    SAVENEX OPEN "main.nex", main, stack_top, 2
+    SAVENEX OPEN "main.nex", main, stack_top, 0
     SAVENEX CORE 3, 1, 5
     IFDEF BUILD_2MB
         SAVENEX CFG 7, 0, 0, 1   ; Border color, 0,0, 1 = 2Mb Ram required
