@@ -33,6 +33,8 @@ enter:
     call NextSprite.removeAll
     call SpriteList.removeAll
 
+    call Sound.playChickenMan
+
     ret
 
     ;Fade in slots
@@ -129,6 +131,7 @@ update:
     jr titleStateUpdate
 
 .mousePressed:
+    call Sound._NextDAW_StopSong
     STOP_ALL_ANIMATION
     ld hl, GS_PROSPECTUS
     call GameStateMachine.change

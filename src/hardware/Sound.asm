@@ -23,14 +23,14 @@ _NextDAW_UpdateSongNoAY    equ _NextDAW_PlayerAddr+(3*5)
 _NextDAW_UpdateAY          equ _NextDAW_PlayerAddr+(3*6)
 _NextDAW_InitSystem        equ _NextDAW_PlayerAddr+(3*7)
 _NextDAW_InitSFXBank       equ _NextDAW_PlayerAddr+(3*8)
+
+; h = bank index [0..3]
+; l = sfx index [0...63]
 _NextDAW_PlaySFX           equ _NextDAW_PlayerAddr+(3*9)
+
 _NextDAW_UpdateSFX         equ _NextDAW_PlayerAddr+(3*10)
 _NextDAW_GetPSGDataPtr     equ _NextDAW_PlayerAddr+(3*11)
 _NextDAW_EnablePSGWrite    equ _NextDAW_PlayerAddr+(3*12)   ; a: 0 = disable, 1 = enable
-
-_NextDAW_SFX:
-count:  db 0
-offsets: ds 64
 
 song1DataPages:  
     defb BANK_SOUND_TRACK1,BANK_SOUND_TRACK1+1,BANK_SOUND_TRACK1+2
@@ -52,24 +52,29 @@ init:
     ; de        sfx bank data ptr
     ld c, 0
     ld b, BANK_SOUND_EFFECTS
-    ld de, _NextDAW_SFX
+    ld de, 0
     call _NextDAW_InitSFXBank
 
+    ret
 
+playChickenMan:
     ; de        song data pages
     ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
     ld de, song1DataPages
     ld a, 0
     call _NextDAW_InitSong
     call _NextDAW_PlaySong
-
     ret
+
 
 update:
     call _NextDAW_UpdateSong
     call _NextDAW_UpdateSFX
     ret
 
-
+stop:
+    call Sound._NextDAW_StopSongHard
+    call Sound._NextDAW_UpdateSong
+    ret
 
     endmodule

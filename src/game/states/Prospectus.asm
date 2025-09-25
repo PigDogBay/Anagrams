@@ -58,6 +58,8 @@ update:
     ret
 
 .mousePressed:
+    ld hl,0
+    call Sound._NextDAW_PlaySFX
     call GamePhases.start
     ;Skip first round screen, so need to call roundStart here
     call GamePhases.roundStart
