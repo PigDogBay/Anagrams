@@ -7,6 +7,24 @@ ROM_PRINT:              equ $203c
 ;  Ports and registers
 ;  See https://www.specnext.com/tbblue-io-port-system/'
 
+; Sets joystick mode, video frequency and Scandoubler
+PERIPHERAL_1            equ $05
+; Enables CPU Speed key, DivMMC, Multiface, Mouse and AY audio.
+PERIPHERAL_2            equ $06
+; ABC/ACB Stereo, Internal Speaker, SpecDrum, Timex Video Modes, Turbo Sound Next, RAM contention and [un]lock 128k paging.
+;   bit 7 = Unlock(1)/lock(0) port $7FFD paging (read 1 indicates port $7FFD is not locked)
+;   bit 6 = 1 to disable RAM and I/O port contention (soft reset = 0)
+;   bit 5 = AY stereo mode (0 = ABC, 1 = ACB) (hard reset = 0)
+;   bit 4 = Enable internal speaker (hard reset = 1)
+;   bit 3 = Enable 8-bit DACs (A,B,C,D) (hard reset = 0)
+;   bit 2 = Enable port $FF Timex video mode *read* (hides floating bus on 0xff) (hard reset = 0)
+;   bit 1 = Enable Turbosound (currently selected AY is frozen when disabled) (hard reset = 0)
+;   bit 0 = Implement Issue 2 keyboard (port $FE reads as early ZX boards) (hard reset = 0)
+PERIPHERAL_3            equ $08
+; Sets scanlines, AY mono output, Sprite-id lockstep, reset DivMMC mapram and disable HDMI audio.
+PERIPHERAL_4            equ $09
+; Multiface type, Divmmc automap, Mouse buttons and DPI config
+PERIPHERAL_5            equ $0A
 
 
 ;  (R/W) 0x07 (07) => Turbo mode:
@@ -319,3 +337,22 @@ TB_BLUE_REGISTER_ACCESS                equ $253B
 ;see https://wiki.specnext.dev/Sprite_Status/Slot_Select
 SPRITE_STATUS_SLOT_SELECT:              equ $303B
 
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: readRegister(uint8 reg) -> uint8 value
+;
+; Reads the value of the specified register
+;
+;    In: A = Register to read
+;   Out: A = Value of the register
+; Dirty: A, BC
+; 
+;-----------------------------------------------------------------------------------
+readRegister:
+    ld bc, TB_BLUE_REGISTER_SELECT
+    out (c),a
+    ld bc, TB_BLUE_REGISTER_ACCESS
+    in a,(c)
+    ret
