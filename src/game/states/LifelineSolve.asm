@@ -48,7 +48,7 @@ update:
 
 solve:
     call Lifelines.matchRandomTileAndSlot
-    jr z, .notFound
+    jr z, .error
 
     ld a,(ix+tileStruct.id)
     ld b,(iy+slotStruct.id)
@@ -59,12 +59,15 @@ solve:
     call GameState_Play.deductTime
     call Sound.highlight
 
-.notFound:
+.exit:
     ; Restore interaction flags
     call SpriteList.restoreAllInteraction
     ld hl, GS_PLAY
     call GameStateMachine.change
     ret
+.error:
+    call Sound.error
+    jr .exit
 
 
 
