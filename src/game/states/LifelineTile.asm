@@ -96,6 +96,7 @@ stateMouseBackgroundClicked:
     ; Cancel Lifeline
     ld hl, GS_PLAY
     call GameStateMachine.change
+    call Sound.cancel
     ret
 
 stateMouseClicked:
@@ -129,7 +130,6 @@ stateMouseClicked:
     call SpriteList.restoreAllInteraction
     ld hl, GS_PLAY
     call GameStateMachine.change
-    call Sound.cancel
     ret
 
 

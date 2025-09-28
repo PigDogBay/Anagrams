@@ -64,7 +64,6 @@ solve:
     call SpriteList.restoreAllInteraction
     ld hl, GS_PLAY
     call GameStateMachine.change
-    call Sound.error
     ret
 
 
