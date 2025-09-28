@@ -32,10 +32,6 @@ _NextDAW_UpdateSFX         equ _NextDAW_PlayerAddr+(3*10)
 _NextDAW_GetPSGDataPtr     equ _NextDAW_PlayerAddr+(3*11)
 _NextDAW_EnablePSGWrite    equ _NextDAW_PlayerAddr+(3*12)   ; a: 0 = disable, 1 = enable
 
-song1DataPages:  
-    defb BANK_SOUND_TRACK1,BANK_SOUND_TRACK1+1,BANK_SOUND_TRACK1+2
-
-
 init:
     ; Init NextDAW
     ; l         mmu1
@@ -56,16 +52,6 @@ init:
     call _NextDAW_InitSFXBank
 
     ret
-
-playChickenMan:
-    ; de        song data pages
-    ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
-    ld de, song1DataPages
-    ld a, 0
-    call _NextDAW_InitSong
-    call _NextDAW_PlaySong
-    ret
-
 
 update:
     call _NextDAW_UpdateSong

@@ -69,6 +69,7 @@ dragEnd:
     or a
     jr nz, .slotOccuppied
     call Board.snapTileToSlot
+    call Sound.slotTile
 
     call Board.isSolved
     or a

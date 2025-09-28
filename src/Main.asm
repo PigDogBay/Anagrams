@@ -18,7 +18,7 @@
 BANK_PUZZLES_START              equ 30
 BANK_SPRITE:                    equ 40
 BANK_SOUND_EFFECTS              equ 50
-BANK_SOUND_TRACK1               equ 52
+BANK_SOUND_TRACK1               equ 54
 
 BANK_IMAGE_PALETTE:             equ 69
 BANK_IMAGE_TITLE                equ 70
@@ -99,6 +99,7 @@ IMAGE_WIN                  equ BANK_IMAGE_TITLE
     include "game/Game.asm"
     include "game/StateMachine.asm"
     include "game/PlayMouse.asm"
+    include "game/Sound.asm"
     include "game/states/Title.asm"
     include "game/states/Prospectus.asm"
     include "game/states/Round.asm"
@@ -202,7 +203,7 @@ main:
     call NextSprite.loadPalette
 
     call MouseDriver.init
-    call NextDAW.init
+    call Sound.init
 
     jp Game.run
 
@@ -249,7 +250,7 @@ stack_top:
     incbin "assets/anagrams.spr"
 
     MMU 0, BANK_SOUND_EFFECTS, 0x0000
-    incbin "assets/sound/SFX.NFX"
+    incbin "assets/sound/SoundEffects.NFX"
     ; MMU 0 2, BANK_SOUND_TRACK1, 0x0000
     ; incbin "assets/sound/Silver-Surfer.NDR"
     MMU 0 1, BANK_SOUND_TRACK1, 0x0000

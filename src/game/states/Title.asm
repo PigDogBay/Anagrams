@@ -33,8 +33,7 @@ enter:
     call NextSprite.removeAll
     call SpriteList.removeAll
 
-    call NextDAW.playChickenMan
-
+    call Sound.playTitleMusic
     ret
 
     ;Fade in slots
