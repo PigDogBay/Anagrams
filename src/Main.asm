@@ -69,7 +69,7 @@ IMAGE_WIN                  equ BANK_IMAGE_TITLE
     include "hardware/Tilemap.asm"
     include "hardware/Print.asm"
     include "hardware/Keyboard.asm"
-    include "hardware/Sound.asm"
+    include "hardware/NextDAW.asm"
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
     include "model/Puzzles.asm"
@@ -202,7 +202,7 @@ main:
     call NextSprite.loadPalette
 
     call MouseDriver.init
-    call Sound.init
+    call NextDAW.init
 
     jp Game.run
 

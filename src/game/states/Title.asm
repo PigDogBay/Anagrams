@@ -33,7 +33,7 @@ enter:
     call NextSprite.removeAll
     call SpriteList.removeAll
 
-    call Sound.playChickenMan
+    call NextDAW.playChickenMan
 
     ret
 
@@ -131,7 +131,7 @@ update:
     jr titleStateUpdate
 
 .mousePressed:
-    call Sound._NextDAW_StopSong
+    call NextDAW.stop
     STOP_ALL_ANIMATION
     ld hl, GS_PROSPECTUS
     call GameStateMachine.change

@@ -1,15 +1,15 @@
 ;-----------------------------------------------------------------------------------
 ; 
-; Module Sound
+; Module NextDAW
 ; 
-; Uses the NextDAW player
+; Wrapper for the NextDAW API
 ; 
 ; 
 ; 
 ; 
 ;-----------------------------------------------------------------------------------
 
-    module Sound
+    module NextDAW
 
 
 ; ASM API
@@ -73,8 +73,8 @@ update:
     ret
 
 stop:
-    call Sound._NextDAW_StopSongHard
-    call Sound._NextDAW_UpdateSong
+    call _NextDAW_StopSongHard
+    call _NextDAW_UpdateSong
     ret
 
     endmodule

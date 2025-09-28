@@ -47,7 +47,7 @@ update:
     in a,(ULA_CONTROL_PORT)
     bit 0, a
     jr nz, .not_pressed
-    call Sound.stop
+    call NextDAW.stop
     nop
     nop
 .not_pressed:
