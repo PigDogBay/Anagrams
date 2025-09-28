@@ -37,12 +37,12 @@ playTitleMusic:
     ret
 
 buttonClicked:
-    ld hl, SFX_BUTTON_CLICK
+    ld hl, SFX_CANCEL
     call NextDAW._NextDAW_PlaySFX
     ret
 
 cancel:
-    ld hl, SFX_CANCEL
+    ld hl, SFX_BUTTON_CLICK
     call NextDAW._NextDAW_PlaySFX
     ret
 
