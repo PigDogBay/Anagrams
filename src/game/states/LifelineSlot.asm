@@ -126,6 +126,7 @@ stateMouseClicked:
 
     ld a,(Lifelines.costSlot)
     call GameState_Play.deductTime
+    call Sound.highlight
 
 
 .notFound:
@@ -133,6 +134,7 @@ stateMouseClicked:
     call SpriteList.restoreAllInteraction
     ld hl, GS_PLAY
     call GameStateMachine.change
+    call Sound.cancel
     ret
 
 

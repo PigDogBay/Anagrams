@@ -57,12 +57,14 @@ solve:
 
     ld a,(Lifelines.costRand)
     call GameState_Play.deductTime
+    call Sound.highlight
 
 .notFound:
     ; Restore interaction flags
     call SpriteList.restoreAllInteraction
     ld hl, GS_PLAY
     call GameStateMachine.change
+    call Sound.error
     ret
 
 

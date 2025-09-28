@@ -13,11 +13,10 @@
 SFX_BUTTON_CLICK    equ $0000
 SFX_CANCEL          equ $0001
 SFX_HIGHLIGHT       equ $0002
-SFX_SOLVED          equ $0003
-SFX_TIME_OUT        equ $0004
-SFX_ERROR           equ $0005
-SFX_TIMER_LOW       equ $0006
-SFX_CHEAT           equ $0007
+SFX_ERROR           equ $0003
+SFX_CHEAT           equ $0004
+SFX_TIMER_LOW       equ $0005
+SFX_SOLVED          equ $0006
 
 song1DataPages:  
     defb BANK_SOUND_TRACK1,BANK_SOUND_TRACK1+1,BANK_SOUND_TRACK1+2
@@ -37,11 +36,37 @@ playTitleMusic:
     call NextDAW._NextDAW_PlaySong
     ret
 
-slotTile:
-    ld hl, SFX_SLOT_TILE
+buttonClicked:
+    ld hl, SFX_BUTTON_CLICK
     call NextDAW._NextDAW_PlaySFX
     ret
-    
+
+cancel:
+    ld hl, SFX_CANCEL
+    call NextDAW._NextDAW_PlaySFX
+    ret
+
+highlight:
+    ld hl, SFX_HIGHLIGHT
+    call NextDAW._NextDAW_PlaySFX
+    ret
+error:
+    ld hl, SFX_ERROR
+    call NextDAW._NextDAW_PlaySFX
+    ret
+cheat:
+    ld hl, SFX_CHEAT
+    call NextDAW._NextDAW_PlaySFX
+    ret
+timerLow:
+    ld hl, SFX_TIMER_LOW
+    call NextDAW._NextDAW_PlaySFX
+    ret
+solved:
+    ld hl, SFX_SOLVED
+    call NextDAW._NextDAW_PlaySFX
+    ret
+
 
 
     endmodule

@@ -43,6 +43,8 @@ enter:
     ld hl,600
     call FlashSprites.start
 
+    call Sound.solved
+
 
     ret
 

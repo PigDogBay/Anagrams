@@ -250,7 +250,7 @@ stack_top:
     incbin "assets/anagrams.spr"
 
     MMU 0, BANK_SOUND_EFFECTS, 0x0000
-    incbin "assets/sound/SoundEffects.NFX"
+    incbin "assets/sound/SFX.NFX"
     ; MMU 0 2, BANK_SOUND_TRACK1, 0x0000
     ; incbin "assets/sound/Silver-Surfer.NDR"
     MMU 0 1, BANK_SOUND_TRACK1, 0x0000

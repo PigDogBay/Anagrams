@@ -96,23 +96,28 @@ stateMouseClicked:
 
 .quitClicked:
     ; next state
+    call Sound.buttonClicked
     ld hl, GS_TITLE
     call GameStateMachine.change
     ret
 
 .lifeLine1Clicked:
+    call Sound.buttonClicked
     ld hl, GS_LIFELINE_TILE
     call GameStateMachine.change
     ret
 .lifeLine2Clicked:
+    call Sound.buttonClicked
     ld hl, GS_LIFELINE_SLOT
     call GameStateMachine.change
     ret
 .lifeLine3Clicked:
+    call Sound.buttonClicked
     ld hl, GS_LIFELINE_SOLVE
     call GameStateMachine.change
     ret
 .lifeLine4Clicked:
+    call Sound.buttonClicked
     ld hl, GS_LIFELINE_CLUE
     call GameStateMachine.change
     ret
