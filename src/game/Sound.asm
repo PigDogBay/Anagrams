@@ -30,6 +30,7 @@ init:
 
 
 playTitleMusic:
+    call NextDAW.stop
     ; de        song data pages
     ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
     ld de, song1DataPages
@@ -39,6 +40,7 @@ playTitleMusic:
     ret
 
 playSolvedMusic:
+    call NextDAW.stop
     ; de        song data pages
     ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
     ld de, song2DataPages
