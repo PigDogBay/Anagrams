@@ -182,7 +182,7 @@ printQuitTip:
     ld b,%00000000
     call Print.printCentred
     ret
-.tip:   db "Drop out of college",0
+.tip:   db "DROP OUT OF COLLEGE",0
 
 printTipLifeLine1:
     ld hl, .tip1
@@ -199,7 +199,7 @@ printTipLifeLine1:
     ld b,%00010000
     call Print.printCentred
     ret
-.tip1:   db "Match a TILE to a SLOT",0
+.tip1:   db "MATCH A TILE TO A SLOT",0
 
 printTipLifeLine2:
     ld hl, .tip1
@@ -216,7 +216,7 @@ printTipLifeLine2:
     ld b,%00010000
     call Print.printCentred
     ret
-.tip1:   db "Match a SLOT to a TILE",0
+.tip1:   db "MATCH A SLOT TO A TILE",0
 
 printTipLifeLine3:
     ld hl, .tip1
@@ -233,7 +233,7 @@ printTipLifeLine3:
     ld b,%00010000
     call Print.printCentred
     ret
-.tip1:   db "Reveal a RANDOM match",0
+.tip1:   db "REVEAL A RANDOM MATCH",0
 
 printTipLifeLine4:
     ld hl, .tip1
@@ -250,7 +250,7 @@ printTipLifeLine4:
     ld b,%00010000
     call Print.printCentred
     ret
-.tip1:   db "Reveal a CLUE",0
+.tip1:   db "REVEAL A CLUE",0
 
 
 nullDragEndCallback:
@@ -260,6 +260,6 @@ dragEndCallback:
     dw nullDragEndCallback
 
 
-costPrefix:   db "Cost -",0
+costPrefix:   db "COST -",0
 
     endmodule

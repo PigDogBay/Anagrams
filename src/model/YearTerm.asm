@@ -314,9 +314,9 @@ printToBuffer:
     db ". ",0
 
 
-termNameStr1: db "Michaelmas",0
-termNameStr2: db "Hilary",0
-termNameStr3: db "Trinity",0
+termNameStr1: db "MICHAELMAS",0
+termNameStr2: db "HILARY",0
+termNameStr3: db "TRINITY",0
 
 romanJumpTable:
     dw romanI
@@ -351,14 +351,14 @@ yearNameJumpTable:
     dw yearNameStr7
     dw yearNameStr8
 
-yearNameStr1: db "Fresher (Yr 1)",0
-yearNameStr2: db "Sophomore (Yr 2)",0
-yearNameStr3: db "Finals (Yr 3)",0
-yearNameStr4: db "Masters (Yr 4)",0
+yearNameStr1: db "FRESHER (Yr 1)",0
+yearNameStr2: db "SOPHOMORE (Yr 2)",0
+yearNameStr3: db "FINALS (Yr 3)",0
+yearNameStr4: db "MASTERS (Yr 4)",0
 yearNameStr5: db "DPhil (Yr 5)",0
 yearNameStr6: db "DPhil (Yr 6)",0
 yearNameStr7: db "DPhil (Yr 7)",0
-yearNameStr8: db "Professorship (Yr 8)",0
+yearNameStr8: db "PROFESSORSHIP (Yr 8)",0
 
 
 term:
