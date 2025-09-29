@@ -47,6 +47,8 @@ enter:
     ld b, 12 : ld c, 58 : call Visibility.add
     ld b, 13 : ld c, 62 : call Visibility.add
     call Visibility.start
+    call Sound.playSolvedMusic
+
     jp printText
 
 update:
