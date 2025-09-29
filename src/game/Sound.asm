@@ -19,7 +19,9 @@ SFX_TIMER_LOW       equ $0005
 SFX_SOLVED          equ $0006
 
 song1DataPages:  
-    defb BANK_SOUND_TRACK1,BANK_SOUND_TRACK1+1,BANK_SOUND_TRACK1+2
+    defb BANK_SOUND_TRACK1,BANK_SOUND_TRACK1+1
+song2DataPages:  
+    defb BANK_SOUND_TRACK2,BANK_SOUND_TRACK2+1
 
 
 init:
@@ -35,6 +37,16 @@ playTitleMusic:
     call NextDAW._NextDAW_InitSong
     call NextDAW._NextDAW_PlaySong
     ret
+
+playSolvedMusic:
+    ; de        song data pages
+    ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
+    ld de, song2DataPages
+    ld a, 0
+    call NextDAW._NextDAW_InitSong
+    call NextDAW._NextDAW_PlaySong
+    ret
+
 
 buttonClicked:
     ld hl, SFX_CANCEL
