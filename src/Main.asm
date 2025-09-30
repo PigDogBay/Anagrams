@@ -21,6 +21,7 @@ BANK_SOUND_EFFECTS              equ 50
 BANK_SOUND_TRACK1               equ 54
 BANK_SOUND_TRACK2               equ 56
 BANK_SOUND_TRACK3               equ 58
+BANK_SOUND_TRACK4               equ 60
 
 BANK_IMAGE_PALETTE:             equ 69
 BANK_IMAGE_TITLE                equ 70
@@ -253,14 +254,14 @@ stack_top:
 
     MMU 0, BANK_SOUND_EFFECTS, 0x0000
     incbin "assets/sound/SFX.NFX"
-    ; MMU 0 2, BANK_SOUND_TRACK1, 0x0000
-    ; incbin "assets/sound/Silver-Surfer.NDR"
     MMU 0 1, BANK_SOUND_TRACK1, 0x0000
     incbin "assets/sound/GrangeHill.NDR"
     MMU 0 1, BANK_SOUND_TRACK2, 0x0000
     incbin "assets/sound/OdeToJoy.NDR"
     MMU 0 1, BANK_SOUND_TRACK3, 0x0000
     incbin "assets/sound/AirOn.NDR"
+    MMU 0 1, BANK_SOUND_TRACK4, 0x0000
+    incbin "assets/sound/Boat.NDR"
 
 
     MMU 0,BANK_PUZZLES_START + CAT_FRESHERS, 0x0000

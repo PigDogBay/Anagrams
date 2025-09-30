@@ -24,6 +24,8 @@ song2DataPages:
     defb BANK_SOUND_TRACK2,BANK_SOUND_TRACK2+1
 song3DataPages:  
     defb BANK_SOUND_TRACK3,BANK_SOUND_TRACK3+1
+song4DataPages:  
+    defb BANK_SOUND_TRACK4,BANK_SOUND_TRACK4+1
 
 
 init:
@@ -35,7 +37,7 @@ playTitleMusic:
     call NextDAW.stop
     ; de        song data pages
     ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
-    ld de, song1DataPages
+    ld de, song4DataPages
     ld a, 0
     call NextDAW._NextDAW_InitSong
     call NextDAW._NextDAW_PlaySong
@@ -61,6 +63,15 @@ playDroppedOutMusic:
     call NextDAW._NextDAW_PlaySong
     ret
 
+playGrangeHill:
+    call NextDAW.stop
+    ; de        song data pages
+    ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
+    ld de, song1DataPages
+    ld a, 0
+    call NextDAW._NextDAW_InitSong
+    call NextDAW._NextDAW_PlaySong
+    ret
 
 buttonClicked:
     ld hl, SFX_CANCEL
