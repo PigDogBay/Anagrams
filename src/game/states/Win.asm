@@ -42,6 +42,7 @@ enter:
     ld b, 9 : ld c, 46 : call Visibility.add
     ld b, 10 : ld c, 50 : call Visibility.add
     call Visibility.start
+    call Sound.playWinMusic
     jp printText
 
 

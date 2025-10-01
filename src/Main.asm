@@ -1,6 +1,6 @@
     SLDOPT COMMENT WPMEM, LOGPOINT, ASSERTION
     DEVICE ZXSPECTRUMNEXT
-    ;DEFINE BUILD_2MB
+    DEFINE BUILD_2MB
 
     ORG 0x8000
 
@@ -22,7 +22,7 @@ BANK_SOUND_TRACK1               equ 54
 BANK_SOUND_TRACK2               equ 56
 BANK_SOUND_TRACK3               equ 58
 BANK_SOUND_TRACK4               equ 60
-BANK_SOUND_TRACK5               equ 60
+BANK_SOUND_TRACK5               equ 62
 
 BANK_IMAGE_PALETTE:             equ 69
 BANK_IMAGE_TITLE                equ 70

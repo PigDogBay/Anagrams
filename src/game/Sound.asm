@@ -27,7 +27,7 @@ song3DataPages:
 song4DataPages:  
     defb BANK_SOUND_TRACK4,BANK_SOUND_TRACK4+1
 song5DataPages:  
-    defb BANK_SOUND_TRACK4,BANK_SOUND_TRACK4+1
+    defb BANK_SOUND_TRACK5,BANK_SOUND_TRACK5+1
 
 
 init:
@@ -55,6 +55,16 @@ playSolvedMusic:
     call NextDAW._NextDAW_PlaySong
     ret
 
+playWinMusic:
+    call NextDAW.stop
+    ; de        song data pages
+    ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
+    ld de, song4DataPages
+    ld a, 0
+    call NextDAW._NextDAW_InitSong
+    call NextDAW._NextDAW_PlaySong
+    ret
+
 playDroppedOutMusic:
     call NextDAW.stop
     ; de        song data pages
@@ -70,6 +80,16 @@ playGrangeHill:
     ; de        song data pages
     ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
     ld de, song1DataPages
+    ld a, 0
+    call NextDAW._NextDAW_InitSong
+    call NextDAW._NextDAW_PlaySong
+    ret
+
+playStartMusic:
+    call NextDAW.stop
+    ; de        song data pages
+    ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
+    ld de, song5DataPages
     ld a, 0
     call NextDAW._NextDAW_InitSong
     call NextDAW._NextDAW_PlaySong
