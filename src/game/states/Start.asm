@@ -67,7 +67,7 @@ lifeLine3Sprite:
 lifeLine4Sprite:
     spriteItem 0, 4, 120, 0, 11 | SPRITE_VISIBILITY_MASK, LIFELINE_4_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 quitSprite:
-    spriteItem 0, 300, 4, 0, 24 | SPRITE_VISIBILITY_MASK, QUIT_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 0, 300, 4, 0, 36 | SPRITE_VISIBILITY_MASK, QUIT_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
 
 
