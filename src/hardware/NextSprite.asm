@@ -237,5 +237,5 @@ removeAll:
 palette:
     ;Byte Arrangement RRRGGGBB, B (LSB)
     ;Black, Drop Shadow, Red, Blue, TileBG,White ... Transparent
-    dw $0, $101, $E0, $7, $1Fe, $1FF, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0
+    dw $00, $101, $E0, $7, $1Fe, $1FF, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0
     dw $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $1C7
