@@ -23,7 +23,7 @@ puzzleIndex: db 0
 enter:
     ld hl,$0101
     call YearTerm.select
-    call Graphics.titleScreen
+    L2_SET_IMAGE IMAGE_MICHAELMAS
 
     jp setUpPuzzle
 
