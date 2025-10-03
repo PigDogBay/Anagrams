@@ -104,6 +104,7 @@ IMAGE_WIN                  equ BANK_IMAGE_TITLE
     include "game/StateMachine.asm"
     include "game/PlayMouse.asm"
     include "game/Sound.asm"
+    include "game/Sprites.asm"
     include "game/states/Title.asm"
     include "game/states/Prospectus.asm"
     include "game/states/Round.asm"
