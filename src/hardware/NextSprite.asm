@@ -67,6 +67,8 @@ load:
 ; Loads the sprites 1st palette, 
 ; Palette has 32 colors, 9-bit
 ;
+; In: B palette count
+;     HL pointer to the sprite palette
 ; Dirty: A, B, HL
 ;
 ;-----------------------------------------------------------------------------------
@@ -95,8 +97,6 @@ loadPalette:
 	nextreg PALETTE_INDEX, 0			
 
     ;Copy RRRGGGBBB values
-    ld b,32
-    ld hl,palette
 .nextColor:    
     ld a,(hl)
     inc hl
@@ -234,8 +234,3 @@ removeAll:
     endmodule
 
 
-palette:
-    ;Byte Arrangement RRRGGGBB, B (LSB)
-    ;Black, Drop Shadow, Red, Blue, TileBG,White ... Transparent
-    dw $00, $101, $E0, $7, $1Fe, $1FF, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0
-    dw $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $0, $1C7

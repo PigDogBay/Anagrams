@@ -194,18 +194,7 @@ main:
     ;
     ; Sprites
     ;
-
-    ;Sprite priority ID=0 on top
-    ;Z order: Sprites - ULA - Layer2
-    ;Sprites over border and visible
-    nextreg SPRITE_LAYERS_SYSTEM,%01001011
-
-    ; $E3 is default transparency
-    nextreg SPRITES_TRANSPARENCY_INDEX, $1f
-    call NextSprite.removeAll
-    ld a,BANK_SPRITE
-    call NextSprite.load
-    call NextSprite.loadPalette
+    call Sprites.init
 
     call MouseDriver.init
     call Sound.init
