@@ -247,16 +247,16 @@ spriteData:
     spriteItem 8,191,195,0,'L'-Tile.ASCII_PATTERN_OFFSET,8,0
 
     ;Slots
-    spriteItem 11,130,48,0,Slot.SLOT_SPRITE_PATTERN,11,0
-    spriteItem 12,150,48,0,Slot.SLOT_SPRITE_PATTERN,12,0
-    spriteItem 13,170,48,0,Slot.SLOT_SPRITE_PATTERN,13,0
-    spriteItem 14,90,72,0,Slot.SLOT_SPRITE_PATTERN,14,0
-    spriteItem 15,110,72,0,Slot.SLOT_SPRITE_PATTERN,15,0
-    spriteItem 16,130,72,0,Slot.SLOT_SPRITE_PATTERN,16,0
-    spriteItem 17,150,72,0,Slot.SLOT_SPRITE_PATTERN,17,0
-    spriteItem 18,170,72,0,Slot.SLOT_SPRITE_PATTERN,18,0
-    spriteItem 19,190,72,0,Slot.SLOT_SPRITE_PATTERN,19,0
-    spriteItem 20,210,72,0,Slot.SLOT_SPRITE_PATTERN,20,0
+    spriteItem 11,130,48,0,Sprites.SLOT_SPRITE_PATTERN,11,0
+    spriteItem 12,150,48,0,Sprites.SLOT_SPRITE_PATTERN,12,0
+    spriteItem 13,170,48,0,Sprites.SLOT_SPRITE_PATTERN,13,0
+    spriteItem 14,90,72,0, Sprites.SLOT_SPRITE_PATTERN,14,0
+    spriteItem 15,110,72,0,Sprites.SLOT_SPRITE_PATTERN,15,0
+    spriteItem 16,130,72,0,Sprites.SLOT_SPRITE_PATTERN,16,0
+    spriteItem 17,150,72,0,Sprites.SLOT_SPRITE_PATTERN,17,0
+    spriteItem 18,170,72,0,Sprites.SLOT_SPRITE_PATTERN,18,0
+    spriteItem 19,190,72,0,Sprites.SLOT_SPRITE_PATTERN,19,0
+    spriteItem 20,210,72,0,Sprites.SLOT_SPRITE_PATTERN,20,0
 
 spriteLen: equ $ - spriteData
 

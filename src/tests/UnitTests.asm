@@ -29,6 +29,7 @@ BANK_IMAGE_1_PALETTE:           equ 60
     include "model/Time.asm"
     include "model/Lifelines.asm"
     include "game/StateMachine.asm"
+    include "game/Sprites.asm"
     include "utils/Maths.asm"
     include "utils/List.asm"
     include "utils/String.asm"

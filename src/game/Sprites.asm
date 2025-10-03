@@ -11,6 +11,8 @@
 
     module Sprites
 
+SLOT_SPRITE_PATTERN:        equ 6
+
 QUIT_BUTTON             equ 36
 PREVIOUS                equ 37
 NEXT                    equ 38

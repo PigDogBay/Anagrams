@@ -28,8 +28,6 @@
     module Slot
 
 
-SLOT_SPRITE_PATTERN:        equ 6
-
 LAYOUT_SLOT_START_ROW:      equ 1
 LAYOUT_SLOT_CENTER_COLUMN:  equ 8
 
@@ -377,7 +375,7 @@ slotToSprite:
     ld a,(iy + slotStruct.id)
     ld (ix + spriteItem.gameId),a
 
-    ld (ix + spriteItem.pattern),SLOT_SPRITE_PATTERN | SPRITE_VISIBILITY_MASK
+    ld (ix + spriteItem.pattern),Sprites.SLOT_SPRITE_PATTERN | SPRITE_VISIBILITY_MASK
     ld (ix + spriteItem.palette),0
     ld (ix + spriteItem.flags),MouseDriver.MASK_HOVERABLE
     call rowColumnToPixel
