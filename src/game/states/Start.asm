@@ -12,6 +12,7 @@
 
 
 enter:
+    call Tilemap.clear
     ld a,(YearTerm.term)
     cp 1
     jr nz, .year2

@@ -17,9 +17,10 @@ CLUE_TIMEOUT equ 50 * 5
 
 
 enter:
-    ld ix,timer1
-    ld hl,CLUE_TIMEOUT
-    call Timing.startTimer
+    ;Animation to clear the clue
+    ld a,CLUE_TIMEOUT
+    ld b,CLUE_ROW
+    call ClearText.start
 
     ; Display Clue
     ld hl, Puzzles.clue
@@ -34,24 +35,8 @@ enter:
 update:
     call GamePhases.playUpdate
     jp z, GameState_Play.gameOver
-    ;wait for use to click mouse button
-    call Game.updateMouseNoSprite
-    cp MouseDriver.STATE_BACKGROUND_CLICKED
-    jr z, .mousePressed
-    call Game.updateSprites
-    call GameState_Play.timeUpdate
-    call GameState_Play.printTime
-    ld ix,timer1
-    call Timing.hasTimerElapsed
-    jr nz, .mousePressed
-    ret
-
-.mousePressed:
     ld hl, GS_PLAY
     call GameStateMachine.change
     ret
-
-timer1:
-    timingStruct 0,0,0
 
     endmodule

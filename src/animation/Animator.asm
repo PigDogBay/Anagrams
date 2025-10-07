@@ -14,7 +14,7 @@ BIT_FLASHTWO:           equ 1
 BIT_FLASH_SPRITES:      equ 2
 BIT_MOVE:               equ 3
 BIT_APPEAR:             equ 4
-
+BIT_CLEAR_TEXT:         equ 5
 ;-----------------------------------------------------------------------------------
 ; 
 ;   Macro to stop all animation, by setting the finished flags
@@ -58,6 +58,9 @@ update:
     bit BIT_APPEAR,a
     call z, Visibility.update
 
+    ld a,(finishedFlags)
+    bit BIT_CLEAR_TEXT,a
+    call z, ClearText.update
     ret
 
 ;-----------------------------------------------------------------------------------
