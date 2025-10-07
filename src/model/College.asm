@@ -119,16 +119,16 @@ collegeNameJumpTable:
     dw collegeNameStr9
     dw collegeNameStr10
 
-collegeNameStr1: db "Teddy Hall",0
-collegeNameStr2: db "Mor-de-Len College",0
-collegeNameStr3: db "Footlights",0
-collegeNameStr4: db "St Henrys",0
-collegeNameStr5: db "Bailey Hall",0
-collegeNameStr6: db "Lady Holly Hall",0
-collegeNameStr7: db "Hertbridge College",0
-collegeNameStr8: db "Radnor College",0
-collegeNameStr9: db "Winterville",0
-collegeNameStr10: db "St Kayleigh's College",0
+collegeNameStr1: db "TEDDY HALL",0
+collegeNameStr2: db "MOR-DE-LEN COLLEGE",0
+collegeNameStr3: db "FOOTLIGHTS",0
+collegeNameStr4: db "ST HENRYS",0
+collegeNameStr5: db "BAILEY HALL",0
+collegeNameStr6: db "LADY HOLLY HALL",0
+collegeNameStr7: db "HERTBRIDGE COLLEGE",0
+collegeNameStr8: db "RADNOR COLLEGE",0
+collegeNameStr9: db "WINTERVILLE",0
+collegeNameStr10: db "ST KAYLEIGH'S HALL",0
 
 college:
     db 0

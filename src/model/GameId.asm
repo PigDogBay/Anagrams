@@ -13,6 +13,8 @@
 @LIFELINE_2_BUTTON:     equ 3
 @LIFELINE_3_BUTTON:     equ 4
 @LIFELINE_4_BUTTON:     equ 5
+@PREVIOUS_BUTTON:       equ 6
+@NEXT_BUTTON:           equ 7
 
 
 SLOT_ID:                  equ %10000000

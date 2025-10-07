@@ -40,6 +40,8 @@ enter:
     ld b, 8 : ld c, 42 : call Visibility.add
     ld b, 9 : ld c, 46 : call Visibility.add
     ld b, 10 : ld c, 50 : call Visibility.add
+    ld b, 11 : ld c, 55 : call Visibility.add
+    ld b, 12 : ld c, 55 : call Visibility.add
     call Visibility.start
     call Sound.playStartMusic
     jp printText
@@ -80,10 +82,10 @@ keyPressed:
     jr z, .pressed3
     ret
 .pressed1:
-    call College.nextCollege
+    call College.previousCollege
     jp printText
 .pressed2:
-    call YearTerm.nextYearSelect
+    call College.nextCollege
     jp printText
 .pressed3:
     call Money.nextDifficulty
@@ -94,95 +96,42 @@ keyPressed:
 
 printText:
     call Tilemap.clear
-    ld d, 9
     ld e, 7
     ld hl,universityText
-    call Print.setCursorPosition
     ld b,%00000000
-    call Print.printString
+    call Print.printCentred
 
-    ; College Selector
-    ld d, 6
+    ;Choose instruction
     ld e, 12
-    ld hl,selectText1
-    call Print.setCursorPosition
-    ld b,%00010000
-    call Print.printString
+    ld hl,settingsInstruction
+    ld b,%00000000
+    call Print.printCentred
 
-    ld d, 9
-    ld e, 12
-    call Print.setCursorPosition
+    ld e, 16
     call College.getCollegeName
     ld b,%00000000
-    call Print.printString
-
-    ;Year Selector
-    ld d, 6
-    ld e, 14
-    ld hl,selectText2
-    call Print.setCursorPosition
-    ld b,%00010000
-    call Print.printString
-
-    ld d, 9
-    ld e, 14
-    call Print.setCursorPosition
-    call YearTerm.getYearName
-    ld b,%0000000
-    call Print.printString
-
-    ;Difficulty Selector
-    ld d, 6
-    ld e, 16
-    ld hl,selectText3
-    call Print.setCursorPosition
-    ld b,%00010000
-    call Print.printString
-
-    ld d, 9
-    ld e, 16
-    call Print.setCursorPosition
-    call Money.getDifficultyName
-    ld b,%0000000
-    call Print.printString
-
-    ;1,2 or 3 instruction
-    ld d, 4
-    ld e, 21
-    ld hl,settingsInstruction
-    call Print.setCursorPosition
-    ld b,%00000000
-    call Print.printString
+    call Print.printCentred
 
 
     ; Click to continue
-    ld d, 13
     ld e, 29
     ld hl,startInstruction
-    call Print.setCursorPosition
     ld b,%00010000
-    call Print.printString
+    call Print.printCentred
     ret
 
 universityText:
     db "UNIVERSITY OF OXBRIDGE",0
 
-selectText1:
-    db "1. ",0    
-selectText2:
-    db "2. ",0    
-selectText3:
-    db "3. ",0    
-
 settingsInstruction:
-    db "PRESS 1,2 OR 3 TO CYCLE OPTIONS",0
+    db "CHOOSE YOUR COLLEGE",0
 
 startInstruction:
     db "CLICK TO ENROL",0
 
 
 spriteData:
-    db 11
+    db 13
     ; id, x, y, palette, pattern, gameId, flags
     ; Mouse
     spriteItem 0,160,128,0,0 | SPRITE_VISIBILITY_MASK,0,0
@@ -198,6 +147,10 @@ spriteData:
     spriteItem 8,201,TITLE_Y,0,'T'-Tile.ASCII_PATTERN_OFFSET,8,0
     spriteItem 9,221,TITLE_Y,0,'U'-Tile.ASCII_PATTERN_OFFSET,9,0
     spriteItem 10,241,TITLE_Y,0,'S'-Tile.ASCII_PATTERN_OFFSET,10,0
+previousSprite:
+    spriteItem 11, 60, 126, 0, Sprites.PREVIOUS | SPRITE_VISIBILITY_MASK, PREVIOUS_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+nextSprite:
+    spriteItem 12, 246, 126, 0, Sprites.NEXT | SPRITE_VISIBILITY_MASK, NEXT_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
 spriteLen: equ $ - spriteData
 
