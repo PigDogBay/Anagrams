@@ -50,17 +50,57 @@ enter:
 update:
     ;Shake RNG
     call Maths.getRandom
-    ;wait for use to click mouse button
-    call Game.updateMouseNoSprite
-    cp MouseDriver.STATE_BACKGROUND_CLICKED
-    jr z, .mousePressed
+    call Game.updateMouse
+    call mouseStateHandler
     call Game.updateSprites
-    call Keyboard.getMenuChar
-    or a
-    jp nz, keyPressed
     ret
 
-.mousePressed:
+
+jumpTable:
+    dw stateMouseReady
+    dw stateMouseHover
+    dw stateMouseHoverEnd
+    dw stateMousePressed
+    dw stateMouseClicked
+    dw stateMouseDragStart
+    dw stateMouseDrag
+    dw stateMouseDragOutOfBounds
+    dw stateMouseDragEnd
+    dw stateMouseClickedOff
+    dw stateMouseBackgroundPressed
+    dw stateMouseBackgroundClicked
+
+;-----------------------------------------------------------------------------------
+;
+; Function: mouseStateHandler
+;
+; Updates the game based on the current mouse state 
+; In - A current mouse state
+;    - IX pointer to sprite that mouse is over
+;-----------------------------------------------------------------------------------
+mouseStateHandler:
+    ld hl, jumpTable
+    ; Add twice, as table is two bytes per entry
+    add hl,a
+    add hl,a
+    ; get jump entry
+    ld de,(hl)
+    ld hl,de
+    jp hl
+
+stateMouseReady:
+stateMouseHover:
+stateMouseHoverEnd:
+stateMousePressed:
+stateMouseDrag:
+stateMouseDragOutOfBounds:
+stateMouseDragEnd:
+stateMouseClickedOff:
+stateMouseBackgroundPressed:
+stateMouseDragStart:
+    ret
+
+stateMouseBackgroundClicked:
     call GamePhases.start
     ;Skip first round screen, so need to call roundStart here
     call GamePhases.roundStart
@@ -70,27 +110,23 @@ update:
     call GameStateMachine.change
     ret
 
-;
-; A = 1,2 or 3
-;
-keyPressed:
-    cp 1
-    jr z, .pressed1
-    cp 2
-    jr z, .pressed2
-    cp 3
-    jr z, .pressed3
+stateMouseClicked:
+    ld a,c
+    cp PREVIOUS_BUTTON
+    jr z, previousClicked
+    cp NEXT_BUTTON
+    jr z, nextClicked
     ret
-.pressed1:
+
+
+previousClicked:
     call College.previousCollege
     jp printText
-.pressed2:
+
+
+nextClicked:
     call College.nextCollege
     jp printText
-.pressed3:
-    call Money.nextDifficulty
-    jp printText
-
 
 
 
@@ -148,9 +184,9 @@ spriteData:
     spriteItem 9,221,TITLE_Y,0,'U'-Tile.ASCII_PATTERN_OFFSET,9,0
     spriteItem 10,241,TITLE_Y,0,'S'-Tile.ASCII_PATTERN_OFFSET,10,0
 previousSprite:
-    spriteItem 11, 60, 126, 0, Sprites.PREVIOUS | SPRITE_VISIBILITY_MASK, PREVIOUS_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 11, 60, 124, 0, Sprites.PREVIOUS | SPRITE_VISIBILITY_MASK, PREVIOUS_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 nextSprite:
-    spriteItem 12, 246, 126, 0, Sprites.NEXT | SPRITE_VISIBILITY_MASK, NEXT_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 12, 246, 124, 0, Sprites.NEXT | SPRITE_VISIBILITY_MASK, NEXT_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
 spriteLen: equ $ - spriteData
 

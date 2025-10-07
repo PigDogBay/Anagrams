@@ -125,10 +125,10 @@ collegeNameStr3: db "FOOTLIGHTS",0
 collegeNameStr4: db "ST HENRYS",0
 collegeNameStr5: db "BAILEY HALL",0
 collegeNameStr6: db "LADY HOLLY HALL",0
-collegeNameStr7: db "HERTBRIDGE COLLEGE",0
+collegeNameStr7: db "HEART BRIDGE",0
 collegeNameStr8: db "RADNOR COLLEGE",0
 collegeNameStr9: db "WINTERVILLE",0
-collegeNameStr10: db "ST KAYLEIGH'S HALL",0
+collegeNameStr10: db "ST KAYLEIGH'S",0
 
 college:
     db 0
