@@ -11,6 +11,7 @@
 
 TOOL_TIP_LINE1      equ 28
 TOOL_TIP_LINE2      equ 30
+HINTS_DISABLE_COUNT equ 250
        
 jumpTable:
     dw stateMouseReady
@@ -35,6 +36,17 @@ jumpTable:
 ;    - IX pointer to sprite that mouse is over
 ;-----------------------------------------------------------------------------------
 update:
+    ld h,a ; Save A
+    ;Hints count update
+    ld a,(disableHintsCount)
+    or a
+    jr z, .continue
+    ;Tick count down
+    dec a
+    ld (disableHintsCount),a
+
+.continue:
+    ld a,h ; Restore A
     ld hl, jumpTable
     ; Add twice, as table is two bytes per entry
     add hl,a
@@ -48,6 +60,11 @@ stateMouseReady:
     ; Do nothing
     ret
 stateMouseHover:
+    ;Are tips enabled
+    ld a,(disableHintsCount)
+    or a
+    ret nz
+
     ld a,c
     cp QUIT_BUTTON
     jp z, printQuitTip
@@ -78,6 +95,10 @@ stateMousePressed:
     call Print.clearLine
     ret
 stateMouseClicked:
+    ;Temporarily disable hints
+    ld a,HINTS_DISABLE_COUNT
+    ld (disableHintsCount),a
+
     ld a,c
     cp QUIT_BUTTON
     jr z, .quitClicked
@@ -259,6 +280,8 @@ nullDragEndCallback:
 dragEndCallback:
     dw nullDragEndCallback
 
+disableHintsCount:
+    db 0
 
 costPrefix:   db "COST -",0
 
