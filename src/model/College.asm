@@ -4,16 +4,34 @@
 ; Handles the college logic
 ;
 ;
-; Function: getCategory() -> uint8
-; Function: categoryToString(uint8 cat) -> uint16
 ; Function: resetCollege() -> uint8
 ; Function: previousCollege() -> uint8
 ; Function: nextCollege() -> uint8
+; Function: getGameSettings() -> uint16 *collegeStruct
 ; Function: getCollegeName() -> uint16
 ;
 ;-----------------------------------------------------------------------------------
     module College
 
+;-----------------------------------------------------------------------------------
+;
+; Struct: collegeStruct 
+;
+; Specifies the game set up
+;
+;
+;-----------------------------------------------------------------------------------
+    struct @collegeStruct
+name            word        ;Pointer to string
+startTime       word        ;Start time in seconds
+timePerYear     byte        ;How much to decrease the start time each year
+lifeLineCost1   byte        ;Cost in seconds of life line 1..4
+lifeLineCost2   byte        ;If 0, then exclude life line
+lifeLineCost3   byte
+lifeLineCost4   byte
+    ends
+
+    
 COLLEGE_COUNT: equ 10
 
 ;-----------------------------------------------------------------------------------
@@ -84,6 +102,29 @@ nextCollege:
 
 ;-----------------------------------------------------------------------------------
 ; 
+; Function: getCollegeStruct() -> uint16 *collegeStruct
+;
+; Getter for the the currently selected college's name and game settings
+;
+; Out: HL = pointer to the college settings (*collegeStruct)
+;
+; Dirty A, HL, B
+; 
+;-----------------------------------------------------------------------------------
+getCollegeStruct:
+    ld a,(college)
+    ld hl, gameSettings
+    or a
+    ret z
+
+    ld b,a
+.moveToIndex:
+    add hl, collegeStruct
+    djnz .moveToIndex
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
 ; Function: getCollegeName() -> uint16
 ;
 ; Getter for college name
@@ -94,30 +135,12 @@ nextCollege:
 ; 
 ;-----------------------------------------------------------------------------------
 getCollegeName:
-    push de
-    ld a,(college)
-    ld hl, collegeNameJumpTable
-    ; Add twice, as table is two bytes per entry
-    add hl,a
-    add hl,a
-    ; get jump entry
-    ld de,(hl)
-    ld hl,de
-    pop de
+    push bc
+    call getCollegeStruct
+    ld bc,(HL)
+    ld hl,bc
+    pop bc
     ret
-
-
-collegeNameJumpTable:
-    dw collegeNameStr1
-    dw collegeNameStr2
-    dw collegeNameStr3
-    dw collegeNameStr4
-    dw collegeNameStr5
-    dw collegeNameStr6
-    dw collegeNameStr7
-    dw collegeNameStr8
-    dw collegeNameStr9
-    dw collegeNameStr10
 
 collegeNameStr1: db "TEDDY HALL",0
 collegeNameStr2: db "MOR-DE-LEN COLLEGE",0
@@ -129,6 +152,20 @@ collegeNameStr7: db "HEART BRIDGE",0
 collegeNameStr8: db "RADNOR COLLEGE",0
 collegeNameStr9: db "WINTERVILLE",0
 collegeNameStr10: db "ST KAYLEIGH'S",0
+
+;College Settings
+; Start time, time per year, life1, life2, life3, life4
+gameSettings:
+    collegeStruct collegeNameStr1,250, 15, 12, 0, 5, 10    ; Normal
+    collegeStruct collegeNameStr2,200, 12, 10, 0, 7, 10    ; Hard
+    collegeStruct collegeNameStr3,400, 20, 0, 16, 5, 12    ; Easy
+    collegeStruct collegeNameStr4,300, 20, 0, 0, 0,  20    ; Clue only 
+    collegeStruct collegeNameStr5,300, 30, 10, 20, 5, 10   ; Steep drop
+    collegeStruct collegeNameStr6,240, 5, 15, 25, 8, 15    ; Slow Drop
+    collegeStruct collegeNameStr7,250, 15, 10, 20, 5, 10 
+    collegeStruct collegeNameStr8,250, 15, 10, 20, 5, 10 
+    collegeStruct collegeNameStr9,250, 15, 10, 20, 5, 10 
+    collegeStruct collegeNameStr10,250, 15, 10, 20, 5, 10 
 
 college:
     db 0

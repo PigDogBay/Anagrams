@@ -8,7 +8,7 @@ UT_getCollegeName1:
     TEST_STRING_PTR hl, .data
     TC_END
 .data:
-    db "Teddy Hall",0
+    db "TEDDY HALL",0
 
 
 UT_collegeNextPrev1:
@@ -27,5 +27,14 @@ UT_collegeNextPrevWrap1:
     call College.nextCollege
     nop ; ASSERTION A == 0
     TC_END
+
+UT_getCollegeStruct1:
+    call College.resetCollege
+    call College.nextCollege
+    call College.nextCollege
+    call College.getCollegeStruct
+    nop ; ASSERTION  HL == College.gameSettings + collegeStruct * 2
+    TC_END
+
 
     endmodule
