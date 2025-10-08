@@ -40,7 +40,7 @@ init:
     ld l, 0
     ld h, 1
     ld c, 2
-    call _NextDAW_InitSystem
+;    call _NextDAW_InitSystem
 
     ; Init sfx bank 0
     ; c         bank index
@@ -49,19 +49,19 @@ init:
     ld c, 0
     ld b, BANK_SOUND_EFFECTS
     ld de, 0
-    call _NextDAW_InitSFXBank
+ ;   call _NextDAW_InitSFXBank
     di
     ret
 
 update:
-    call _NextDAW_UpdateSong
-    call _NextDAW_UpdateSFX
+;    call _NextDAW_UpdateSong
+ ;   call _NextDAW_UpdateSFX
     di
     ret
 
 stop:
-    call _NextDAW_StopSongHard
-    call _NextDAW_UpdateSong
+  ;  call _NextDAW_StopSongHard
+   ; call _NextDAW_UpdateSong
     di
     ret
 
