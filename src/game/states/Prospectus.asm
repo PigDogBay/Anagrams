@@ -148,6 +148,24 @@ printText:
     ld b,%00000000
     call Print.printCentred
 
+    ;Print game settings
+    call College.getCollegeStruct
+    ld ix,hl
+    ld hl, (ix + collegeStruct.startTime)
+    ld de,Print.buffer
+    call Print.bufferPrintNumber
+
+    ld a, (ix + collegeStruct.timePerYear)
+    ld hl, settingsSeparator
+    call Lifelines.printCost
+    
+    ld hl, settingsSuffix
+    call Print.bufferPrint
+
+    ld e, 19
+    ld b,%00010000
+    ld hl,Print.buffer
+    call Print.printCentred
 
     ; Click to continue
     ld e, 29
@@ -161,6 +179,12 @@ universityText:
 
 settingsInstruction:
     db "CHOOSE YOUR COLLEGE",0
+
+settingsSeparator:
+    db "s / -",0
+settingsSuffix:
+    db " PER YEAR",0
+
 
 startInstruction:
     db "CLICK TO ENROL",0

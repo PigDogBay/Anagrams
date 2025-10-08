@@ -130,6 +130,29 @@ bufferPrint:
 
 ;-----------------------------------------------------------------------------------
 ; 
+; Function: bufferPrint(uint16 buffer, uint16 value) -> uint16
+; 
+; Copies the string into the buffer, null terminator is also copied
+;
+; In: DE - Pointer to the buffer
+;     HL - value to print
+;
+; Out: DE - Pointer to next char (null terminator) in the buffer
+; 
+; Dirty: A,BC,DE,HL
+;
+;-----------------------------------------------------------------------------------
+bufferPrintNumber:
+    ld a,1
+    call ScoresConvert.ConvertToDecimal
+    ;point to the end of the string
+    ex de,hl
+    add hl,a
+    ex de,hl
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
 ; Function: clearLine(uint8 y) 
 ; 
 ; Fills the line with spaces
