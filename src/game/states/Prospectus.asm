@@ -12,6 +12,10 @@
     stateStruct enter,update
 
 TITLE_Y equ 30
+LIFELINE_X_POS    equ 112
+LIFELINE_X_STEP   equ 32
+LIFELINE_Y_POS          equ 180
+
 
 enter:
     L2_SET_IMAGE IMAGE_PROSPECTUS
@@ -30,19 +34,18 @@ enter:
     ldir
     call Visibility.removeAll
     ;B - gameId, C - delay
-    ld b, 1 : ld c, 14 : call Visibility.add
-    ld b, 2 : ld c, 18: call Visibility.add
-    ld b, 3 : ld c, 22 : call Visibility.add
-    ld b, 4 : ld c, 26 : call Visibility.add
-    ld b, 5 : ld c, 30 : call Visibility.add
-    ld b, 6 : ld c, 34 : call Visibility.add
-    ld b, 7 : ld c, 38 : call Visibility.add
-    ld b, 8 : ld c, 42 : call Visibility.add
-    ld b, 9 : ld c, 46 : call Visibility.add
-    ld b, 10 : ld c, 50 : call Visibility.add
-    ld b, 11 : ld c, 55 : call Visibility.add
-    ld b, 12 : ld c, 55 : call Visibility.add
+    ld b, 21 : ld c, 14 : call Visibility.add
+    ld b, 22 : ld c, 18: call Visibility.add
+    ld b, 23 : ld c, 22 : call Visibility.add
+    ld b, 24 : ld c, 26 : call Visibility.add
+    ld b, 25 : ld c, 30 : call Visibility.add
+    ld b, 26 : ld c, 34 : call Visibility.add
+    ld b, 27 : ld c, 38 : call Visibility.add
+    ld b, 28 : ld c, 42 : call Visibility.add
+    ld b, 29 : ld c, 46 : call Visibility.add
+    ld b, 30 : ld c, 50 : call Visibility.add
     call Visibility.start
+    call showLifelines
     call Sound.playStartMusic
     jp printText
 
@@ -121,11 +124,13 @@ stateMouseClicked:
 
 previousClicked:
     call College.previousCollege
+    call showLifelines
     jp printText
 
 
 nextClicked:
     call College.nextCollege
+    call showLifelines
     jp printText
 
 
@@ -174,6 +179,53 @@ printText:
     call Print.printCentred
     ret
 
+
+showLifelines:
+    call College.getCollegeStruct
+    ld ix,hl
+
+    ld b, (ix + collegeStruct.lifeLineCost1)
+    ld a, LIFELINE_1_BUTTON
+    call setVisibility
+
+    ld b, (ix + collegeStruct.lifeLineCost2)
+    ld a, LIFELINE_2_BUTTON
+    call setVisibility
+
+    ld b, (ix + collegeStruct.lifeLineCost3)
+    ld a, LIFELINE_3_BUTTON
+    call setVisibility
+
+    ld b, (ix + collegeStruct.lifeLineCost4)
+    ld a, LIFELINE_4_BUTTON
+    call setVisibility
+    ret
+
+;Subroutine addLifeLines.setVisibility
+;
+; Adds Sprite if A doesn't equal zero
+; In:
+;   A = game ID
+;   B = life line cost
+; Dirty A, IY
+;
+setVisibility
+    call SpriteList.find
+    ld a,b
+    ld iy,hl
+    or a
+    ld a,(iy + spriteItem.pattern)
+    jr nz, .visible
+    res BIT_SPRITE_VISIBLE,a
+    ld (iy + spriteItem.pattern),a
+    ret
+
+.visible:
+    or SPRITE_VISIBILITY_MASK
+    ld (iy + spriteItem.pattern),a
+    ret
+
+
 universityText:
     db "UNIVERSITY OF OXBRIDGE",0
 
@@ -191,27 +243,37 @@ startInstruction:
 
 
 spriteData:
-    db 13
+    db 17
     ; id, x, y, palette, pattern, gameId, flags
     ; Mouse
     spriteItem 0,160,128,0,0 | SPRITE_VISIBILITY_MASK,0,0
 
     ;Tile sprites
-    spriteItem 1,61,TITLE_Y,0,'P'-Tile.ASCII_PATTERN_OFFSET,1,0
-    spriteItem 2,81,TITLE_Y,0, 'R'-Tile.ASCII_PATTERN_OFFSET,2,0
-    spriteItem 3,101,TITLE_Y,0,'O'-Tile.ASCII_PATTERN_OFFSET,3,0
-    spriteItem 4,121,TITLE_Y,0,'S'-Tile.ASCII_PATTERN_OFFSET,4,0
-    spriteItem 5,141,TITLE_Y,0,'P'-Tile.ASCII_PATTERN_OFFSET,5,0
-    spriteItem 6,161,TITLE_Y,0,'E'-Tile.ASCII_PATTERN_OFFSET,6,0
-    spriteItem 7,181,TITLE_Y,0,'C'-Tile.ASCII_PATTERN_OFFSET,7,0
-    spriteItem 8,201,TITLE_Y,0,'T'-Tile.ASCII_PATTERN_OFFSET,8,0
-    spriteItem 9,221,TITLE_Y,0,'U'-Tile.ASCII_PATTERN_OFFSET,9,0
-    spriteItem 10,241,TITLE_Y,0,'S'-Tile.ASCII_PATTERN_OFFSET,10,0
+    spriteItem 1,61,TITLE_Y,0,'P'-Tile.ASCII_PATTERN_OFFSET,21,0
+    spriteItem 2,81,TITLE_Y,0, 'R'-Tile.ASCII_PATTERN_OFFSET,22,0
+    spriteItem 3,101,TITLE_Y,0,'O'-Tile.ASCII_PATTERN_OFFSET,23,0
+    spriteItem 4,121,TITLE_Y,0,'S'-Tile.ASCII_PATTERN_OFFSET,24,0
+    spriteItem 5,141,TITLE_Y,0,'P'-Tile.ASCII_PATTERN_OFFSET,25,0
+    spriteItem 6,161,TITLE_Y,0,'E'-Tile.ASCII_PATTERN_OFFSET,26,0
+    spriteItem 7,181,TITLE_Y,0,'C'-Tile.ASCII_PATTERN_OFFSET,27,0
+    spriteItem 8,201,TITLE_Y,0,'T'-Tile.ASCII_PATTERN_OFFSET,28,0
+    spriteItem 9,221,TITLE_Y,0,'U'-Tile.ASCII_PATTERN_OFFSET,29,0
+    spriteItem 10,241,TITLE_Y,0,'S'-Tile.ASCII_PATTERN_OFFSET,30,0
 previousSprite:
     spriteItem 11, 60, 124, 0, Sprites.PREVIOUS | SPRITE_VISIBILITY_MASK, PREVIOUS_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 nextSprite:
     spriteItem 12, 246, 124, 0, Sprites.NEXT | SPRITE_VISIBILITY_MASK, NEXT_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+;Add these sprites one at a time, depending on the college
+lifeLine1Sprite:
+    spriteItem 13, LIFELINE_X_POS, LIFELINE_Y_POS, 0, Sprites.CALCULATOR, LIFELINE_1_BUTTON, MouseDriver.MASK_HOVERABLE
+lifeLine2Sprite:
+    spriteItem 14, LIFELINE_X_POS + LIFELINE_X_STEP, LIFELINE_Y_POS, 0, Sprites.TAO, LIFELINE_2_BUTTON, MouseDriver.MASK_HOVERABLE
+lifeLine3Sprite:
+    spriteItem 15, LIFELINE_X_POS + LIFELINE_X_STEP * 2, LIFELINE_Y_POS, 0, Sprites.BEER, LIFELINE_3_BUTTON, MouseDriver.MASK_HOVERABLE
+lifeLine4Sprite:
+    spriteItem 16, LIFELINE_X_POS + LIFELINE_X_STEP * 3, LIFELINE_Y_POS, 0, Sprites.NOTEPAD, LIFELINE_4_BUTTON, MouseDriver.MASK_HOVERABLE
 
 spriteLen: equ $ - spriteData
+
 
     endmodule
