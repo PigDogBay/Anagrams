@@ -46,15 +46,34 @@ update:
     ret
 
 addButtons:
+    ld a,(Lifelines.costTile)
+    or a
+    jr z, .next1
     ld hl, lifeLine1Sprite
     call SpriteList.addSprite
+
+.next1
+    ld a,(Lifelines.costSlot)
+    or a
+    jr z, .next2
     ld hl, lifeLine2Sprite
     call SpriteList.addSprite
+
+.next2
+    ld a,(Lifelines.costRand)
+    or a
+    jr z, .next3
     ld hl, lifeLine3Sprite
     call SpriteList.addSprite
+
+.next3
+    ld a,(Lifelines.costClue)
+    or a
+    jr z, .next4
     ld hl, lifeLine4Sprite
     call SpriteList.addSprite
 
+.next4:
     ld hl, quitSprite
     call SpriteList.addSprite
     ret
