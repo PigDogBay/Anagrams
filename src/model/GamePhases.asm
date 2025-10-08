@@ -20,7 +20,23 @@
 start:
     ld hl,$0101
     call YearTerm.select
-    call Money.resetMoney
+
+    ;Set up the game settings based on the chosen college
+    call College.getCollegeStruct
+    ld ix,hl
+    ld hl,(ix + collegeStruct.startTime)
+    ld (Time.yearStartTime),hl
+    ld a,(ix + collegeStruct.timePerYear)
+    ld (Time.roundDecrease),a
+    
+    ld a,(ix + collegeStruct.lifeLineCost1)
+    ld (Lifelines.costTile),a
+    ld a,(ix + collegeStruct.lifeLineCost2)
+    ld (Lifelines.costSlot),a
+    ld a,(ix + collegeStruct.lifeLineCost3)
+    ld (Lifelines.costRand),a
+    ld a,(ix + collegeStruct.lifeLineCost4)
+    ld (Lifelines.costClue),a
     ret
 
 ;-----------------------------------------------------------------------------------

@@ -137,7 +137,7 @@ printToBuffer:
 
 roundDecrease:          dw 15
 yearStartTime:          dw 300          ;Starting time each year
-time:                   dw 42            ;Time in seconds
+time:                   dw 42           ;Time in seconds
 tickCounter:            db 0
 
     endmodule
