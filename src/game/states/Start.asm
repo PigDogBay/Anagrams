@@ -10,6 +10,9 @@
 @GS_START: 
     stateStruct enter,update
 
+LIFELINE_START_Y_POS    equ 60
+LIFELINE_START_Y_STEP   equ 32
+
 
 enter:
     call Tilemap.clear
@@ -46,37 +49,50 @@ update:
     ret
 
 addButtons:
+    ld b, LIFELINE_START_Y_POS
     ld a,(Lifelines.costTile)
-    or a
-    jr z, .next1
     ld hl, lifeLine1Sprite
-    call SpriteList.addSprite
+    call addSprite
 
-.next1
     ld a,(Lifelines.costSlot)
-    or a
-    jr z, .next2
     ld hl, lifeLine2Sprite
-    call SpriteList.addSprite
+    call addSprite
 
-.next2
     ld a,(Lifelines.costRand)
-    or a
-    jr z, .next3
     ld hl, lifeLine3Sprite
-    call SpriteList.addSprite
+    call addSprite
 
-.next3
     ld a,(Lifelines.costClue)
-    or a
-    jr z, .next4
     ld hl, lifeLine4Sprite
-    call SpriteList.addSprite
+    call addSprite
 
-.next4:
     ld hl, quitSprite
     call SpriteList.addSprite
     ret
+
+;Subroutine addButtons.addSprite
+;
+; Adds Sprite if A doesn't equal zero
+; In:
+;   A = life line cost
+;   HL = spriteItem
+;   B = Position
+; Out:
+;   B = Updated Position if sprite added
+; Dirty A, IX
+;
+addSprite
+    or a
+    ret z
+    ld ix,hl
+    ld (ix + spriteItem.y),b
+    call SpriteList.addSprite
+    ; Move to next Y pos
+    ld a,b
+    add LIFELINE_START_Y_STEP
+    ld b,a
+    ret
+
 
 lifeLine1Sprite:
     spriteItem 0, 4, 48, 0, Sprites.CALCULATOR | SPRITE_VISIBILITY_MASK, LIFELINE_1_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
