@@ -206,7 +206,7 @@ printQuitTip:
 .tip:   db "DROP OUT OF COLLEGE",0
 
 printTipLifeLine1:
-    ld hl, .tip1
+    ld hl, Lifelines.tip1
     ld e, TOOL_TIP_LINE1
     ld b,%00000000
     call Print.printCentred
@@ -220,10 +220,9 @@ printTipLifeLine1:
     ld b,%00010000
     call Print.printCentred
     ret
-.tip1:   db "MATCH A TILE TO A SLOT",0
 
 printTipLifeLine2:
-    ld hl, .tip1
+    ld hl, Lifelines.tip2
     ld e, TOOL_TIP_LINE1
     ld b,%00000000
     call Print.printCentred
@@ -237,10 +236,9 @@ printTipLifeLine2:
     ld b,%00010000
     call Print.printCentred
     ret
-.tip1:   db "MATCH A SLOT TO A TILE",0
 
 printTipLifeLine3:
-    ld hl, .tip1
+    ld hl, Lifelines.tip3
     ld e, TOOL_TIP_LINE1
     ld b,%00000000
     call Print.printCentred
@@ -254,10 +252,9 @@ printTipLifeLine3:
     ld b,%00010000
     call Print.printCentred
     ret
-.tip1:   db "REVEAL A RANDOM MATCH",0
 
 printTipLifeLine4:
-    ld hl, .tip1
+    ld hl, Lifelines.tip4
     ld e, TOOL_TIP_LINE1
     ld b,%00000000
     call Print.printCentred
@@ -271,7 +268,6 @@ printTipLifeLine4:
     ld b,%00010000
     call Print.printCentred
     ret
-.tip1:   db "REVEAL A CLUE",0
 
 
 nullDragEndCallback:

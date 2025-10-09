@@ -153,4 +153,9 @@ costSlot:               db 20
 costRand:               db 5
 costClue:               db 10
 
+tip1:   db "MATCH A TILE TO A SLOT",0
+tip2:   db "MATCH A SLOT TO A TILE",0
+tip3:   db "REVEAL A RANDOM MATCH",0
+tip4:   db "REVEAL A CLUE",0
+
     endmodule
