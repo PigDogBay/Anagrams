@@ -15,6 +15,7 @@
 @LIFELINE_4_BUTTON:     equ 5
 @PREVIOUS_BUTTON:       equ 6
 @NEXT_BUTTON:           equ 7
+@REROLL_BUTTON:         equ 8
 
 
 SLOT_ID:                  equ %10000000

@@ -25,12 +25,12 @@ enter:
 
 
 update:
-    call Game.updateMouse
-    call Game.updateSprites
-;     ; next state
-;     ld hl, GS_PUZZLE_VIEWER
-; ;    ld hl, GS_WIN
-;     call GameStateMachine.change
+    ; call Game.updateMouse
+    ; call Game.updateSprites
+    ; next state
+;    ld hl, GS_PUZZLE_VIEWER
+    ld hl, GS_ROUND
+    call GameStateMachine.change
     ret
 
 
