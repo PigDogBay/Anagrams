@@ -93,6 +93,7 @@ mouseStateHandler:
     jp hl
 
 stateMouseReady:
+    ret
 stateMouseHover:
     ld a,c
     cp LIFELINE_1_BUTTON

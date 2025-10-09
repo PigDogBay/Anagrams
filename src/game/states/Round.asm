@@ -11,10 +11,12 @@
 @GS_ROUND: 
     stateStruct enter,update
 
-TITLE_Y     equ 30
-TITLE_Y2    equ 50
-REROLL_X    equ 220
-REROLL_Y    equ 172
+TITLE_Y         equ 30
+TITLE_Y2        equ 50
+REROLL_X        equ 220
+REROLL_Y        equ 172
+TOOL_TIP_Y      equ 25
+TOOL_TIP_X      equ 23
 
 enter:
     L2_SET_IMAGE IMAGE_ROUND
@@ -55,20 +57,114 @@ enter:
 update:
     ;Shake RNG
     call Maths.getRandom
-    ;wait for use to click mouse button
-    call Game.updateMouseNoSprite
-    cp MouseDriver.STATE_BACKGROUND_CLICKED
-    jr z, .mousePressed
+    call Game.updateMouse
+    call mouseStateHandler
     call Game.updateSprites
     ret
 
-.mousePressed:
+
+jumpTable:
+    dw stateMouseReady
+    dw stateMouseHover
+    dw stateMouseHoverEnd
+    dw stateMousePressed
+    dw stateMouseClicked
+    dw stateMouseDragStart
+    dw stateMouseDrag
+    dw stateMouseDragOutOfBounds
+    dw stateMouseDragEnd
+    dw stateMouseClickedOff
+    dw stateMouseBackgroundPressed
+    dw stateMouseBackgroundClicked
+
+;-----------------------------------------------------------------------------------
+;
+; Function: mouseStateHandler
+;
+; Updates the game based on the current mouse state 
+; In - A current mouse state
+;    - IX pointer to sprite that mouse is over
+;-----------------------------------------------------------------------------------
+mouseStateHandler:
+    ld hl, jumpTable
+    ; Add twice, as table is two bytes per entry
+    add hl,a
+    add hl,a
+    ; get jump entry
+    ld de,(hl)
+    ld hl,de
+    jp hl
+
+stateMouseReady:
+    ret
+stateMouseHover:
+    ld a,c
+    cp REROLL_BUTTON
+    jp z, printRerollTip
+    ret
+
+stateMouseHoverEnd:
+    ld e, TOOL_TIP_Y
+    call Print.clearLine
+    ret
+stateMousePressed:
+stateMouseDrag:
+stateMouseDragOutOfBounds:
+stateMouseDragEnd:
+stateMouseClickedOff:
+stateMouseBackgroundPressed:
+stateMouseDragStart:
+    ret
+
+stateMouseBackgroundClicked:
     ld hl, GS_START
     STOP_ALL_ANIMATION
     call GameStateMachine.change
     ret
 
+stateMouseClicked:
+    ld a,c
+    cp REROLL_BUTTON
+    jr z, reroll
+    ret
 
+.mousePressed:
+    ret
+
+;-----------------------------------------------------------------------------------
+;  
+;-----------------------------------------------------------------------------------
+reroll:
+    ret
+
+;-----------------------------------------------------------------------------------
+;  
+;-----------------------------------------------------------------------------------
+printRerollTip:
+
+    ld de,Print.buffer
+    ld hl, rerollPrefix
+    call Print.bufferPrint
+
+    ld hl,42
+    call Print.bufferPrintNumber
+
+    ld hl, rerollSuffix
+    call Print.bufferPrint
+
+    ld d, TOOL_TIP_X
+    ld e, TOOL_TIP_Y
+    call Print.setCursorPosition
+    ld hl, Print.buffer
+    ld b,%00010000
+    call Print.printString
+
+    ret
+
+
+;-----------------------------------------------------------------------------------
+;  
+;-----------------------------------------------------------------------------------
 printText:
     call Tilemap.clear
 
@@ -128,6 +224,10 @@ printStartingTime:
 startInstruction:
     db "CLICK TO BEGIN YOUR STUDIES",0
 
+rerollPrefix:
+    db "REROLL -",0
+rerollSuffix:
+    db "s",0
 
 spriteData:
     db 14
