@@ -125,8 +125,7 @@ stateMouseBackgroundClicked:
 stateMouseClicked:
     ld a,c
     cp REROLL_BUTTON
-    jr z, reroll
-    ret
+    jp z, RoundVM.onRerollClick
 
 .mousePressed:
     ret
@@ -134,23 +133,9 @@ stateMouseClicked:
 ;-----------------------------------------------------------------------------------
 ;  
 ;-----------------------------------------------------------------------------------
-reroll:
-    ret
-
-;-----------------------------------------------------------------------------------
-;  
-;-----------------------------------------------------------------------------------
 printRerollTip:
-
-    ld de,Print.buffer
-    ld hl, rerollPrefix
-    call Print.bufferPrint
-
-    ld hl,42
-    call Print.bufferPrintNumber
-
-    ld hl, rerollSuffix
-    call Print.bufferPrint
+    ;Create the string to print
+    call RoundVM.printRerollTip
 
     ld d, TOOL_TIP_X
     ld e, TOOL_TIP_Y
@@ -158,7 +143,6 @@ printRerollTip:
     ld hl, Print.buffer
     ld b,%00010000
     call Print.printString
-
     ret
 
 
@@ -181,7 +165,7 @@ printText:
     call Print.printCentred
 
     ; Starting Time
-    call printStartingTime
+    call RoundVM.printStartingTime
     ld hl, Print.buffer
     ld e, 17
     ld b,%0000000
@@ -201,33 +185,9 @@ printText:
     call Print.printCentred
     ret
 
-printStartingTime:
-    ld de, Print.buffer
-    ;Prefix
-    ld hl,.timeLabel
-    call Print.bufferPrint
-    ld hl,(Time.time)
-    ld a,1
-    call ScoresConvert.ConvertToDecimal
-    ;point to the end of the string
-    ex de,hl
-    add hl,a
-    ;Print second units
-    ld (hl), 's'
-    inc hl
-    ;null terminate
-    ld (hl), 0
-    ret
-.timeLabel:
-    db "TIME: ",0
 
 startInstruction:
     db "CLICK TO BEGIN YOUR STUDIES",0
-
-rerollPrefix:
-    db "REROLL -",0
-rerollSuffix:
-    db "s",0
 
 spriteData:
     db 14

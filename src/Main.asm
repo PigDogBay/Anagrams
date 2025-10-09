@@ -88,6 +88,7 @@ IMAGE_WIN                  equ BANK_IMAGE_TITLE
     include "model/Time.asm"
     include "model/GamePhases.asm"
     include "model/Lifelines.asm"
+    include "model/RoundVM.asm"
     include "utils/Maths.asm"
     include "utils/String.asm"
     include "utils/Exceptions.asm"
