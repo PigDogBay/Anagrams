@@ -5,6 +5,17 @@
 
 ;-----------------------------------------------------------------------------------
 ;
+; Macro isVisible(uint16 spriteItem) -> Boolean
+;
+; In: IX - pointer to the spiteItem
+; Out: Z set - not visible, NZ - visible
+;-----------------------------------------------------------------------------------
+    macro IS_SPRITE_VISIBLE
+        bit BIT_SPRITE_VISIBLE,(ix+spriteItem.pattern)
+    endm
+
+;-----------------------------------------------------------------------------------
+;
 ; Struct: spriteItem 
 ;
 ; Sprite attributes data struct
@@ -361,8 +372,6 @@ allSlotsClickable:
 
     pop ix,de,bc
     ret
-
-
 
 nextEntryPtr:
     dw list

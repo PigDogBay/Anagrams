@@ -29,6 +29,10 @@ mouseOver:
     add hl,spriteItem
     ld ix,hl
 
+    ;Is the sprite visible
+    IS_SPRITE_VISIBLE
+    jr z, .noCollision
+
     ;Check y overlap
     ld a, (SpriteList.list+spriteItem.y)
     ld d, (ix+spriteItem.y)
