@@ -1,0 +1,122 @@
+    module TestSuite_Cheatcode
+
+    MACRO ENTER_CHEAT letter, expectedState
+        ld a,letter
+        call Cheatcode.update
+        ld a, (Cheatcode.state)
+        cp expectedState
+        TEST_FLAG_Z
+    ENDM
+
+;Successful entry
+UT_update1:
+    call Cheatcode.reset
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'U', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'P', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'S', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'C', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'U', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'M', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'B', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'A', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'G', Cheatcode.CHEAT_ACTIVATE
+    TC_END
+
+;Botched at first, then successful entry
+UT_update2:
+    call Cheatcode.reset
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'P', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'O', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'O', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'U', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'P', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'S', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'C', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'U', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'M', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'B', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'A', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'G', Cheatcode.CHEAT_ACTIVATE
+    TC_END
+
+;Key repeats
+UT_update3:
+    call Cheatcode.reset
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'U', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 'U', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 'U', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'P', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'S', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'C', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 'C', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 'C', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 'C', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'U', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'M', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'B', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 'B', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 'B', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'A', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'G', Cheatcode.CHEAT_ACTIVATE
+    TC_END
+
+;Failed attempt
+UT_update4:
+    call Cheatcode.reset
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'U', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'P', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'S', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'C', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'U', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'M', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'B', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'A', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'X', Cheatcode.CHEAT_WAIT_NO_PRESS
+    ENTER_CHEAT 0, Cheatcode.CHEAT_WAIT_PRESS
+    ENTER_CHEAT 'G', Cheatcode.CHEAT_WAIT_NO_PRESS
+    TC_END
+
+
+    endmodule
