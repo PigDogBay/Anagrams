@@ -115,11 +115,14 @@ printCategory:
 
 cheatCodeCheck:
     call Keyboard.getChar
-    or a
-    jr z, .exit
-    nop
-    nop
-
+    call Cheatcode.update
+    ld a,(Cheatcode.state)
+    cp Cheatcode.CHEAT_ACTIVATE
+    jr nz, .exit
+    ;Cheat code has been entered, add 60s to time
+    ld a,60
+    call Time.add
+    call Sound.cheat
 .exit:
     ret
 

@@ -65,7 +65,23 @@ deduct:
     ld (time),hl
     ret
 
-
+;-----------------------------------------------------------------------------------
+; 
+; Function: add(uint8 seconds)
+;
+; Adds the seconds to the current time
+;
+; In: A - Amount of time in seconds to add
+; Out: HL - current time
+;
+; Dirty: DE
+; 
+;-----------------------------------------------------------------------------------
+add:
+    ld hl,(time)
+    add hl,a
+    ld (time),hl
+    ret
 
 
 ;-----------------------------------------------------------------------------------
