@@ -125,13 +125,23 @@ stateMouseBackgroundClicked:
 stateMouseClicked:
     ld a,c
     cp REROLL_BUTTON
-    jp nz, .exit
-    call RoundVM.onRerollClick
-    call printText
-.exit:
+    jr z, onRerollClicked
     ret
 
 .mousePressed:
+    ret
+
+onRerollClicked:
+    call RoundVM.onRerollClick
+    or a
+    jr z, .noReroll
+    ;Reprint text
+    call printText
+    call Sound.buttonClicked
+    ret
+
+.noReroll:
+    call Sound.error
     ret
 
 ;-----------------------------------------------------------------------------------
