@@ -148,12 +148,14 @@ stateMouseClicked:
 previousClicked:
     call College.previousCollege
     call showLifelines
+    call Sound.buttonClicked
     jp printText
 
 
 nextClicked:
     call College.nextCollege
     call showLifelines
+    call Sound.buttonClicked
     jp printText
 
 
