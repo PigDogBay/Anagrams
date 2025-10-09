@@ -32,6 +32,7 @@ update:
     jr z, gameOver
     call Game.updateMouse
     call PlayMouse.update
+    call cheatCodeCheck
     call Game.updateSprites
     call timeUpdate
     call printTime
@@ -111,6 +112,16 @@ printCategory:
     call Print.printCentred
     ret
 
+
+cheatCodeCheck:
+    call Keyboard.getChar
+    or a
+    jr z, .exit
+    nop
+    nop
+
+.exit:
+    ret
 
 
 ;-----------------------------------------------------------------------------------

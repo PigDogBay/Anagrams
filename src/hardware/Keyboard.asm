@@ -23,6 +23,21 @@ KEYS_T_R_E_W_Q                      equ $fb
 KEYS_G_F_D_S_A                      equ $fd
 KEYS_V_C_X_Z_CAPS                   equ $fe
 
+KEYS_BIT_MASK equ %00011111
+KEY_SYM_SHIFT equ 1
+KEY_ENTER     equ 2
+KEY_CAPS      equ 3
+
+keys: 
+    db "BNM",KEY_SYM_SHIFT," "
+    db "HJKL",KEY_ENTER
+    db "YUIOP"
+    db "67890"
+    db "54321"
+    db "TREWQ"
+    db "GFDSA"
+    db "VCXZ",KEY_CAPS
+
 ;20ms steps for 50hz
 KEY_REPEAT_DURATION                 equ 25
 
@@ -53,6 +68,103 @@ update:
 .not_pressed:
     ret
 
+
+;-----------------------------------------------------------------------------------
+; 
+; Function getChar() -> uint8
+;  
+; Scans the entire keyboard, returns the first key press detected (does not handle multi-key press)
+; 
+; Returns A = 0, no key pressed otherwise the keys ASCII value
+; 
+;-----------------------------------------------------------------------------------
+getChar:
+    ld d,0
+    ld a,KEYS_B_N_M_SYMB_SPACE
+    call checkKey
+    or a
+    jr nz, .keyPressed
+
+    inc d
+    ld a,KEYS_H_J_K_L_ENTER
+    call checkKey
+    or a
+    jr nz, .keyPressed
+
+    inc d
+    ld a,KEYS_Y_U_I_O_P
+    call checkKey
+    or a
+    jr nz, .keyPressed
+
+    inc d
+    ld a,KEYS_6_7_8_9_0
+    call checkKey
+    or a
+    jr nz, .keyPressed
+
+    inc d
+    ld a,KEYS_5_4_3_2_1
+    call checkKey
+    or a
+    jr nz, .keyPressed
+
+    inc d
+    ld a,KEYS_T_R_E_W_Q
+    call checkKey
+    or a
+    jr nz, .keyPressed
+
+    inc d
+    ld a,KEYS_G_F_D_S_A
+    call checkKey
+    or a
+    jr nz, .keyPressed
+
+    inc d
+    ld a,KEYS_V_C_X_Z_CAPS
+    call checkKey
+    or a
+    jr nz, .keyPressed
+    ;No key pressed
+    ret
+
+.keyPressed:
+    ;map hl to char in keys table
+    ; D = table row
+    ; E = table column
+    ld hl, keys
+    ld a,d
+    or a
+    jr z, .row0
+
+    ld b,d
+.add5Loop:
+    add hl,5
+    djnz .add5Loop
+
+.row0:
+    ld a,e
+    add hl,a
+    ld a,(hl)
+    ret
+
+checkKey:
+    in a,(ULA_CONTROL_PORT)
+    ld e,0
+    ld b,5
+.loop:  
+    bit 0, a
+    jr z, .keyHit
+    sra a
+    djnz .loop
+    ld a,0
+    ret
+.keyHit:
+    dec b
+    ld e,b
+    ld a,1
+    ret
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -106,5 +218,37 @@ getMenuChar:
     ld a,b
     ret
 
+
+CHEAT_U equ 0
+CHEAT_P equ 1
+CHEAT_S equ 2 
+CHEAT_C equ 3
+CHEAT_U2 equ 4
+CHEAT_M equ 5
+CHEAT_B equ 6
+CHEAT_A equ 7
+CHEAT_G equ 8
+CHEAT_ENTERED equ 9
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function cheatCodeCheck() -> boolean
+;  
+; State machine to monitor if the cheatcode has been entered
+; 
+; Returns NZ - Cheat code entered
+; 
+;-----------------------------------------------------------------------------------
+cheatCodeCheck
+    ret
+
+resetCheatCode:
+    ret
+
+;Cheat States
+cheatStateTable:
+
+cheatState db 0
 
     endmodule
