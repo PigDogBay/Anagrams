@@ -25,7 +25,7 @@ enter:
     ; First sprite always the mouse pointer so that it is on top
     call Game.addMouseSpritePointer
 
-    call GamePhases.roundStart
+    call RoundVM.init
 
     ;Animated Sprite Tile
     ;Add slots and amke SYLLABUS tiles appear
@@ -125,7 +125,11 @@ stateMouseBackgroundClicked:
 stateMouseClicked:
     ld a,c
     cp REROLL_BUTTON
-    jp z, RoundVM.onRerollClick
+    jp nz, .exit
+    call RoundVM.onRerollClick
+    call printText
+.exit:
+    ret
 
 .mousePressed:
     ret

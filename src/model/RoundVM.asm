@@ -8,6 +8,38 @@
 
     module RoundVM
 
+DEFAULT_REROLL_COST         equ 20
+DEFAULT_REROLL_COST_INC     equ 5
+MAX_REROLL_COST             equ 50
+
+
+;-----------------------------------------------------------------------------------
+;  
+; Function init()
+;
+; Call this when entering the Round screen to to set up the game variables
+;
+;-----------------------------------------------------------------------------------
+init:
+    call GamePhases.roundStart
+    call resetReroll
+    ret
+
+
+;-----------------------------------------------------------------------------------
+;  
+; Function resetReroll()
+;
+; Resets the reroll cost to the initial value
+;
+; Dirty: A
+;
+;-----------------------------------------------------------------------------------
+resetReroll:
+    ld a, (rerollInitialCost)
+    ld (rerollCost),a
+    ret
+
 
 ;-----------------------------------------------------------------------------------
 ;  
@@ -19,8 +51,24 @@
 ;
 ;-----------------------------------------------------------------------------------
 onRerollClick:
+    call pickDifferentCategory
     ret
 
+
+;-----------------------------------------------------------------------------------
+;  
+; Function pickDifferentCategory()
+;
+; Picks another category that is different to the current category
+;
+; Dirty: A,BC,DE,HL
+;
+;-----------------------------------------------------------------------------------
+pickDifferentCategory:
+    ;Set up a random puzzle
+    call Puzzles.newCategory
+    call Puzzles.copyRandomPuzzle
+    ret
 
 ;-----------------------------------------------------------------------------------
 ;  
@@ -74,5 +122,8 @@ printRerollTip:
 .prefix db "REROLL -",0
 .suffix db "s",0
 
+rerollInitialCost:      db DEFAULT_REROLL_COST
+rerollCost:             db DEFAULT_REROLL_COST
+rerollCostInc:          db DEFAULT_REROLL_COST_INC
 
     endmodule

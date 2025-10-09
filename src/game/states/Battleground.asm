@@ -29,6 +29,8 @@ update:
     ; call Game.updateSprites
     ; next state
 ;    ld hl, GS_PUZZLE_VIEWER
+    ld hl,$0201
+    call YearTerm.select
     ld hl, GS_ROUND
     call GameStateMachine.change
     ret
