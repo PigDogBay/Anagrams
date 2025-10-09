@@ -31,7 +31,7 @@ update:
 ;    ld hl, GS_PUZZLE_VIEWER
     ld hl,$0201
     call YearTerm.select
-    ld hl, GS_ROUND
+    ld hl, GS_GAME_OVER
     call GameStateMachine.change
     ret
 

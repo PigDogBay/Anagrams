@@ -11,8 +11,8 @@
 @GS_GAME_OVER: 
     stateStruct enter,update
 
-TITLE_Y equ 30
-TITLE_Y2 equ 50
+TITLE_Y equ 22
+TITLE_Y2 equ 44
 
 enter:
     L2_SET_IMAGE IMAGE_DROPOUT
@@ -63,17 +63,22 @@ update:
 printText:
     call Tilemap.clear
 
-    ld e, 15
-    ld hl,tauntText
-    call Print.setCursorPosition
+    ld e, 9
+    call College.getCollegeName
     ld b,%00000000
     call Print.printCentred
 
     ld de,Print.buffer
-    call YearTerm.printToBuffer
+    call YearTerm.printShortToBuffer
     ;Print the buffer to the screen
     ld hl,Print.buffer
-    ld e, 18
+    ld e, 11
+    ld b,%00000000
+    call Print.printCentred
+
+    ld e, 17
+    ld hl,tauntText
+    call Print.setCursorPosition
     ld b,%00000000
     call Print.printCentred
 

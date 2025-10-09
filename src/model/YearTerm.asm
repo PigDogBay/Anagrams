@@ -313,6 +313,31 @@ printToBuffer:
 .delimiter:
     db ". ",0
 
+;-----------------------------------------------------------------------------------
+; 
+; Function: printShortToBuffer(uint16 buffer)
+;
+; Prints the Year.Term to the buffer
+;
+;  In: DE - buffer pointer
+; Out: DE - points to null terminator
+;   
+; Dirty: A,DE,HL
+; 
+;-----------------------------------------------------------------------------------
+printShortToBuffer:
+    call YearTerm.getShortYearName
+    call Print.bufferPrint
+
+    ld hl, .delimiter
+    call Print.bufferPrint
+
+    call YearTerm.getShortTermName
+    call Print.bufferPrint
+    ret
+.delimiter:
+    db ":",0
+
 
 termNameStr1: db "MICHAELMAS",0
 termNameStr2: db "HILARY",0
