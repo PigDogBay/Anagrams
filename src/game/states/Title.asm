@@ -8,6 +8,9 @@
 
     module GameState_Title
 
+MESSAGES_COUNT                          equ 5
+COPYRIGHT_CHAR                          equ 127
+
 TITLE_STATE_START:                      equ 0
 TITLE_STATE_FADE_IN:                    equ 1
 TITLE_STATE_MOVE_TILES:                 equ 2
@@ -190,13 +193,17 @@ titleMoveTiles:
     ld a,TITLE_STATE_FLASH
     ld (titleState),a
 
-    ; Print "By Pig Dog Bay"
-    ld d, 13
-    ld e, 16
-    ld hl,author
-    call Print.setCursorPosition
+    call getText1
     ld b,%00010000
-    call Print.printString
+    ld e, 16
+    call Print.printCentred
+
+    call getText2
+    ld b,%00010000
+    ld e, 18
+    call Print.printCentred
+
+    call nextTextIndex
 
     ret
 
@@ -221,12 +228,60 @@ titleFadeOut:
 titleState:
     db TITLE_STATE_START
 
-author:
-    db "BY PIG DOG BAY",0
-    db "By Pig Dog Bay",0
+getText1:
+    ld hl,textTable
+    ld a,(textIndex)
+    ; x4
+    sla a : sla a
+    add hl,a
+    ld de,(hl)
+    ex de,hl
+    ret
+
+getText2:
+    ld hl,textTable
+    ld a,(textIndex)
+    ; x4
+    sla a : sla a
+    add hl,a
+    add hl,2
+    ld de,(hl)
+    ex de,hl
+    ret
+
+nextTextIndex:
+    ld a,(textIndex)
+    inc a
+    cp MESSAGES_COUNT
+    jr nz, .saveIndex
+    ;Reset index
+    xor a
+.saveIndex:
+    ld (textIndex),a
+    ret
+
+textTable:
+    dw text1A, text1B
+    dw text2A, text2B
+    dw text3A, text3B
+    dw text4A, text4B
+    dw text5A, text5B
+
+text1A db "BY PIG DOG BAY",0
+text1B db " ",0
+text2A db "TITLE MUSIC BY",0
+text2B db "RETROSTEVEUK",0
+text3A db "MUSIC CREATED USING",0
+text3B db "NEXTDAW BY G BASILO",0
+text4A db "FONTS BY",0
+text4B db "DAMIEN GUARD",0
+text5A db VERSION,0
+text5B db COPYRIGHT_CHAR," MPD BAILEY TECHNOLOGY",0
+
+textIndex: db 0
 
 instruction:
-    db "Click Mouse To Begin",0
+    db "CLICK MOUSE TO BEGIN",0
 
 spriteData:
     db 21

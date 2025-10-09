@@ -2,6 +2,8 @@
     DEVICE ZXSPECTRUMNEXT
     ;DEFINE BUILD_2MB
 
+    DEFINE VERSION "v1.00.00"
+
     ORG 0x8000
 
     ; Resources
