@@ -16,6 +16,7 @@ LIFELINE_X_POS      equ 104
 LIFELINE_X_STEP     equ 32
 LIFELINE_Y_POS      equ 168
 BUTTONS_Y           equ 116
+TOOL_TIP_LINE1      equ 25
 
 enter:
     L2_SET_IMAGE IMAGE_PROSPECTUS
@@ -93,7 +94,28 @@ mouseStateHandler:
 
 stateMouseReady:
 stateMouseHover:
+    ld a,c
+    cp LIFELINE_1_BUTTON
+    ld hl, Lifelines.tip1
+    jp z, printTipLifeLine
+
+    cp LIFELINE_2_BUTTON
+    ld hl, Lifelines.tip2
+    jp z, printTipLifeLine
+
+    cp LIFELINE_3_BUTTON
+    ld hl, Lifelines.tip3
+    jp z, printTipLifeLine
+
+    cp LIFELINE_4_BUTTON
+    ld hl, Lifelines.tip4
+    jp z, printTipLifeLine
+    ret
+
 stateMouseHoverEnd:
+    ld e, TOOL_TIP_LINE1
+    call Print.clearLine
+    ret
 stateMousePressed:
 stateMouseDrag:
 stateMouseDragOutOfBounds:
@@ -176,6 +198,12 @@ printText:
     ld e, 29
     ld hl,startInstruction
     ld b,%00010000
+    call Print.printCentred
+    ret
+
+printTipLifeLine:
+    ld e, TOOL_TIP_LINE1
+    ld b,%00000000
     call Print.printCentred
     ret
 
