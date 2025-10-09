@@ -11,7 +11,7 @@
 DEFAULT_REROLL_COST         equ 20
 DEFAULT_REROLL_COST_INC     equ 5
 MAX_REROLL_COST             equ 50
-
+MINIMUM_TIME_FOR_REROLL     equ 30
 
 ;-----------------------------------------------------------------------------------
 ;  
@@ -47,28 +47,44 @@ resetReroll:
 ;
 ; Handles the reroll button click event
 ;
+; Out: A = 0, no reroll. A = 1, reroll successfull
 ; Dirty: A,BC,DE,HL
 ;
 ;-----------------------------------------------------------------------------------
 onRerollClick:
-    call pickDifferentCategory
-    ret
+    ;is Time above the minimum threshold?
+    ld hl, (Time.time)
+    ld de, MINIMUM_TIME_FOR_REROLL
+    xor a       ;Clear carry flag
+    sbc hl,de
+    jr c, .noReroll
 
-
-;-----------------------------------------------------------------------------------
-;  
-; Function pickDifferentCategory()
-;
-; Picks another category that is different to the current category
-;
-; Dirty: A,BC,DE,HL
-;
-;-----------------------------------------------------------------------------------
-pickDifferentCategory:
-    ;Set up a random puzzle
+    ;Pick a different category
     call Puzzles.newCategory
     call Puzzles.copyRandomPuzzle
+    ld a,(rerollCost)
+    call Time.deduct
+
+    ;Can increase cost of rerolls?
+    ld a,(rerollCost)
+    cp MAX_REROLL_COST
+    jr z, .exit
+
+    ;Increase reroll cost
+    ld a,(rerollCostInc)
+    ld b,a
+    ld a,(rerollCost)
+    add b
+    ld (rerollCost),a
+
+.exit:
+    ld a,1  ;Success
     ret
+
+.noReroll:
+    xor a
+    ret
+
 
 ;-----------------------------------------------------------------------------------
 ;  
@@ -113,7 +129,9 @@ printRerollTip:
     ld hl, .prefix
     call Print.bufferPrint
 
-    ld hl,42
+    ld h,0
+    ld a,(rerollCost)
+    ld l,a
     call Print.bufferPrintNumber
 
     ld hl, .suffix
