@@ -11,11 +11,11 @@
 @GS_PROSPECTUS: 
     stateStruct enter,update
 
-TITLE_Y equ 30
-LIFELINE_X_POS    equ 112
-LIFELINE_X_STEP   equ 32
-LIFELINE_Y_POS          equ 180
-
+TITLE_Y             equ 22
+LIFELINE_X_POS      equ 104
+LIFELINE_X_STEP     equ 32
+LIFELINE_Y_POS      equ 168
+BUTTONS_Y           equ 116
 
 enter:
     L2_SET_IMAGE IMAGE_PROSPECTUS
@@ -137,7 +137,7 @@ nextClicked:
 
 printText:
     call Tilemap.clear
-    ld e, 7
+    ld e, 6
     ld hl,universityText
     ld b,%00000000
     call Print.printCentred
@@ -148,7 +148,7 @@ printText:
     ld b,%00000000
     call Print.printCentred
 
-    ld e, 16
+    ld e, 15
     call College.getCollegeName
     ld b,%00000000
     call Print.printCentred
@@ -167,7 +167,7 @@ printText:
     ld hl, settingsSuffix
     call Print.bufferPrint
 
-    ld e, 19
+    ld e, 18
     ld b,%00010000
     ld hl,Print.buffer
     call Print.printCentred
@@ -260,9 +260,9 @@ spriteData:
     spriteItem 9,221,TITLE_Y,0,'U'-Tile.ASCII_PATTERN_OFFSET,29,0
     spriteItem 10,241,TITLE_Y,0,'S'-Tile.ASCII_PATTERN_OFFSET,30,0
 previousSprite:
-    spriteItem 11, 60, 124, 0, Sprites.PREVIOUS | SPRITE_VISIBILITY_MASK, PREVIOUS_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 11, 60, BUTTONS_Y, 0, Sprites.PREVIOUS | SPRITE_VISIBILITY_MASK, PREVIOUS_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 nextSprite:
-    spriteItem 12, 246, 124, 0, Sprites.NEXT | SPRITE_VISIBILITY_MASK, NEXT_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
+    spriteItem 12, 246, BUTTONS_Y, 0, Sprites.NEXT | SPRITE_VISIBILITY_MASK, NEXT_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 ;Add these sprites one at a time, depending on the college
 lifeLine1Sprite:
     spriteItem 13, LIFELINE_X_POS, LIFELINE_Y_POS, 0, Sprites.CALCULATOR, LIFELINE_1_BUTTON, MouseDriver.MASK_HOVERABLE
