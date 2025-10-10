@@ -20,21 +20,64 @@ enter:
     call Game.addMouseSpritePointer
 
     call addButtons
+    call printColoredText
   ret
 
 
 
 update:
-    ; call Game.updateMouse
-    ; call Game.updateSprites
+     call Game.updateMouse
+     call Game.updateSprites
     ; next state
 ;    ld hl, GS_PUZZLE_VIEWER
-    ld hl,$0201
-    call YearTerm.select
-    ld hl, GS_GAME_OVER
-    call GameStateMachine.change
+    ; ld hl,$0201
+    ; call YearTerm.select
+    ; ld hl, GS_GAME_OVER
+    ; call GameStateMachine.change
     ret
 
+printColoredText:
+    ld hl,text5B
+    ld b,Tilemap.RED
+    ld e, 5
+    call Print.printCentred
+
+    ld hl,text5B
+    ld b,Tilemap.BLUE
+    inc e : inc e
+    call Print.printCentred
+
+    ld hl,text5B
+    ld b,Tilemap.GREEN
+    inc e : inc e
+    call Print.printCentred
+
+    ld hl,text5B
+    ld b,Tilemap.YELLOW
+    inc e : inc e
+    call Print.printCentred
+
+    ld hl,text5B
+    ld b,Tilemap.TEAL
+    inc e : inc e
+    call Print.printCentred
+
+    ld hl,text5B
+    ld b,Tilemap.PURPLE
+    inc e : inc e
+    call Print.printCentred
+
+    ld hl,text5B
+    ld b,Tilemap.GOLD
+    inc e : inc e
+    call Print.printCentred
+
+    ld hl,text5B
+    ld b,Tilemap.WHITE
+    inc e : inc e
+    call Print.printCentred
+
+    ret
 
 addButtons:
     ld hl, lifeLine1Sprite
@@ -50,6 +93,8 @@ addButtons:
     call SpriteList.addSprite
 
     ret
+
+text5B db 127," MPD BAILEY TECHNOLOGY",0
 
 lifeLine1Sprite:
     spriteItem 0, 4, 48, 0, Sprites.EYE | SPRITE_VISIBILITY_MASK, LIFELINE_1_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE

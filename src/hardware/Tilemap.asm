@@ -26,13 +26,16 @@ OFFSET_OF_MAP		equ (START_OF_TILEMAP - START_OF_BANK_5) >> 8
 OFFSET_OF_TILES		equ (START_OF_TILES - START_OF_BANK_5) >> 8
 PALETTE_TRANSPARENT_INDEX: equ $0f
 
-PALETTE_COUNT       equ 16*5
+PALETTE_COUNT       equ 16*8
 
 RED         equ 0
 GREEN       equ 1 << 4
 BLUE        equ 2 << 4
-CREAM       equ 3 << 4
-CREAM_INV   equ 4 << 4
+YELLOW      equ 3 << 4
+TEAL        equ 4 << 4
+PURPLE      equ 5 << 4
+WHITE       equ 6 << 4
+GOLD        equ 7 << 4
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -125,7 +128,7 @@ clear:
 ; 
 ;-----------------------------------------------------------------------------------
 palette:
-    ;Palette Offset 0 Red
+    ;Palette Red
     db %00000000,0  ; Black
     db %10100000,0  ; Red
     db %10100000,0
@@ -143,7 +146,7 @@ palette:
     db %00000000,0  ; Black
     db $e3,0        ; Transparent
 
-    ;Palette Offset 1 Greens
+    ;Palette Green
     db %00000000,0  ; Black
     db %00010100,0  ; Green
     db %00010100,0
@@ -161,9 +164,12 @@ palette:
     db %00000000,0  ; Black
     db $e3,0        ; Transparent
 
-    ;Palette Offset 2 Blues
+    ;Palette Blue
     db %00000000,0  ; Black
-    db %00000010,1  ; Green
+    ; db $7,1
+    ; db $7,1
+    ; db $b,1
+    db %00000010,1
     db %00000010,1
     db %00000011,0
     db %00000011,1
@@ -171,6 +177,11 @@ palette:
     db %00000011,0
     db %00000010,1
     db %00000010,1
+    ; db $f,1
+    ; db $f,1
+    ; db $b,1
+    ; db $7,1
+    ; db $7,1
     db %00000000,0  ; Black
     db %00000000,0  ; Black
     db %00000000,0  ; Black
@@ -179,35 +190,16 @@ palette:
     db %00000000,0  ; Black
     db $e3,0        ; Transparent
 
-    ;Palette Offset 3 Creams
+    ;Palette Yellow
     db %00000000,0  ; Black
-    db $fd,1
-    db $fd,1
-    db $fe,0
-    db $fe,1
-    db $fe,1
-    db $fe,0
-    db $fd,1
-    db $fd,1
-    db %00000000,0  ; Black
-    db %00000000,0  ; Black
-    db %00000000,0  ; Black
-    db %00000000,0  ; Black
-    db %00000000,0  ; Black
-    db %00000000,0  ; Black
-    db $e3,0        ; Transparent
-
-
-    ;Palette Offset 5 Creams Inverted
-    db %00000000,0  ; Black
-    db $fe,1
-    db $fe,1
-    db $fe,0
-    db $fd,1
-    db $fd,1
-    db $fe,0
-    db $fe,1
-    db $fe,1
+    db %10110100,0
+    db %10110100,0
+    db %11011000,0
+    db %11111100,0
+    db %11111100,0
+    db %11011000,0
+    db %10110100,0
+    db %10110100,0
     db %00000000,0  ; Black
     db %00000000,0  ; Black
     db %00000000,0  ; Black
@@ -216,6 +208,77 @@ palette:
     db %00000000,0  ; Black
     db $e3,0        ; Transparent
 
+    ;Palette Teal
+    db %00000000,0  ; Black
+    db %00010110,1
+    db %00010110,1
+    db %00011011,0
+    db %00011111,1
+    db %00011111,1
+    db %00011011,0
+    db %00010110,1
+    db %00010110,1
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
+
+    ;Palette Purple
+    db %00000000,0  ; Black
+    db %10100010,1
+    db %10100010,1
+    db %11000011,0
+    db %11100011,1
+    db %11100011,1
+    db %11000011,0
+    db %10100010,1
+    db %10100010,1
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
+
+    ;Palette White
+    db %00000000,0  ; Black
+    db %10110110,1
+    db %10110110,1
+    db %11011011,0
+    db %11111111,1
+    db %11111111,1
+    db %11011011,0
+    db %10110110,1
+    db %10110110,1
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
+
+    ;Palette Gold
+    db %00000000,0  ; Black
+    db $f4,0
+    db $f4,0
+    db $f9,0
+    db $fe,1
+    db $fe,1
+    db $f9,0
+    db $f4,0
+    db $f4,0
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
 
 
     endmodule

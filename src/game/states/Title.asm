@@ -199,7 +199,7 @@ titleMoveTiles:
     call Print.printCentred
 
     call getText2
-    ld b,Tilemap.CREAM
+    ld b,Tilemap.YELLOW
     ld e, 18
     call Print.printCentred
 
