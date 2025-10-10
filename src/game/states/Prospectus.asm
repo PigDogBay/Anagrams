@@ -170,7 +170,7 @@ printText:
     ;Choose instruction
     ld e, 12
     ld hl,settingsInstruction
-    ld b,Tilemap.GREEN
+    ld b,Tilemap.LIGHT_BLUE
     call Print.printCentred
 
     ld e, 15
