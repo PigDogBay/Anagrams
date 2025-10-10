@@ -88,7 +88,38 @@ unsigned int convert_9bit_to_24bit(int color_9bit) {
     return color_24bit;
 }
 
-int main() { 
+void convert_9bit_to_Next(int color_9bit) {
+    int blueLSB = color_9bit & 01;
+    int rrrggbb = color_9bit >> 1;
+    printf("%x,%x\n",rrrggbb,blueLSB);
+}
+
+int main(){
+    printf("Convert 9Bi RRRGGGBBB Color to Next's RRRGGGBB, B\n");
+    int color_9bit;
+    int color_next;
+
+    do {
+        printf("Enter a 9-bit color RRRGGGBBB (0 to 511):\n> ");
+
+        // Use %%x format specifier to read the input as a hexadecimal number.
+        if (scanf("%x", &color_9bit) != 1) {
+            fprintf(stderr, "Error: Invalid input format. Please enter a number.\n");
+            return 1;
+        }
+
+        // Validate the 9-bit range (0 to 511, or 0x1FF).
+        if (color_9bit < 0 || color_9bit > 511) {
+            fprintf(stderr, "Error: The value 0x%X is out of the valid 9-bit range (0x000 to 0x1FF).\n", color_9bit);
+            return 1;
+        }
+
+        convert_9bit_to_Next(color_9bit);
+    } while(color_9bit);
+
+}
+
+int main2() { 
     printf("Convert 9Bit Color to 24 Bit\n");
     int color_9bit;
     int color_9bit_rrrgggbbb;

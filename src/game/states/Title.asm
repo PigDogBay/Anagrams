@@ -36,7 +36,7 @@ enter:
     call NextSprite.removeAll
     call SpriteList.removeAll
 
-    call Sound.playTitleMusic
+    //call Sound.playTitleMusic
     ret
 
     ;Fade in slots
@@ -179,7 +179,7 @@ titleFadeIn:
     ld e, 29
     ld hl,instruction
     call Print.setCursorPosition
-    ld b,0
+    ld b,Tilemap.GREEN
     call Print.printString
 
 
@@ -194,12 +194,12 @@ titleMoveTiles:
     ld (titleState),a
 
     call getText1
-    ld b,%00010000
+    ld b,Tilemap.RED
     ld e, 16
     call Print.printCentred
 
     call getText2
-    ld b,%00010000
+    ld b,Tilemap.CREAM
     ld e, 18
     call Print.printCentred
 

@@ -26,6 +26,14 @@ OFFSET_OF_MAP		equ (START_OF_TILEMAP - START_OF_BANK_5) >> 8
 OFFSET_OF_TILES		equ (START_OF_TILES - START_OF_BANK_5) >> 8
 PALETTE_TRANSPARENT_INDEX: equ $0f
 
+PALETTE_COUNT       equ 16*5
+
+RED         equ 0
+GREEN       equ 1 << 4
+BLUE        equ 2 << 4
+CREAM       equ 3 << 4
+CREAM_INV   equ 4 << 4
+
 ;-----------------------------------------------------------------------------------
 ; 
 ; 
@@ -74,7 +82,7 @@ init:
 	nextreg PALETTE_INDEX, 0			
 
     ;Copy RRRGGGBBB values
-    ld b,48
+    ld b,PALETTE_COUNT
     ld hl,palette
 .nextColor:    
     ld a,(hl)
@@ -153,7 +161,7 @@ palette:
     db %00000000,0  ; Black
     db $e3,0        ; Transparent
 
-    ;Palette Offset 1 Blues
+    ;Palette Offset 2 Blues
     db %00000000,0  ; Black
     db %00000010,1  ; Green
     db %00000010,1
@@ -170,5 +178,44 @@ palette:
     db %00000000,0  ; Black
     db %00000000,0  ; Black
     db $e3,0        ; Transparent
+
+    ;Palette Offset 3 Creams
+    db %00000000,0  ; Black
+    db $fd,1
+    db $fd,1
+    db $fe,0
+    db $fe,1
+    db $fe,1
+    db $fe,0
+    db $fd,1
+    db $fd,1
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
+
+
+    ;Palette Offset 5 Creams Inverted
+    db %00000000,0  ; Black
+    db $fe,1
+    db $fe,1
+    db $fe,0
+    db $fd,1
+    db $fd,1
+    db $fe,0
+    db $fe,1
+    db $fe,1
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
+
+
 
     endmodule
