@@ -140,8 +140,8 @@ stateMouseClicked:
 
 
 instructionText1:
-    db "Select a Slot",0
+    db "SELECT A SLOT",0
 instructionText2:
-    db "To Reveal Matching Tile",0
+    db "TO REVEAL MATCHING TILE",0
 
     endmodule

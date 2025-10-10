@@ -75,6 +75,6 @@ timer1:
     timingStruct 0,0,0
 
 instructionText1:
-    db "Thinking...",0
+    db "THINKING...",0
 
     endmodule

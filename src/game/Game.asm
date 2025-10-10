@@ -58,7 +58,7 @@ printInstruction:
     sra a
     ld d, a
     call Print.setCursorPosition
-    ld b,0
+    ld b,Tilemap.PURPLE
     call Print.printString
     ret
 

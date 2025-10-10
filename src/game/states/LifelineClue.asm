@@ -25,7 +25,7 @@ enter:
     ; Display Clue
     ld hl, Puzzles.clue
     ld e, CLUE_ROW
-    ld b,%00000000
+    ld b,Tilemap.PURPLE
     call Print.printCentred
 
     ld a,(Lifelines.costClue)
