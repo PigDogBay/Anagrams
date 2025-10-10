@@ -77,6 +77,16 @@ printColoredText:
     inc e : inc e
     call Print.printCentred
 
+    ld hl,text5B
+    ld b,Tilemap.LIGHT_BLUE
+    inc e : inc e
+    call Print.printCentred
+
+    ld hl,text5B
+    ld b,Tilemap.DESERT
+    inc e : inc e
+    call Print.printCentred
+
     ret
 
 addButtons:
