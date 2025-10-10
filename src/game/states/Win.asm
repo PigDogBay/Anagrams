@@ -66,25 +66,25 @@ printText:
     ld e, 10
     ld hl,ofText
     call Print.setCursorPosition
-    ld b,%00000000
+    ld b,Tilemap.GOLD
     call Print.printCentred
 
     ; College
     ld e, 13
     call College.getCollegeName
-    ld b,%00000000
+    ld b,Tilemap.GOLD
     call Print.printCentred
 
     ld e, 18
     ld hl,wellDoneText2
     call Print.setCursorPosition
-    ld b,%00000000
+    ld b,Tilemap.GOLD
     call Print.printCentred
 
     ld e, 21
     ld hl,wellDoneText3
     call Print.setCursorPosition
-    ld b,%00000000
+    ld b,Tilemap.GOLD
     call Print.printCentred
 
 

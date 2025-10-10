@@ -65,7 +65,7 @@ printText:
 
     ld e, 9
     call College.getCollegeName
-    ld b,%00000000
+    ld b,Tilemap.WHITE
     call Print.printCentred
 
     ld de,Print.buffer
@@ -73,20 +73,20 @@ printText:
     ;Print the buffer to the screen
     ld hl,Print.buffer
     ld e, 11
-    ld b,%00000000
+    ld b,Tilemap.WHITE
     call Print.printCentred
 
     ld e, 17
     ld hl,tauntText
     call Print.setCursorPosition
-    ld b,%00000000
+    ld b,Tilemap.WHITE
     call Print.printCentred
 
     ; Click to exit
     ld e, 29
     ld hl,startInstruction
     call Print.setCursorPosition
-    ld b,%00010000
+    ld b,Tilemap.WHITE
     call Print.printCentred
     ret
 
