@@ -164,18 +164,18 @@ printText:
     call Tilemap.clear
     ld e, 6
     ld hl,universityText
-    ld b,%00000000
+    ld b,Tilemap.GOLD
     call Print.printCentred
 
     ;Choose instruction
     ld e, 12
     ld hl,settingsInstruction
-    ld b,%00000000
+    ld b,Tilemap.GREEN
     call Print.printCentred
 
     ld e, 15
     call College.getCollegeName
-    ld b,%00000000
+    ld b,Tilemap.PURPLE
     call Print.printCentred
 
     ;Print game settings
@@ -193,14 +193,14 @@ printText:
     call Print.bufferPrint
 
     ld e, 18
-    ld b,%00010000
+    ld b,Tilemap.YELLOW
     ld hl,Print.buffer
     call Print.printCentred
 
     ; Click to continue
     ld e, 29
     ld hl,startInstruction
-    ld b,%00010000
+    ld b,Tilemap.DESERT
     call Print.printCentred
     ret
 
