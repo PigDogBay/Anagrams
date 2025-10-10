@@ -179,7 +179,7 @@ titleFadeIn:
     ld e, 29
     ld hl,instruction
     call Print.setCursorPosition
-    ld b,Tilemap.DESERT
+    ld b,Tilemap.GREEN
     call Print.printString
 
 

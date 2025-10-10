@@ -90,7 +90,7 @@ printTime:
     ld d, 1
     ld e, 1
     call Print.setCursorPosition
-    ld b,%00000000
+    ld b,Tilemap.GREEN
     call Print.printString
     ret
 
@@ -100,7 +100,7 @@ printShortYearTerm:
     ;Print the buffer to the screen
     ld hl,Print.buffer
     ld e, 1
-    ld b,%00000000
+    ld b,Tilemap.YELLOW
     call Print.printCentred
     ret
 
@@ -108,7 +108,7 @@ printCategory:
     ld a, (Puzzles.category)
     call Puzzles.categoryToString
     ld e, 3
-    ld b,%00000000
+    ld b,Tilemap.TEAL
     call Print.printCentred
     ret
 
@@ -167,7 +167,7 @@ stateDeductInit:
     ld d, 1
     ld e, 2
     call Print.setCursorPosition
-    ld b,%00010000
+    ld b,Tilemap.RED
     call Print.printString
     call Time.deduct
 

@@ -12,6 +12,9 @@
 TOOL_TIP_LINE1      equ 28
 TOOL_TIP_LINE2      equ 30
 HINTS_DISABLE_COUNT equ 250
+
+TOOLTIP_COLOUR1     equ Tilemap.WHITE
+TOOLTIP_COLOUR2     equ Tilemap.RED
        
 jumpTable:
     dw stateMouseReady
@@ -208,7 +211,7 @@ printQuitTip:
 printTipLifeLine1:
     ld hl, Lifelines.tip1
     ld e, TOOL_TIP_LINE1
-    ld b,%00000000
+    ld b,TOOLTIP_COLOUR1
     call Print.printCentred
 
     ld a,(Lifelines.costTile)
@@ -217,14 +220,14 @@ printTipLifeLine1:
     call Lifelines.printCost
     ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
-    ld b,%00010000
+    ld b,TOOLTIP_COLOUR2
     call Print.printCentred
     ret
 
 printTipLifeLine2:
     ld hl, Lifelines.tip2
     ld e, TOOL_TIP_LINE1
-    ld b,%00000000
+    ld b,TOOLTIP_COLOUR1
     call Print.printCentred
 
     ld a,(Lifelines.costSlot)
@@ -233,14 +236,14 @@ printTipLifeLine2:
     call Lifelines.printCost
     ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
-    ld b,%00010000
+    ld b,TOOLTIP_COLOUR2
     call Print.printCentred
     ret
 
 printTipLifeLine3:
     ld hl, Lifelines.tip3
     ld e, TOOL_TIP_LINE1
-    ld b,%00000000
+    ld b,TOOLTIP_COLOUR1
     call Print.printCentred
 
     ld a,(Lifelines.costRand)
@@ -249,14 +252,14 @@ printTipLifeLine3:
     call Lifelines.printCost
     ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
-    ld b,%00010000
+    ld b,TOOLTIP_COLOUR2
     call Print.printCentred
     ret
 
 printTipLifeLine4:
     ld hl, Lifelines.tip4
     ld e, TOOL_TIP_LINE1
-    ld b,%00000000
+    ld b,TOOLTIP_COLOUR1
     call Print.printCentred
 
     ld a,(Lifelines.costClue)
@@ -265,7 +268,7 @@ printTipLifeLine4:
     call Lifelines.printCost
     ld hl, Print.buffer
     ld e, TOOL_TIP_LINE2
-    ld b,%00010000
+    ld b,TOOLTIP_COLOUR2
     call Print.printCentred
     ret
 
