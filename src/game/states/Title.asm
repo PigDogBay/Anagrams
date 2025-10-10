@@ -36,7 +36,7 @@ enter:
     call NextSprite.removeAll
     call SpriteList.removeAll
 
-    //call Sound.playTitleMusic
+    call Sound.playTitleMusic
     ret
 
     ;Fade in slots
