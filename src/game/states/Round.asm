@@ -155,7 +155,7 @@ printRerollTip:
     ld e, TOOL_TIP_Y
     call Print.setCursorPosition
     ld hl, Print.buffer
-    ld b,%00010000
+    ld b,Tilemap.WHITE
     call Print.printString
     ret
 
@@ -169,26 +169,26 @@ printText:
     ; College
     ld e, 10
     call College.getCollegeName
-    ld b,%00000000
+    ld b,Tilemap.DESERT
     call Print.printCentred
 
     ; Year 
     ld e, 15
     call YearTerm.getYearName
-    ld b,%0000000
+    ld b,Tilemap.YELLOW
     call Print.printCentred
 
     ; Starting Time
     call RoundVM.printStartingTime
     ld hl, Print.buffer
     ld e, 17
-    ld b,%0000000
+    ld b,Tilemap.TEAL
     call Print.printCentred
 
     ld e, 22
     ld a, (Puzzles.category)
     call Puzzles.categoryToString
-    ld b,%0000000
+    ld b,Tilemap.RED
     call Print.printCentred
 
 

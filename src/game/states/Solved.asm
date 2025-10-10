@@ -19,7 +19,7 @@ enter:
     ld e, 16
     ld hl,strWellDone
     call Print.setCursorPosition
-    ld b,%00100000
+    ld b,Tilemap.GOLD
     call Print.printString
 
     ;Print "You've Passed The Exam"
@@ -27,7 +27,7 @@ enter:
     ld e, 18
     ld hl,strYouPassed
     call Print.setCursorPosition
-    ld b,%00000000
+    ld b,Tilemap.GOLD
     call Print.printString
 
     ;Print "Click To Continue"
@@ -35,8 +35,7 @@ enter:
     ld e, 29
     ld hl,strClickToContinue
     call Print.setCursorPosition
-    ;Green
-    ld b,%00010000
+    ld b,Tilemap.GREEN
     call Print.printString
 
     call FlashSprites.copyAllTileIds
@@ -63,9 +62,9 @@ update:
     ret
 
 strWellDone:
-    db "Well Done!",0
+    db "WELL DONE!",0
 strYouPassed:
-    db "You've Passed The Exam",0
+    db "YOU'VE PASSED THE EXAM",0
 strClickToContinue:
-    db "Click to Continue",0
+    db "CLICK TO CONTINUE",0
     endmodule

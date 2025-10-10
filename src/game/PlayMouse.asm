@@ -203,7 +203,7 @@ stateMouseBackgroundClicked:
 printQuitTip:
     ld hl, .tip
     ld e, TOOL_TIP_LINE1
-    ld b,%00000000
+    ld b,TOOLTIP_COLOUR1
     call Print.printCentred
     ret
 .tip:   db "DROP OUT OF COLLEGE",0
