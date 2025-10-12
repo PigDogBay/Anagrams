@@ -164,7 +164,7 @@ printText:
     call Tilemap.clear
     ld e, 6
     ld hl,universityText
-    ld b,Tilemap.DESERT
+    ld b,Tilemap.GOLD
     call Print.printCentred
 
     ;Choose instruction

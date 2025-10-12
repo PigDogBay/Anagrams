@@ -169,7 +169,7 @@ printText:
     ; College
     ld e, 10
     call College.getCollegeName
-    ld b,Tilemap.DESERT
+    ld b,Tilemap.GOLD
     call Print.printCentred
 
     ; Year 
