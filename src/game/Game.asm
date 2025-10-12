@@ -28,7 +28,9 @@ run:
 .loop:
     call Timing.onTick
     call NextDAW.update
-    call Keyboard.update
+    IFDEF DEBUG_MODE
+        call Keyboard.update
+    ENDIF
     call GameStateMachine.update
     call Animator.update
     
