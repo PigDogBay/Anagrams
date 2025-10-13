@@ -76,6 +76,7 @@ IMAGE_WIN                  equ BANK_IMAGE_TITLE
     include "hardware/Tilemap.asm"
     include "hardware/Print.asm"
     include "hardware/Keyboard.asm"
+    include "hardware/Joystick.asm"
     include "hardware/NextDAW.asm"
     ;include "hardware/DummyNextDAW.asm"
     include "model/SpriteList.asm"

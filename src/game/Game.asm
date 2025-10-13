@@ -31,6 +31,7 @@ run:
     IFDEF DEBUG_MODE
         call Keyboard.update
     ENDIF
+    call Joystick.update
     call GameStateMachine.update
     call Animator.update
     

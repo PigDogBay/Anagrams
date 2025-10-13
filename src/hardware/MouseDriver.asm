@@ -44,6 +44,9 @@ BIT_HOVERABLE:                   equ 0
 BIT_DRAGABLE:                    equ 1
 BIT_CLICKABLE:                   equ 2
 
+JOYSTICK_FIRE_PRESSED            equ %00000010
+JOYSTICK_NOT_PRESSED             equ %00000000
+
 stateJumpTable:
     dw stateReady
     dw stateHover
@@ -77,7 +80,8 @@ kempstonY:     db 0
 state:         db 0
 ; Record the initial gameId when the mouse enters pressed stats
 pressedId:     db 0
-
+;Joystick can be used instead of the mouse, set fire state here
+joystickFire:  db 0
 ;-----------------------------------------------------------------------------------
 ;
 ; init
@@ -127,6 +131,9 @@ update:
     ; Buttons
     ld bc, MOUSE_PORT_BUTTONS
     in a,(c)
+    ;Apply joystick fire state
+    ld hl, joystickFire
+    xor (hl)
     ld (buttons),a
 
     ;X Position
