@@ -37,6 +37,7 @@ init:
 
 playTitleMusic:
     call NextDAW.stop
+    call NextDAW.init
     ; de        song data pages
     ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
     ld de, song1DataPages
@@ -47,6 +48,7 @@ playTitleMusic:
 
 playSolvedMusic:
     call NextDAW.stop
+    call NextDAW.init
     ; de        song data pages
     ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
     ld de, song2DataPages
@@ -57,6 +59,7 @@ playSolvedMusic:
 
 playWinMusic:
     call NextDAW.stop
+    call NextDAW.init
     ; de        song data pages
     ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
     ld de, song4DataPages
@@ -67,6 +70,7 @@ playWinMusic:
 
 playDroppedOutMusic:
     call NextDAW.stop
+    call NextDAW.init
     ; de        song data pages
     ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
     ld de, song3DataPages
@@ -77,6 +81,7 @@ playDroppedOutMusic:
 
 playGrangeHill:
     call NextDAW.stop
+    call NextDAW.init
     ; de        song data pages
     ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
     ld de, song1DataPages
@@ -87,6 +92,7 @@ playGrangeHill:
 
 playStartMusic:
     call NextDAW.stop
+    call NextDAW.init
     ; de        song data pages
     ; a         force AY mono (bits 0,1,2 control AY 1,2,3.  Set to force to mono, otherwise use song default)
     ld de, song5DataPages

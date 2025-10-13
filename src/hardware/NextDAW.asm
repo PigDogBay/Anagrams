@@ -50,19 +50,16 @@ init:
     ld b, BANK_SOUND_EFFECTS
     ld de, 0
     call _NextDAW_InitSFXBank
-    di
     ret
 
 update:
     call _NextDAW_UpdateSong
     call _NextDAW_UpdateSFX
-    di
     ret
 
 stop:
     call _NextDAW_StopSongHard
     call _NextDAW_UpdateSong
-    di
     ret
 
     endmodule
