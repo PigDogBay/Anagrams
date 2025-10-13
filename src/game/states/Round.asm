@@ -195,13 +195,13 @@ printText:
     ; Click to continue
     ld e, 29
     ld hl,startInstruction
-    ld b,%00010000
+    ld b,Tilemap.GREEN
     call Print.printCentred
     ret
 
 
 startInstruction:
-    db "CLICK TO BEGIN YOUR STUDIES",0
+    db "CLICK TO START THE NEW YEAR",0
 
 spriteData:
     db 14

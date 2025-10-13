@@ -26,7 +26,7 @@ OFFSET_OF_MAP		equ (START_OF_TILEMAP - START_OF_BANK_5) >> 8
 OFFSET_OF_TILES		equ (START_OF_TILES - START_OF_BANK_5) >> 8
 PALETTE_TRANSPARENT_INDEX: equ $0f
 
-PALETTE_COUNT       equ 16*10
+PALETTE_COUNT       equ 16*14
 
 RED         equ 0
 GREEN       equ 1 << 4
@@ -38,6 +38,10 @@ WHITE       equ 6 << 4
 GOLD        equ 7 << 4
 LIGHT_BLUE  equ 8 << 4
 DESERT      equ 9 << 4
+DARK_YELLOW equ 10 << 4
+DARK_GREEN  equ 11 << 4
+DARK_TEAL   equ 12 << 4
+DARK_PURPLE equ 13 << 4
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -317,5 +321,79 @@ palette:
     db %00000000,0  ; Black
     db %00000000,0  ; Black
     db $e3,0        ; Transparent
+
+    ;Palette Dark Yellow
+    db %00000000,0  ; Black
+    db %10010000,0
+    db %10010000,0
+    db %10110100,0
+    db %11011000,0
+    db %11011000,0
+    db %10110100,0
+    db %10010000,0
+    db %10010000,0
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
+
+
+    ;Palette Dark Green
+    db %00000000,0  ; Black
+    db %00010000,0  ; Green
+    db %00010000,0  ; Green
+    db %00010100,0
+    db %00011000,0
+    db %00011000,0
+    db %00010100,0
+    db %00010000,0
+    db %00010000,0
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
+
+    ;Palette Dark Teal
+    db %00000000,0  ; Black
+    db %00010010,0
+    db %00010010,0
+    db %00010110,1
+    db %00011011,0
+    db %00011011,0
+    db %00010110,1
+    db %00010010,0
+    db %00010010,0
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
+
+    ;Palette Dark Purple
+    db %00000000,0  ; Black
+    db %10000010,0
+    db %10000010,0
+    db %10100010,1
+    db %11000011,0
+    db %11000011,0
+    db %10100010,1
+    db %10000010,0
+    db %10000010,0
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
+
 
     endmodule

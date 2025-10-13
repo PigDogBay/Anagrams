@@ -100,7 +100,7 @@ printShortYearTerm:
     ;Print the buffer to the screen
     ld hl,Print.buffer
     ld e, 1
-    ld b,Tilemap.YELLOW
+    ld b,Tilemap.DARK_YELLOW
     call Print.printCentred
     ret
 
