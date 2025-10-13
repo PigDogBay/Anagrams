@@ -37,6 +37,8 @@ start:
     ld (Lifelines.costRand),a
     ld a,(ix + collegeStruct.lifeLineCost4)
     ld (Lifelines.costClue),a
+    ld a,(ix + collegeStruct.rerollCost)
+    ld (RoundVM.rerollInitialCost),a
     ret
 
 ;-----------------------------------------------------------------------------------
