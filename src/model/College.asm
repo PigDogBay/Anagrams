@@ -29,6 +29,7 @@ lifeLineCost1   byte        ;Cost in seconds of life line 1..4
 lifeLineCost2   byte        ;If 0, then exclude life line
 lifeLineCost3   byte
 lifeLineCost4   byte
+rerollCost      byte
     ends
 
     
@@ -143,29 +144,29 @@ getCollegeName:
     ret
 
 collegeNameStr1: db "TEDDY HALL",0
-collegeNameStr2: db "MOR-DE-LEN COLLEGE",0
+collegeNameStr2: db "ST EASY PEASEYS",0
 collegeNameStr3: db "FOOTLIGHTS",0
 collegeNameStr4: db "ST HENRYS",0
 collegeNameStr5: db "BAILEY HALL",0
 collegeNameStr6: db "LADY HOLLY HALL",0
 collegeNameStr7: db "HEART BRIDGE",0
-collegeNameStr8: db "RADNOR COLLEGE",0
+collegeNameStr8: db "TRENT COLLEGE",0
 collegeNameStr9: db "WINTERVILLE",0
 collegeNameStr10: db "ST KAYLEIGH'S",0
 
 ;College Settings
-; Start time, time per year, life1, life2, life3, life4
+; Start time, time per year, life1, life2, life3, life4, reroll
 gameSettings:
-    collegeStruct collegeNameStr1,250, 15, 12, 0, 5, 10    ; Normal
-    collegeStruct collegeNameStr2,200, 12, 10, 0, 7, 10    ; Hard
-    collegeStruct collegeNameStr3,400, 20, 0, 16, 5, 12    ; Easy
-    collegeStruct collegeNameStr4,300, 20, 0, 0, 0,  20    ; Clue only 
-    collegeStruct collegeNameStr5,300, 30, 10, 20, 5, 10   ; Steep drop
-    collegeStruct collegeNameStr6,240, 5, 15, 25, 8, 15    ; Slow Drop
-    collegeStruct collegeNameStr7,250, 15, 10, 20, 5, 10 
-    collegeStruct collegeNameStr8,250, 15, 10, 20, 5, 10 
-    collegeStruct collegeNameStr9,250, 15, 10, 20, 5, 10 
-    collegeStruct collegeNameStr10,250, 15, 10, 20, 5, 10 
+    collegeStruct collegeNameStr1, 400, 20, 12,  0,  5, 10, 25
+    collegeStruct collegeNameStr2, 600, 25, 15, 20,  5, 10, 50
+    collegeStruct collegeNameStr3, 300, 10, 10,  0,  0, 10, 20
+    collegeStruct collegeNameStr4, 350, 15,  0, 12,  5,  0, 20
+    collegeStruct collegeNameStr5, 250, 15, 12,  0,  5,  0, 20
+    collegeStruct collegeNameStr6, 280, 15,  0, 20,  5, 10, 20
+    collegeStruct collegeNameStr7, 350, 25, 20,  0, 10, 15, 25
+    collegeStruct collegeNameStr8, 500, 50,  0, 25, 10, 15, 40 
+    collegeStruct collegeNameStr9, 200,  5,  7,  12, 4,  8, 20 
+    collegeStruct collegeNameStr10,450, 20,  0, 25,  0, 15, 50 
 
 college:
     db 0
