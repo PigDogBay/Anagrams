@@ -26,6 +26,13 @@ APPLE                   equ 45
 TAO                     equ 46
 TUTOR                   equ 47
 
+;Palette is 0-32 in bits 4-7 of the spiteItem.paletter
+PALETTE_NORMAL          equ 0 << 5
+PALETTE_DRAGGED         equ 1 << 5
+PALETTE_HOVER           equ 2 << 5
+PALETTE_CLICKED         equ 3 << 5
+PALETTE_ERROR           equ 4 << 5
+
 
 init:
     ;Sprite priority ID=0 on top
@@ -45,7 +52,7 @@ init:
     ret
 
 
-PALETTE_COUNT           equ 32
+PALETTE_COUNT           equ 255
 TRANSPARENT_INDEX       equ 31
 
 palette:

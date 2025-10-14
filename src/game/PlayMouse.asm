@@ -148,6 +148,7 @@ stateMouseClicked:
 
 
 stateMouseDragStart:
+    ld (ix + spriteItem.palette),Sprites.PALETTE_DRAGGED
     ;bring the sprite to the front
     ;bringToFront In: IX points to spriteItem and will be swapped with the front most sprite
     ;bringToFrontOut: IX will now point to the front most sprite
@@ -175,12 +176,18 @@ stateMouseDrag:
     ret
 
 stateMouseDragOutOfBounds:
+    ;Recover sprite of what the mouse was previously hovering over
+    ld ix,(currentSprite)
+    ld (ix + spriteItem.palette),Sprites.PALETTE_NORMAL
     ;Update mouse pointer pattern
     ld a, 0 | SPRITE_VISIBILITY_MASK
     ld (SpriteList.list + spriteItem.pattern),a
     ret
 
 stateMouseDragEnd:
+    ;Recover sprite of what the mouse was previously hovering over
+    ld ix,(currentSprite)
+    ld (ix + spriteItem.palette),Sprites.PALETTE_NORMAL
     ;Update mouse pointer pattern
     ld a, 0 | SPRITE_VISIBILITY_MASK
     ld (SpriteList.list + spriteItem.pattern),a
@@ -272,6 +279,10 @@ printTipLifeLine4:
     call Print.printCentred
     ret
 
+; Store pointer to the spriteItem that mouse is over
+; When the mouse moves off, we can recover the spriteItem here
+currentSprite:
+    dw SpriteList.list+spriteItem
 
 nullDragEndCallback:
     ret
