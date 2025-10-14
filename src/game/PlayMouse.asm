@@ -177,7 +177,8 @@ stateMouseDrag:
 
 stateMouseDragOutOfBounds:
     ;Recover sprite of what the mouse was previously hovering over
-    ld ix,(currentSprite)
+    ;It's SpriteList[1]
+    ld ix,SpriteList.list+spriteItem
     ld (ix + spriteItem.palette),Sprites.PALETTE_NORMAL
     ;Update mouse pointer pattern
     ld a, 0 | SPRITE_VISIBILITY_MASK
@@ -185,8 +186,6 @@ stateMouseDragOutOfBounds:
     ret
 
 stateMouseDragEnd:
-    ;Recover sprite of what the mouse was previously hovering over
-    ld ix,(currentSprite)
     ld (ix + spriteItem.palette),Sprites.PALETTE_NORMAL
     ;Update mouse pointer pattern
     ld a, 0 | SPRITE_VISIBILITY_MASK
@@ -278,11 +277,6 @@ printTipLifeLine4:
     ld b,TOOLTIP_COLOUR2
     call Print.printCentred
     ret
-
-; Store pointer to the spriteItem that mouse is over
-; When the mouse moves off, we can recover the spriteItem here
-currentSprite:
-    dw SpriteList.list+spriteItem
 
 nullDragEndCallback:
     ret
