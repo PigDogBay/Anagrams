@@ -65,6 +65,11 @@ stateMouseReady:
     ; Do nothing
     ret
 stateMouseHover:
+    ;Ignore slots
+    ld a,c
+    call GameId.isSlot
+    ret nz
+    
     ld (ix + spriteItem.palette),Sprites.PALETTE_HOVER
     ;Are tips enabled
     ld a,(disableHintsCount)
