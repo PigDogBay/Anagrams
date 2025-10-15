@@ -83,6 +83,7 @@ jumpTable:
 ;    - IX pointer to sprite that mouse is over
 ;-----------------------------------------------------------------------------------
 mouseStateHandler:
+    call SpriteList.resetAllPaletteOffsets
     ld hl, jumpTable
     ; Add twice, as table is two bytes per entry
     add hl,a
@@ -95,6 +96,7 @@ mouseStateHandler:
 stateMouseReady:
     ret
 stateMouseHover:
+    ld (ix + spriteItem.palette),Sprites.PALETTE_HOVER
     ld a,c
     cp LIFELINE_1_BUTTON
     ld hl, Lifelines.tip1
@@ -118,6 +120,8 @@ stateMouseHoverEnd:
     call Print.clearLine
     ret
 stateMousePressed:
+    ld (ix + spriteItem.palette),Sprites.PALETTE_CLICKED
+    ret
 stateMouseDrag:
 stateMouseDragOutOfBounds:
 stateMouseDragEnd:
@@ -296,13 +300,13 @@ nextSprite:
     spriteItem 12, 246, BUTTONS_Y, 0, Sprites.NEXT | SPRITE_VISIBILITY_MASK, NEXT_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 ;Add these sprites one at a time, depending on the college
 lifeLine1Sprite:
-    spriteItem 13, LIFELINE_X_POS, LIFELINE_Y_POS, 0, Sprites.CALCULATOR, LIFELINE_1_BUTTON, MouseDriver.MASK_HOVERABLE
+    spriteItem 13, LIFELINE_X_POS, LIFELINE_Y_POS, 0, Sprites.CALCULATOR, LIFELINE_1_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 lifeLine2Sprite:
-    spriteItem 14, LIFELINE_X_POS + LIFELINE_X_STEP, LIFELINE_Y_POS, 0, Sprites.TAO, LIFELINE_2_BUTTON, MouseDriver.MASK_HOVERABLE
+    spriteItem 14, LIFELINE_X_POS + LIFELINE_X_STEP, LIFELINE_Y_POS, 0, Sprites.TAO, LIFELINE_2_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 lifeLine3Sprite:
-    spriteItem 15, LIFELINE_X_POS + LIFELINE_X_STEP * 2, LIFELINE_Y_POS, 0, Sprites.BEER, LIFELINE_3_BUTTON, MouseDriver.MASK_HOVERABLE
+    spriteItem 15, LIFELINE_X_POS + LIFELINE_X_STEP * 2, LIFELINE_Y_POS, 0, Sprites.BEER, LIFELINE_3_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 lifeLine4Sprite:
-    spriteItem 16, LIFELINE_X_POS + LIFELINE_X_STEP * 3, LIFELINE_Y_POS, 0, Sprites.NOTEPAD, LIFELINE_4_BUTTON, MouseDriver.MASK_HOVERABLE
+    spriteItem 16, LIFELINE_X_POS + LIFELINE_X_STEP * 3, LIFELINE_Y_POS, 0, Sprites.NOTEPAD, LIFELINE_4_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
 spriteLen: equ $ - spriteData
 
