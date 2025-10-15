@@ -311,6 +311,31 @@ restoreAllInteraction:
 
 ;-----------------------------------------------------------------------------------
 ;
+; Function: resetAllPaletteOffsets()
+;
+; Resets the palette offset for every sprite
+;
+; Dirty A
+;
+;-----------------------------------------------------------------------------------
+resetAllPaletteOffsets:
+    push bc,de,hl
+    ld a,(count)
+    dec a
+    ret z
+    ld b,a
+    ;Point to first sprite, will immediately skip mouse sprite
+    ld hl, list + spriteItem.palette
+.loop:
+    add hl, spriteItem
+    ld (hl),0
+    djnz .loop
+
+    pop hl,de,bc
+    ret
+
+;-----------------------------------------------------------------------------------
+;
 ; Function: allTilesClickable()
 ;
 ; Sets the clickable+hoverable interaction flags for all tile sprites
