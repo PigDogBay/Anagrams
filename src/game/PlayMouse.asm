@@ -64,6 +64,8 @@ stateMouseReady:
     ; Do nothing
     ret
 stateMouseHover:
+    call SpriteList.resetAllPaletteOffsets
+    ld (ix + spriteItem.palette),Sprites.PALETTE_HOVER
     ;Are tips enabled
     ld a,(disableHintsCount)
     or a
@@ -87,6 +89,7 @@ stateMouseHover:
     ret
 
 stateMouseHoverEnd:
+    call SpriteList.resetAllPaletteOffsets
     ld e, TOOL_TIP_LINE1
     call Print.clearLine
     ld e, TOOL_TIP_LINE2
