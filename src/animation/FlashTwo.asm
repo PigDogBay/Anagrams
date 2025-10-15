@@ -62,9 +62,9 @@ update:
     ld a,(paletteOffset)
     inc a
     ld (paletteOffset),a
-    and %00001111
+    and %00000111
     ;Palette is bits 7-4
-    sla a: sla a: sla a: sla a
+    sla a: sla a: sla a: sla a:sla a
 
     ld ix,hl
     ld (ix+spriteItem.palette),a

@@ -97,9 +97,9 @@ update:
 
     ;Update sprite's palette
     ld a,(paletteOffset)
-    and %00001111
+    and %00000111
     ;Palette is bits 7-4
-    sla a: sla a: sla a: sla a
+    sla a: sla a: sla a: sla a: sla a
     add hl,spriteItem.palette
     ld (hl),a
     ret
