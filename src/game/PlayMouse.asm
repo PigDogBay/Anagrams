@@ -41,7 +41,6 @@ jumpTable:
 ;-----------------------------------------------------------------------------------
 update:
     ld h,a ; Save A
-
     ;Hints count update
     ld a,(disableHintsCount)
     or a
@@ -178,7 +177,6 @@ stateMouseDrag:
     ret
 
 stateMouseDragOutOfBounds:
-    call SpriteList.resetAllPaletteOffsets
     ;Recover sprite of what the mouse was previously hovering over
     ;It's SpriteList[1]
     ld ix,SpriteList.list+spriteItem
@@ -189,7 +187,7 @@ stateMouseDragOutOfBounds:
     ret
 
 stateMouseDragEnd:
-    call SpriteList.resetAllPaletteOffsets
+    ld (ix + spriteItem.palette),Sprites.PALETTE_NORMAL
     ;Update mouse pointer pattern
     ld a, 0 | SPRITE_VISIBILITY_MASK
     ld (SpriteList.list + spriteItem.pattern),a
