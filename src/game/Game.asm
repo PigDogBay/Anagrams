@@ -33,7 +33,6 @@ run:
     ENDIF
     call Joystick.update
     call GameStateMachine.update
-    call Animator.update
     
     ;BORDER 0
     call Graphics.waitRaster
@@ -72,6 +71,7 @@ printInstruction:
 ;
 ;-----------------------------------------------------------------------------------
 updateSprites:
+    call Animator.update
     ld hl, SpriteList.count
     ld a,(hl)
     or a
