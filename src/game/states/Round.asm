@@ -86,6 +86,8 @@ jumpTable:
 ;    - IX pointer to sprite that mouse is over
 ;-----------------------------------------------------------------------------------
 mouseStateHandler:
+    call SpriteList.resetAllPaletteOffsets
+
     ld hl, jumpTable
     ; Add twice, as table is two bytes per entry
     add hl,a
@@ -98,6 +100,7 @@ mouseStateHandler:
 stateMouseReady:
     ret
 stateMouseHover:
+    ld (ix + spriteItem.palette),Sprites.PALETTE_HOVER
     ld a,c
     cp REROLL_BUTTON
     jp z, printRerollTip
@@ -108,6 +111,8 @@ stateMouseHoverEnd:
     call Print.clearLine
     ret
 stateMousePressed:
+    ld (ix + spriteItem.palette),Sprites.PALETTE_CLICKED
+    ret
 stateMouseDrag:
 stateMouseDragOutOfBounds:
 stateMouseDragEnd:

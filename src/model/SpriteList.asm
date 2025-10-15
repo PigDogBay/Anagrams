@@ -315,11 +315,11 @@ restoreAllInteraction:
 ;
 ; Resets the palette offset for every sprite
 ;
-; Dirty A
+; Dirty: None
 ;
 ;-----------------------------------------------------------------------------------
 resetAllPaletteOffsets:
-    push bc,de,hl
+    push af,bc,hl
     ld a,(count)
     dec a
     ret z
@@ -331,7 +331,7 @@ resetAllPaletteOffsets:
     ld (hl),0
     djnz .loop
 
-    pop hl,de,bc
+    pop hl,bc,af
     ret
 
 ;-----------------------------------------------------------------------------------
