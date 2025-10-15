@@ -11,8 +11,10 @@
 @GS_GAME_OVER: 
     stateStruct enter,update
 
-TITLE_Y equ 22
-TITLE_Y2 equ 44
+TITLE_Y         equ 22
+TITLE_Y2        equ 44
+
+MOUSE_ENABLE_COUNT      equ 150
 
 enter:
     L2_SET_IMAGE IMAGE_DROPOUT
@@ -43,14 +45,32 @@ enter:
     ld b, 10 : ld c, 50 : call Visibility.add
     call Visibility.start
     call Sound.playDroppedOutMusic
+
+    ;Prevent user clicking through
+    ld a, MOUSE_ENABLE_COUNT
+    ld (mouseEnable), a
+
     jp printText
 
 
 update:
+    ld a,(mouseEnable)
+    or a
+    jr nz, .mouseClickedDisabled
+
     ;wait for use to click mouse button
     call Game.updateMouseNoSprite
+
     cp MouseDriver.STATE_BACKGROUND_CLICKED
     jr z, .mousePressed
+
+    call Game.updateSprites
+    ret
+
+.mouseClickedDisabled:
+    dec a
+    ld (mouseEnable),a
+    call Game.updateMouseNoSprite
     call Game.updateSprites
     ret
 
@@ -116,5 +136,7 @@ spriteData:
     spriteItem 10,170,TITLE_Y2,0,'T'-Tile.ASCII_PATTERN_OFFSET,10,0
 
 spriteLen: equ $ - spriteData
+
+mouseEnable:  db 0
 
     endmodule
