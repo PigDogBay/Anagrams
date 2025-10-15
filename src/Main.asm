@@ -107,6 +107,7 @@ IMAGE_WIN                  equ BANK_IMAGE_TITLE
     include "animation/MoveSprites.asm"
     include "animation/Visibility.asm"
     include "animation/ClearText.asm"
+    include "animation/HoldPalette.asm"
     include "game/Game.asm"
     include "game/StateMachine.asm"
     include "game/PlayMouse.asm"

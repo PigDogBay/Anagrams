@@ -13,7 +13,7 @@ STATE_TIME_START_DEDUCT        equ 1
 STATE_TIME_DEDUCT              equ 2
 
 DEDUCTION_COUNTER_MAX          equ 5
-
+HOLD_PALETTE_TIME              equ 50
 
 @GS_PLAY:
     stateStruct enter,update
@@ -54,7 +54,7 @@ gameOver:
 ; that is occuppied, then the dragged tile is bounced away.
 ; 
 ; In: IX - dragged Tile Sprite 
-; 
+;      C - GameID
 ;-----------------------------------------------------------------------------------
 dragEnd:
     ;Out:   A - 0 if not over slot
@@ -72,7 +72,8 @@ dragEnd:
 
     call Board.isSolved
     or a
-    ret z
+    jr z, .holdPalette
+
     ld hl, GS_SOLVED
     call GameStateMachine.change
     ret
@@ -81,6 +82,13 @@ dragEnd:
     call Board.bounceTile
     ret
 
+.holdPalette:
+    ;Prevent the mouse's hover highlight for a small duration
+    ;Get ID
+    ld a,c
+    ld hl,HOLD_PALETTE_TIME
+    call HoldPalette.start
+    ret
 
 
 
