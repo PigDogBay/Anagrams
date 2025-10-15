@@ -41,6 +41,7 @@ jumpTable:
 ;-----------------------------------------------------------------------------------
 update:
     ld h,a ; Save A
+    call SpriteList.resetAllPaletteOffsets
     ;Hints count update
     ld a,(disableHintsCount)
     or a
@@ -64,7 +65,6 @@ stateMouseReady:
     ; Do nothing
     ret
 stateMouseHover:
-    call SpriteList.resetAllPaletteOffsets
     ld (ix + spriteItem.palette),Sprites.PALETTE_HOVER
     ;Are tips enabled
     ld a,(disableHintsCount)
@@ -89,13 +89,13 @@ stateMouseHover:
     ret
 
 stateMouseHoverEnd:
-    call SpriteList.resetAllPaletteOffsets
     ld e, TOOL_TIP_LINE1
     call Print.clearLine
     ld e, TOOL_TIP_LINE2
     call Print.clearLine
     ret
 stateMousePressed:
+    ld (ix + spriteItem.palette),Sprites.PALETTE_CLICKED
     ld e, TOOL_TIP_LINE1
     call Print.clearLine
     ld e, TOOL_TIP_LINE2
@@ -171,6 +171,7 @@ stateMouseDragStart:
 stateMouseDrag:
     ; DRAG update, dragged sprite is at index[1]
     ld ix,SpriteList.list + spriteItem
+    ld (ix + spriteItem.palette),Sprites.PALETTE_DRAGGED
     call Mouse.dragSprite
     call Tile.boundsCheck
     ret nz
@@ -183,14 +184,13 @@ stateMouseDragOutOfBounds:
     ;Recover sprite of what the mouse was previously hovering over
     ;It's SpriteList[1]
     ld ix,SpriteList.list+spriteItem
-    ld (ix + spriteItem.palette),Sprites.PALETTE_NORMAL
+    ld (ix + spriteItem.palette),Sprites.PALETTE_ERROR
     ;Update mouse pointer pattern
     ld a, 0 | SPRITE_VISIBILITY_MASK
     ld (SpriteList.list + spriteItem.pattern),a
     ret
 
 stateMouseDragEnd:
-    ld (ix + spriteItem.palette),Sprites.PALETTE_NORMAL
     ;Update mouse pointer pattern
     ld a, 0 | SPRITE_VISIBILITY_MASK
     ld (SpriteList.list + spriteItem.pattern),a
