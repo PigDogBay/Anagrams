@@ -92,6 +92,8 @@ updateSprites:
 ; Any dragged sprites will be updated
 ;
 ; Out: A - current mouse state
+;      C - Game ID or 0 (cache this when tracking a sprites mouse interection)
+;      IX - spriteItem if over a sprite (do NOT cache this as sprites can be re-ordered)
 ;
 ;-----------------------------------------------------------------------------------
 updateMouse:

@@ -274,7 +274,7 @@ dragOutOfBounds:
 ;      C: gameId of object mouse is interacting with, or 0 if not interacting
 ;
 ;
-; Dirty: AF, BC, DE, HL
+; Dirty: AF, B, DE, HL
 ; 
 ;-----------------------------------------------------------------------------------
 updateState:

@@ -35,8 +35,9 @@ jumpTable:
 ; Function: mouseStateHandler
 ;
 ; Updates the game based on the current mouse state 
-; In - A current mouse state
-;    - IX pointer to sprite that mouse is over
+; In -  A : current mouse state
+;    -  C : Game ID or 0 if mouse not over a sprite
+;    - IX : pointer to sprite that mouse is over
 ;-----------------------------------------------------------------------------------
 update:
     ld h,a ; Save A
