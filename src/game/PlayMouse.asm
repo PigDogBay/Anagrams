@@ -130,8 +130,7 @@ stateMouseClicked:
 .quitClicked:
     ; next state
     call Sound.buttonClicked
-    ld hl, GS_TITLE
-    call GameStateMachine.change
+    TRANSITION_SCREEN GS_TITLE, IMAGE_TITLE
     ret
 
 .lifeLine1Clicked:
