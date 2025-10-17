@@ -56,8 +56,7 @@ update:
 
 .mousePressed:
     ; next state
-    ld hl, GS_TITLE
-    call GameStateMachine.change
+    TRANSITION_SCREEN GS_TITLE, IMAGE_TITLE
     ret
 
 printText:

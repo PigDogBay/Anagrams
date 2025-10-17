@@ -124,7 +124,7 @@ stateMouseDragStart:
 stateMouseBackgroundClicked:
     ld hl, GS_START
     STOP_ALL_ANIMATION
-    call GameStateMachine.change
+    TRANSITION_SCREEN GS_START, IMAGE_MICHAELMAS
     ret
 
 stateMouseClicked:
