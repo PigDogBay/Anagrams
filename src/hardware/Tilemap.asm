@@ -26,7 +26,7 @@ OFFSET_OF_MAP		equ (START_OF_TILEMAP - START_OF_BANK_5) >> 8
 OFFSET_OF_TILES		equ (START_OF_TILES - START_OF_BANK_5) >> 8
 PALETTE_TRANSPARENT_INDEX: equ $0f
 
-PALETTE_COUNT       equ 16*14
+PALETTE_COUNT       equ 16*15
 
 RED         equ 0
 GREEN       equ 1 << 4
@@ -42,6 +42,7 @@ DARK_YELLOW equ 10 << 4
 DARK_GREEN  equ 11 << 4
 DARK_TEAL   equ 12 << 4
 DARK_PURPLE equ 13 << 4
+SOLID_BLACK equ 14 << 4   
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -395,5 +396,23 @@ palette:
     db %00000000,0  ; Black
     db $e3,0        ; Transparent
 
+    ;Solid Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db %00000000,0  ; Black
+    db $e3,0        ; Transparent
+ 
 
     endmodule
