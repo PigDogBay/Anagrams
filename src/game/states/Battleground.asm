@@ -70,11 +70,13 @@ RECT_COUNT          equ 20
 rectPointer:        dw rectangles
 rectCount:          db RECT_COUNT
 rectState:          db RECT_STATE_START
+rectNextState:      db RECT_STATE_START
 
 RECT_STATE_START:   equ 0
 RECT_STATE_IN:      equ 1
 RECT_STATE_OUT:     equ 2
 RECT_STATE_DONE:    equ 3
+RECT_STATE_DELAY:   equ 4
 TRANSPARENT_TILE:   equ 0
 OPAQUE_TILE:        equ 97
 
@@ -83,6 +85,7 @@ rectStateJumpTable:
     dw stateRectIn
     dw stateRectOut
     dw stateRectDone
+    dw stateRectDelay
 
 rectStateUpdate:
     ld a,(rectState)
@@ -104,6 +107,7 @@ stateRectStart:
     ld (rectState),a
     ld hl,rectangles
     ld (rectPointer),hl
+;    L2_SET_IMAGE IMAGE_MICHAELMAS
     ret
 
 ;----STATE-----
@@ -123,6 +127,11 @@ stateRectIn:
     add ix, de
     ld (rectPointer),ix
 
+    ld a, RECT_STATE_DELAY
+    ld (rectState),a
+    ld a, RECT_STATE_IN
+    ld (rectNextState),a
+
     ret
 
 .nextState:
@@ -132,6 +141,7 @@ stateRectIn:
     ld (rectState),a
     ld hl,rectangleLast
     ld (rectPointer),hl
+    L2_SET_IMAGE IMAGE_HILARY
 
     ret
 
@@ -154,6 +164,12 @@ stateRectOut:
     or a
     sbc hl, de
     ld (rectPointer),hl
+
+    ld a, RECT_STATE_DELAY
+    ld (rectState),a
+    ld a, RECT_STATE_OUT
+    ld (rectNextState),a
+
     ret
 
 .nextState:
@@ -169,6 +185,15 @@ stateRectDone:
     ret
 
 
+stateRectDelay:
+    ld a, (rectNextState)
+    ld (rectState),a
+    ret
+
+
+;
+;----STATE-----
+;
 updateRects:
     ld a,(rectCount)
     or a 
