@@ -136,8 +136,7 @@ stateMouseBackgroundClicked:
     call GamePhases.roundStart
     
     STOP_ALL_ANIMATION
-    ld hl, GS_START
-    call GameStateMachine.change
+    TRANSITION_SCREEN GS_START, IMAGE_MICHAELMAS
     ret
 
 stateMouseClicked:
