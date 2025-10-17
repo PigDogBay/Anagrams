@@ -40,9 +40,7 @@ update:
 
 gameOver:
     STOP_ALL_ANIMATION
-    ; next state
-    ld hl, GS_GAME_OVER
-    call GameStateMachine.change
+    TRANSITION_SCREEN GS_GAME_OVER, IMAGE_DROPOUT
     ret
 
 
