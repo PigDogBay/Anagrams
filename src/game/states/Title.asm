@@ -135,8 +135,7 @@ update:
 .mousePressed:
     call NextDAW.stop
     STOP_ALL_ANIMATION
-    ld hl, GS_PROSPECTUS
-    call GameStateMachine.change
+    TRANSITION_SCREEN GS_PROSPECTUS, IMAGE_PROSPECTUS
     ret
 
 
