@@ -246,6 +246,8 @@ stack_top:
 
     ORG Tilemap.START_OF_TILES
     INCBIN "assets/font.spr"
+    ;SOLID BLACK TILE - 32 bytes
+    defs 32,0
 
     ;Load sprite data in 8k banks 30 + 31. Banks placed in MMU slots 0 and 1 
     MMU 0 1,BANK_SPRITE, 0x0000

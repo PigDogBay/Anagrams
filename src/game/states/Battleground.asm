@@ -76,7 +76,7 @@ RECT_STATE_IN:      equ 1
 RECT_STATE_OUT:     equ 2
 RECT_STATE_DONE:    equ 3
 TRANSPARENT_TILE:   equ 0
-OPAQUE_TILE:        equ 3
+OPAQUE_TILE:        equ 97
 
 rectStateJumpTable:
     dw stateRectStart
