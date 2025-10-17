@@ -290,21 +290,16 @@ rectangle:
     call horizontalLine
 
     ;Bottom DE = x1,y2 ; H = x2
-    ld d,(ix+rectStruct.x1)
     ld e,(ix+rectStruct.y2)
-    ld h,(ix+rectStruct.x2)
     call horizontalLine
 
     ;Left DE = x1,y1 ; H = y2
-    ld d,(ix+rectStruct.x1)
     ld e,(ix+rectStruct.y1)
     ld h,(ix+rectStruct.y2)
     call verticalLine
 
     ;Right DE = x2,y1 ; H = y2
     ld d,(ix+rectStruct.x2)
-    ld e,(ix+rectStruct.y1)
-    ld h,(ix+rectStruct.y2)
     call verticalLine
 
     pop hl,de,bc
