@@ -125,6 +125,7 @@ IMAGE_WIN                  equ BANK_IMAGE_TITLE
     include "game/states/LifelineSolve.asm"
     include "game/states/GameOver.asm"
     include "game/states/Win.asm"
+    include "game/states/Transition.asm"
     IFDEF BATTLEGROUND
         include "game/states/PuzzleViewer.asm"
         include "game/states/Battleground.asm"

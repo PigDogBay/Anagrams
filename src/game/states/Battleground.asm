@@ -19,7 +19,8 @@ enter:
     ; First sprite always the mouse pointer so that it is on top
     call Game.addMouseSpritePointer
 
-;    call drawAllRects
+    call addButtons
+    call printColoredText
     ret
 
 ; Old code
@@ -53,9 +54,19 @@ enter:
 
 
 update:
-     call Game.updateMouse
-     call Game.updateSprites
-     call rectStateUpdate
+    call Game.updateMouseNoSprite
+    cp MouseDriver.STATE_BACKGROUND_CLICKED
+    jr z, .mousePressed
+    call Game.updateSprites
+    ret
+
+.mousePressed:
+    TRANSITION_SCREEN GS_WIN, IMAGE_WIN
+    ret
+
+;     call Game.updateMouse
+ ;    call Game.updateSprites
+;     call rectStateUpdate
     ; next state
 ;    ld hl, GS_PUZZLE_VIEWER
     ; ld hl,$0201
