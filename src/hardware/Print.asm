@@ -214,13 +214,13 @@ horizontalLine:
     ;Set up counter, a = length - 1
     ; Check if length = 1 (a = 0)
     or a
-    ret z
+    jr z, .done
     ;Double A as each tile is 2 bytes
     sla a
     ld b,0
     ld c,a
     ldir
-
+.done:
     pop hl,de,bc
     ret
 

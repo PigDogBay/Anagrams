@@ -22,16 +22,18 @@ enter:
     call addButtons
     ;call printColoredText
     ; Function: horizontalLine(uint8 x1 : d, uint8 y1 : e, uint8 x2 : h, uint8 tile : c, uint8 attr : b) 
-    ld d,16 : ld e,31 : ld h, 20 : ld c, 19 : ld b, Tilemap.DESERT
+    ld d,5 : ld e,16 : ld h, 5 : ld c, 19 : ld b, Tilemap.PURPLE
     call Print.horizontalLine
     ; Function: verticalLine(uint8 x : D, uint8 y1 : E, uint8 y2 : H, uint8 tile : C, uint8 attr : B) 
-    ld d,16 : ld e,0 : ld h, 31 : ld c, 19 : ld b, Tilemap.DESERT
+    ld d,16 : ld e,10 : ld h, 10 : ld c, 18 : ld b, Tilemap.DESERT
     call Print.verticalLine
     ld ix,.rect1 : ld c,(ix+4) : ld b, (ix+5)
     call Print.rectangle
     ld ix,.rect2 : ld c,(ix+4) : ld b, (ix+5)
     call Print.rectangle
     ld ix,.rect3 : ld c,(ix+4) : ld b, (ix+5)
+    call Print.rectangle
+    ld ix,.rect4 : ld c,(ix+4) : ld b, (ix+5)
     call Print.rectangle
 
   ret
@@ -41,6 +43,8 @@ enter:
     db 1,1,38,30,21, Tilemap.GREEN
 .rect3:
     db 20,16,20,16,22, Tilemap.BLUE
+.rect4:
+    db 19,15,21,17,23, Tilemap.YELLOW
 
 
 update:
