@@ -20,9 +20,27 @@ enter:
     call Game.addMouseSpritePointer
 
     call addButtons
-    call printColoredText
-  ret
+    ;call printColoredText
+    ; Function: horizontalLine(uint8 x1 : d, uint8 y1 : e, uint8 x2 : h, uint8 tile : c, uint8 attr : b) 
+    ld d,16 : ld e,31 : ld h, 20 : ld c, 19 : ld b, Tilemap.DESERT
+    call Print.horizontalLine
+    ; Function: verticalLine(uint8 x : D, uint8 y1 : E, uint8 y2 : H, uint8 tile : C, uint8 attr : B) 
+    ld d,16 : ld e,0 : ld h, 31 : ld c, 19 : ld b, Tilemap.DESERT
+    call Print.verticalLine
+    ld ix,.rect1 : ld c,(ix+4) : ld b, (ix+5)
+    call Print.rectangle
+    ld ix,.rect2 : ld c,(ix+4) : ld b, (ix+5)
+    call Print.rectangle
+    ld ix,.rect3 : ld c,(ix+4) : ld b, (ix+5)
+    call Print.rectangle
 
+  ret
+.rect1:
+    db 0,0,39,31,20, Tilemap.RED
+.rect2:
+    db 1,1,38,30,21, Tilemap.GREEN
+.rect3:
+    db 20,16,20,16,22, Tilemap.BLUE
 
 
 update:
@@ -32,8 +50,8 @@ update:
 ;    ld hl, GS_PUZZLE_VIEWER
     ; ld hl,$0201
     ; call YearTerm.select
-     ld hl, GS_WIN
-     call GameStateMachine.change
+    ;  ld hl, GS_WIN
+    ;  call GameStateMachine.change
     ret
 
 printColoredText:

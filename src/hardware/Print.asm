@@ -45,7 +45,7 @@ printString:
 
 ;-----------------------------------------------------------------------------------
 ; 
-; Function: setCursorPosition(uint8 x, uint8 y) 
+; Function: setCursorPosition(uint8 x : d, uint8 y : e) 
 ; 
 ; In: D - X position
 ;     E - Y position 
@@ -173,6 +173,142 @@ clearLine:
     ld bc,80 - 1
     ldir
     ret    
+
+
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: horizontalLine(uint8 x1 : d, uint8 y1 : e, uint8 x2 : h, uint8 tile : c, uint8 attr : b) 
+; 
+; In: D - X1 position
+;     E - Y position 
+;     H - X2 Position
+;     C - Tile to print
+;     B - attribute value, bits:
+;         7-4: Palette Offset
+;           3: X Mirror
+;           2: Y Mirror
+;           1: Rotate (90 clockwise)
+;           0: * 1 = ULA over tilemap, 0 = tilemap over ULA
+; 
+; Dirty A, HL
+;
+;-----------------------------------------------------------------------------------
+horizontalLine:
+    push bc,de,hl
+
+    ;Line length - 1 = x2 - x1
+    ld a,h
+    sub d
+
+    ; Function: setCursorPosition(uint8 x : d, uint8 y : e) 
+    call setCursorPosition
+    ld hl,(tilemapAddress)
+    ld (hl),c
+    inc hl
+    ld (hl),b
+    ld de,hl
+    inc de
+    dec hl
+
+    ;Set up counter, a = length - 1
+    ; Check if length = 1 (a = 0)
+    or a
+    ret z
+    ;Double A as each tile is 2 bytes
+    sla a
+    ld b,0
+    ld c,a
+    ldir
+
+    pop hl,de,bc
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: verticalLine(uint8 x : D, uint8 y1 : E, uint8 y2 : H, uint8 tile : C, uint8 attr : B) 
+; 
+; In: D - X position
+;     E - Y1 position 
+;     H - Y2 Position
+;     C - Tile to print
+;     B - attribute value, bits:
+;         7-4: Palette Offset
+;           3: X Mirror
+;           2: Y Mirror
+;           1: Rotate (90 clockwise)
+;           0: * 1 = ULA over tilemap, 0 = tilemap over ULA
+; 
+; Dirty A, HL
+;
+;-----------------------------------------------------------------------------------
+verticalLine:
+    push bc,de,hl
+    ;Line length - 1 = y2 - y1
+    ld a,h
+    sub e
+    inc a
+
+    ; Function: setCursorPosition(uint8 x : d, uint8 y : e) 
+    call setCursorPosition
+    ld hl,(tilemapAddress)
+.loop:
+    ld (hl),c
+    inc hl
+    ld (hl),b
+    ;next position down
+    add hl, CHARACTERS_PER_LINE * 2 - 1
+    dec a
+    jr nz, .loop
+
+    pop hl,de,bc
+    ret
+
+;-----------------------------------------------------------------------------------
+; 
+; Function: rectangle(uint16 *rectStruct) 
+; 
+; In: IX - pointer to rectStruct
+;     C - Tile to print
+;     B - attribute value, bits:
+;         7-4: Palette Offset
+;           3: X Mirror
+;           2: Y Mirror
+;           1: Rotate (90 clockwise)
+;           0: * 1 = ULA over tilemap, 0 = tilemap over ULA
+; 
+; Dirty A
+;
+;-----------------------------------------------------------------------------------
+rectangle:
+    push bc,de,hl
+
+    ;Top DE = x1,y1 ; H = x2
+    ld d,(ix+rectStruct.x1)
+    ld e,(ix+rectStruct.y1)
+    ld h,(ix+rectStruct.x2)
+    call horizontalLine
+
+    ;Bottom DE = x1,y2 ; H = x2
+    ld d,(ix+rectStruct.x1)
+    ld e,(ix+rectStruct.y2)
+    ld h,(ix+rectStruct.x2)
+    call horizontalLine
+
+    ;Left DE = x1,y1 ; H = y2
+    ld d,(ix+rectStruct.x1)
+    ld e,(ix+rectStruct.y1)
+    ld h,(ix+rectStruct.y2)
+    call verticalLine
+
+    ;Right DE = x2,y1 ; H = y2
+    ld d,(ix+rectStruct.x2)
+    ld e,(ix+rectStruct.y1)
+    ld h,(ix+rectStruct.y2)
+    call verticalLine
+
+    pop hl,de,bc
+    ret
 
 ;-----------------------------------------------------------------------------------
 ;

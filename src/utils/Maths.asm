@@ -2,6 +2,23 @@
 
 ;-----------------------------------------------------------------------------------
 ;
+; Struct: rectStruct 
+;
+; Parameters for a rectangle
+;
+; x1, y1, x2, y2
+;
+;-----------------------------------------------------------------------------------
+    struct @rectStruct
+x1          byte
+y1          byte
+x2          byte
+y2          byte
+    ends
+
+
+;-----------------------------------------------------------------------------------
+;
 ; Function: divMod(uint8,uint8) -> uint8,uint8
 ;
 ; Divides A by B and returns the remainder in A and quotient in B
