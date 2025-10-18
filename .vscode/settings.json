@@ -1,5 +1,5 @@
 {
 	"zesarux_dir": "/Applications/zesarux.app/Contents/MacOS",
-	"cspect_dir": "/.../CSpect/CSpect2_16_6",
+	"cspect_dir": "../../../tools/CSpect3_0_2_1/",
 	"mame_dir": "/.../Projects/mame"
 }
