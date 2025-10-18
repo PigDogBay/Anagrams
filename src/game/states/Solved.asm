@@ -58,7 +58,19 @@ update:
 .mousePressed:
     STOP_ALL_ANIMATION
     call GamePhases.solvedExit
+    ld a,b
+    cp GamePhases.PHASE_START
+    jr z, .start
+    cp GamePhases.PHASE_ROUND
+    jr z, .round
+    TRANSITION_SCREEN GS_WIN, IMAGE_WIN
+    ret
+.start:
+    ld hl, GS_START
     call GameStateMachine.change
+    ret
+.round:
+    TRANSITION_SCREEN GS_ROUND, IMAGE_ROUND
     ret
 
 strWellDone:

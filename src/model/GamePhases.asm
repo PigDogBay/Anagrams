@@ -8,6 +8,9 @@
 ;-----------------------------------------------------------------------------------
     module GamePhases
 
+PHASE_START     equ 0
+PHASE_ROUND     equ 1
+PHASE_WIN       equ 2
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -106,21 +109,21 @@ playUpdate:
 ;
 ; Updates the game variables at when leaving the solved state
 ;
-; Out: HL - next Game State
+; Out: B - Next game phase
 ; 
 ;-----------------------------------------------------------------------------------
 solvedExit:
     call YearTerm.nextTerm
-    ld hl, GS_START
     or a
+    ld b, PHASE_START
     ret nz
     
     call YearTerm.nextYear
-    ld hl, GS_ROUND
     or a
+    ld b, PHASE_ROUND
     ret nz
     
-    ld hl, GS_WIN
+    ld b, PHASE_WIN
     ret
 
     endmodule
