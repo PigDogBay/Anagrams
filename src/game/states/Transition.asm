@@ -13,7 +13,7 @@
 RECT_LEN            equ 6
 RECT_COUNT          equ 20
 TRANSPARENT_TILE:   equ 0
-OPAQUE_TILE:        equ 97
+OPAQUE_TILE:        equ 96
 
 ;States
 RECT_STATE_START:   equ 0

@@ -306,6 +306,36 @@ rectangle:
     ret
 
 ;-----------------------------------------------------------------------------------
+; 
+; Function: fill(uint8 tile : C, uint8 attr : B)
+; fills the entire tilemap with tile C and attr B
+; 
+;     C - Tile to print
+;     B - attribute value, bits:
+;         7-4: Palette Offset
+;           3: X Mirror
+;           2: Y Mirror
+;           1: Rotate (90 clockwise)
+;           0: * 1 = ULA over tilemap, 0 = tilemap over ULA
+; 
+; Dirty A
+;
+;-----------------------------------------------------------------------------------
+fill:
+    push bc,de,hl
+    ld hl, Tilemap.START_OF_TILEMAP
+    ld (hl),c
+    inc hl
+    ld (hl),b
+    dec hl
+    ld bc, 40*32*2 - 2
+    ld de, Tilemap.START_OF_TILEMAP + 2
+    ldir
+    pop hl,de,bc
+    ret
+
+
+;-----------------------------------------------------------------------------------
 ;
 ; Variables 
 ;
