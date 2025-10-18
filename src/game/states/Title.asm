@@ -8,7 +8,7 @@
 
     module GameState_Title
 
-MESSAGES_COUNT                          equ 5
+MESSAGES_COUNT                          equ 6
 COPYRIGHT_CHAR                          equ 127
 
 TITLE_STATE_START:                      equ 0
@@ -265,17 +265,20 @@ textTable:
     dw text3A, text3B
     dw text4A, text4B
     dw text5A, text5B
+    dw text6A, text6B
 
 text1A db "BY PIG DOG BAY",0
 text1B db " ",0
 text2A db "TITLE MUSIC BY",0
 text2B db "RETROSTEVEUK",0
-text3A db "MUSIC CREATED USING",0
-text3B db "NEXTDAW BY G BASILO",0
-text4A db "FONTS BY",0
-text4B db "DAMIEN GUARD",0
-text5A db VERSION,0
-text5B db COPYRIGHT_CHAR," MPD BAILEY TECHNOLOGY",0
+text3A db "TESTING BY",0
+text3B db "RICH 'TUFTY' HOLLINS",0
+text4A db "MUSIC CREATED USING",0
+text4B db "NEXTDAW BY G BASILO",0
+text5A db "FONTS BY",0
+text5B db "DAMIEN GUARD",0
+text6A db VERSION,0
+text6B db COPYRIGHT_CHAR," MPD BAILEY TECHNOLOGY",0
 
 textIndex: db 0
 
