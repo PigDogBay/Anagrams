@@ -1,0 +1,82 @@
+===OVERVIEW===
+
+The Scholar is an anagram puzzle game played against the clock, lifelines are available to help you out.
+Each round consists of 3 anagrams to solve, the anagrams are related, eg "Carry On Films".
+After each round the anagram category changes, complete 8 rounds to win the game.
+On the start screen (Prospectus), you can select the game difficulty/settings by choosing a particular college.
+
+
+===REQUIREMENTS===
+
+ZX Spectrum Next or emulator such as ZEsarUX.
+A mouse is essential, however you can use a kempston joystick in port 1.
+
+
+===CONTROLS===
+
+To drag a tile: left click on a letter tile, drag and then drop by releasing the left mouse button. Tiles will snap into slots.
+Buttons can be clicked on (left mouse) to activate, you can hover over buttons to see a tooltip at the bottom of the screen.
+To continue to the next screen, you can click anywhere on the background.
+For joystick users, pressing fire (Gamepad B) = left mouse click.
+
+
+===WELCOME FRESHMAN===
+
+You have been accepted to the University of Oxbridge, you now have to choose your college which will hopefully be your home for the next 8 years. Each year you will study one particular area of knowledge. The year is divided into 3 terms, Michaelmas, Hilary and Trinity. A collection (exam) is set each term which you must pass, you may use your study aids to help you pass each collection.
+Freshers first year of study is general knowledge to help settle you in, at the end of the year a new area of knowledge will be selected for the next academic year.
+
+Good Luck!
+
+
+===PROSPECTUS===
+
+At the start of the game you must select your college, for beginners I suggest Teddy Hall or St Easy Peaseys.
+Use the Left / Right arrow buttons to select your college.
+
+Each college has a different game setting:
+*Start Time - The time you start with at the beginning of the year
+*Time Deduction - Each year the start time will decrease by the deduction amount
+*Study Aids - essential tools to help you pass each collection, you can hover over a study aid to read what it does.
+*Reroll Cost - The time cost to change the category.
+
+Click anywhere on the background to begin your first puzzle set, the category of which is general knowledge and should be straightforward.
+
+
+===PLAY===
+
+In the middle of the screen are Slots (hatched squares with a plus symbol) and Tiles (cream squares showing a letter).
+You must drag each tile to a slot to solve the anagram before the timer (top left) ticks down to 0.
+When you correctly complete the anagram you will start the next term and be presented with a new anagram, the timer will count down from where it left off last term. After completing the third anagram you will have passed this academic year and will continue onto the Lecture Notes screen.
+
+To aid you in your study there are icons on the left handside which you can hover over to see what they do and click on to activate:
+*Calculator - Select a tile and a matching slot will be revealed
+*Yin and Yang - Select a slot a matching tile will be revealed
+*Beer - Matches a random unslotted tile to a slot
+*Notepad - Provides 1 clue for the anagrams, note the 3 anagrams are related, so only click this once per year.
+
+Depending on the college you have attended, not all Study Aids will be available.
+
+To quit a game, press the exit icon top right.
+
+
+===LECTURE NOTES===
+At the end of the trinity term you will begin a new academic year, a new category will be randomly chosen and the timer will be reset*. On this screen you will see the name of the upcoming year and category.
+
+Reroll - press the reroll button to randomly select a different category. Note that rerolls will deduct time.
+Click anywhere else to start the new academic year.
+
+(* Each year the starting time will decrease by a set amount)
+
+
+===TIPS===
+
+*Make good use of the study aids on the left handside, pay attention to the instruction at the bottom of the screen.
+*For an easier game select a college with a larger start time such as St Easey Peaseys
+*Only use Notepad once per year as there is only one clue per year
+*Each set of puzzles are related, eg famous French scientists, use this knowledge to guess.
+*You can change a category by pressing the Reroll button on the Lecture Notes screen
+*Reposition the letters to help you to see the anagram
+*The study aids have different time costs, use them wisely.
+
+
+
