@@ -1,0 +1,62 @@
+To The Reviewers,
+
+
+Thanks very much for taking the time to review my game, it's a privilege to  
+be creating games for the Speccy and have good folk like yourselves keeping
+the flame alive by making great and entertaining reviews from your lofty towers.
+
+
+=== Contact Details ===
+
+Mark Bailey
+pigdogbay@yahoo.co.uk
+https://pigdogbay.itch.io/
+http://www.mpdbailey.co.uk/
+https://www.youtube.com/@PigDogBay
+https://www.facebook.com/marcus.bailius
+Twitter/Bluesky @PigDogBay
+
+
+=== Game Details ===
+
+The Scholar was written in Z80 assembler using Sjasmplus, VS Code and Dezog.
+All music and SFX was composed on NextDAW, the title music was graciously
+permitted use to me by RetroSteveUK (https://bio.link/retrosteveuk)
+
+The game took 4 months to code, albeit most of in Sept/Oct 25.
+The game is free of charge (NYOP) on itch.io and will be available later
+from GetIt
+
+The game has 7 categories each with 50 sets of anagrams:
+Freshers, Film and TV, Games and Tech, History, Music, Science and World
+That's a total of 3x7x50 = 1050 anagrams
+
+
+=== Future Plans ===
+
+If the game proves popular I will make a Deluxe version of the game, including:
+- Extra categories
+- 100 anagram sets per category
+- Boss level for the Trinity term, eg blank letters, double time, no life lines
+- More study aids, such as skip term, group letters into words
+- Extra SFX and graphical polish
+
+
+=== Bio ===
+
+Mark Bailey aka Pig Dog Bay
+App developer (and now games programmer)
+Previous games, Nexions and Get Gun Shoot (see itch.io)
+Living in Stoke on Trent
+Hobbies retro gaming and haunting Arcade Club
+
+
+
+
+I'll be attending Crash 2025, so hopefully I may see many of you there. 
+Any questions please contact me using the above links.
+
+
+
+Best regards
+Mark 'Pig Dog Bay' Bailey
