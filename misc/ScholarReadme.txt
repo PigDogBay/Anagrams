@@ -28,9 +28,9 @@ your college, which will hopefully be your home for the next
 eight years. Each year you will study one area of knowledge. The year
 is divided into three terms: Michaelmas, Hilary and Trinity. A
 collection (exam) is set each term which you must pass. Use
-study aids to help you succeed. Freshers' first year is general
+study aids to help you succeed. Freshers or first year, is general
 knowledge to help settle you in. At the end of the year a new
-subject will be chosen for the next year.
+subject will be chosen.
 
 After completing year 8, you will become a Scholar. Good luck!
 
@@ -72,7 +72,7 @@ To quit the game press the Exit icon top right.
 
 At the end of Trinity term you begin a new year. A new category
 is chosen and the timer is reset(*). On this screen you see the
-new year and category.
+current year and category.
 
 Reroll - press to select a different category. Note that rerolls
 deduct time. Click anywhere else to start the year.
@@ -91,6 +91,17 @@ Try to become a scholar for each college.
 * Change a category by pressing the Reroll button on the Lecture Notes screen
 * Reposition letters to spot the word. 
 * Each study aid has a time cost - plan carefully.
+* Really stuck? Cheat, use my Anagram Solver app:
+** Android: https://play.google.com/store/apps/details?id=com.pigdogbay.anagramsolver
+** iOS: https://apps.apple.com/app/id973923699
+
+=== Credits ===
+
+Game by Pig Dog Bay
+Title Music by RetroSteveUK
+Music composed using NextDAW by Gari Biasillo
+Fonts by Damien Guard
+Testing by Rich ‘ Tufty’ Hollins
 
 
 (c) MPD Bailey Technology 2025

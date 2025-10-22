@@ -20,3 +20,4 @@ __pycache__/
 *.pyo
 tools/a.out
 misc/.~lock.Sums.ods#
+misc/.~lock.UserGuide.odt#

@@ -9,7 +9,7 @@ On the start screen (Prospectus), you can select the game difficulty/settings by
 ===REQUIREMENTS===
 
 ZX Spectrum Next or emulator such as ZEsarUX.
-A mouse is essential, however you can use a kempston joystick in port 1.
+A mouse is essential, however you can use a Kempston joystick in port 1.
 
 
 ===CONTROLS===
@@ -70,13 +70,15 @@ Click anywhere else to start the new academic year.
 
 ===TIPS===
 
-*Make good use of the study aids on the left handside, pay attention to the instruction at the bottom of the screen.
-*For an easier game select a college with a larger start time such as St Easey Peaseys
-*Only use Notepad once per year as there is only one clue per year
-*Each set of puzzles are related, eg famous French scientists, use this knowledge to guess.
-*You can change a category by pressing the Reroll button on the Lecture Notes screen
-*Reposition the letters to help you to see the anagram
-*The study aids have different time costs, use them wisely.
-
+* Make good use of the study aids on the left handside, pay attention to the instruction at the bottom of the screen.
+* For an easier game select a college with a larger start time such as St Easey Peaseys
+* Only use Notepad once per year as there is only one clue per year
+* Each set of puzzles are related, eg famous French scientists, use this knowledge to guess.
+* You can change a category by pressing the Reroll button on the Lecture Notes screen
+* Reposition the letters to help you to see the anagram
+* The study aids have different time costs, use them wisely.
+* Really stuck? Cheat, use my Anagram Solver app:
+** Android: https://play.google.com/store/apps/details?id=com.pigdogbay.anagramsolver
+** iOS: https://apps.apple.com/app/id973923699
 
 
