@@ -91,9 +91,11 @@ Try to become a scholar for each college.
 * Change a category by pressing the Reroll button on the Lecture Notes screen
 * Reposition letters to spot the word. 
 * Each study aid has a time cost - plan carefully.
-* Really stuck? Cheat, use my Anagram Solver app:
-** Android: https://play.google.com/store/apps/details?id=com.pigdogbay.anagramsolver
-** iOS: https://apps.apple.com/app/id973923699
+
+Really stuck? Cheat, use my Anagram Solver app
+
+- Android https://play.google.com/store/apps/details?id=com.pigdogbay.anagramsolver
+- iOS https://apps.apple.com/app/id973923699
 
 === Credits ===
 
@@ -101,7 +103,7 @@ Game by Pig Dog Bay
 Title Music by RetroSteveUK
 Music composed using NextDAW by Gari Biasillo
 Fonts by Damien Guard
-Testing by Rich ‘ Tufty’ Hollins
+Testing by Rich Hollins
 
 
 (c) MPD Bailey Technology 2025
