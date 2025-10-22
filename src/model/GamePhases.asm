@@ -21,7 +21,7 @@ PHASE_WIN       equ 2
 ; 
 ;-----------------------------------------------------------------------------------
 start:
-    ld hl,$0803
+    ld hl,$0101
     call YearTerm.select
 
     ;Set up the game settings based on the chosen college
