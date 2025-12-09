@@ -58,7 +58,7 @@ roundStart:
     ;Lower start time to make each level harder
     call Time.decreaseStartTime
     ;Set up a random puzzle
-    call Puzzles.newCategory
+    call Puzzles.christmasCategory
     call Puzzles.copyRandomPuzzle
     ret
 

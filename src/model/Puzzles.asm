@@ -59,6 +59,11 @@ newCategory:
     pop bc
     ret
 
+christmasCategory:
+    ld a, CAT_CHRISTMAS
+    ld (category),a
+    ret
+
 
 
 
