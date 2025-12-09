@@ -282,6 +282,8 @@ stack_top:
     include "puzzles/GamesTech.asm"
     MMU 0,BANK_PUZZLES_START + CAT_HISTORY, 0x0000
     include "puzzles/History.asm"
+    MMU 0,BANK_PUZZLES_START + CAT_CHRISTMAS, 0x0000
+    include "puzzles/Christmas.asm"
 
     MMU 0,BANK_IMAGE_TITLE, 0x0000
     incbin "assets/title/title_0.nxi"

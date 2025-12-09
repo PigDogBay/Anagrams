@@ -1,0 +1,266 @@
+;-----------------------------------------------------------------------------------
+; 
+; Data: Christmas
+; 
+;-----------------------------------------------------------------------------------
+
+    module CatChristmas
+
+table:
+    dw p1,p2,p3,p4,p5,p6,p7,p8,p9,p10
+    dw p11,p12,p13,p14,p15,p16,p17,p18,p19,p20
+    dw p21,p22,p23,p24,p25,p26,p27,p28,p29,p30
+    dw p31,p32,p33,p34,p35,p36,p37,p38,p39,p40
+    dw p41,p42,p43,p44,p45,p46,p47,p48,p49,p50
+
+p1: db "PAUL McCARTNEY",0
+    db "PIPES OF\nPEACE",0
+    db "MULL OF\nKINTYRE",0
+    db "WE ALL STAND\nTOGETHER",0
+
+p2: db "TREE DECORATIONS",0
+    db "TINSEL",0
+    db "BAUBLES",0
+    db "FAIRY\nLIGHTS",0
+
+p3: db "GOLDEN OLDIE SONGS",0
+    db "WHITE\nCHRISTMAS",0
+    db "JINGLE BELL\nROCK",0
+    db "LET IT SNOW\nLET IT SNOW\nLET IT SNOW",0
+
+p4: db "60S CHRISTMAS SONGS",0
+    db "SLEIGH\nRIDE",0
+    db "LITTLE\nSAINT\nNICK",0
+    db "DO YOU HEAR\nWHAT I HEAR",0
+
+p5: db "70S CHRISTMAS SONGS",0
+    db "MERRY XMAS\nEVERYBODY",0
+    db "STEP INTO\nCHRISTMAS",0
+    db "FELIZ\nNAVIDAD",0
+
+p6: db "70S CHRISTMAS SONGS",0
+    db "MARYS BOY\nCHILD",0
+    db "LONELY THIS\nCHRISTMAS",0
+    db "SANTA CLAUS\nIS COMIN\nTO TOWN",0
+
+p7: db "80S CHRISTMAS SONGS",0
+    db "LAST\nCHRISTMAS",0
+    db "FAIRYTALE\nOF NEW YORK",0
+    db "DO THEY\nKNOW ITS\nCHRISTMAS",0
+
+p8: db "CHRISTMAS CAROLS",0
+    db "GAUDETE",0
+    db "THE BOARS\nHEAD CAROL",0
+    db "IN DULCI\nJUBILO",0
+
+p9: db "CHRISTMAS CAROLS",0
+    db "DECK THE\nHALLS",0
+    db "THE HOLLY\nAND THE IVY",0
+    db "GOD REST\nYE MERRY\nGENTLEMEN",0
+
+p10: db "CHRISTMAS CAROLS",0
+    db "SILENT\nNIGHT",0
+    db "IN THE BLEAK\nMIDWINTER",0
+    db "WHILE\nSHEPHERDS\nWATCHED",0
+
+p11: db "TRADITIONAL TOYS",0
+    db "YOYO",0
+    db "TIN\nSOLDIERS",0
+    db "SPINNING\nTOP",0
+
+p12: db "TRADITIONAL TOYS",0
+    db "CUP AND\nBALL",0
+    db "WOODEN\nBLOCKS",0
+    db "ROCKING\nHORSE",0
+
+p13: db "TRADITIONAL TOYS",0
+    db "TEDDY\nBEAR",0
+    db "JIGSAW\nPUZZLE",0
+    db "HOBBY\nHORSE",0
+
+p14: db "CHRISTMAS FOOD",0
+    db "ROAST\nTURKEY",0
+    db "PIGS IN\nBLANKETS",0
+    db "BRUSSELS\nSPROUTS",0
+
+p15: db "CHRISTMAS TREATS",0
+    db "QUALITY\nSTREET",0
+    db "CHERRY\nLIQUEURS",0
+    db "NEW BERRY\nFRUITS",0
+
+p16: db "CHRISTMAS TREATS",0
+    db "MINCE PIES",0
+    db "AFTER\nEIGHTS",0
+    db "SELECTION\nBOX",0
+
+p17: db "FOR SANTA (US/UK/AU)",0
+    db "COOKIES\nAND MILK",0
+    db "MINCE PIE\nAND SHERRY",0
+    db "ICE COLD\nBEER",0
+
+p18: db "LISTS...",0
+    db "PRESENTS",0
+    db "CHRISTMAS\nCARDS",0
+    db "NAUGHTY\nAND NICE",0
+
+p19: db "YELLOW DRINKS",0
+    db "EGGNOG",0
+    db "SNOWBALL",0
+    db "ADVOCAAT",0
+
+p20: db "BRANDED DRINKS",0
+    db "BAILEYS\nIRISH CREAM",0
+    db "HARVEYS\nBRISTOL\nCREAM",0
+    db "COCKBURNS\nSPECIAL\nRESERVE",0
+
+p21: db "70/80'S UNDER THE TREE",0
+    db "BIGTRAK",0
+    db "SIMON SAYS",0
+    db "ZX SPECTRUM",0
+
+p22: db "70/80'S UNDER THE TREE",0
+    db "ACTION MAN",0
+    db "SCALEXTRIC",0
+    db "ACORN\nELECTRON",0
+
+p23: db "70/80'S UNDER THE TREE",0
+    db "SPEAK\nAND\nSPELL",0
+    db "RUBIKS\nCUBE",0
+    db "MILLENNIUM\nFALCON",0
+
+p24: db "NAFF GIFTS",0
+    db "OLD SPICE",0
+    db "SOAP ON\nA ROPE",0
+    db "SOCKS AND\nPANTS",0
+
+p25: db "CHRISTMAS FILMS?",0
+    db "DIE HARD",0
+    db "GREMLINS",0
+    db "TRADING\nPLACES",0
+
+p26: db "CLASSIC US CHRISTMAS FILMS",0
+    db "HOLIDAY INN",0
+    db "WHITE\nCHRISTMAS",0
+    db "ITS A\nWONDERFUL\nLIFE",0
+
+p27: db "CHRISTMAS FILMS",0
+    db "HOME ALONE",0
+    db "THE SANTA\nCLAUSE",0
+    db "SANTA CLAUS\nTHE MOVIE",0
+
+p28: db "CHRISTMAS FILMS",0
+    db "STICK MAN",0
+    db "THE SNOWMAN",0
+    db "ARTHUR\nCHRISTMAS",0
+
+p29: db "CHRISTMAS ROMCOMS",0
+    db "THE HOLIDAY",0
+    db "LOVE\nACTUALLY",0
+    db "BRIDGET\nJONES DIARY",0
+
+p30: db "DICKENS ADAPTATIONS",0
+    db "SCROOGED",0
+    db "THE MUPPET\nCHRISTMAS\nCAROL",0
+    db "BLACKADDERS\nCHRISTMAS\nCAROL",0
+
+p31: db "1980'S ON THE BOX",0
+    db "BOND FILM",0
+    db "THE QUEENS\nSPEECH",0
+    db "ONLY FOOLS\nAND HORSES",0
+
+p32: db "BOXING DAY",0
+    db "HANG OVER",0
+    db "FOOTBALL\nMATCH",0
+    db "TURKEY\nSANDWICHES",0
+
+p33: db "CHRISTMAS COMPUTER GAMES",0
+    db "XMAS\nLEMMINGS",0
+    db "DUKE\nNUCLEAR\nWINTER",0
+    db "MARIAS\nCHRISTMAS\nBOX",0
+
+p34: db "CHRISTMAS PEACE SONGS",0
+    db "PIPES OF\nPEACE",0
+    db "STOP THE\nCALVARY",0
+    db "HAPPY XMAS\nWAR IS OVER",0
+
+p35: db "CHRISTMAS ACTIVITIES",0
+    db "WASSAILING",0
+    db "DECORATING\nTHE TREE",0
+    db "HANGING\nMISTLETOE",0
+
+p36: db "CHRISTMAS ACTIVITIES",0
+    db "PANTOMIME",0
+    db "CAROL\nSERVICE",0
+    db "MIDNIGHT\nMASS",0
+
+p37: db "HIGHLIGHTER PEN AT THE READY",0
+    db "TV TIMES",0
+    db "RADIO TIMES",0
+    db "ARGOS\nCATALOGUE",0
+
+p38: db "A CHRISTMAS CAROL",0
+    db "JACOB\nMARLEY",0
+    db "MR FEZZIWIG",0
+    db "TINY TIM\nCRATCHIT",0
+
+p39: db "A CHRISTMAS CAROL",0
+    db "EBENEZER\nSCROOGE",0
+    db "IGNORANCE\nAND WANT",0
+    db "THE PORTLY\nGENTLEMEN",0
+
+p40: db "CHRISTMAS CAROLS",0
+    db "AWAY IN A\nMANGER",0
+    db "O COME ALL\nYE FAITHFUL",0
+    db "HARK THE\nHERALD\nANGELS SING",0
+
+p41: db "CHRISTMAS CAROLS",0
+    db "JOY TO\nTHE WORLD",0
+    db "ONCE IN ROYAL\nDAVIDS CITY",0
+    db "DING DONG\nMERRILY\nON HIGH",0
+
+p42: db "CHRISTMAS CAROLS",0
+    db "THE\nFIRST NOEL",0
+    db "GOOD KING\nWENCESLAS",0
+    db "WE THREE\nKINGS OF\nORIENT ARE",0
+
+p43: db "THINGS TO OPEN...",0
+    db "PRESENTS",0
+    db "CHRISTMAS\nCARDS",0
+    db "ADVENT\nCALENDAR",0
+
+p44: db "ITS A CRACKER",0
+    db "RIDDLE",0
+    db "PAPER\nCROWN",0
+    db "NOVELTY TOY",0
+
+p45: db "AFTER CHRISTMAS",0
+    db "BOXING DAY",0
+    db "NEW\nYEARS\nEVE",0
+    db "EPIPHANY",0
+
+p46: db "WHAT TO WEAR",0
+    db "CHRISTMAS\nJUMPER",0
+    db "SANTA HAT",0
+    db "ELF COSTUME",0
+
+p47: db "NATIVITY SCENE",0
+    db "BABY JESUS",0
+    db "WISE MEN",0
+    db "SHEPHERDS",0
+
+p48: db "RUDOLPH'S MATES",0
+    db "DASHER",0
+    db "VIXEN",0
+    db "PRANCER",0
+
+p49: db "RUDOLPH'S MATES",0
+    db "CUPID",0
+    db "DANCER",0
+    db "BLITZEN",0
+
+p50: db "AKA SANTA",0
+    db "SAINT\nNICHOLAS",0
+    db "KRIS\nKRINGLE",0
+    db "SINTERKLAAS",0
+
+    endmodule

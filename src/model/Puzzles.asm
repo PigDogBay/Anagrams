@@ -214,9 +214,7 @@ copyPuzzleStrings:
 @CAT_SCIENCE:        equ 4
 @CAT_GAMES:          equ 5
 @CAT_HISTORY:        equ 6
-@CAT_PEOPLE:         equ 7
-@CAT_CULTURE:        equ 8
-@CAT_FOOD:           equ 9
+@CAT_CHRISTMAS:      equ 7
 
 
 catStringJumpTable:
@@ -227,20 +225,16 @@ catStringJumpTable:
     dw catScienceStr
     dw catGamesStr
     dw catHistoryStr
-    dw catPeopleStr
-    dw catCultureStr
-    dw catFoodStr
+    DW catChristmasStr
 
 catFreshers: db "FRESHERS",0
 catMusicStr: db "MUSIC",0
 catFilmTvStr: db "FILM & TV",0
 catGamesStr: db "GAMES & TECH",0
-catPeopleStr: db "PEOPLE",0
-catCultureStr: db "CULTURE",0
 catWorldStr: db "WORLD",0
 catHistoryStr: db "HISTORY",0
 catScienceStr: db "SCIENCE",0
-catFoodStr: db "FOOD & DRINK",0
+catChristmasStr: db "CHRISTMAS",0
 
 
 ;-----------------------------------------------------------------------------------
