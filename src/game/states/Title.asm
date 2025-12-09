@@ -267,18 +267,18 @@ textTable:
     dw text5A, text5B
     dw text6A, text6B
 
-text1A db "BY PIG DOG BAY",0
-text1B db " ",0
-text2A db "TITLE MUSIC BY",0
-text2B db "RETROSTEVEUK",0
-text3A db "TESTING BY",0
-text3B db "RICH 'TUFTY' HOLLINS",0
-text4A db "MUSIC CREATED USING",0
-text4B db "NEXTDAW BY G BIASILLO",0
-text5A db "FONTS BY",0
-text5B db "DAMIEN GUARD",0
-text6A db VERSION,0
-text6B db COPYRIGHT_CHAR," MPD BAILEY TECHNOLOGY",0
+text1A db "CHRISTMAS EDITION",0
+text1B db "BY PIG DOG BAY",0
+text2A db "MUSIC CREATED USING",0
+text2B db "NEXTDAW BY G BIASILLO",0
+text3A db "FONTS BY",0
+text3B db "DAMIEN GUARD",0
+text4A db VERSION,0
+text4B db COPYRIGHT_CHAR," MPD BAILEY TECHNOLOGY",0
+text5A db "MERRY",0
+text5B db "CHRISTMAS",0
+text6A db "HAPPY",0
+text6B db "NEW YEAR",0
 
 textIndex: db 0
 
