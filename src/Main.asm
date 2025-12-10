@@ -36,18 +36,20 @@ BANK_IMAGE_PROSPECTUS           equ 150
 BANK_IMAGE_ROUND                equ 120
 BANK_IMAGE_TRINITY              equ 130
 BANK_IMAGE_WIN                  equ 140
+BANK_IMAGE_STORY                equ 150
 
 ;Image remapping
     IFDEF BUILD_2MB
     ;Use all backdrops for 2MB builds
 IMAGE_TITLE                equ BANK_IMAGE_TITLE
-IMAGE_PROSPECTUS           equ BANK_IMAGE_TRINITY
-IMAGE_HILARY               equ BANK_IMAGE_PROSPECTUS
+IMAGE_TRINITY              equ BANK_IMAGE_TRINITY
+IMAGE_PROSPECTUS           equ BANK_IMAGE_PROSPECTUS
 IMAGE_MICHAELMAS           equ BANK_IMAGE_MICHAELMAS
-IMAGE_TRINITY              equ BANK_IMAGE_ROUND
-IMAGE_ROUND                equ BANK_IMAGE_HILARY
+IMAGE_ROUND                equ BANK_IMAGE_ROUND
+IMAGE_HILARY               equ BANK_IMAGE_HILARY
 IMAGE_DROPOUT              equ BANK_IMAGE_DROPOUT
 IMAGE_WIN                  equ BANK_IMAGE_WIN
+IMAGE_STORY                equ BANK_IMAGE_STORY
     ELSE
     ;Only use 1 backdrop for 1MB builds
 IMAGE_TITLE                equ BANK_IMAGE_TITLE
@@ -58,6 +60,7 @@ IMAGE_TRINITY              equ BANK_IMAGE_TITLE
 IMAGE_ROUND                equ BANK_IMAGE_TITLE
 IMAGE_DROPOUT              equ BANK_IMAGE_TITLE
 IMAGE_WIN                  equ BANK_IMAGE_TITLE
+IMAGE_STORY                equ BANK_IMAGE_TITLE
     ENDIF ;BUILD_2MB
 
 
@@ -286,176 +289,198 @@ stack_top:
     include "puzzles/Christmas.asm"
 
     MMU 0,BANK_IMAGE_TITLE, 0x0000
-    incbin "assets/title/title_0.nxi"
+    incbin "assets/Christmas/m/69_0.nxi"
     MMU 0,BANK_IMAGE_TITLE + 1, 0x0000
-    incbin "assets/title/title_1.nxi"
+    incbin "assets/Christmas/m/69_1.nxi"
     MMU 0,BANK_IMAGE_TITLE + 2, 0x0000
-    incbin "assets/title/title_2.nxi"
+    incbin "assets/Christmas/m/69_2.nxi"
     MMU 0,BANK_IMAGE_TITLE + 3, 0x0000
-    incbin "assets/title/title_3.nxi"
+    incbin "assets/Christmas/m/69_3.nxi"
     MMU 0,BANK_IMAGE_TITLE + 4, 0x0000
-    incbin "assets/title/title_4.nxi"
+    incbin "assets/Christmas/m/69_4.nxi"
     MMU 0,BANK_IMAGE_TITLE + 5, 0x0000
-    incbin "assets/title/title_5.nxi"
+    incbin "assets/Christmas/m/69_5.nxi"
     MMU 0,BANK_IMAGE_TITLE + 6, 0x0000
-    incbin "assets/title/title_6.nxi"
+    incbin "assets/Christmas/m/69_6.nxi"
     MMU 0,BANK_IMAGE_TITLE + 7, 0x0000
-    incbin "assets/title/title_7.nxi"
+    incbin "assets/Christmas/m/69_7.nxi"
     MMU 0,BANK_IMAGE_TITLE + 8, 0x0000
-    incbin "assets/title/title_8.nxi"
+    incbin "assets/Christmas/m/69_8.nxi"
     MMU 0,BANK_IMAGE_TITLE + 9, 0x0000
-    incbin "assets/title/title_9.nxi"
+    incbin "assets/Christmas/m/69_9.nxi"
 
     MMU 0,BANK_IMAGE_PALETTE, 0x0000
     incbin "assets/layer2.nxp"
 
     IFDEF BUILD_2MB
         MMU 0,BANK_IMAGE_DROPOUT, 0x0000
-        incbin "assets/dropout/dropout_0.nxi"
+        incbin "assets/Christmas/j/66_0.nxi"
         MMU 0,BANK_IMAGE_DROPOUT + 1, 0x0000
-        incbin "assets/dropout/dropout_1.nxi"
+        incbin "assets/Christmas/j/66_1.nxi"
         MMU 0,BANK_IMAGE_DROPOUT + 2, 0x0000
-        incbin "assets/dropout/dropout_2.nxi"
+        incbin "assets/Christmas/j/66_2.nxi"
         MMU 0,BANK_IMAGE_DROPOUT + 3, 0x0000
-        incbin "assets/dropout/dropout_3.nxi"
+        incbin "assets/Christmas/j/66_3.nxi"
         MMU 0,BANK_IMAGE_DROPOUT + 4, 0x0000
-        incbin "assets/dropout/dropout_4.nxi"
+        incbin "assets/Christmas/j/66_4.nxi"
         MMU 0,BANK_IMAGE_DROPOUT + 5, 0x0000
-        incbin "assets/dropout/dropout_5.nxi"
+        incbin "assets/Christmas/j/66_5.nxi"
         MMU 0,BANK_IMAGE_DROPOUT + 6, 0x0000
-        incbin "assets/dropout/dropout_6.nxi"
+        incbin "assets/Christmas/j/66_6.nxi"
         MMU 0,BANK_IMAGE_DROPOUT + 7, 0x0000
-        incbin "assets/dropout/dropout_7.nxi"
+        incbin "assets/Christmas/j/66_7.nxi"
         MMU 0,BANK_IMAGE_DROPOUT + 8, 0x0000
-        incbin "assets/dropout/dropout_8.nxi"
+        incbin "assets/Christmas/j/66_8.nxi"
         MMU 0,BANK_IMAGE_DROPOUT + 9, 0x0000
-        incbin "assets/dropout/dropout_9.nxi"
+        incbin "assets/Christmas/j/66_9.nxi"
 
         MMU 0,BANK_IMAGE_HILARY, 0x0000
-        incbin "assets/hilary/hilary_0.nxi"
+        incbin "assets/Christmas/f/62_0.nxi"
         MMU 0,BANK_IMAGE_HILARY + 1, 0x0000
-        incbin "assets/hilary/hilary_1.nxi"
+        incbin "assets/Christmas/f/62_1.nxi"
         MMU 0,BANK_IMAGE_HILARY + 2, 0x0000
-        incbin "assets/hilary/hilary_2.nxi"
+        incbin "assets/Christmas/f/62_2.nxi"
         MMU 0,BANK_IMAGE_HILARY + 3, 0x0000
-        incbin "assets/hilary/hilary_3.nxi"
+        incbin "assets/Christmas/f/62_3.nxi"
         MMU 0,BANK_IMAGE_HILARY + 4, 0x0000
-        incbin "assets/hilary/hilary_4.nxi"
+        incbin "assets/Christmas/f/62_4.nxi"
         MMU 0,BANK_IMAGE_HILARY + 5, 0x0000
-        incbin "assets/hilary/hilary_5.nxi"
+        incbin "assets/Christmas/f/62_5.nxi"
         MMU 0,BANK_IMAGE_HILARY + 6, 0x0000
-        incbin "assets/hilary/hilary_6.nxi"
+        incbin "assets/Christmas/f/62_6.nxi"
         MMU 0,BANK_IMAGE_HILARY + 7, 0x0000
-        incbin "assets/hilary/hilary_7.nxi"
+        incbin "assets/Christmas/f/62_7.nxi"
         MMU 0,BANK_IMAGE_HILARY + 8, 0x0000
-        incbin "assets/hilary/hilary_8.nxi"
+        incbin "assets/Christmas/f/62_8.nxi"
         MMU 0,BANK_IMAGE_HILARY + 9, 0x0000
-        incbin "assets/hilary/hilary_9.nxi"
+        incbin "assets/Christmas/f/62_9.nxi"
 
         MMU 0,BANK_IMAGE_MICHAELMAS, 0x0000
-        incbin "assets/michaelmas/michaelmas_0.nxi"
+        incbin "assets/Christmas/e/61_0.nxi"
         MMU 0,BANK_IMAGE_MICHAELMAS + 1, 0x0000
-        incbin "assets/michaelmas/michaelmas_1.nxi"
+        incbin "assets/Christmas/e/61_1.nxi"
         MMU 0,BANK_IMAGE_MICHAELMAS + 2, 0x0000
-        incbin "assets/michaelmas/michaelmas_2.nxi"
+        incbin "assets/Christmas/e/61_2.nxi"
         MMU 0,BANK_IMAGE_MICHAELMAS + 3, 0x0000
-        incbin "assets/michaelmas/michaelmas_3.nxi"
+        incbin "assets/Christmas/e/61_3.nxi"
         MMU 0,BANK_IMAGE_MICHAELMAS + 4, 0x0000
-        incbin "assets/michaelmas/michaelmas_4.nxi"
+        incbin "assets/Christmas/e/61_4.nxi"
         MMU 0,BANK_IMAGE_MICHAELMAS + 5, 0x0000
-        incbin "assets/michaelmas/michaelmas_5.nxi"
+        incbin "assets/Christmas/e/61_5.nxi"
         MMU 0,BANK_IMAGE_MICHAELMAS + 6, 0x0000
-        incbin "assets/michaelmas/michaelmas_6.nxi"
+        incbin "assets/Christmas/e/61_6.nxi"
         MMU 0,BANK_IMAGE_MICHAELMAS + 7, 0x0000
-        incbin "assets/michaelmas/michaelmas_7.nxi"
+        incbin "assets/Christmas/e/61_7.nxi"
         MMU 0,BANK_IMAGE_MICHAELMAS + 8, 0x0000
-        incbin "assets/michaelmas/michaelmas_8.nxi"
+        incbin "assets/Christmas/e/61_8.nxi"
         MMU 0,BANK_IMAGE_MICHAELMAS + 9, 0x0000
-        incbin "assets/michaelmas/michaelmas_9.nxi" 
+        incbin "assets/Christmas/e/61_9.nxi" 
 
         MMU 0,BANK_IMAGE_PROSPECTUS, 0x0000
-        incbin "assets/prospectus/prospectus_0.nxi"
+        incbin "assets/Christmas/a/57_0.nxi"
         MMU 0,BANK_IMAGE_PROSPECTUS + 1, 0x0000
-        incbin "assets/prospectus/prospectus_1.nxi"
+        incbin "assets/Christmas/a/57_1.nxi"
         MMU 0,BANK_IMAGE_PROSPECTUS + 2, 0x0000
-        incbin "assets/prospectus/prospectus_2.nxi"
+        incbin "assets/Christmas/a/57_2.nxi"
         MMU 0,BANK_IMAGE_PROSPECTUS + 3, 0x0000
-        incbin "assets/prospectus/prospectus_3.nxi"
+        incbin "assets/Christmas/a/57_3.nxi"
         MMU 0,BANK_IMAGE_PROSPECTUS + 4, 0x0000
-        incbin "assets/prospectus/prospectus_4.nxi"
+        incbin "assets/Christmas/a/57_4.nxi"
         MMU 0,BANK_IMAGE_PROSPECTUS + 5, 0x0000
-        incbin "assets/prospectus/prospectus_5.nxi"
+        incbin "assets/Christmas/a/57_5.nxi"
         MMU 0,BANK_IMAGE_PROSPECTUS + 6, 0x0000
-        incbin "assets/prospectus/prospectus_6.nxi"
+        incbin "assets/Christmas/a/57_6.nxi"
         MMU 0,BANK_IMAGE_PROSPECTUS + 7, 0x0000
-        incbin "assets/prospectus/prospectus_7.nxi"
+        incbin "assets/Christmas/a/57_7.nxi"
         MMU 0,BANK_IMAGE_PROSPECTUS + 8, 0x0000
-        incbin "assets/prospectus/prospectus_8.nxi"
+        incbin "assets/Christmas/a/57_8.nxi"
         MMU 0,BANK_IMAGE_PROSPECTUS + 9, 0x0000
-        incbin "assets/prospectus/prospectus_9.nxi"
+        incbin "assets/Christmas/a/57_9.nxi"
 
         MMU 0,BANK_IMAGE_ROUND, 0x0000
-        incbin "assets/round/round_0.nxi"
+        incbin "assets/Christmas/h/64_0.nxi"
         MMU 0,BANK_IMAGE_ROUND + 1, 0x0000
-        incbin "assets/round/round_1.nxi"
+        incbin "assets/Christmas/h/64_1.nxi"
         MMU 0,BANK_IMAGE_ROUND + 2, 0x0000
-        incbin "assets/round/round_2.nxi"
+        incbin "assets/Christmas/h/64_2.nxi"
         MMU 0,BANK_IMAGE_ROUND + 3, 0x0000
-        incbin "assets/round/round_3.nxi"
+        incbin "assets/Christmas/h/64_3.nxi"
         MMU 0,BANK_IMAGE_ROUND + 4, 0x0000
-        incbin "assets/round/round_4.nxi"
+        incbin "assets/Christmas/h/64_4.nxi"
         MMU 0,BANK_IMAGE_ROUND + 5, 0x0000
-        incbin "assets/round/round_5.nxi"
+        incbin "assets/Christmas/h/64_5.nxi"
         MMU 0,BANK_IMAGE_ROUND + 6, 0x0000
-        incbin "assets/round/round_6.nxi"
+        incbin "assets/Christmas/h/64_6.nxi"
         MMU 0,BANK_IMAGE_ROUND + 7, 0x0000
-        incbin "assets/round/round_7.nxi"
+        incbin "assets/Christmas/h/64_7.nxi"
         MMU 0,BANK_IMAGE_ROUND + 8, 0x0000
-        incbin "assets/round/round_8.nxi"
+        incbin "assets/Christmas/h/64_8.nxi"
         MMU 0,BANK_IMAGE_ROUND + 9, 0x0000
-        incbin "assets/round/round_9.nxi"
+        incbin "assets/Christmas/h/64_9.nxi"
 
         MMU 0,BANK_IMAGE_TRINITY, 0x0000
-        incbin "assets/trinity/trinity_0.nxi"
+        incbin "assets/Christmas/l/68_0.nxi"
         MMU 0,BANK_IMAGE_TRINITY + 1, 0x0000
-        incbin "assets/trinity/trinity_1.nxi"
+        incbin "assets/Christmas/l/68_1.nxi"
         MMU 0,BANK_IMAGE_TRINITY + 2, 0x0000
-        incbin "assets/trinity/trinity_2.nxi"
+        incbin "assets/Christmas/l/68_2.nxi"
         MMU 0,BANK_IMAGE_TRINITY + 3, 0x0000
-        incbin "assets/trinity/trinity_3.nxi"
+        incbin "assets/Christmas/l/68_3.nxi"
         MMU 0,BANK_IMAGE_TRINITY + 4, 0x0000
-        incbin "assets/trinity/trinity_4.nxi"
+        incbin "assets/Christmas/l/68_4.nxi"
         MMU 0,BANK_IMAGE_TRINITY + 5, 0x0000
-        incbin "assets/trinity/trinity_5.nxi"
+        incbin "assets/Christmas/l/68_5.nxi"
         MMU 0,BANK_IMAGE_TRINITY + 6, 0x0000
-        incbin "assets/trinity/trinity_6.nxi"
+        incbin "assets/Christmas/l/68_6.nxi"
         MMU 0,BANK_IMAGE_TRINITY + 7, 0x0000
-        incbin "assets/trinity/trinity_7.nxi"
+        incbin "assets/Christmas/l/68_7.nxi"
         MMU 0,BANK_IMAGE_TRINITY + 8, 0x0000
-        incbin "assets/trinity/trinity_8.nxi"
+        incbin "assets/Christmas/l/68_8.nxi"
         MMU 0,BANK_IMAGE_TRINITY + 9, 0x0000
-        incbin "assets/trinity/trinity_9.nxi"
+        incbin "assets/Christmas/l/68_9.nxi"
 
         MMU 0,BANK_IMAGE_WIN, 0x0000
-        incbin "assets/win/win_0.nxi"
+        incbin "assets/Christmas/k/67_0.nxi"
         MMU 0,BANK_IMAGE_WIN + 1, 0x0000
-        incbin "assets/win/win_1.nxi"
+        incbin "assets/Christmas/k/67_1.nxi"
         MMU 0,BANK_IMAGE_WIN + 2, 0x0000
-        incbin "assets/win/win_2.nxi"
+        incbin "assets/Christmas/k/67_2.nxi"
         MMU 0,BANK_IMAGE_WIN + 3, 0x0000
-        incbin "assets/win/win_3.nxi"
+        incbin "assets/Christmas/k/67_3.nxi"
         MMU 0,BANK_IMAGE_WIN + 4, 0x0000
-        incbin "assets/win/win_4.nxi"
+        incbin "assets/Christmas/k/67_4.nxi"
         MMU 0,BANK_IMAGE_WIN + 5, 0x0000
-        incbin "assets/win/win_5.nxi"
+        incbin "assets/Christmas/k/67_5.nxi"
         MMU 0,BANK_IMAGE_WIN + 6, 0x0000
-        incbin "assets/win/win_6.nxi"
+        incbin "assets/Christmas/k/67_6.nxi"
         MMU 0,BANK_IMAGE_WIN + 7, 0x0000
-        incbin "assets/win/win_7.nxi"
+        incbin "assets/Christmas/k/67_7.nxi"
         MMU 0,BANK_IMAGE_WIN + 8, 0x0000
-        incbin "assets/win/win_8.nxi"
+        incbin "assets/Christmas/k/67_8.nxi"
         MMU 0,BANK_IMAGE_WIN + 9, 0x0000
-        incbin "assets/win/win_9.nxi"
+        incbin "assets/Christmas/k/67_9.nxi"
+
+        MMU 0,BANK_IMAGE_STORY, 0x0000
+        incbin "assets/Christmas/n/70_0.nxi"
+        MMU 0,BANK_IMAGE_STORY + 1, 0x0000
+        incbin "assets/Christmas/n/70_1.nxi"
+        MMU 0,BANK_IMAGE_STORY + 2, 0x0000
+        incbin "assets/Christmas/n/70_2.nxi"
+        MMU 0,BANK_IMAGE_STORY + 3, 0x0000
+        incbin "assets/Christmas/n/70_3.nxi"
+        MMU 0,BANK_IMAGE_STORY + 4, 0x0000
+        incbin "assets/Christmas/n/70_4.nxi"
+        MMU 0,BANK_IMAGE_STORY + 5, 0x0000
+        incbin "assets/Christmas/n/70_5.nxi"
+        MMU 0,BANK_IMAGE_STORY + 6, 0x0000
+        incbin "assets/Christmas/n/70_6.nxi"
+        MMU 0,BANK_IMAGE_STORY + 7, 0x0000
+        incbin "assets/Christmas/n/70_7.nxi"
+        MMU 0,BANK_IMAGE_STORY + 8, 0x0000
+        incbin "assets/Christmas/n/70_8.nxi"
+        MMU 0,BANK_IMAGE_STORY + 9, 0x0000
+        incbin "assets/Christmas/n/70_9.nxi"
+
     ENDIF
 
     SAVENEX OPEN "main.nex", main, stack_top, 0
