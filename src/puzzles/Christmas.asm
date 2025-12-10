@@ -169,7 +169,7 @@ p31: db "1980'S ON THE BOX",0
     db "ONLY FOOLS\nAND HORSES",0
 
 p32: db "BOXING DAY",0
-    db "HANG OVER",0
+    db "HANGOVER",0
     db "FOOTBALL\nMATCH",0
     db "TURKEY\nSANDWICHES",0
 
