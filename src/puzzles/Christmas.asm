@@ -131,7 +131,7 @@ p23: db "70/80'S UNDER THE TREE",0
 p24: db "NAFF GIFTS",0
     db "OLD SPICE",0
     db "SOAP ON\nA ROPE",0
-    db "SOCKS AND\nPANTS",0
+    db "FERRERO\nROCHER",0
 
 p25: db "CHRISTMAS FILMS?",0
     db "DIE HARD",0
