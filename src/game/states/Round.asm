@@ -11,8 +11,8 @@
 @GS_ROUND: 
     stateStruct enter,update
 
-TITLE_Y         equ 30
-TITLE_Y2        equ 50
+TITLE_Y         equ 20
+TITLE_Y2        equ 40
 REROLL_X        equ 220
 REROLL_Y        equ 172
 TOOL_TIP_Y      equ 25
@@ -48,7 +48,6 @@ enter:
     ld b, 30 : ld c, 50 : call Visibility.add
     ld b, 31 : ld c, 54 : call Visibility.add
     ld b, 32 : ld c, 58 : call Visibility.add
-    ld b, 33 : ld c, 62 : call Visibility.add
     call Visibility.start
     call Sound.playSolvedMusic
 
@@ -172,44 +171,45 @@ printText:
     call Tilemap.clear
 
     ; College
-    ld e, 10
+    ld e, 8
     call College.getCollegeName
     ld b,Tilemap.GOLD
     call Print.printCentred
 
+    ; Get ready
+    ld e, 17
+    ld hl,getReady
+    ld b,Tilemap.DARK_YELLOW
+    call Print.printCentred
+
     ; Year 
-    ld e, 15
+    ld e, 20
     call YearTerm.getYearName
-    ld b,Tilemap.YELLOW
+    ld b,Tilemap.DARK_GREEN
     call Print.printCentred
 
     ; Starting Time
     call RoundVM.printStartingTime
     ld hl, Print.buffer
-    ld e, 17
-    ld b,Tilemap.TEAL
-    call Print.printCentred
-
     ld e, 22
-    ld a, (Puzzles.category)
-    call Puzzles.categoryToString
-    ld b,Tilemap.RED
+    ld b,Tilemap.GREEN
     call Print.printCentred
-
 
     ; Click to continue
     ld e, 29
     ld hl,startInstruction
-    ld b,Tilemap.GREEN
+    ld b,Tilemap.RED
     call Print.printCentred
     ret
 
+getReady:
+    db "- GET READY FOR THE NEXT YEAR -",0
 
 startInstruction:
     db "CLICK TO START THE NEW YEAR",0
 
 spriteData:
-    db 14
+    db 13
     ; id, x, y, palette, pattern, gameId, flags
     ; Mouse
     spriteItem 0,160,128,0,0 | SPRITE_VISIBILITY_MASK,0,0
@@ -227,8 +227,6 @@ spriteData:
     spriteItem 10,150,TITLE_Y2,0,'T'-Tile.ASCII_PATTERN_OFFSET,30,0
     spriteItem 11,170,TITLE_Y2,0,'E'-Tile.ASCII_PATTERN_OFFSET,31,0
     spriteItem 12,190,TITLE_Y2,0,'S'-Tile.ASCII_PATTERN_OFFSET,32,0
-    ;Re-roll sprite
-    spriteItem 13, REROLL_X, REROLL_Y, 0, Sprites.REROLL | SPRITE_VISIBILITY_MASK, REROLL_BUTTON, MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_CLICKABLE
 
 spriteLen: equ $ - spriteData
 
