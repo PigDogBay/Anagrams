@@ -301,17 +301,23 @@ getShortYearName:
 ; 
 ;-----------------------------------------------------------------------------------
 printToBuffer:
+    ld hl, .prefix
+    call Print.bufferPrint
+
     call YearTerm.getShortYearName
     call Print.bufferPrint
 
     ld hl, .delimiter
     call Print.bufferPrint
 
-    call YearTerm.getTermName
+    call YearTerm.getShortTermName
     call Print.bufferPrint
+
     ret
+.prefix:
+    db "YR ",0
 .delimiter:
-    db ". ",0
+    db " - TERM ",0
 
 ;-----------------------------------------------------------------------------------
 ; 

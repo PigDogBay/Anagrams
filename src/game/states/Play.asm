@@ -24,7 +24,6 @@ enter:
     ld hl, dragEnd
     ld (PlayMouse.dragEndCallback),hl
     call printShortYearTerm
-    call printCategory
     ret
 
 update:
@@ -106,17 +105,10 @@ printShortYearTerm:
     ;Print the buffer to the screen
     ld hl,Print.buffer
     ld e, 1
-    ld b,Tilemap.DARK_YELLOW
+    ld b,Tilemap.RED
     call Print.printCentred
     ret
 
-printCategory:
-    ld a, (Puzzles.category)
-    call Puzzles.categoryToString
-    ld e, 3
-    ld b,Tilemap.TEAL
-    call Print.printCentred
-    ret
 
 
 cheatCodeCheck:
