@@ -22,7 +22,7 @@ enter:
 update:
     ld a, College.CHRISTMAS_COLLEGE
     ld (College.college),a
-    ld hl, GS_ROUND
+    ld hl, GS_PUZZLE_VIEWER
     call GameStateMachine.change
     ret
 
