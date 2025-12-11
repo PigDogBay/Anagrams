@@ -22,7 +22,7 @@ enter:
 update:
     ld a, College.CHRISTMAS_COLLEGE
     ld (College.college),a
-    ld hl, GS_GAME_OVER
+    ld hl, GS_WIN
     call GameStateMachine.change
     ret
 

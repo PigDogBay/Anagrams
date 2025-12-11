@@ -88,11 +88,11 @@ printText:
 
 
     ; Click to exit
-    ld e, 29
-    ld hl,startInstruction
-    call Print.setCursorPosition
-    ld b,%00010000
-    call Print.printCentred
+    ; ld e, 29
+    ; ld hl,startInstruction
+    ; call Print.setCursorPosition
+    ; ld b,%00010000
+    ; call Print.printCentred
     ret
 
 ofText:
@@ -101,9 +101,9 @@ ofText:
 wellDoneText1:
     db "MOST EXCELLENT!",0
 wellDoneText2:
-    db "YOU HAVE ACHIEVED SCHOLARLY KNOWLEDGE",0
+    db "YOU ARE SANTA'S TOP ELF",0
 wellDoneText3:
-    db "GO FORTH AND SHAKE THE WORLD",0
+    db "MERRY CHRISTMAS!",0
 
 startInstruction:
     db "CLICK FOR GLORY",0
