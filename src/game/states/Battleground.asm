@@ -20,6 +20,8 @@ enter:
     ret
 
 update:
+    ld a, College.CHRISTMAS_COLLEGE
+    ld (College.college),a
     ld hl, GS_GAME_OVER
     call GameStateMachine.change
     ret

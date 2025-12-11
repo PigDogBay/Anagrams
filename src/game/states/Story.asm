@@ -63,6 +63,9 @@ update:
     jr storyStateUpdate
 
 .mousePressed:
+    ld a, College.CHRISTMAS_COLLEGE
+    ld (College.college),a
+
     call GamePhases.start
     ;Skip first round screen, so need to call roundStart here
     call GamePhases.roundStart
