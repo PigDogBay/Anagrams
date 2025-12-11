@@ -192,7 +192,7 @@ dear:
 para1Line1
     db "Congratulations! You have been",0
 para1Line2
-    db "enrolled into the University of Yule.",0
+    db "enrolled into Yule University.",0
 para1Line3
     db "We hope your  8  years here is an",0
 para1Line4
