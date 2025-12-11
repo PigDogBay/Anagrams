@@ -52,7 +52,11 @@ update:
     ret
 
 .mousePressed:
-    ; next state
+    call GamePhases.start
+    ;Skip first round screen, so need to call roundStart here
+    call GamePhases.roundStart
+    
+    STOP_ALL_ANIMATION
     TRANSITION_SCREEN GS_START, IMAGE_MICHAELMAS
     ret
 
@@ -118,12 +122,12 @@ para1Line1
 para1Line2
     db "enrolled into the University of Yule.",0
 para1Line3
-    db "We hope  your 8 years here is an",0
+    db "We hope your  8  years here is an",0
 para1Line4
     db "enlightening festive experience.",0
 
 para2Line1
-    db "Each year will have 3 terms that",0
+    db "Each year will have  3  terms that",0
 para2Line2
     db "will cover one particular aspect",0
 para2Line3
@@ -141,7 +145,7 @@ para3Line4
 from1:
     db "Yours Sincerely,",0
 from2:
-    db "Principal Kris Kringle",0
+    db "Professor Kris Kringle",0
 from3:
     db "Department of Christmasology",0
 
