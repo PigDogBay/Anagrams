@@ -282,8 +282,8 @@ tileToSprite:
     or SPRITE_VISIBILITY_MASK
     ld (ix + spriteItem.pattern),a
     ld (ix + spriteItem.palette),0
-    ;Tiles can be dragged
-    ld (ix + spriteItem.flags),MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_DRAGABLE
+    ;Tiles can be hovered, dragged and right clicked
+    ld (ix + spriteItem.flags),MouseDriver.MASK_HOVERABLE | MouseDriver.MASK_DRAGABLE | MouseDriver.MASK_RIGHT_CLICKABLE
       
     call Tile.rowColumnToPixel
     ret

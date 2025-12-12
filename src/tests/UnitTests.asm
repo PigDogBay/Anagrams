@@ -42,6 +42,7 @@ BANK_IMAGE_1_PALETTE:           equ 60
     include "animation/MoveSprites.asm"
     include "animation/Visibility.asm"
     include "animation/ClearText.asm"
+    include "animation/HoldPalette.asm"
     include "tests/utils/MockExceptions.asm"
     include "tests/Macros.asm"
 
