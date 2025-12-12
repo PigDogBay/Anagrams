@@ -290,7 +290,6 @@ UT_findByTile3:
     db "ACORN\nELECTRON",0
 
 
-
 ;-----------------------------------------------------------------------------------
 ;
 ; Function: isTileSlotted(uint8 tileId) -> bool
@@ -337,6 +336,65 @@ UT_isTileSlotted2:
 .data:
     db "ACORN\nELECTRON",0
 
+
+;
+;
+; Tests to find the first empty slot
+;
+;
+;
+
+;First slot is empty, checked the prepended new-line slot is ignored
+;[\n][A - first empty!][C][O][R][N][\n][E][L][E][C][T][R][O][N]
+UT_findFirstEmptySlot1:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    call Slot.findFirstEmptySlot
+    ;The first slot is a new-line which should be ignored
+    TEST_MEMORY_BYTE Slot.slotList + slotStruct * 1 + slotStruct.id, A
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+;Second available slot is empty
+;[\n][A - 99][C - first empty!][O][R][N][\n][E][L][E][C][T][R][O][N]
+UT_findFirstEmptySlot2:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld ix, Slot.slotList + slotStruct
+    ld (ix+slotStruct.tileId),99
+
+    call Slot.findFirstEmptySlot
+    TEST_MEMORY_BYTE Slot.slotList + slotStruct * 2 +slotStruct.id, A
+
+    TC_END
+.data:
+    db "ACORN\nELECTRON",0
+
+;No empty slots
+;[\n][A - 99] no empty slots
+UT_findFirstEmptySlot3:
+    call GameId.reset
+    call Slot.removeAll
+    ld hl,.data
+    call Slot.createSlots
+
+    ld ix, Slot.slotList + slotStruct
+    ld (ix+slotStruct.tileId),99
+
+    call Slot.findFirstEmptySlot
+    nop ; ASSERTION A == 0
+
+    TC_END
+.data:
+    db "A",0
 
 
     endmodule

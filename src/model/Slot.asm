@@ -98,6 +98,44 @@ find:
     ld hl,0
     ret
 
+;-----------------------------------------------------------------------------------
+;
+; Function: findFirstEmptySlot() -> uint8
+;
+; Finds the first unoccuppied slot
+;
+; In:    -
+; Out:   A - gameID of the first unoccuppied slot or 0 if not found
+;
+; Dirty: B,DE,HL,IX
+;
+;-----------------------------------------------------------------------------------
+findFirstEmptySlot:
+    ld hl,slotCount
+    ld b,(hl)
+    ; point to list
+    inc hl
+    ld ix,hl
+    ld de, slotStruct
+.next
+    ;ignore new line slots, id == 0
+    ld a, (ix+slotStruct.id)
+    or a
+    jr z, .continue
+    ;If .tileID == 0, then slot is empty
+    ld a, (ix+slotStruct.tileId)
+    or a
+    jr z, .found
+
+.continue:
+    add ix,de
+    djnz .next
+    ; no match found
+    ld a,0
+    ret
+.found:
+    ld a, (ix+slotStruct.id)
+    ret
 
 ;-----------------------------------------------------------------------------------
 ;
