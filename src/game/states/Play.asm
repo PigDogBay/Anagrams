@@ -23,6 +23,8 @@ enter:
     ;Set up callback when drag ends
     ld hl, dragEnd
     ld (PlayMouse.dragEndCallback),hl
+    ld hl, rightClickHandler
+    ld (PlayMouse.rightClickCallback),hl
     call printShortYearTerm
     call printCategory
     ret
@@ -86,6 +88,9 @@ dragEnd:
     ld a,c
     ld hl,HOLD_PALETTE_TIME
     call HoldPalette.start
+    ret
+
+rightClickHandler:
     ret
 
 
