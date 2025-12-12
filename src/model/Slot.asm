@@ -106,8 +106,9 @@ find:
 ;
 ; In:    -
 ; Out:   A - gameID of the first unoccuppied slot or 0 if not found
+; Out:   IY - ptr to slot's struct, null if not found
 ;
-; Dirty: B,DE,HL,IX
+; Dirty: B,DE,HL,IY
 ;
 ;-----------------------------------------------------------------------------------
 findFirstEmptySlot:
@@ -115,26 +116,27 @@ findFirstEmptySlot:
     ld b,(hl)
     ; point to list
     inc hl
-    ld ix,hl
+    ld iy,hl
     ld de, slotStruct
 .next
     ;ignore new line slots, id == 0
-    ld a, (ix+slotStruct.id)
+    ld a, (iy+slotStruct.id)
     or a
     jr z, .continue
     ;If .tileID == 0, then slot is empty
-    ld a, (ix+slotStruct.tileId)
+    ld a, (iy+slotStruct.tileId)
     or a
     jr z, .found
 
 .continue:
-    add ix,de
+    add iy,de
     djnz .next
     ; no match found
+    ld iy,0
     ld a,0
     ret
 .found:
-    ld a, (ix+slotStruct.id)
+    ld a, (iy+slotStruct.id)
     ret
 
 ;-----------------------------------------------------------------------------------
