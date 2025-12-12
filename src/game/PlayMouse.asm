@@ -21,7 +21,9 @@ jumpTable:
     dw stateMouseHover
     dw stateMouseHoverEnd
     dw stateMousePressed
+    dw stateMousePressedRight
     dw stateMouseClicked
+    dw stateMouseClickedRight
     dw stateMouseDragStart
     dw stateMouseDrag
     dw stateMouseDragOutOfBounds
@@ -100,6 +102,7 @@ stateMouseHoverEnd:
     call Print.clearLine
     ret
 stateMousePressed:
+stateMousePressedRight:
     ld (ix + spriteItem.palette),Sprites.PALETTE_CLICKED
     ld e, TOOL_TIP_LINE1
     call Print.clearLine
@@ -154,6 +157,8 @@ stateMouseClicked:
     call GameStateMachine.change
     ret
 
+stateMouseClickedRight:
+    ret
 
 stateMouseDragStart:
     ld (ix + spriteItem.palette),Sprites.PALETTE_DRAGGED

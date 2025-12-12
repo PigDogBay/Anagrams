@@ -17,6 +17,8 @@ MOUSE_PORT_X:                    equ $FBDF
 MOUSE_PORT_Y:                    equ $FFDF
 MOUSE_MAX_X:                     equ 310
 MOUSE_MAX_Y:                     equ 247
+MOUSE_LEFT_BUTTON_BIT            equ 1
+MOUSE_RIGHT_BUTTON_BIT           equ 0
 
 DRAG_BOUNDS_X_MIN:               equ 16
 DRAG_BOUNDS_X_MAX:               equ 319 - 16
@@ -27,22 +29,26 @@ STATE_READY:                     equ 0
 STATE_HOVER:                     equ 1
 STATE_HOVER_END:                 equ 2
 STATE_PRESSED:                   equ 3
-STATE_CLICKED:                   equ 4
-STATE_DRAG_START                 equ 5
-STATE_DRAG:                      equ 6
-STATE_DRAG_OUT_OF_BOUNDS:        equ 7
-STATE_DRAG_END:                  equ 8
-STATE_CLICKED_OFF:               equ 9
-STATE_BACKGROUND_PRESSED:        equ 10
-STATE_BACKGROUND_CLICKED:        equ 11
+STATE_PRESSED_RIGHT:             equ 4
+STATE_CLICKED:                   equ 5
+STATE_CLICKED_RIGHT:             equ 6
+STATE_DRAG_START                 equ 7
+STATE_DRAG:                      equ 8
+STATE_DRAG_OUT_OF_BOUNDS:        equ 9
+STATE_DRAG_END:                  equ 10
+STATE_CLICKED_OFF:               equ 11
+STATE_BACKGROUND_PRESSED:        equ 12
+STATE_BACKGROUND_CLICKED:        equ 13
 
-MOUSE_FLAGS_MASK:                equ %00000111
+MOUSE_FLAGS_MASK:                equ %00001111
 MASK_HOVERABLE:                  equ %00000001
 MASK_DRAGABLE:                   equ %00000010
 MASK_CLICKABLE:                  equ %00000100
+MASK_RIGHT_CLICKABLE:            equ %00001000
 BIT_HOVERABLE:                   equ 0
 BIT_DRAGABLE:                    equ 1
 BIT_CLICKABLE:                   equ 2
+BIT_RIGHT_CLICKABLE:             equ 3
 
 JOYSTICK_FIRE_PRESSED            equ %00000010
 JOYSTICK_NOT_PRESSED             equ %00000000
@@ -52,7 +58,9 @@ stateJumpTable:
     dw stateHover
     dw stateHoverEnd
     dw statePressed
+    dw statePressedRight
     dw stateClicked
+    dw stateClickedRight
     dw stateDragStart
     dw stateDrag
     dw stateDragOutOfBounds
@@ -267,6 +275,7 @@ dragOutOfBounds:
 ; Of clicking and dragging
 ; 
 ; In - A: Interaction Flags
+;       bit 3: Right Clickable - sprite can be clicked on using the right mouse button
 ;       bit 2: Clickable - sprite can be clicked
 ;       bit 1: Draggable - sprite can be dragged
 ;       bit 0: Hoverable - sprite will react if pointer is hovering over it 
@@ -302,7 +311,7 @@ stateReady:
     jr nz, .hoverAndPressedCheck
     ; Not hovering, but check if pressed
     ld a,(MouseDriver.buttons)
-    bit 1,a
+    bit MOUSE_LEFT_BUTTON_BIT,a
     jr nz, .exit
     ; button pressed, but not over any sprite
     ld a, STATE_BACKGROUND_PRESSED
@@ -329,9 +338,25 @@ stateHover:
 
     ;If mouse is not pressed, stay in the hover state
     ld a,(MouseDriver.buttons)
-    bit 1,a
+    bit MOUSE_LEFT_BUTTON_BIT,a
+    jr z, .dragCheck
+
+    ;Check for right click
+    bit MOUSE_RIGHT_BUTTON_BIT,a
     ld a, STATE_HOVER
     jr nz, .exit
+    ;Right mouse button pressed, is this action enabled? If so go to PRESSED_RIGHT
+    bit BIT_RIGHT_CLICKABLE,b
+    ret z
+    ;Store id of the sprite being right-pressed
+    ld a,c
+    ld (pressedId),a
+    ld a, STATE_PRESSED_RIGHT
+    ld (state),a
+    ret
+
+
+.dragCheck:
     ; Mouse clicked onto a sprite, check if can be dragged
     ld a, STATE_DRAG_START
     bit BIT_DRAGABLE,b
@@ -418,7 +443,7 @@ stateDragOutOfBounds:
 
 statePressed:
     ld a,(MouseDriver.buttons)
-    bit 1,a
+    bit MOUSE_LEFT_BUTTON_BIT,a
     jr z, .exit
     ; No longer pressed
     ; Does pressId match Id
@@ -433,18 +458,35 @@ statePressed:
 .exit:
     ret
 
+statePressedRight:
+    ld a,(MouseDriver.buttons)
+    bit MOUSE_RIGHT_BUTTON_BIT,a
+    jr z, .exit
+    ; No longer pressed
+    ; Does pressId match Id
+    ld a,(pressedId)
+    cp c
+    ld a, STATE_CLICKED_OFF
+    jr nz, .clickedOff
+
+    ld a, STATE_CLICKED_RIGHT
+.clickedOff:
+    ld (state),a
+.exit:
+    ret
+
 
 ;
 ; Call mouseOver to see which sprite has been clicked
 ;
 stateClicked:
+stateClickedRight:
     ; clear pressedId
     xor a
     ld (pressedId),a
     ld a, STATE_READY
     ld (state),a
     ret
-
 
 ; 
 ; The user has stopped dragging a sprite, so go back to the ready state
