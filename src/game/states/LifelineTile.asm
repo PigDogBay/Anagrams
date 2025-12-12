@@ -51,7 +51,9 @@ jumpTable:
     dw stateMouseHover
     dw stateMouseHoverEnd
     dw stateMousePressed
+    dw stateMousePressedRight
     dw stateMouseClicked
+    dw stateMouseClickedRight
     dw stateMouseDragStart
     dw stateMouseDrag
     dw stateMouseDragOutOfBounds
@@ -82,6 +84,8 @@ stateMouseReady:
 stateMouseHover:
 stateMouseHoverEnd:
 stateMousePressed:
+stateMousePressedRight:
+stateMouseClickedRight:
 stateMouseDrag:
 stateMouseDragOutOfBounds:
 stateMouseDragEnd:
