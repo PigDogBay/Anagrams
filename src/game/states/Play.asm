@@ -64,6 +64,7 @@ dragEnd:
     or a
     ret z
 
+.placeTile:
     ;if slot is occupied bounce tile downwards
     call Board.placeTile
     or a
@@ -90,8 +91,16 @@ dragEnd:
     call HoldPalette.start
     ret
 
+;Handles the right click callbacks from PlayMouse
+;
+; In: IX - dragged Tile Sprite 
+;      C - GameID
 rightClickHandler:
-    ret
+    ; get first empty slot in IY
+    call Slot.findFirstEmptySlot
+    call SpriteList.find
+    ld iy,hl
+    jr dragEnd.placeTile
 
 
 
