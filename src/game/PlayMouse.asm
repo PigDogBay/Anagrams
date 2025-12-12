@@ -158,6 +158,11 @@ stateMouseClicked:
     ret
 
 stateMouseClickedRight:
+    ;Update mouse pointer pattern
+    ld a, 0 | SPRITE_VISIBILITY_MASK
+    ld (SpriteList.list + spriteItem.pattern),a
+    ld hl, (rightClickCallback)
+    jp (hl)
     ret
 
 stateMouseDragStart:
@@ -296,6 +301,10 @@ nullDragEndCallback:
 
 dragEndCallback:
     dw nullDragEndCallback
+
+rightClickCallback:
+    dw nullDragEndCallback
+
 
 disableHintsCount:
     db 0
