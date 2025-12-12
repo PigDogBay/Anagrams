@@ -391,6 +391,7 @@ UT_findFirstEmptySlot3:
 
     call Slot.findFirstEmptySlot
     nop ; ASSERTION A == 0
+    nop ; ASSERTION IY == 0
 
     TC_END
 .data:
