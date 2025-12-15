@@ -51,6 +51,7 @@ BIT_CLICKABLE:                   equ 2
 BIT_RIGHT_CLICKABLE:             equ 3
 
 JOYSTICK_FIRE_PRESSED            equ %00000010
+JOYSTICK_FIRE2_PRESSED           equ %00000001
 JOYSTICK_NOT_PRESSED             equ %00000000
 
 stateJumpTable:
