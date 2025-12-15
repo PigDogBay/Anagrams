@@ -11,6 +11,9 @@
 
 ; Kempston port 1
 ; Bit set = pressed
+; Bit 5 = C button
+; Bit 6 = A button
+; Bit 7 = Start button
 JOY_PORT_F_U_D_L_R               equ $1f
 KEMPSTON_MASK                    equ $20
 
@@ -32,6 +35,11 @@ update:
     ld a,b ;Restore A
     bit 4,a
     ld a,MouseDriver.JOYSTICK_FIRE_PRESSED
+    jr nz, .firePressed
+    ld a,b ;Restore A
+    ;Fire button 2 (C) is same as right mouse button
+    bit 5,a
+    ld a,MouseDriver.JOYSTICK_FIRE2_PRESSED
     jr nz, .firePressed
     ld a,MouseDriver.JOYSTICK_NOT_PRESSED
 .firePressed
