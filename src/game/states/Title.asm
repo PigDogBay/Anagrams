@@ -8,7 +8,7 @@
 
     module GameState_Title
 
-MESSAGES_COUNT                          equ 6
+MESSAGES_COUNT                          equ 7
 COPYRIGHT_CHAR                          equ 127
 
 TITLE_STATE_START:                      equ 0
@@ -193,12 +193,12 @@ titleMoveTiles:
     ld (titleState),a
 
     call getText1
-    ld b,Tilemap.RED
+    ld b,Tilemap.YELLOW
     ld e, 16
     call Print.printCentred
 
     call getText2
-    ld b,Tilemap.YELLOW
+    ld b,Tilemap.RED
     ld e, 18
     call Print.printCentred
 
@@ -266,19 +266,23 @@ textTable:
     dw text4A, text4B
     dw text5A, text5B
     dw text6A, text6B
+    dw text7A, text7B
 
 text1A db "CHRISTMAS EDITION",0
 text1B db "BY PIG DOG BAY",0
-text2A db "MUSIC CREATED USING",0
-text2B db "NEXTDAW BY G BIASILLO",0
-text3A db "FONTS BY",0
-text3B db "DAMIEN GUARD",0
-text4A db VERSION,0
-text4B db COPYRIGHT_CHAR," MPD BAILEY TECHNOLOGY",0
-text5A db "MERRY",0
-text5B db "CHRISTMAS",0
-text6A db "HAPPY",0
-text6B db "NEW YEAR",0
+text2A db "GRAPHICS BY",0
+text2B db "OWD CHRISTMAS CARDS",0
+text3A db "MUSIC BY",0
+text3B db "TATTY PIANO SONGBOOK",0
+
+text4A db "MUSIC CREATED USING",0
+text4B db "NEXTDAW BY G BIASILLO",0
+text5A db "FONTS BY",0
+text5B db "DAMIEN GUARD",0
+text6A db VERSION,0
+text6B db COPYRIGHT_CHAR," MPD BAILEY TECHNOLOGY",0
+text7A db "MERRY",0
+text7B db "CHRISTMAS",0
 
 textIndex: db 0
 
