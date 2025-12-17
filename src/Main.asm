@@ -80,8 +80,8 @@ IMAGE_STORY                equ BANK_IMAGE_TITLE
     include "hardware/Print.asm"
     include "hardware/Keyboard.asm"
     include "hardware/Joystick.asm"
-    ;include "hardware/NextDAW.asm"
-    include "hardware/DummyNextDAW.asm"
+    include "hardware/NextDAW.asm"
+    ;include "hardware/DummyNextDAW.asm"
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
     include "model/Puzzles.asm"
@@ -261,7 +261,7 @@ stack_top:
     MMU 0, BANK_SOUND_EFFECTS, 0x0000
     incbin "assets/sound/SFX.NFX"
     MMU 0 1, BANK_SOUND_TRACK1, 0x0000
-    incbin "assets/sound/GrangeHill.NDR"
+    incbin "assets/Christmas/music/JingleBells.NDR"
     MMU 0 1, BANK_SOUND_TRACK2, 0x0000
     incbin "assets/sound/OdeToJoy.NDR"
     MMU 0 1, BANK_SOUND_TRACK3, 0x0000
