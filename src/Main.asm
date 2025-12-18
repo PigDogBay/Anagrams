@@ -339,25 +339,25 @@ stack_top:
         incbin "assets/Christmas/j/66_9.nxi"
 
         MMU 0,BANK_IMAGE_HILARY, 0x0000
-        incbin "assets/Christmas/g/63_0.nxi"
+        incbin "assets/Christmas/g/63dark_0.nxi"
         MMU 0,BANK_IMAGE_HILARY + 1, 0x0000
-        incbin "assets/Christmas/g/63_1.nxi"
+        incbin "assets/Christmas/g/63dark_1.nxi"
         MMU 0,BANK_IMAGE_HILARY + 2, 0x0000
-        incbin "assets/Christmas/g/63_2.nxi"
+        incbin "assets/Christmas/g/63dark_2.nxi"
         MMU 0,BANK_IMAGE_HILARY + 3, 0x0000
-        incbin "assets/Christmas/g/63_3.nxi"
+        incbin "assets/Christmas/g/63dark_3.nxi"
         MMU 0,BANK_IMAGE_HILARY + 4, 0x0000
-        incbin "assets/Christmas/g/63_4.nxi"
+        incbin "assets/Christmas/g/63dark_4.nxi"
         MMU 0,BANK_IMAGE_HILARY + 5, 0x0000
-        incbin "assets/Christmas/g/63_5.nxi"
+        incbin "assets/Christmas/g/63dark_5.nxi"
         MMU 0,BANK_IMAGE_HILARY + 6, 0x0000
-        incbin "assets/Christmas/g/63_6.nxi"
+        incbin "assets/Christmas/g/63dark_6.nxi"
         MMU 0,BANK_IMAGE_HILARY + 7, 0x0000
-        incbin "assets/Christmas/g/63_7.nxi"
+        incbin "assets/Christmas/g/63dark_7.nxi"
         MMU 0,BANK_IMAGE_HILARY + 8, 0x0000
-        incbin "assets/Christmas/g/63_8.nxi"
+        incbin "assets/Christmas/g/63dark_8.nxi"
         MMU 0,BANK_IMAGE_HILARY + 9, 0x0000
-        incbin "assets/Christmas/g/63_9.nxi"
+        incbin "assets/Christmas/g/63dark_9.nxi"
 
         MMU 0,BANK_IMAGE_MICHAELMAS, 0x0000
         incbin "assets/Christmas/e/61_0.nxi"
