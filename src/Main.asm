@@ -26,6 +26,7 @@ BANK_SOUND_TRACK2               equ 56
 BANK_SOUND_TRACK3               equ 58
 BANK_SOUND_TRACK4               equ 60
 BANK_SOUND_TRACK5               equ 62
+BANK_SOUND_TRACK6               equ 64
 
 BANK_IMAGE_PALETTE:             equ 69
 BANK_IMAGE_TITLE                equ 70
@@ -263,13 +264,15 @@ stack_top:
     MMU 0 1, BANK_SOUND_TRACK1, 0x0000
     incbin "assets/Christmas/music/JingleBells.NDR"
     MMU 0 1, BANK_SOUND_TRACK2, 0x0000
-    incbin "assets/sound/OdeToJoy.NDR"
+    incbin "assets/Christmas/music/Away.NDR"
     MMU 0 1, BANK_SOUND_TRACK3, 0x0000
-    incbin "assets/sound/AirOn.NDR"
+    incbin "assets/Christmas/music/JollyOld.NDR"
     MMU 0 1, BANK_SOUND_TRACK4, 0x0000
-    incbin "assets/sound/Boat.NDR"
+    incbin "assets/Christmas/music/OTree.NDR"
     MMU 0 1, BANK_SOUND_TRACK5, 0x0000
-    incbin "assets/sound/No21-2nd.NDR"
+    incbin "assets/Christmas/music/Silent.NDR"
+    MMU 0 1, BANK_SOUND_TRACK6, 0x0000
+    incbin "assets/Christmas/music/WeWish.NDR"
 
 
     MMU 0,BANK_PUZZLES_START + CAT_FRESHERS, 0x0000

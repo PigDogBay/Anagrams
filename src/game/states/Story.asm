@@ -51,6 +51,7 @@ enter:
 
     call Sound.playWinMusic
     call Tilemap.clear
+    call Sound.playStoryMusic
     ret
 
 
