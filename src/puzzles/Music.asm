@@ -190,7 +190,7 @@ p36: db "GUNS N ROSES",0
     db "SWEET\nCHILD\nO MINE",0
     db "WELCOME\nTO THE\nJUNGLE",0
 
-p37: db "LED ZEPPLIN SONGS",0
+p37: db "LED ZEPPELIN SONGS",0
     db "WHOLE\nLOTTA\nLOVE",0
     db "IMMIGRANT\nSONG",0
     db "DAZED AND\nCONFUSED",0
@@ -206,7 +206,7 @@ p39: db "70'S ROCKERS",0
     db "DAVID\nGILMOUR",0
 
 p40: db "70'S ROCK BANDS",0
-    db "LED\nZEPPLIN",0
+    db "LED\nZEPPELIN",0
     db "STEELY\nDAN",0
     db "LYNYRD\nSKYNYRD",0
 

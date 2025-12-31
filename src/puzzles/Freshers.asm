@@ -245,7 +245,7 @@ p46: db "SINGERS",0
     db "PRINCE",0
     db "MADONNA",0
 
-p47: db "KITCHIN APPLIANCES",0
+p47: db "KITCHEN APPLIANCES",0
     db "FREEZER",0
     db "TOASTER",0
     db "AIR FRYER",0
