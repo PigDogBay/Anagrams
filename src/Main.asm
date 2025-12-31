@@ -3,7 +3,7 @@
     DEFINE BUILD_2MB
 ;    DEFINE DEBUG_MODE
 
-    DEFINE VERSION "v1.03"
+    DEFINE VERSION "v1.04"
 
     ORG 0x8000
 
@@ -77,8 +77,8 @@ IMAGE_WIN                  equ BANK_IMAGE_TITLE
     include "hardware/Print.asm"
     include "hardware/Keyboard.asm"
     include "hardware/Joystick.asm"
-    include "hardware/NextDAW.asm"
-    ;include "hardware/DummyNextDAW.asm"
+    ;include "hardware/NextDAW.asm"
+    include "hardware/DummyNextDAW.asm"
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
     include "model/Puzzles.asm"
