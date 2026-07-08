@@ -77,8 +77,8 @@ IMAGE_WIN                  equ BANK_IMAGE_TITLE
     include "hardware/Print.asm"
     include "hardware/Keyboard.asm"
     include "hardware/Joystick.asm"
-    ;include "hardware/NextDAW.asm"
-    include "hardware/DummyNextDAW.asm"
+    include "hardware/NextDAW.asm"
+    ;include "hardware/DummyNextDAW.asm"
     include "model/SpriteList.asm"
     include "model/Mouse.asm"
     include "model/Puzzles.asm"
@@ -282,6 +282,8 @@ stack_top:
     include "puzzles/GamesTech.asm"
     MMU 0,BANK_PUZZLES_START + CAT_HISTORY, 0x0000
     include "puzzles/History.asm"
+    MMU 0,BANK_PUZZLES_START + CAT_PPE, 0x0000
+    include "puzzles/PPE.asm"
 
     MMU 0,BANK_IMAGE_TITLE, 0x0000
     incbin "assets/title/title_0.nxi"

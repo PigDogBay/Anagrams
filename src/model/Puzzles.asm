@@ -17,7 +17,7 @@
     module Puzzles
 
 PUZZLE_COUNT        equ 50
-CAT_COUNT           equ 7
+CAT_COUNT           equ 8
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -214,7 +214,7 @@ copyPuzzleStrings:
 @CAT_SCIENCE:        equ 4
 @CAT_GAMES:          equ 5
 @CAT_HISTORY:        equ 6
-@CAT_PEOPLE:         equ 7
+@CAT_PPE:            equ 7
 @CAT_CULTURE:        equ 8
 @CAT_FOOD:           equ 9
 
@@ -227,7 +227,7 @@ catStringJumpTable:
     dw catScienceStr
     dw catGamesStr
     dw catHistoryStr
-    dw catPeopleStr
+    dw catPPEStr
     dw catCultureStr
     dw catFoodStr
 
@@ -235,7 +235,7 @@ catFreshers: db "FRESHERS",0
 catMusicStr: db "MUSIC",0
 catFilmTvStr: db "FILM & TV",0
 catGamesStr: db "GAMES & TECH",0
-catPeopleStr: db "PEOPLE",0
+catPPEStr: db "PPE",0
 catCultureStr: db "CULTURE",0
 catWorldStr: db "WORLD",0
 catHistoryStr: db "HISTORY",0

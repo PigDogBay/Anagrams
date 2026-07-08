@@ -11,7 +11,7 @@
     module GameState_PuzzleViewer
 
 
-CATEGORY_TO_VIEW:   equ CAT_HISTORY
+CATEGORY_TO_VIEW:   equ CAT_PPE
 
 
 @GS_PUZZLE_VIEWER: 

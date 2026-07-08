@@ -18,249 +18,249 @@ p1: db "BUSINESS ORGANISATION TYPES",0
     db "CORPORATION",0
     db "CONGLOMERATE",0
 
-p2: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p2: db "WARMONGERS",0
+    db "VLADIMIR\nPUTIN",0
+    db "DONALD\nJ TRUMP",0
+    db "BENJAMIN\nNETANYAHU",0
 
-p3: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p3: db "ECONOMIC BUBBLES",0
+    db "DOTCOM\nBUBBLE",0
+    db "TULIP\nMANIA",0
+    db "ARTIFICIAL\nINTELLIGENCE",0
 
-p4: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p4: db "TRUMPISMS?",0
+    db "TRADE\nTARIFFS",0
+    db "REGIME\nCHANGE",0
+    db "KLEPTOCRACY",0
 
-p5: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p5: db "ANCIENT GREEK PHILOSOPHY",0
+    db "ETHICS",0
+    db "RHETORIC",0
+    db "AESTHETICS",0
 
-p6: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p6: db "CURRENCY NICKNAMES",0
+    db "BUCK",0
+    db "CABLE",0
+    db "LOONIE",0
 
-p7: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p7: db "BREXIT MEANS BREXIT?",0
+    db "TRADE\nBARRIERS",0
+    db "IMMIGRATION",0
+    db "BUREAUCRACY",0
 
-p8: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p8: db "ANCIENT GREEK PHILOSOPHERS",0
+    db "PLATO",0
+    db "SOCRATES",0
+    db "ARISTOTLE",0
 
-p9: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p9: db "EXISTENTIALISTS",0
+    db "ALBERT\nCAMUS",0
+    db "JEAN PAUL\nSARTRE",0
+    db "FRIEDRICH\nNIETZSCHE",0
 
-p10: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p10: db "BRANCHES OF PHILOSOPHY",0
+    db "LOGIC",0
+    db "METAPHYSICS",0
+    db "EPISTEMOLOGY",0
 
-p11: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p11: db "FAMOUS PHILOSOPHICAL BOOKS",0
+    db "THE\nREPUBLIC",0
+    db "LEVIATHAN",0
+    db "BEYOND GOOD\nAND EVIL",0
 
-p12: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p12: db "PHILOSOPHICAL CONCEPTS",0
+    db "FREE WILL",0
+    db "DUALISM",0
+    db "DETERMINISM",0
 
-p13: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p13: db "EASTERN PHILOSOPHICAL CONCEPTS",0
+    db "KARMA",0
+    db "NIRVANA",0
+    db "YIN AND\nYANG",0
 
-p14: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p14: db "POLITICAL PHILOSOPHERS",0
+    db "KARL MARX",0
+    db "JOHN\nRAWLS",0
+    db "THOMAS\nHOBBES",0
 
-p15: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p15: db "FAMOUS ECONOMISTS",0
+    db "ADAM\nSMITH",0
+    db "MILTON\nFRIEDMAN",0
+    db "JOHN MAYNARD\nKEYNES",0
 
-p16: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p16: db "ECONOMIC SYSTEMS",0
+    db "COMMUNISM",0
+    db "SOCIALISM",0
+    db "CAPITALISM",0
 
-p17: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p17: db "MARKET STRUCTURES",0
+    db "MONOPOLY",0
+    db "OLIGOPOLY\n",0
+    db "PERFECT\nCOMPETITION",0
 
-p18: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p18: db "MACROECONOMIC INDICATORS",0
+    db "INTEREST\nRATE",0
+    db "UNEMPLOYMENT",0
+    db "GROSS\nDOMESTIC\nPRODUCT",0
 
-p19: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p19: db "FAMOUS ECONOMIC BOOKS",0
+    db "DAS\nKAPITAL",0
+    db "THE GENERAL\nTHEORY",0
+    db "THE WEALTH\nOF NATIONS",0
 
-p20: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p20: db "SCHOOL OF ECONOMICS",0
+    db "CLASSICAL",0
+    db "AUSTRIAN",0
+    db "KEYNESIAN",0
 
-p21: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p21: db "FORMS OF GOVERNMENT",0
+    db "MONARCHY",0
+    db "DEMOCRACY",0
+    db "OLIGARCHY",0
 
-p22: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p22: db "POLITICAL IDEOLOGIES",0
+    db "FASCISM",0
+    db "LIBERALISM",0
+    db "CONSERVATISM",0
 
-p23: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p23: db "US POLITICAL INSTITUTIONS",0
+    db "SENATE",0
+    db "CONGRESS",0
+    db "SUPREME\nCOURT",0
 
-p24: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p24: db "DEMOCRATIC CONCEPTS",0
+    db "RULE OF\nLAW",0
+    db "CIVIL\nRIGHTS",0
+    db "FREE\nELECTIONS",0
 
-p25: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p25: db "US VICE PRESIDENTS",0
+    db "AL GORE",0
+    db "JOE\nBIDEN",0
+    db "DICK\nCHENEY",0
 
-p26: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p26: db "EXISTENTIALIST CONCEPTS",0
+    db "ANGST",0
+    db "ABSURDISM",0
+    db "AUTHENTICITY",0
 
-p27: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p27: db "LOGICAL FALLACIES",0
+    db "STRAW\nMAN",0
+    db "AD HOMINEM",0
+    db "SLIPPERY\nSLOPE",0
 
-p28: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p28: db "THOUGHT EXPERIMENTS",0
+    db "BRAIN\nIN A VAT",0
+    db "TROLLEY\nPROBLEM",0
+    db "SHIP OF\nTHESEUS",0
 
-p29: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p29: db "ECONOMIC THEORIES",0
+    db "SUPPLY\nAND\nDEMAND",0
+    db "INVISIBLE\nHAND",0
+    db "COMPARATIVE\nADVANTAGE",0
 
-p30: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p30: db "INTERNATIONAL BODIES",0
+    db "UNITED\nNATIONS",0
+    db "EUROPEAN\nUNION",0
+    db "WORLD\nHEALTH\nORGANIZATION",0
 
-p31: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p31: db "GOVERNMENT BRANCHES",0
+    db "JUDICIAL",0
+    db "EXECUTIVE",0
+    db "LEGISLATIVE",0
 
-p32: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p32: db "BRUCES' PHILOSOPHERS SONG",0
+    db "A REAL\nPISSANT",0
+    db "A BOOZY\nBEGGAR",0
+    db "TO OUT\nCONSUME",0
 
-p33: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p33: db "BRUCES' PHILOSOPHERS SONG",0
+    db "A BEERY\nSWINE",0
+    db "JUST AS\nSLOSHED",0
+    db "THE RAISING\nOF THE\nWRIST",0
 
-p34: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p34: db "BRUCES' PHILOSOPHERS SONG",0
+    db "A DRUNKEN\nFART",0
+    db "FOND OF\nHIS DRAM",0
+    db "A BUGGER\nFOR THE\nBOTTLE",0
 
-p35: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p35: db "BRUCES' PHILOSOPHERS",0
+    db "DAVID\nHUME",0
+    db "IMMANUEL\nKANT",0
+    db "JOHN\nSTUART\nMILL",0
 
-p36: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p36: db "BRICS",0
+    db "EGYPT",0
+    db "SOUTH\nAFRICA",0
+    db "UNITED\nARAB\nEMIRATES",0
 
-p37: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p37: db "BRICS",0
+    db "BRAZIL",0
+    db "RUSSIA",0
+    db "INDONESIA",0
 
-p38: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p38: db "MILITARY ALLIANCES",0
+    db "WARSAW\nPACT",0
+    db "WESTERN\nEUROPEAN\nUNION",0
+    db "NORTH\nATLANTIC\nTREATY\nORGANIZATION",0
 
-p39: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p39: db "VOTING SYSTEMS",0
+    db "FIRST PAST\nTHE POST",0
+    db "ALTERNATIVE\nVOTE",0
+    db "SINGLE\nTRANSFERABLE\nVOTE",0
 
-p40: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p40: db "TAXES",0
+    db "INCOME\nTAX",0
+    db "INHERITANCE\nTAX",0
+    db "CAPITAL\nGAINS TAX",0
 
-p41: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p41: db "INVESTMENTS",0
+    db "PENSIONS",0
+    db "STOCKS\nAND BONDS",0
+    db "PRECIOUS\nMETALS",0
 
-p42: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p42: db "UK CABINET",0
+    db "HOME\nOFFICE",0
+    db "HM TREASURY",0
+    db "NORTHERN\nIRELAND\nOFFICE",0
 
-p43: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p43: db "UK CABINET",0
+    db "MINISTRY\nOF\nDEFENCE",0
+    db "DEPARTMENT\nFOR\nTRANSPORT",0
+    db "ATTORNEY\nGENERALS\nOFFICE",0
 
-p44: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p44: db "POLITICAL TOP DOG",0
+    db "THE\nPRESIDENT",0
+    db "PRIME\nMINISTER",0
+    db "TAOISEACH",0
 
-p45: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p45: db "BAD GOVERNMENT",0
+    db "PLUTOCRACY",0
+    db "OLIGARCHY",0
+    db "DICTATORSHIP",0
 
-p46: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p46: db "NGO",0
+    db "OXFAM",0
+    db "AMNESTY",0
+    db "GREENPEACE",0
 
-p47: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p47: db "UNITED NATIONS ACRONYMS",0
+    db "WHO",0
+    db "UNHCR",0
+    db "UNICEF",0
 
-p48: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p48: db "THE REAL GOVERNMENT?",0
+    db "WORLD\nECONOMIC\nFORUM",0
+    db "BILDERBERG\nMEETING",0
+    db "TRILATERAL\nCOMMISSION",0
 
-p49: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p49: db "THINK TANKS",0
+    db "CHATHAM\nHOUSE",0
+    db "RAND\nCORPORATION",0
+    db "THE HERITAGE\nFOUNDATION",0
 
-p50: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p50: db "UN CLIMATE AGREEMENTS",0
+    db "PARIS\nAGREEMENT",0
+    db "KYOTO\nPROTOCOL",0
+    db "MONTREAL\nPROTOCOL",0
 
     endmodule
