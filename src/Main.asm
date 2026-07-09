@@ -284,6 +284,10 @@ stack_top:
     include "puzzles/History.asm"
     MMU 0,BANK_PUZZLES_START + CAT_PPE, 0x0000
     include "puzzles/PPE.asm"
+    MMU 0,BANK_PUZZLES_START + CAT_LAW, 0x0000
+    include "puzzles/Law.asm"
+    MMU 0,BANK_PUZZLES_START + CAT_FOOD, 0x0000
+    include "puzzles/HomeEc.asm"
 
     MMU 0,BANK_IMAGE_TITLE, 0x0000
     incbin "assets/title/title_0.nxi"
