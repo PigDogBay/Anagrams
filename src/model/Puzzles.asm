@@ -240,7 +240,7 @@ catLawStr: db "LAW",0
 catWorldStr: db "WORLD",0
 catHistoryStr: db "HISTORY",0
 catScienceStr: db "SCIENCE",0
-catFoodStr: db "HOME ECONOMICS",0
+catFoodStr: db "GASTRONOMY",0
 
 
 ;-----------------------------------------------------------------------------------

@@ -55,7 +55,7 @@ p8: db "UK CEREAL KILLERS",0
 
 p9: db "...ON TOAST",0
     db "BAKED\nBEANS",0
-    db "AVOCARDO",0
+    db "AVOCADO",0
     db "RED\nLEICESTER",0
 
 p10: db "ON THE CHEESE BOARD",0
@@ -76,7 +76,7 @@ p12: db "COOKING ON THE BOX",0
 p13: db "TWO MANY COOKS?",0
     db "TWO FAT\nLADIES",0
     db "THE HAIRY\nBIKERS",0
-    db "FANNY AND\nJOHNNIE\nCRADDOCK",0
+    db "FANNY AND\nJOHNNIE\nCRADOCK",0
 
 p14: db "MEATY CURRIES",0
     db "BEEF\nMADRAS",0
@@ -98,10 +98,10 @@ p17: db "BREWERS - LEST WE FORGET",0
     db "BRAKSPEAR",0
     db "SCOTTISH\nAND\nNEWCASTLE",0
 
-p18: db "PIZZA",0
-    db "PEPPERONI",0
-    db "MARGHERITA",0
-    db "HAWAIIAN",0
+p18: db "IT'S JUST CHEESE ON TOAST!",0
+    db "PEPPERONI\nPIZZA",0
+    db "MARGHERITA\nPIZZA",0
+    db "HAWAIIAN\nPIZZA",0
 
 p19: db "PIZZA TOPPINGS",0
     db "PINEAPPLE",0
@@ -119,9 +119,9 @@ p21: db "A NICE CUP OF TEA",0
     db "DARJEELING",0
 
 p22: db "SWEENEYS FARE?",0
-    db "STEAK\nAND ALE",0
-    db "MEAT AND\nPOTATO",0
-    db "CHICKEN\nAND LEEK",0
+    db "STEAK\nAND ALE PIE",0
+    db "MEAT AND\nPOTATO PIE",0
+    db "CHICKEN\nAND LEEK PIE",0
 
 p23: db "FOUND IN GREGGS",0
     db "STEAK BAKE",0
@@ -134,7 +134,7 @@ p24: db "BAKERS DELIGHTS",0
     db "VANILLA\nSLICE",0
 
 p25: db "CLASSIC UK DESSERTS",0
-    db "BRIDS\nTRIFLE",0
+    db "BIRDS\nTRIFLE",0
     db "ANGEL\nDELIGHT",0
     db "WALLS\nVIENNETTA",0
 
@@ -146,7 +146,7 @@ p26: db "OLD SKOOL DESSERTS?",0
 p27: db "KIDS PARTY FARE",0
     db "CRISPS",0
     db "BIRTHDAY\nCAKE",0
-    db "JELLY AND\nICECREAM",0
+    db "JELLY AND\nICE CREAM",0
 
 p28: db "JUST DESSERTS",0
     db "TIRAMISU",0
@@ -174,16 +174,16 @@ p32: db "ICE COLD CERVEZA",0
     db "ESTRELLA\nDAMM",0
 
 p33: db "DRINKERS SUSTENANCE",0
-    db "DONER\nKEBAB",0
     db "BAG OF\nCRISPS",0
-    db "ROASTED\nPEANUTS",0
+    db "DONER\nKEBAB",0
+    db "DRY ROASTED\nPEANUTS",0
 
 p34: db "THESE GUYS ARE FUN!",0
     db "CHESTNUT",0
     db "SHIITAKE",0
     db "PORTOBELLO",0
 
-p35: db "THE STAKES WERE TOO HIGH?",0
+p35: db "THE STEAKS WERE TOO HIGH!",0
     db "SIRLOIN",0
     db "FILET\nMIGNON",0
     db "PORTERHOUSE",0
@@ -198,10 +198,10 @@ p37: db "SOME BANGERS HERE",0
     db "CUMBERLAND\nRING",0
     db "CHIPOLATAS",0
 
-p38: db "YOU DO WIN FRIENDS WITH...",0
-    db "WALDORF",0
-    db "NICOISE",0
+p38: db "YOU DON'T WIN FRIENDS WITH...",0
+    db "WALDORF\nSALAD",0
     db "TABBOULEH",0
+    db "SALADE\nNICOISE",0
 
 p39: db "IT'S ALL HELLENIC TO ME",0
     db "GREEK\nSALAD",0
