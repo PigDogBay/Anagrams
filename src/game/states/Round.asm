@@ -196,7 +196,7 @@ printText:
 
     ld e, 22
     ld a, (Puzzles.category)
-    call Puzzles.categoryToString
+    call Puzzles.categoryToShortString
     ld b,Tilemap.RED
     call Print.printCentred
 

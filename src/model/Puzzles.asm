@@ -160,6 +160,27 @@ categoryToString:
     ld hl,de
     pop de
     ret
+;-----------------------------------------------------------------------------------
+; 
+; Function: categoryToShortString(uint8 cat) -> uint16
+;
+; Ges the matching shorter string for the the category enum value
+;
+; In: A = category
+; Out: HL = pointer to category display string
+; 
+;-----------------------------------------------------------------------------------
+categoryToShortString:
+    push de
+    ld hl, catShortStringJumpTable
+    ; Add twice, as table is two bytes per entry
+    add hl,a
+    add hl,a
+    ; get jump entry
+    ld de,(hl)
+    ld hl,de
+    pop de
+    ret
 
 ;-----------------------------------------------------------------------------------
 ; 
@@ -218,6 +239,17 @@ copyPuzzleStrings:
 @CAT_LAW:            equ 8
 @CAT_FOOD:           equ 9
 
+catShortStringJumpTable:
+    dw catFreshers
+    dw catMusicStr
+    dw catFilmTvStr
+    dw catWorldStr
+    dw catScienceStr
+    dw catGamesStr
+    dw catHistoryStr
+    dw catPPEShortStr
+    dw catLawStr
+    dw catFoodStr
 
 catStringJumpTable:
     dw catFreshers
@@ -235,7 +267,8 @@ catFreshers: db "FRESHERS",0
 catMusicStr: db "MUSIC",0
 catFilmTvStr: db "MEDIA STUDIES",0
 catGamesStr: db "GAMES & TECH",0
-catPPEStr: db "PPE",0
+catPPEShortStr: db "PPE",0
+catPPEStr: db "PHILOSOPHY, POLITICS AND ECONOMICS",0
 catLawStr: db "LAW",0
 catWorldStr: db "WORLD",0
 catHistoryStr: db "HISTORY",0
