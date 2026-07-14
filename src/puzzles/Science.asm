@@ -32,7 +32,7 @@ p5: db "APPARATUS",0
     db "FILTER\nPAPER",0
     db "RETORT\nSTAND",0
 
-p6: db "APARATUS",0
+p6: db "APPARATUS",0
     db "CRUCIBLE",0
     db "HOT PLATE",0
     db "BUNSEN\nBURNER",0
