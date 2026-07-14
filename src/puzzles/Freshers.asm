@@ -35,14 +35,14 @@ p4: db "GEM STONES",0
     db "EMERALD",0
     db "SAPPHIRE",0
 
-p5: db "CALENDAR MONTHS",0
+p5: db "ON A CALENDAR",0
     db "JANUARY",0
-    db "FEBRUARY",0
-    db "DECEMBER",0
+    db "REMINDERS",0
+    db "WEDNESDAYS",0
 
 p6: db "PALINDROMES",0
     db "KAYAK",0
-    db "RACECAR",0
+    db "RACE CAR",0
     db "MADAM\nIM ADAM",0
 
 p7: db "COLOURS",0
@@ -71,7 +71,7 @@ p11: db "VEGETABLES B...",0
     db "BROAD BEANS",0
 
 p12: db "CHILI PEPPERS",0
-    db "JALEPENO",0
+    db "JALAPENO",0
     db "BIRDS EYE",0
     db "HABANERO",0
 
@@ -146,7 +146,7 @@ p26: db "US STATES",0
     db "MISSISSIPPI",0
 
 p27: db "US STATES",0
-    db "VERMOUNT",0
+    db "VERMONT",0
     db "VIRGINIA",0
     db "WEST\nVIRGINIA",0
 
