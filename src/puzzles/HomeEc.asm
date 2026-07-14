@@ -91,7 +91,7 @@ p15: db "BURTON BREWS",0
 p16: db "BREWERS - LEST WE FORGET",0
     db "ANSELLS",0
     db "TETLEY\nWALKER",0
-    db "BODDINGTONS\n",0
+    db "BODDINGTONS",0
 
 p17: db "BREWERS - LEST WE FORGET",0
     db "YOUNGERS",0

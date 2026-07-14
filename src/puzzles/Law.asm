@@ -13,254 +13,254 @@ table:
     dw p31,p32,p33,p34,p35,p36,p37,p38,p39,p40
     dw p41,p42,p43,p44,p45,p46,p47,p48,p49,p50
 
-p1: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p1: db "UK COURTROOM TV SHOWS",0
+    db "JUDGE\nJOHN DEED",0
+    db "KAVANAGH QC",0
+    db "RUMPOLE\nOF THE\nBAILEY",0
 
-p2: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p2: db "US COMEDY COP SHOWS",0
+    db "POLICE\nSQUAD",0
+    db "SLEDGE\nHAMMER",0
+    db "THE ANDY\nGRIFFITH\nSHOW",0
 
-p3: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p3: db "COMEDY COP SHOWS",0
+    db "NEW TRICKS",0
+    db "THE THIN\nBLUE LINE",0
+    db "THE\nDETECTIVES",0
 
-p4: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p4: db "FICTIONAL DETECTIVES",0
+    db "DI\nJACK FROST",0
+    db "INSPECTOR\nMORSE",0
+    db "DCI JANE\nTENNISON",0
 
-p5: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p5: db "POLICE SONGS",0
+    db "I SHOT\nTHE SHERIFF",0
+    db "WE ARE\nDETECTIVE",0
+    db "CAUGHT BY\nTHE FUZZ",0
 
-p6: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p6: db "FOUND IN A COURTROOM",0
+    db "THE DOCK",0
+    db "THE PUBLIC\nGALLERY",0
+    db "THE\nWITNESS BOX",0
 
-p7: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p7: db "FOUND IN A COURTROOM",0
+    db "A BIBLE",0
+    db "SOLICITORS",0
+    db "THE\nROYAL COAT\nOF ARMS",0
 
-p8: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p8: db "COURTROOM LURKERS",0
+    db "THE JUDGE",0
+    db "THE\nUSHER",0
+    db "THE\nCOURT CLERK",0
 
-p9: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p9: db "COURTROOM GUESTS?",0
+    db "THE JURY",0
+    db "THE\nWITNESS",0
+    db "THE\nDEFENDANT",0
 
-p10: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p10: db "COURTROOM LEGAL FOLK",0
+    db "PROSECUTOR",0
+    db "DEFENCE\nLAWYER",0
+    db "PROBATION\nOFFICER",0
 
-p11: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p11: db "RULES OF BUTTERED TOAST",0
+    db "SODS LAW",0
+    db "MURPHYS LAW",0
+    db "FINAGLES\nLAW",0
 
-p12: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p12: db "US LAWMEN",0
+    db "SHERIFF",0
+    db "TEXAS\nRANGER",0
+    db "DEPUTY\nMARSHAL",0
 
-p13: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p13: db "UK POLICE",0
+    db "SERGEANT",0
+    db "CONSTABLE",0
+    db "CHIEF\nINSPECTOR",0
 
-p14: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p14: db "UK POLICE FORCES",0
+    db "WEST\nMIDLANDS\nPOLICE",0
+    db "METROPOLITAN\nPOLICE",0
+    db "ROYAL ULSTER\nCONSTABULARY",0
 
-p15: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p15: db "LONDON COPS",0
+    db "FLYING\nSQUAD",0
+    db "SPECIAL\nBRANCH",0
+    db "SPECIAL\nPATROL\nGROUP",0
 
-p16: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p16: db "COURTS OF LAW",0
+    db "SCOTUS",0
+    db "THE OLD\nBAILEY",0
+    db "PALAIS DE\nJUSTICE",0
 
-p17: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p17: db "CANS OF THE BIG APPLE",0
+    db "SING SING",0
+    db "THE TOMBS",0
+    db "RIKERS\nISLAND",0
 
-p18: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p18: db "CRIMINALS ON SHOW?",0
+    db "PERP WALK",0
+    db "FROG\nMARCH",0
+    db "WALK OF\nSHAME",0
 
-p19: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p19: db "BED AND BREAKFAST BARS?",0
+    db "BANGKOK\nHILTON",0
+    db "ALCATRAZ\nISLAND",0
+    db "WORMWOOD\nSCRUBS",0
 
-p20: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p20: db "WILD WEST COPS",0
+    db "WYATT\nEARP",0
+    db "PAT\nGARRETT",0
+    db "DOC\nHOLLIDAY",0
 
-p21: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p21: db "WILD WEST COPS",0
+    db "VIRGIL\nEARP",0
+    db "SETH\nBULLOCK",0
+    db "ALLAN\nPINKERTON",0
 
-p22: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p22: db "CRIMES AGAINST PROPERTY",0
+    db "LARCENY",0
+    db "BURGLARY",0
+    db "VANDALISM",0
 
-p23: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p23: db "CRIMES AGAINST HUMANITY?",0
+    db "KIDNAPPING",0
+    db "ASSAULT\nAND\nBATTERY",0
+    db "MANSLAUGHTER",0
 
-p24: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p24: db "GETS YOUR WHITE COLLAR FELT",0
+    db "INSIDER\nTRADING",0
+    db "BRIBERY\nAND\nCORRUPTION",0
+    db "EMBEZZLEMENT",0
 
-p25: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p25: db "NOT IN PUBLIC PLEASE!",0
+    db "GROSS\nINDECENCY",0
+    db "HOOLIGANISM",0
+    db "DISORDERLY\nCONDUCT",0
 
-p26: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p26: db "CRIMES AGAINST THE STATE",0
+    db "TREASON",0
+    db "TERRORISM",0
+    db "ESPIONAGE",0
 
-p27: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p27: db "LABOUR LAWS?",0
+    db "GOODHARTS\nLAW",0
+    db "PARKINSONS\nLAW",0
+    db "THE PETER\nPRINCIPAL",0
 
-p28: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p28: db "EPONYMOUS CHATROOM LAWS",0
+    db "POES LAW",0
+    db "GODWINS\nRULE",0
+    db "CUNNINGHAMS\nLAW",0
 
-p29: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p29: db "POLICE TOYS",0
+    db "PEPPER\nSPRAY",0
+    db "HANDCUFFS",0
+    db "TRUNCHEON",0
 
-p30: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p30: db "EPONYMOUS ECONOMIC LAWS",0
+    db "GRESHAMS\nLAW",0
+    db "GOODHARTS\nLAW",0
+    db "PARKINSONS\nLAW",0
 
-p31: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p31: db "MOTHER IN-LAWS",0
+    db "MRS\nBENNET",0
+    db "ELSE\nGARNETT",0
+    db "CERSEI\nLANNISTER",0
 
-p32: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p32: db "TABLETS TAKEN BY MOSES",0
+    db "THOU SHALT\nNOT KILL",0
+    db "LOVE THY\nNEIGHBOUR",0
+    db "HONOUR THY\nFATHER AND\nTHY MOTHER",0
 
-p33: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p33: db "IP GUARDIAN",0
+    db "PATENT",0
+    db "COPYRIGHT",0
+    db "TRADEMARK",0
 
-p34: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p34: db "OPEN SOURCE GUFF",0
+    db "GNU GPL",0
+    db "APACHE\nLICENSE",0
+    db "MOZILLA\nPUBLIC\nLICENSE",0
 
-p35: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p35: db "OUTLAWS",0
+    db "ROBIN HOOD",0
+    db "DICK\nTURPIN",0
+    db "EDWARD\nTEACH",0
 
-p36: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p36: db "WILD WEST OUTLAWS",0
+    db "BILLY\nTHE KID",0
+    db "BUTCH\nCASSIDY",0
+    db "BELLE\nSTARR",0
 
-p37: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p37: db "PROHIBITION LAW BREAKERS",0
+    db "AL CAPONE",0
+    db "LUCKY\nLUCIANO",0
+    db "LEGS\nDIAMOND",0
 
-p38: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p38: db "NOT FUN LAWS?",0
+    db "SMOKING\nBAN",0
+    db "PROHIBITION",0
+    db "DRINKING\nUP TIME",0
 
-p39: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p39: db "CRIMINAL LAWYERS?",0
+    db "SAUL\nGOODMAN",0
+    db "LIONEL\nHUTZ",0
+    db "MAURICE\nLEVY",0
 
-p40: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p40: db "LAW OF ...",0
+    db "AVERAGES",0
+    db "THE JUNGLE",0
+    db "UNINTENDED\nCONSEQUENCES",0
 
-p41: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p41: db "MOTORING OFFENCES",0
+    db "FAILING\nTO STOP",0
+    db "WITHOUT\nDUE CARE",0
+    db "DANGEROUS\nDRIVING",0
 
-p42: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p42: db "LEGAL FICTION",0
+    db "BLEAK\nHOUSE",0
+    db "ANATOMY OF\nA MURDER",0
+    db "TO KILL A\nMOCKINGBIRD",0
 
-p43: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p43: db "LEGAL FICTION",0
+    db "A TIME\nTO KILL",0
+    db "THE LINCOLN\nLAWYER",0
+    db "PRESUMED\nINNOCENT",0
 
-p44: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p44: db "HISTORIC DOCUMENTS",0
+    db "MAGNA\nCARTA",0
+    db "BILL OF\nRIGHTS",0
+    db "THE\nCONSTITUTION",0
 
-p45: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p45: db "LEGAL DOCUMENTS",0
+    db "LIVING\nWILL",0
+    db "POWER OF\nATTORNEY",0
+    db "NON\nDISCLOSURE\nAGREEMENT",0
 
-p46: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p46: db "HATCHED, MATCHED & DISPATCHED",0
+    db "BIRTH\nCERTIFICATE",0
+    db "MARRIAGE\nCERTIFICATE",0
+    db "DEATH\nCERTIFICATE",0
 
-p47: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p47: db "PM LAWYERS",0
+    db "SIR KEIR\nSTARMER",0
+    db "MARGARET\nTHATCHER",0
+    db "DAVID\nLLOYD\nGEORGE",0
 
-p48: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p48: db "LEGAL PRECEDENTS?",0
+    db "BARACK\nOBAMA",0
+    db "RICHARD\nNIXON",0
+    db "MARTIN\nVAN BUREN",0
 
-p49: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p49: db "LEGAL PRECEDENTS?",0
+    db "JOE\nBIDEN",0
+    db "JAMES\nMONROE",0
+    db "JOHN\nQUINCY\nADAMS",0
 
-p50: db "",0
-    db "\n",0
-    db "\n",0
-    db "\n",0
+p50: db "LEGAL PRIME MINISTERS?",0
+    db "TONY\nBLAIR",0
+    db "CLEMENT\nATTLEE",0
+    db "SPENCER\nPERCEVAL",0
 
     endmodule

@@ -11,7 +11,7 @@
     module GameState_PuzzleViewer
 
 
-CATEGORY_TO_VIEW:   equ CAT_FOOD
+CATEGORY_TO_VIEW:   equ CAT_LAW
 
 
 @GS_PUZZLE_VIEWER: 
