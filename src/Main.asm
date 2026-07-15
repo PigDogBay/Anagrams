@@ -157,6 +157,8 @@ main:
     nextreg TRANSPARENCY_COLOUR_FALLBACK,%00000000
     call Graphics.resetAllClipWindows
 
+    ;Set mouse DPI to default
+    nextreg PERIPHERAL_5,%00000001
 
     ;
     ; Layer2

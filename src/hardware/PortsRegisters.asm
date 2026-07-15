@@ -23,7 +23,17 @@ PERIPHERAL_2            equ $06
 PERIPHERAL_3            equ $08
 ; Sets scanlines, AY mono output, Sprite-id lockstep, reset DivMMC mapram and disable HDMI audio.
 PERIPHERAL_4            equ $09
-; Multiface type, Divmmc automap, Mouse buttons and DPI config
+; Multiface type, Divmmc automap, mouse buttons + DPI config
+;   bit 7-6 = Multiface type (00 default = Multiface +3 ) 
+;   bit 5   = Reserved, 0
+;   bit 4   = 0 (Enable divmmc automap)
+;   bit 3   = 0 (1 to reverse left/right mouse buttons)
+;   bit 2   = Reserved,0
+;   bit 1-0 = Mouse DPI
+;             00 = low
+;             01 = default
+;             10 = medium
+;             11 = high 
 PERIPHERAL_5            equ $0A
 
 
