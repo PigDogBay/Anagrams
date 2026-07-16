@@ -1,3 +1,15 @@
+===v2.00 Release Notes===
+
+3 new subjects: Law, Gastronomy and PPE (Philosophy, Politics -
+ and Economics)
+
+You can now right-click on a tile to send it to the first 
+ available slot
+
+Fixed a few typo's and spelling errors, 
+  Thanks to Mike Mee (Mug UK https://mug-uk.co.uk/)
+  For his help finding them.
+
 === Overview ===
 
 The Scholar is an anagram puzzle game played against the clock.
@@ -15,11 +27,13 @@ essential, however you can use a Kempston joystick in Port 1.
 === Controls ===
 
 To drag a tile: left click on a letter tile, drag it, then
-release to drop. Tiles will snap into slots. Buttons can be
-clicked (left mouse) to activate. Hover over buttons to see a
-tooltip at the bottom of the screen. To continue, click anywhere
-on the background. For joystick users, fire (Gamepad B) equals
-left mouse click.
+release to drop. Tiles will snap into slots. You may also
+right-click on a tile to send it to the first available slot.
+
+Buttons can be clicked (left mouse) to activate. Hover over buttons 
+to see a tooltip at the bottom of the screen. To continue, click 
+anywhere on the background. For joystick users, fire (Gamepad B) 
+equals left mouse click.
 
 === Welcome Freshman ===
 
@@ -106,4 +120,4 @@ Fonts by Damien Guard
 Testing by Rich Hollins
 
 
-(c) MPD Bailey Technology 2025
+(c) MPD Bailey Technology 2026
